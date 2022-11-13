@@ -6,18 +6,11 @@ const FooterComponent=()=>{
       <div className="footer__logo">
         <a href="https://www.glab.vn"><img src={logo} alt=""/></a>
       </div>
-      <di className="row">
-        <div className="col-sm-4 col-sm-offset-4">
-          <form className="get__news">
-            <input type="text" placeholder="Sign up to good news"/>
-              <button type="submit"><span className="icon-enter-arrow"></span></button>
-          </form>
-        </div>
-      </di>
+
       <div className="row">
-        <div className="col-sm-8 col-sm-offset-2">
+        <div className="col-sm-12">
           <div className="row">
-            <div className="col-sm-4">
+            <div className="col-sm-4 col-xs-4">
               <div className="items__footer">
                 <p className="item__title">Service &amp; Support</p>
                 <p><a href="">glabvn@gmail.com</a></p>
@@ -25,7 +18,7 @@ const FooterComponent=()=>{
                 <p><a href="https://goo.gl/maps/nFxWKN4ihUWKviNT6">Locations</a></p>
               </div>
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-4 col-xs-4">
               <div className="items__footer">
                 <p className="item__title">Info</p>
                 <p><a href="https://www.glab.vn/page/consignment-term">Consignment Terms</a></p>
@@ -34,7 +27,7 @@ const FooterComponent=()=>{
                 <p><a href="https://www.glab.vn/page/faq">FAQs</a></p>
               </div>
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-4 col-xs-4">
               <div className="items__footer">
                 <p className="item__title">Follow Us</p>
                 <p><a href="https://www.facebook.com/glab.vn/">Facebook</a></p>

@@ -5,6 +5,10 @@ import {Row} from "react-bootstrap";
 import {useState} from "react";
 import AsideComponent from "../../components/aside/AsideComponent";
 import FooterComponent from "../../components/footer/FooterComponent";
+import HomePage from "../../pages/home/HomePage";
+import CardComponent from "../../components/card/CardComponent";
+import RoutesPage from "../../routes/RoutesPage";
+import {getWindowHeight, getWindowWidth} from "../../utils/Utils";
 
 
 const {Header, Footer, Sider, Content} = Layout;
@@ -18,28 +22,20 @@ const MainLayout = () => {
   const onClose = () => {
     setCloseAside(false)
   };
-  console.log(closeAside)
   return (
-    <div id="wrapper">
       <Row xl={12} sm={12} md={12} xs={12} lg={12} xxl={12}>
-        {/*<Layout style={{display: "flex", flex: 1, height: "auto"}}>
-          <Drawer
-            placement="left"
-            closable={false}
-            onClose={onClose}
-            open={closeAside}
-            width="300px"
-          >
-            <AsideComponent onClose={onClose}/>
-          </Drawer>
-        </Layout>*/}
-        <Layout>
-          <HeaderComponent onClickAside={onclickCloseAside}/>
-          <Content style={{minHeight: "1500px"}}></Content>
-          <FooterComponent/>
+        <Layout >
+          <body >
+          <div id="wrapper">
+            <HeaderComponent onClickAside={onclickCloseAside}/>
+            <Content style={{minHeight: getWindowHeight().innerHeight,minWidth:"100%"}}>
+              <RoutesPage/>
+            </Content>
+            <FooterComponent/>
+          </div>
+          </body>
         </Layout>
       </Row>
-    </div>
   )
 }
 

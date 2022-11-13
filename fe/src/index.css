@@ -1,14 +1,17 @@
 @import "~antd/dist/antd.css";
 /*@import "~bootstrap/dist/css/bootstrap.min.css";*/
 
-
+@import "assets/css/bootstrap-3.3.6/dist/css/bootstrap.min.css";
 @import "assets/css/style.css";
 @import "assets/css/style_font.css";
-@import "assets/css/style_update.css";
-@import "assets/css/responsive.css";
+
+
 @import "assets/css/icon.css";
-@import "assets/css/bootstrap-3.3.6/dist/css/bootstrap.min.css";
+
 @import "assets/css/swiper.min.css";
+@import "assets/css/responsive.css";
+@import "assets/css/style_update.css";
+@import "~react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 

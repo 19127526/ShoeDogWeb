@@ -1,9 +1,10 @@
 import logo from '../../assets/themes/icons/logo.svg';
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
  const HeaderComponent=({onClickAside})=>{
 
+
   return (
-    <header className="clearfix">
+    <header className="clearfix active" >
       <a  id="togger__menu" onClick={()=>onClickAside()}>
         <span></span>
         <span></span>
@@ -13,7 +14,7 @@ import {useState} from "react";
           <a href="" style={{display:"none"}}>SELL</a>
           <a href="https://www.glab.vn/user/items" style={{display:"none"}}>CONSIGNMENT MANAGER</a>
         </div>
-        <div className="header__right">
+        <div className="header__right" >
           <div className="auth__user">
             <div className="dropdown">
               <a href="" className="toggle__auth val-selected"><span className="icon-slice6"></span></a>
@@ -29,9 +30,12 @@ import {useState} from "react";
             </div>
           </div>
           <a href="" className="header__right--mbsearch" style={{display:"inline-block"}}><span className="icon-search"></span></a>
-          <div className="header__cart dropdown">
-            <a href="" className="val-selected"><span className="icon-slice8"></span><span
-              className="header__cart--num hide">()</span></a>
+          <div className="header__cart dropdown" >
+            <a href="" className="val-selected"><span className="icon-slice8"></span>
+              <span className="header__cart--num hide">
+                ()
+              </span>
+            </a>
             <div className="dropdown-up-style hide">
               <div className="dropdown__inner">
                 <h2 className="text-uper font-700 fs-16">your cart</h2>

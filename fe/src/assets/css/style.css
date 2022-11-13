@@ -1437,7 +1437,9 @@ footer {
 }
 
 .detail__desc--inner {
-    position: relative;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 100px;
 }
 
 .detail__desc--fix {
@@ -1885,6 +1887,7 @@ button:hover {
     margin: 0;
     top: 0;
 }
+
 .slide__qty .swiper-button-next {
     right: 0px;
     text-align: right;
