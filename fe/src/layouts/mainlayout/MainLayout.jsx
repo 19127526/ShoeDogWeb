@@ -28,7 +28,7 @@ const MainLayout = () => {
           <body >
           <div id="wrapper">
             <HeaderComponent onClickAside={onclickCloseAside}/>
-            <Content style={{minHeight: getWindowHeight().innerHeight,minWidth:"100%"}}>
+            <Content>
               <RoutesPage/>
             </Content>
             <FooterComponent/>

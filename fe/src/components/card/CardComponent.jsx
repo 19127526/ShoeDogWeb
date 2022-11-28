@@ -1,13 +1,16 @@
 import image from "../../assets/img/62dfdb668b98a.jpg"
-const CardComponent=()=>{
+import { useNavigate } from "react-router-dom";
+const CardComponent=({name,priceNonDiscount,priceDiscount,img})=>{
+  const navigate=useNavigate();
+
   return (
     <div className="product__item">
       <div className="product__item--pic">
-        <a href="/detail">
+        <a onClick={()=>navigate("/detail")}>
           <div className="product__img">
-            <img className="lazy" src={image}
-                 alt="adidas Aadilette 22 Slides Clear Grey" title="adidas Adilette 22 Slides Clear Grey"
-                 style={{display:"inline-block"}}
+            <img className="lazy" src={img}
+                 alt={name} title={name}
+                 style={{display:"inline-block",height:"320px",width:"480px"}}
                 />
           </div>
         </a>
@@ -30,12 +33,11 @@ const CardComponent=()=>{
 
           <div className="clearfix">
             <p className="product-name text-uper "><a
-              href="https://www.glab.vn/product/detail/10410-adidas-adilette-22-slides-clear-grey">adidas Adilette 22
-              Slides Clear Grey</a>
+              onClick={()=>navigate("/detail")}>{name}</a>
             </p>
             <p className="product-price">
-              <span className="price-decoration">đ 2,400,000</span><br/>
-              <span>đ 2,200,000</span>
+              {priceNonDiscount===null?"":<><span className="price-decoration">{priceNonDiscount} VNĐ</span><br/></>}
+              <span>{priceDiscount} VNĐ</span>
             </p>
           </div>
         </div>

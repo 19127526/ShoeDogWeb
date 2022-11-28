@@ -198,6 +198,7 @@ header.active {
 .products.row {
     margin-right: -15px;
     margin-left: -15px;
+    padding: 0 2%;
 }
 .products.row > div {
     padding-right: 15px;
@@ -1239,7 +1240,8 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     padding-top: 30px;
 }
 .checkout__inner {
-    padding-top: 50px;
+
+    padding: 50px 2% 0 2%;
 }
 .checkout__inner form {
     padding-top: 1px;
@@ -1853,6 +1855,13 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
         width: 100%;
         right: 0;
     }
+}
+
+@media  (max-width: 1600px)and (min-width: 993px) {
+    .header__right{
+        margin-right: 30px;
+    }
+    
 }
 
 

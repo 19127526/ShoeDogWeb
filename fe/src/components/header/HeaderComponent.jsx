@@ -1,8 +1,8 @@
 import logo from '../../assets/themes/icons/logo.svg';
 import {useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
  const HeaderComponent=({onClickAside})=>{
-
-
+   const navigate=useNavigate();
   return (
     <header className="clearfix active" >
       <a  id="togger__menu" onClick={()=>onClickAside()}>
@@ -48,7 +48,7 @@ import {useEffect, useRef, useState} from "react";
         </div>
         <div className="text-center header__logo">
           <span>logo</span>
-          <a href="https://www.glab.vn"><img src={logo} alt="" /></a>
+          <a onClick={()=>navigate("/")}><img src={logo} alt="" /></a>
         </div>
       </div>
       <div className="container">

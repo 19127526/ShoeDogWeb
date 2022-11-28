@@ -14,7 +14,7 @@ const HomePage = () => {
           <div className="row products">
               {a.map(u => (
                 <div className="col-lg-4 col-md-6 ">
-                    <CardComponent/>
+                    <CardComponent name={"New Balance 550 White Black"} img={"https://www.glab.vn/storage/products/2021/03/03/480x320/603f603c3cb03.jpg"} priceDiscount={"4,400,000"} priceNonDiscount={null}/>
                 </div>
               ))}
           </div>
