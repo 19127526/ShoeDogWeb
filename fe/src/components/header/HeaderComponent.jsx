@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
  const HeaderComponent=({onClickAside})=>{
    const navigate=useNavigate();
   return (
-    <header className="clearfix active" >
+    <header className="clearfix" >
       <a  id="togger__menu" onClick={()=>onClickAside()}>
         <span></span>
         <span></span>
