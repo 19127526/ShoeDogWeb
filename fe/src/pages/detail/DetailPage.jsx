@@ -8,6 +8,7 @@ import CardComponent from "../../components/card/CardComponent";
 
 const DetailPage = () => {
   const useRefDetailImg=useRef(null);
+  const [chooseSizeBtn,setChooseSizeBtn]=useState(false);
   const [height,setHeight]=useState();
   const a = [];
   for (let i = 0; i < 10; i++) {
@@ -72,12 +73,11 @@ const DetailPage = () => {
                   <p className="text-uper font-500  fs-24 mgB-0 lh-40 mgB-20">Nike Dunk Low SB 'Pink Pig'</p>
                   <div className="mgB-20">
                     <div className="dropdownChooseSize">
-                      <form id="frmAddCart" method="POST">
-                        <a href="" className="val-selected clearfix">
+                        <a onClick={()=>setChooseSizeBtn(!chooseSizeBtn)} className={chooseSizeBtn===true?"val-selected clearfix active":"val-selected clearfix"}>
                           <span className="icon-uniF140"></span>
                           <div className="get-val clearfix">choose your size</div>
                         </a>
-                        <div className="chooseSize">
+                        <div className={chooseSizeBtn===true?"chooseSize active": "chooseSize"}>
                           <div className="chooseSizeInner">
                             <ul>
                               <li data-size="9.5 US">
@@ -100,7 +100,6 @@ const DetailPage = () => {
                           </div>
                         </div>
                         <button type="submit" className="btn-buy text-uper">add to cart</button>
-                      </form>
                     </div>
                   </div>
                   <div className="shareWrap">

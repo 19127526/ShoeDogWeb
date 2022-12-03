@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import FooterComponent from "../../components/footer/FooterComponent";
 import RoutesPage from "../../routes/RoutesPage";
 import {getListCategories} from "../../apis/categories/CategoriesApi";
+import {useNavigate} from "react-router-dom";
 
 
 const {Header, Footer, Sider, Content} = Layout;
@@ -11,6 +12,7 @@ const {Header, Footer, Sider, Content} = Layout;
 const MainLayout = () => {
   const [categories,setCategories]=useState([]);
   const [searchButton,setSearchButton]=useState(false);
+  const navigate=useNavigate();
   useEffect(()=>{
     const getListCategory=()=>{
       getListCategories()
@@ -45,7 +47,7 @@ const MainLayout = () => {
                 <ul style={{marginBottom: "0px"}}>
                   {categories.map((value)=>(
                     <li key={value.CatId}>
-                      <a href="https://www.glab.vn/product/watch">{value.CatName}</a>
+                      <a onClick={()=>navigate(`/product/${value.CatId}`)}>{value.CatName}</a>
                     </li>))}
                 </ul>
               </li>

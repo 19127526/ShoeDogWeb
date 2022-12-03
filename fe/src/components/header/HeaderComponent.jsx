@@ -46,7 +46,7 @@ import {useNavigate} from "react-router-dom";
                   <a href="https://www.glab.vn/product/features"><span>Features</span></a>
                 </li>
                 {categoryList.map(index=>(
-                  <li key={index.CatId}><a ><span>{index.CatName}</span></a></li>
+                  <li key={index.CatId} onClick={()=>navigate(`/product/${index.CatId}`)}><a ><span>{index.CatName}</span></a></li>
                 ))}
                 <li>
                   <a href="https://www.glab.vn/product/accessories"><span>Accessories</span></a>
