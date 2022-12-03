@@ -1,48 +1,87 @@
-import image from "../../assets/img/62dfdb668b98a.jpg"
 import { useNavigate } from "react-router-dom";
 const CardComponent=({name,priceNonDiscount,priceDiscount,img})=>{
   const navigate=useNavigate();
 
   return (
-    <div className="product__item">
-      <div className="product__item--pic">
-        <a onClick={()=>navigate("/detail")}>
-          <div className="product__img">
-            <img className="lazy" src={img}
-                 alt={name} title={name}
-                 style={{display:"inline-block",height:"320px",width:"480px"}}
-                />
+    <li className="item">
+      <div className="item-row">
+        <div className="item-col fixed item-col-check">
+          <label className="item-check" id="select-all-items">
+            <input type="checkbox" className="checkbox"/>
+            <span></span>
+          </label>
+        </div>
+        <div className="item-col fixed item-col-img md">
+          <a href="item-editor.html">
+            <div className="item-img rounded"
+                 style={{backgroundImage: "url(../../s3.amazonaws.com/uifaces/faces/twitter/_everaldo/128.jpg)"}}></div>
+          </a>
+        </div>
+        <div className="item-col fixed pull-left item-col-title">
+          <div className="item-heading">Name</div>
+          <div>
+            <a href="item-editor.html" className="">
+              <h4 className="item-title"> 50% of things doesn't really belongs to you </h4>
+            </a>
           </div>
-        </a>
-        <div className="product__item--infor">
-          <div className="text-center mgB-5 hide">
-            <div className="size-item">
-              <a href="https://www.glab.vn/product/detail/10410-adidas-adilette-22-slides-clear-grey?size=4 US"
-                 className="size">4 US</a>
-              <a href="https://www.glab.vn/product/detail/10410-adidas-adilette-22-slides-clear-grey?size=5 US"
-                 className="size">5 US</a>
-              <a href="https://www.glab.vn/product/detail/10410-adidas-adilette-22-slides-clear-grey?size=7 US"
-                 className="size">7 US</a>
-              <a href="https://www.glab.vn/product/detail/10410-adidas-adilette-22-slides-clear-grey?size=8 US"
-                 className="size">8 US</a>
-              <a href="https://www.glab.vn/product/detail/10410-adidas-adilette-22-slides-clear-grey?size=10 US"
-                 className="size">10 US</a>
+        </div>
+        <div className="item-col item-col-sales">
+          <div className="item-heading">Sales</div>
+          <div> 4567</div>
+        </div>
+        <div className="item-col item-col-stats no-overflow">
+          <div className="item-heading">Stats</div>
+          <div className="no-overflow">
+            <div className="item-stats sparkline" data-type="bar">
+              <canvas width="84" height="724319201"
+                      style={{display: "inline-block", width: "84px", height: "4e+14px", verticalAlign: "top"}}></canvas>
             </div>
-            <p className="text-uper">available size</p>
           </div>
-
-          <div className="clearfix">
-            <p className="product-name text-uper "><a
-              onClick={()=>navigate("/detail")}>{name}</a>
-            </p>
-            <p className="product-price">
-              {priceNonDiscount===null?"":<><span className="price-decoration">{priceNonDiscount} VNĐ</span><br/></>}
-              <span>{priceDiscount} VNĐ</span>
-            </p>
+        </div>
+        <div className="item-col item-col-category no-overflow">
+          <div className="item-heading">Category</div>
+          <div className="no-overflow">
+            <a href="#">Hardware</a>
+          </div>
+        </div>
+        <div className="item-col item-col-author">
+          <div className="item-heading">Author</div>
+          <div className="no-overflow">
+            <a href="#">Alexander Sargssyan</a>
+          </div>
+        </div>
+        <div className="item-col item-col-date">
+          <div className="item-heading">Published</div>
+          <div className="no-overflow"> 21 SEP 10:45</div>
+        </div>
+        <div className="item-col fixed item-col-actions-dropdown">
+          <div className="item-actions-dropdown">
+            <a className="item-actions-toggle-btn">
+                                                <span className="inactive">
+                                                    <i className="fa fa-cog"></i>
+                                                </span>
+              <span className="active">
+                                                    <i className="fa fa-chevron-circle-right"></i>
+                                                </span>
+            </a>
+            <div className="item-actions-block">
+              <ul className="item-actions-list">
+                <li>
+                  <a className="remove" href="#" data-toggle="modal" data-target="#confirm-modal">
+                    <i className="fa fa-trash-o "></i>
+                  </a>
+                </li>
+                <li>
+                  <a className="edit" href="item-editor.html">
+                    <i className="fa fa-pencil"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </li>
   )
 }
 

@@ -1,6 +1,7 @@
 import logo from '../../assets/themes/icons/favicon.ico';
 import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import CartComponent from "../cart/CartComponent";
  const HeaderComponent=({categoryList,searchButton})=>{
    const navigate=useNavigate();
    console.log(categoryList)
@@ -27,6 +28,19 @@ import {useNavigate} from "react-router-dom";
                 <h2 className="text-uper font-700 fs-16">your cart</h2>
                 <div className="text-center">
                   <p className="font-500 fs-15 mgB-15">Không có sản phẩm nào !</p>
+                </div>
+
+                <CartComponent productName={"Nike WMNS Air Force 1 PLT.AF.ORM Summit White Metalic\n" +
+                  "          Silver"} price="3,600,000 " quantity="1" size="5.5W US"/>
+
+                <div className="clearfix mgB-20">
+                  <span className="text-uper fs-14 font-600">Tổng</span>
+
+                  <p className="pull-right product-price">3,600,000 VNĐ</p>
+                </div>
+                <div className="text-center">
+                  <p className="font-500 fs-15 mgB-15">Phí vận chuyển và thuế sẽ tính lúc thanh toán</p>
+                  <a onClick={()=>navigate("/order")} className="text-uper btn-checkout ">Thanh toán</a>
                 </div>
               </div>
             </div>

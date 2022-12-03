@@ -5,15 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../fe/src/components/slide/SlideComponent.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/apis/categories/CategoriesApi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/apis/products/ProductsApi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/apis/request.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/components/notification/Notification.constraints.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/components/notification/Notification.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/pages/category/ProductDetailPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/pages/category/ProductListPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/pages/chart/ChartPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.actions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.constraints.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/reduce/Reduce.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/store/Store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1fd20bd3-a05c-4739-9c2f-e5e31c228ba7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1fd20bd3-a05c-4739-9c2f-e5e31c228ba7/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1fd20bd3-a05c-4739-9c2f-e5e31c228ba7/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1fd20bd3-a05c-4739-9c2f-e5e31c228ba7/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1fd20bd3-a05c-4739-9c2f-e5e31c228ba7/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/products.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/apis/products/ProductsApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/apis/products/ProductsApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/aside/AsideComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/aside/AsideComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/card/CardComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/card/CardComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/routes/RoutesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/routes/RoutesPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +62,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Nam 4 - ki 1/Web nâng cao (2)/KahootClone/frontend" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -52,6 +76,7 @@
       <workItem from="1667123920877" duration="38000" />
       <workItem from="1670052767409" duration="778000" />
       <workItem from="1670064421958" duration="2978000" />
+      <workItem from="1670079140585" duration="3213000" />
     </task>
     <servers />
   </component>

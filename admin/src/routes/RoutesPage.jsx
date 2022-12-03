@@ -5,10 +5,11 @@ import Loading from "../components/loading/LoadingComponent";
 
 const HomePageLazy=React.lazy(()=>import("../pages/home/HomePage"))
 const DetailPageLazy=React.lazy(()=>import("../pages/detail/DetailPage"))
-const OrderPageLazy=React.lazy(()=>import("../pages/order/OrderPage"))
-const CartPageLazy=React.lazy(()=>import("../pages/cart/CartPage"))
+const ChartPageLazy=React.lazy(()=>import("../pages/chart/ChartPage"))
 const LoginPageLazy=React.lazy(()=>import("../pages/login/LoginPage"))
-
+const ProDuctListItemPageLazy=React.lazy(()=>import("../pages/category/ProductListPage"))
+const ProductItemDetailPageLazy=React.lazy(()=>import("../pages/category/ProductDetailPage"))
+const AddItemProductPageLazy=React.lazy(()=>import("../pages/category/AddProductPage"))
 const RoutesPage=()=>{
   return (
     <Routes>
@@ -16,7 +17,10 @@ const RoutesPage=()=>{
       <Route path="/"  element={<React.Suspense fallback={<Loading/>} >  <HomePageLazy/> </React.Suspense>}/>
       <Route path="/login"  element={<React.Suspense fallback={<Loading/>} >  <LoginPageLazy/> </React.Suspense>}/>
       <Route path="/detail"  element={<React.Suspense fallback={<Loading/>} >  <DetailPageLazy/> </React.Suspense>}/>
-      <Route path="/order"  element={<React.Suspense fallback={<Loading/>} >  <OrderPageLazy/> </React.Suspense>}/>
+      <Route path="/chart"  element={<React.Suspense fallback={<Loading/>} >  <ChartPageLazy/> </React.Suspense>}/>
+      <Route path="/admin/product/add"  element={<React.Suspense fallback={<Loading/>} > <AddItemProductPageLazy/> </React.Suspense>}/>
+      <Route path="/admin/category/:catId"  element={<React.Suspense fallback={<Loading/>} > <ProDuctListItemPageLazy/> </React.Suspense>}/>
+      <Route path="/admin/category/:catId/:proId"  element={<React.Suspense fallback={<Loading/>} > <ProductItemDetailPageLazy/> </React.Suspense>}/>
     </Routes>
   )
 }

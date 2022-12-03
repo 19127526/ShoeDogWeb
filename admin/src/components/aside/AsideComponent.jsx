@@ -1,7 +1,19 @@
-import {Helmet} from "react-helmet";
-
+import {useEffect, useState} from "react";
+import {getListCategories} from "../../apis/categories/CategoriesApi";
+import Notification from "../notification/Notification";
+import * as constraintNotification from "../notification/Notification.constraints"
+import {useNavigate} from "react-router-dom";
 const AsideComponent = ({onClose}) => {
-
+  const [categories,setCategories]=useState([]);
+  const navigate=useNavigate()
+  useEffect(()=>{
+    const getCategory=async ()=>{
+      getListCategories()
+        .then(res=>{setCategories(res.data.data)})
+        .catch(err=>{  Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_WARN)})
+    }
+    getCategory()
+  },[])
   return (
     <>
       <header className="header">
@@ -21,7 +33,13 @@ const AsideComponent = ({onClose}) => {
               </a>
               <div className="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1"
                    x-placement="bottom-start"
-                   style={{position: "absolute", transform: "translate3d(-72px, 30px, 0px)", top: "0px", left: "0px", willChange: "transform"}}>
+                   style={{
+                     position: "absolute",
+                     transform: "translate3d(-72px, 30px, 0px)",
+                     top: "0px",
+                     left: "0px",
+                     willChange: "transform"
+                   }}>
                 <a className="dropdown-item" href="#">
                   <i className="fa fa-user icon"></i> Profile </a>
                 <a className="dropdown-item" href="#">
@@ -39,7 +57,8 @@ const AsideComponent = ({onClose}) => {
       <aside className="sidebar">
         <div className="sidebar-container">
           <div className="sidebar-header">
-            <div className="brand" style={{backgroundColor: "green",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <div className="brand"
+                 style={{backgroundColor: "green", display: "flex", justifyContent: "center", alignItems: "center"}}>
               <div className="logo">
                 <span className="l l1"></span>
                 <span className="l l2"></span>
@@ -63,6 +82,9 @@ const AsideComponent = ({onClose}) => {
                   <i className="fa arrow"></i>
                 </a>
                 <ul className="sidebar-nav">
+                  {categories.map(index=>( <li key={index.CatId} onClick={()=>navigate(`/admin/category/${index.CatId}`)}>
+                    <a> {index.CatName} </a>
+                  </li>))}
                 </ul>
               </li>
               <li>
@@ -83,102 +105,6 @@ const AsideComponent = ({onClose}) => {
             </ul>
           </nav>
         </div>
-        <footer className="sidebar-footer">
-          <ul className="sidebar-menu metismenu" id="customize-menu">
-            <li>
-              <ul>
-                <li className="customize">
-                  <div className="customize-item">
-                    <div className="row customize-header">
-                      <div className="col-4"></div>
-                      <div className="col-4">
-                        <label className="title">fixed</label>
-                      </div>
-                      <div className="col-4">
-                        <label className="title">static</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-4">
-                        <label className="title">Sidebar:</label>
-                      </div>
-                      <div className="col-4">
-                        <label>
-                          <input className="radio" type="radio" name="sidebarPosition" value="sidebar-fixed"/>
-                          <span></span>
-                        </label>
-                      </div>
-                      <div className="col-4">
-                        <label>
-                          <input className="radio" type="radio" name="sidebarPosition" value=""/>
-                          <span></span>
-                        </label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-4">
-                        <label className="title">Header:</label>
-                      </div>
-                      <div className="col-4">
-                        <label>
-                          <input className="radio" type="radio" name="headerPosition" value="header-fixed"/>
-                          <span></span>
-                        </label>
-                      </div>
-                      <div className="col-4">
-                        <label>
-                          <input className="radio" type="radio" name="headerPosition" value=""/>
-                          <span></span>
-                        </label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-4">
-                        <label className="title">Footer:</label>
-                      </div>
-                      <div className="col-4">
-                        <label>
-                          <input className="radio" type="radio" name="footerPosition" value="footer-fixed"/>
-                          <span></span>
-                        </label>
-                      </div>
-                      <div className="col-4">
-                        <label>
-                          <input className="radio" type="radio" name="footerPosition" value=""/>
-                          <span></span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="customize-item">
-                    <ul className="customize-colors">
-                      <li>
-                        <span className="color-item color-red" data-theme="red"></span>
-                      </li>
-                      <li>
-                        <span className="color-item color-orange" data-theme="orange"></span>
-                      </li>
-                      <li>
-                        <span className="color-item color-green active" data-theme=""></span>
-                      </li>
-                      <li>
-                        <span className="color-item color-seagreen" data-theme="seagreen"></span>
-                      </li>
-                      <li>
-                        <span className="color-item color-blue" data-theme="blue"></span>
-                      </li>
-                      <li>
-                        <span className="color-item color-purple" data-theme="purple"></span>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-              <a href="#">
-                <i className="fa fa-cog"></i> Customize </a>
-            </li>
-          </ul>
-        </footer>
       </aside>
       <div className="modal fade" id="addCategory">
         <div className="modal-dialog" role="document">
@@ -193,9 +119,9 @@ const AsideComponent = ({onClose}) => {
             <div className="modal-body">
               <form className="form-inline">
                 <div className="input-group">
-                  <input type="text" className="form-control boxed rounded-s" style={{width:"400px"}}
+                  <input type="text" className="form-control boxed rounded-s" style={{width: "400px"}}
                          placeholder="Tên danh mục..."/>
-                <span className="input-group-btn align-content-center">
+                  <span className="input-group-btn align-content-center">
                 <button className="btn btn-secondary  rounded-s" data-dismiss="modal" type="button">
                 Hủy bỏ
                 </button>
@@ -210,7 +136,7 @@ const AsideComponent = ({onClose}) => {
         </div>
       </div>
     </>
-)
+  )
 }
 
 export default AsideComponent
