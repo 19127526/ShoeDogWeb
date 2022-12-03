@@ -9,6 +9,17 @@ exports.getAllProducts = async (req, res) => {
     }
 }
 
+exports.getProductsById=async (req,res)=>{
+    try{
+        const catId=req.params.id;
+        const products = await product.getProductsByCatId(catId);
+        return res.status(200).json({"status": "success", "data": products});
+    }catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+    return res.json({"ee":req.params.id});
+}
+
 exports.addProduct = async (req, res) => {
     try{
         const product = req.body;

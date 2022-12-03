@@ -10,7 +10,7 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img})=>{
           <div className="product__img">
             <img className="lazy" src={img}
                  alt={name} title={name}
-                 style={{display:"inline-block",height:"320px",width:"480px"}}
+                 style={{display:"inline-block",height:"auto",width:"480px"}}
                 />
           </div>
         </a>

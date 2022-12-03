@@ -210,7 +210,7 @@ body.active:before {
     user-select: none;
     z-index: 5;
     position: absolute;
-    top: 0;
+    top: 25%;
     left: 0;
     width: 100%;
 }
