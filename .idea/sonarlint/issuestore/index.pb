@@ -12,3 +12,23 @@ C
 :
 
 Be/bin/www,b\b\bb752858c9ff21c696a88a31ed5d41979ae3d9eb
+w
+G.idea/sonarlint/issuestore/2/7/27f9b9bfca150b6048be1b9255a72e65af25c37b,5\b\5b922625a1c6a09dba6fbe6c6dca3c2e72399243
+w
+G.idea/sonarlint/issuestore/c/b/cb8903074abcbee07508f4f8add1d607e00dd6ab,2\4\24d4bc57640d9a573970549af0a374ffb82deaa8
+D
+Be/package-lock.json,2\b\2b1230e88cacdc23ee854282bd5e0550cb22ee50
+w
+G.idea/sonarlint/issuestore/0/2/02315048f104921d7b967de8c7573f93fce7cd6a,d\a\daba42774e2782b15e72feb40ea4aa4c355f2503
+w
+G.idea/sonarlint/issuestore/c/6/c68e1988479c29ab465bee61a2dd3107c71a5d3d,6\9\696dab3f9cf15853c46db08d68954ecc1d037052
+w
+G.idea/sonarlint/issuestore/b/b/bb752858c9ff21c696a88a31ed5d41979ae3d9eb,3\b\3b1813fadd5d24c743ec1c4899ca1864a2f2fed3
+w
+G.idea/sonarlint/issuestore/2/2/22973f11b91b443766d3a789699dcc4844f9e321,5\a\5ab79e416306700ae7398da5d90d8c23cb691b40
+S
+#.idea/runConfigurations/bin_www.xml,1\4\140e4eb5c9a9663fa1c54fe51930e6d28f95de63
+>
+Be/utils/db.js,4\9\49ed4f36d0a49482d10f8eead72b117016fe1f8b
+B
+Be/routes/index.js,0\c\0c3e128171c13cdec9ffdbd5b1792b78f74338e4

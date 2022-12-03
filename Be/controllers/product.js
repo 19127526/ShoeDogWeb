@@ -17,7 +17,6 @@ exports.getProductsById=async (req,res)=>{
     }catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }
-    return res.json({"ee":req.params.id});
 }
 
 exports.addProduct = async (req, res) => {
