@@ -39,7 +39,7 @@ const AsideComponent = ({onClose}) => {
       <aside className="sidebar">
         <div className="sidebar-container">
           <div className="sidebar-header">
-            <div className="brand" style={{backgroundColor: "green"}}>
+            <div className="brand" style={{backgroundColor: "green",display:"flex",justifyContent:"center",alignItems:"center"}}>
               <div className="logo">
                 <span className="l l1"></span>
                 <span className="l l2"></span>
@@ -47,7 +47,7 @@ const AsideComponent = ({onClose}) => {
                 <span className="l l4"></span>
                 <span className="l l5"></span>
               </div>
-              <a className="navbar-brand text-brand" href="/">Estate<span className="color-b"> Market</span></a>
+              <a className="navbar-brand text-brand" href="/">Shoe<span className="color-b"> Dog</span></a>
             </div>
           </div>
           <nav className="menu">

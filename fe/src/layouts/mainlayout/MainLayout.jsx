@@ -1,21 +1,30 @@
 import {Layout} from 'antd';
 import HeaderComponent from "../../components/header/HeaderComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import FooterComponent from "../../components/footer/FooterComponent";
 import RoutesPage from "../../routes/RoutesPage";
+import {getListCategories} from "../../apis/categories/CategoriesApi";
 
 
 const {Header, Footer, Sider, Content} = Layout;
 
 const MainLayout = () => {
+  const [categories,setCategories]=useState([]);
+  const [searchButton,setSearchButton]=useState(false);
+  useEffect(()=>{
+    const getListCategory=()=>{
+      getListCategories()
+        .then(res=>{
+          console.log(res.data)
+          setCategories(res.data.data)
+        })
+        .catch(err=>{
 
-  const [closeAside, setCloseAside] = useState(false);
-  const onclickCloseAside = () => {
-    setCloseAside(!closeAside)
-  };
-  const onClose = () => {
-    setCloseAside(false)
-  };
+        })
+    }
+    getListCategory()
+  },[])
+
   return (
     <body className="">
     <div id="wrapper">
@@ -26,116 +35,45 @@ const MainLayout = () => {
           <div className="menu__items--inner">
             <ul className="menu-mobile">
               <li>
-                <a href="https://www.glab.vn/product/features">Features</a>
+                <a>Features</a>
               </li>
               <li>
-                <a href="https://www.glab.vn/product/footwear">Footwear<span className="icon-navigate_next"></span></a>
-                <ul>
-                  <li>
-                    <a href="https://www.glab.vn/product/newest-sneakers">Newest Sneakers</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/lifestyle">Lifestyle</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/running">Running</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/basketball">Basketball</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/gym-training">Gym &amp; Training</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/sandal">Sandal</a>
-                  </li>
-                </ul>
+                <a>Sales</a>
               </li>
               <li>
-                <a href="https://www.glab.vn/product/apparel">Apparel<span className="icon-navigate_next"></span></a>
-                <ul>
-                  <li>
-                    <a href="https://www.glab.vn/product/conic" style={{color:"red"}}>CONIC®</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/glab" style={{color:"red"}}>GLAB®</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/hoodies">Hoodies</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/shorts">Shorts</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/outerwears">Outerwears</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/tees">Tees</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/pants">Pants</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/shirts">Shirts</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/jackets">Jackets</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/sweaters">Sweaters</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/long-sleeves">Long Sleeves</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/vintage">Vintage</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="https://www.glab.vn/product/accessories">Accessories<span
-                  className="icon-navigate_next"></span></a>
-                <ul>
-                  <li>
-                    <a href="https://www.glab.vn/product/watch">Watch</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/socks">Socks</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/cap">Cap</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/backpack-and-bag">Backpack and Bag</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/shoe-care">Shoe Care</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/miscellaneous">Miscellaneous</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/glasses">Glasses</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/bearbrick">Bearbrick</a>
-                  </li>
-                  <li>
-                    <a href="https://www.glab.vn/product/face-mask">Face Mask</a>
-                  </li>
+                <a href="https://www.glab.vn/product/footwear">Products<span className="icon-navigate_next"></span></a>
+                <ul style={{marginBottom: "0px"}}>
+                  {categories.map((value)=>(
+                    <li key={value.CatId}>
+                      <a href="https://www.glab.vn/product/watch">{value.CatName}</a>
+                    </li>))}
                 </ul>
               </li>
               <li>
                 <a href="https://www.glab.vn/product/type/used">Used</a>
               </li>
               <li>
-                <a href="https://www.glab.vn/product/type/sale">Sale</a>
+                <a href="https://www.glab.vn/product/type/used">Help</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <HeaderComponent onClickAside={onclickCloseAside}/>
+      <div className="searchPro"    style={{display: searchButton===true?'block':'none'}}>
+        <div className="text-right mgB-20 mgT-10"><a  id="closeSearch" onClick={()=>setSearchButton(false)}><span className="icon-uniF335"></span></a>
+        </div>
+        <form className="search" id="search" action="https://www.glab.vn/product" method="get">
+          <div className="frm-icon">
+            <input name="word" type="text" placeholder="Search"/>
+              <button type="submit" className="icon-frm">
+                <span className="icon-enter-arrow"></span>
+              </button>
+              <div className="suggestSearch">
+              </div>
+          </div>
+        </form>
+      </div>
+      <HeaderComponent categoryList={categories} searchButton={()=>setSearchButton(!searchButton)}  />
       <Content>
         <RoutesPage/>
       </Content>

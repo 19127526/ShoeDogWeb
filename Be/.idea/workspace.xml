@@ -5,36 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/runConfigurations/bin_www.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/0/2/02315048f104921d7b967de8c7573f93fce7cd6a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/2/2/22973f11b91b443766d3a789699dcc4844f9e321" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/2/7/27f9b9bfca150b6048be1b9255a72e65af25c37b" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/2/b/2b1230e88cacdc23ee854282bd5e0550cb22ee50" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/9/f/9fe84ebb15faf917b7def6236dba604453cc61e0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/b/b/bb752858c9ff21c696a88a31ed5d41979ae3d9eb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/c/6/c68e1988479c29ab465bee61a2dd3107c71a5d3d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/c/b/cb8903074abcbee07508f4f8add1d607e00dd6ab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Be.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ShoeDogSQL.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/category.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/category.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/apis/categories/CategoriesApi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/apis/products/ProductsApi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/apis/request.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/configs/url.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/assets/img/62dfdb668b98a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/assets/img/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/aside/AsideComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/aside/AsideComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/routes/RoutesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/routes/RoutesPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="GOROOT" url="file://C:/Program Files/Go" />
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../../Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2GqlIxu9z4zn1AKe68ifiLMX2Oc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -42,19 +44,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "E:/thesis/VoucherHub/Server/VoucherMobile-Server"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -65,6 +62,7 @@
       <updated>1667123919616</updated>
       <workItem from="1667123920877" duration="38000" />
       <workItem from="1670052767409" duration="778000" />
+      <workItem from="1670064421958" duration="1805000" />
     </task>
     <servers />
   </component>

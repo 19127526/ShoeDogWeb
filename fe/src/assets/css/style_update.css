@@ -1594,9 +1594,6 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
         line-height: 1;
         padding: 0;
     }
-    .header__right{
-        margin-right: 30px;
-    }
     .header__right .search, .header__right .auth__user, .header__right .header__cart {
         margin: 0 0 0 0;
     }
@@ -1836,9 +1833,6 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     }
     .header__right .frm-icon .icon-n-e-x-x-t {
         color: #262626;
-    }
-    .header__right{
-        margin-right: 30px;
     }
     .header__right .frm-icon .icon-n-e-x-x-t:before {
         content: ""}
