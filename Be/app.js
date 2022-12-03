@@ -3,11 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const categoryRouter = require('./routes/categories');
-const productRouter = require('./routes/products');
+const activeRouteMiddleware = require('./middlewares/routeMiddleware');
 const app = express();
 
 // view engine setup
@@ -26,10 +22,8 @@ app.use(function(req, res, next) {
 });
 
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/category', categoryRouter);
-app.use('/product', productRouter);
+activeRouteMiddleware(app);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

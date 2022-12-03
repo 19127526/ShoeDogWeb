@@ -12,8 +12,6 @@ C
 :
 
 Be/bin/www,b\b\bb752858c9ff21c696a88a31ed5d41979ae3d9eb
-A
-Be/ShoeDogSQL.sql,8\f\8f023b8e98f2a85e52e646fc97e890c4d164db12
 w
 G.idea/sonarlint/issuestore/2/7/27f9b9bfca150b6048be1b9255a72e65af25c37b,5\b\5b922625a1c6a09dba6fbe6c6dca3c2e72399243
 w
