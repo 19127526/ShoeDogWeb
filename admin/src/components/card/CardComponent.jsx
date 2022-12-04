@@ -1,7 +1,10 @@
-import { useNavigate } from "react-router-dom";
-const CardComponent=({name,priceNonDiscount,priceDiscount,img})=>{
-  const navigate=useNavigate();
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {EDIT_PRODUCT} from "../../configs/url";
 
+const CardComponent = ({index}) => {
+  const navigate = useNavigate();
+  const [openSetting,setOpenSetting]=useState(false);
   return (
     <li className="item">
       <div className="item-row">
@@ -12,59 +15,60 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img})=>{
           </label>
         </div>
         <div className="item-col fixed item-col-img md">
-          <a href="item-editor.html">
+          <a onClick={() => navigate(`/admin/category/${index.CatId}/${index.ProId}`, {state: {index: index}})}>
             <div className="item-img rounded"
-                 style={{backgroundImage: "url(../../s3.amazonaws.com/uifaces/faces/twitter/_everaldo/128.jpg)"}}></div>
+                 style={{backgroundImage: `url(${index.ImageMain})`}}></div>
           </a>
         </div>
         <div className="item-col fixed pull-left item-col-title">
-          <div className="item-heading">Name</div>
+          <div className="item-heading">Tên sản phẩm</div>
           <div>
-            <a href="item-editor.html" className="">
-              <h4 className="item-title"> 50% of things doesn't really belongs to you </h4>
+            <a onClick={() => navigate(`/admin/category/${index.CatId}/${index.ProId}`, {state: {index: index}})}
+               className="">
+              <h4 className="item-title"> {index.ProName} </h4>
             </a>
           </div>
         </div>
         <div className="item-col item-col-sales">
-          <div className="item-heading">Sales</div>
-          <div> 4567</div>
+          <div className="item-heading">Giá tiền</div>
+          <div className="no-overflow">
+            <div> {index.TotalPrice.toLocaleString('it-IT', {style: 'currency', currency: 'VND'})}</div>
+          </div>
         </div>
         <div className="item-col item-col-stats no-overflow">
-          <div className="item-heading">Stats</div>
+          <div className="item-heading">Tình trạng</div>
           <div className="no-overflow">
-            <div className="item-stats sparkline" data-type="bar">
-              <canvas width="84" height="724319201"
-                      style={{display: "inline-block", width: "84px", height: "4e+14px", verticalAlign: "top"}}></canvas>
-            </div>
+            <div>{index.StatusPro === 1 ? "Còn hàng" : "Hết hàng"}</div>
           </div>
         </div>
         <div className="item-col item-col-category no-overflow">
-          <div className="item-heading">Category</div>
-          <div className="no-overflow">
-            <a href="#">Hardware</a>
+          <div className="item-heading">Số lượng</div>
+          <div className="no-overflow" style={{marginLeft:"45px"}}>
+            <div>{index.Quantity}</div>
           </div>
         </div>
         <div className="item-col item-col-author">
-          <div className="item-heading">Author</div>
-          <div className="no-overflow">
-            <a href="#">Alexander Sargssyan</a>
+          <div className="item-heading">Người đăng</div>
+          <div className="no-overflow"  style={{marginLeft:"45px"}}>
+            <div>Admin</div>
           </div>
         </div>
         <div className="item-col item-col-date">
-          <div className="item-heading">Published</div>
-          <div className="no-overflow"> 21 SEP 10:45</div>
+          <div className="item-heading">Ngày đăng</div>
+          <div className="no-overflow"> {index.DateStart}</div>
         </div>
-        <div className="item-col fixed item-col-actions-dropdown">
-          <div className="item-actions-dropdown">
+
+        <div className="item-col fixed item-col-actions-dropdown" onClick={()=>setOpenSetting(!openSetting)}>
+          <div className={ openSetting===true? "item-actions-dropdown active":"item-actions-dropdown"}>
             <a className="item-actions-toggle-btn">
-                                                <span className="inactive">
-                                                    <i className="fa fa-cog"></i>
-                                                </span>
+              <span className="inactive">
+                  <i className="fa fa-cog"></i>
+              </span>
               <span className="active">
-                                                    <i className="fa fa-chevron-circle-right"></i>
-                                                </span>
+                  <i className="fa fa-chevron-circle-right"></i>
+              </span>
             </a>
-            <div className="item-actions-block">
+            <div className="item-actions-block" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
               <ul className="item-actions-list">
                 <li>
                   <a className="remove" href="#" data-toggle="modal" data-target="#confirm-modal">
@@ -72,7 +76,7 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img})=>{
                   </a>
                 </li>
                 <li>
-                  <a className="edit" href="item-editor.html">
+                  <a className="edit" onClick={()=>navigate(`${EDIT_PRODUCT}`+`${index.ProId}`,{state:{index:index}})}>
                     <i className="fa fa-pencil"></i>
                   </a>
                 </li>

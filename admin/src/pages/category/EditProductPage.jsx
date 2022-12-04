@@ -1,40 +1,99 @@
-import {Image, Select} from "antd";
 import {useLocation, useNavigate} from "react-router-dom";
-import { Markup } from 'interweave';
-import {useState} from "react";
-import {convertArrayToOptions} from "../../utils/Utils";
+import {convertArrayToOptions, getBase64} from "../../utils/Utils";
+import {Image, InputNumber, Select} from "antd";
+import {useRef, useState} from "react";
+import {PlusOutlined} from "@ant-design/icons";
+import JoditEditor from "jodit-react";
 
-const ProductDetailPage = (prop) => {
-  const navigate = useNavigate();
+const uploadButton = (
+  <div>
+    <PlusOutlined/>
+    <div
+      style={{
+        marginTop: 8,
+      }}
+    >
+      Upload
+    </div>
+  </div>
+);
+
+
+const EditProductPage = () => {
   let location = useLocation();
-  let index=location.state.index;
-  console.log(index)
-  const optionsSize =[]
-  const optionsColor =[];
+  const navigate = useNavigate();
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState([]);
+  const handleCancel = () => setPreviewOpen(false);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+  };
+  const handleChange = ({fileList: newFileList}) => {
+    setFileList(newFileList)
+  };
+
+  function localStringToNumber( s ){
+    return Number(String(s).replace(/[^0-9.-]+/g,""))
+  }
+
+  function onFocus(e){
+    var value = e.target.value.split("VND")[0];
+    e.target.value = value ? localStringToNumber(value) : ''
+  }
+
+  function onBlur(e) {
+    var value = e.target.value
+    var options = {
+      style: "currency",
+      currency: 'VND',
+      currencyDisplay: "symbol"
+    }
+    e.target.value = (value || value === 0)
+      ? localStringToNumber(value).toLocaleString('it-IT', options)
+      : ''
+  }
+
+  const editor = useRef(null);
+  const [valueEditorMain, setValueEditorMain] = useState(null);
+  const [valueEditorSub, setValueEditorSub] = useState(null);
+  const discountChange=(event)=>{
+    console.log(event.target.value)
+  }
+
+  let index = location.state.index;
+  const optionsSize = []
+  const optionsColor = [];
   if(index.Size===null){
 
   }
   else{
-    for (let i=0;i< convertArrayToOptions(index.Size,", ").length;i++){
+    for (let i = 0; i < convertArrayToOptions(index.Size, ", ").length; i++) {
       optionsSize.push({
-        label: convertArrayToOptions(index.Size,", ")[i],
-        value: convertArrayToOptions(index.Size,", ")[i],
+        label: convertArrayToOptions(index.Size, ", ")[i],
+        value: convertArrayToOptions(index.Size, ", ")[i],
       });
     }
   }
 
-  for (let i=0;i< convertArrayToOptions(index.Color).length;i++){
+  for (let i = 0; i < convertArrayToOptions(index.Color).length; i++) {
     optionsColor.push({
       label: convertArrayToOptions(index.Color)[i],
       value: convertArrayToOptions(index.Color)[i],
     });
   }
-  console.log(index)
-  return (
-    <>
+
+
+  return (<>
       <article className="content item-editor-page">
         <div className="title-block">
-          <h3 className="title"> Chi tiết sản phẩm
+          <h3 className="title"> Chỉnh sửa sản phẩm
             <span className="sparkline bar" data-type="bar"></span>
           </h3>
         </div>
@@ -48,47 +107,42 @@ const ProductDetailPage = (prop) => {
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mã kho </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.Inventory}/>
+                     value={index.Inventory} />
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên danh mục </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.CatName}/>
+                     defaultValue={index.CatName}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên sản phẩm </label>
             <div className="col-sm-9">
-              <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.ProName}/>
+              <input type="text" className="form-control boxed" id="title" defaultValue={index.ProName}
+                    />
             </div>
           </div>
-          <div className="form-group row">
-            <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Ngày đăng </label>
-            <div className="col-sm-9">
-              <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.DateStart}/>
-            </div>
-          </div>
+
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Số lượng </label>
             <div className="col-sm-9">
-              <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.Quantity}/>
+              <InputNumber className="form-control boxed" defaultValue={index.Quantity}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả </label>
             <div className="col-sm-9">
-              <Markup className="form-control boxed" content={index.Des} />
+              <JoditEditor className="form-control boxed" ref={editor} onChange={content => setValueEditorMain(content)} value={index.Des}/>
+
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả ngắn</label>
             <div className="col-sm-9">
-              <Markup className="form-control boxed" content={index.ShortDes} />
+              <JoditEditor className="form-control boxed" ref={editor} onChange={content => setValueEditorSub(content)}
+                           value={index.ShortDes}/>
             </div>
           </div>
 
@@ -96,12 +150,10 @@ const ProductDetailPage = (prop) => {
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Trạng thái </label>
             <div className="col-sm-9">
               <Select
-                defaultValue={index.StatusPro===1?"Còn hàng":"Hết hàng"}
+                defaultValue={index.StatusPro === 1 ? "Còn hàng" : "Hết hàng"}
                 style={{
                   width: "fit-content",
                 }}
-                disabled={true}
-
                 options={[
                   {
                     value: '1',
@@ -125,16 +177,15 @@ const ProductDetailPage = (prop) => {
                 style={{
                   width: '100%',
                 }}
-                disabled={true}
-                tokenSeparators={[',']}
                 defaultValue={optionsSize}
-                placeholder="Không có"
+                tokenSeparators={[',']}
+                placeholder="Please select"
                 options={optionsSize}
               />
             </div>
           </div>
           <div className="form-group row">
-            <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
+            <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sẵc </label>
             <div className="col-sm-9">
               <Select
                 mode="tags"
@@ -142,10 +193,9 @@ const ProductDetailPage = (prop) => {
                 style={{
                   width: '100%',
                 }}
-                disabled={true}
                 defaultValue={optionsColor}
                 tokenSeparators={[',']}
-                placeholder="Không có"
+                placeholder="Please select"
                 options={optionsColor}
               />
             </div>
@@ -153,22 +203,22 @@ const ProductDetailPage = (prop) => {
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Giá tiền gốc </label>
             <div className="col-sm-9">
-              <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.Price.toLocaleString('it-IT',{style:'currency',currency:"VND"})}/>
+              <input type="text" className="form-control boxed" id="title" placeholder="" onBlur={onBlur} onFocus={onFocus}
+                     defaultValue={index.Price.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title">Khuyến mãi</label>
             <div className="col-sm-9">
-              <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.Discount+"%"}/>
+              <input type="number" className="form-control boxed" id="title" placeholder=""  min="0.0" max="1.0"
+                     defaultValue={index.Discount} onChange={discountChange}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title">Tổng tiền</label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.TotalPrice.toLocaleString('it-IT',{style:'currency',currency:"VND"})}/>
+                     onBlur={onBlur} onFocus={onFocus} defaultValue={index.TotalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
             </div>
           </div>
           <div className="form-group row">
@@ -201,5 +251,4 @@ const ProductDetailPage = (prop) => {
   )
 }
 
-
-export default ProductDetailPage
+export default EditProductPage

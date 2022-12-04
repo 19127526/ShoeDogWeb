@@ -3,6 +3,7 @@ import {getListCategories} from "../../apis/categories/CategoriesApi";
 import Notification from "../notification/Notification";
 import * as constraintNotification from "../notification/Notification.constraints"
 import {useNavigate} from "react-router-dom";
+import {LIST_PRODUCT_BY_CATEGORY_ID} from "../../configs/url";
 const AsideComponent = ({onClose}) => {
   const [categories,setCategories]=useState([]);
   const navigate=useNavigate()
@@ -82,7 +83,7 @@ const AsideComponent = ({onClose}) => {
                   <i className="fa arrow"></i>
                 </a>
                 <ul className="sidebar-nav">
-                  {categories.map(index=>( <li key={index.CatId} onClick={()=>navigate(`/admin/category/${index.CatId}`)}>
+                  {categories.map(index=>( <li key={index.CatId} onClick={()=>navigate(`${LIST_PRODUCT_BY_CATEGORY_ID}${index.CatId}`)}>
                     <a> {index.CatName} </a>
                   </li>))}
                 </ul>
