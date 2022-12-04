@@ -1,10 +1,9 @@
-import logo from '../../assets/themes/icons/favicon.ico';
+import logo from '../../assets/themes/icons/favicon.svg';
 import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import CartComponent from "../cart/CartComponent";
  const HeaderComponent=({categoryList,searchButton})=>{
    const navigate=useNavigate();
-   console.log(categoryList)
    const [cartButton,setCartButton]=useState(false);
   return (
     <header className="clearfix" >
@@ -48,60 +47,61 @@ import CartComponent from "../cart/CartComponent";
         </div>
         <div className="text-center header__logo">
           <span>logo</span>
-          <a onClick={()=>navigate("/")}><img src={logo} alt=""  style={{height:"5vh"}}/></a>
+          <a onClick={()=>navigate("/")}><img src={logo} alt="" /></a>
         </div>
       </div>
-      <div className="container">
+      <div className="container"  style={{padding:"0 10% 0 10%"}}>
         <div id="menu">
           <div className="inner-menu">
             <div>
               <ul>
-                <li>
-                  <a href="https://www.glab.vn/product/features"><span>Features</span></a>
-                </li>
                 {categoryList.map(index=>(
                   <li key={index.CatId} onClick={()=>navigate(`/product/${index.CatId}`)}><a ><span>{index.CatName}</span></a></li>
                 ))}
                 <li>
-                  <a href="https://www.glab.vn/product/accessories"><span>Accessories</span></a>
-                  <div className="menu__sub">
-                    <ul>
-                      <li>
-                        <a href="https://www.glab.vn/product/watch">Watch</a>
-                      </li>
-                      <li>
-                        <a href="https://www.glab.vn/product/socks">Socks</a>
-                      </li>
-                      <li>
-                        <a href="https://www.glab.vn/product/cap">Cap</a>
-                      </li>
-                      <li>
-                        <a href="https://www.glab.vn/product/backpack-and-bag">Backpack and Bag</a>
-                      </li>
-                      <li>
-                        <a href="https://www.glab.vn/product/shoe-care">Shoe Care</a>
-                      </li>
-                      <li>
-                        <a href="https://www.glab.vn/product/miscellaneous">Miscellaneous</a>
-                      </li>
-                      <li>
-                        <a href="https://www.glab.vn/product/glasses">Glasses</a>
-                      </li>
-                      <li>
-                        <a href="https://www.glab.vn/product/bearbrick">Bearbrick</a>
-                      </li>
-                      <li>
-                        <a href="https://www.glab.vn/product/face-mask">Face Mask</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <a href="https://www.glab.vn/product/features"><span>Liên hệ</span></a>
+
                 </li>
+                  {/*<li>
+                    <a href="https://www.glab.vn/product/accessories"><span>Accessories</span></a>
+                    <div className="menu__sub">
+                      <ul>
+                        <li>
+                          <a href="https://www.glab.vn/product/watch">Watch</a>
+                        </li>
+                        <li>
+                          <a href="https://www.glab.vn/product/socks">Socks</a>
+                        </li>
+                        <li>
+                          <a href="https://www.glab.vn/product/cap">Cap</a>
+                        </li>
+                        <li>
+                          <a href="https://www.glab.vn/product/backpack-and-bag">Backpack and Bag</a>
+                        </li>
+                        <li>
+                          <a href="https://www.glab.vn/product/shoe-care">Shoe Care</a>
+                        </li>
+                        <li>
+                          <a href="https://www.glab.vn/product/miscellaneous">Miscellaneous</a>
+                        </li>
+                        <li>
+                          <a href="https://www.glab.vn/product/glasses">Glasses</a>
+                        </li>
+                        <li>
+                          <a href="https://www.glab.vn/product/bearbrick">Bearbrick</a>
+                        </li>
+                        <li>
+                          <a href="https://www.glab.vn/product/face-mask">Face Mask</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                 <li>
                   <a href="https://www.glab.vn/product/type/used"><span>Used</span></a>
                 </li>
                 <li>
                   <a href="https://www.glab.vn/product/type/sale"><span>Sale</span></a>
-                </li>
+                </li>*/}
               </ul>
             </div>
           </div>

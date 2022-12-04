@@ -1,12 +1,11 @@
-import logo from '../../assets/themes/icons/logo.svg';
+import logo from '../../assets/themes/icons/faviconFooter.svg';
 
 const FooterComponent=()=>{
   return (
     <footer className="clearfix">
       <div className="footer__logo">
-        <a href="https://www.glab.vn"><img src={logo} alt=""/></a>
+      <a href="https://www.glab.vn"><img src={logo} alt="" /></a>
       </div>
-
       <div className="row">
         <div className="col-sm-12">
           <div className="row">
@@ -38,7 +37,7 @@ const FooterComponent=()=>{
           </div>
         </div>
       </div>
-      <div className="copyright">Copyright © 2018 GLAB.VN</div>
+    {/*  <div className="copyright">Copyright © 2018 GLAB.VN</div>*/}
 
       <div className="container hide">
         <div className="footer__left">

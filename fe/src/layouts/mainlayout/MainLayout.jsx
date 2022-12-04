@@ -1,10 +1,11 @@
-import {Layout} from 'antd';
+import {BackTop, Layout} from 'antd';
 import HeaderComponent from "../../components/header/HeaderComponent";
 import {useEffect, useState} from "react";
 import FooterComponent from "../../components/footer/FooterComponent";
 import RoutesPage from "../../routes/RoutesPage";
 import {getListCategories} from "../../apis/categories/CategoriesApi";
 import {useNavigate} from "react-router-dom";
+import BackTopComponent from "../../components/backtop/BackTopComponent";
 
 
 const {Header, Footer, Sider, Content} = Layout;
@@ -17,7 +18,6 @@ const MainLayout = () => {
     const getListCategory=()=>{
       getListCategories()
         .then(res=>{
-          console.log(res.data)
           setCategories(res.data.data)
         })
         .catch(err=>{
@@ -78,6 +78,9 @@ const MainLayout = () => {
       <HeaderComponent categoryList={categories} searchButton={()=>setSearchButton(!searchButton)}  />
       <Content>
         <RoutesPage/>
+        <BackTop >
+          <BackTopComponent/>
+        </BackTop>
       </Content>
       <FooterComponent/>
     </div>

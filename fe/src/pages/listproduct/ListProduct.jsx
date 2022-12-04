@@ -1,32 +1,65 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {getListProductsByCatId} from "../../apis/products/ProductsApi";
+import Notification from "../../components/notification/Notification";
+import * as constraintNotification from "../../components/notification/Notification.constraints";
+import CardComponent from "../../components/card/CardComponent";
+import LoadingComponent from "../../components/loading/LoadingComponent";
 
-const ListProduct=()=>{
-  const [filterButton,setFilterButton]=useState(false);
-  const [dropdownButton,setDropdownButton]=useState(false);
-  const {product}=useParams();
-  console.log(product)
-  useEffect(()=>{
-    if(filterButton===true){
-      document.body.classList.add("filterActive")
+const ListProduct = () => {
+  const [filterButton, setFilterButton] = useState(false);
+  const [dropdownButton, setDropdownButton] = useState(false);
+  const {product} = useParams();
+  const [loading,setLoading]=useState(false)
+  const [itemInCategory, setItemInCategory] = useState([]);
+  useEffect(() => {
+    const getListProductByCatId2 = async () => {
+      await getListProductsByCatId(product)
+        .then(res => {
+          if (res.data.status === 'success') {
+            console.log(res.data.data)
+            setItemInCategory(res.data.data);
+            setLoading(true)
+          } else {
+            Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
+          }
+        })
+        .catch(err => {
+          Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+        })
     }
-    else{
+    getListProductByCatId2()
+  }, [product])
+  useEffect(() => {
+    if (filterButton === true) {
+      document.body.classList.add("filterActive")
+    } else {
       document.body.classList.remove("filterActive")
     }
-  },[filterButton])
+  }, [filterButton])
+
+  if(loading===false){
+    return <LoadingComponent/>
+  }
   return (
-    <div className="container">
+    <div className="container" style={{marginTop: "50px"}}>
       <div className="text-center">
         <div className="typeProducts">
           <div className="row" style={{width: "100%"}}>
-            <div className="col-xs-3"><h2>Footwear</h2></div>
-            <div className="col-xs-6">
+            {itemInCategory[0]?.CatName===null?
+              <div className="col-xs-12"><h2 style={{textAlign: "center"}}>Nothing</h2></div>
+              :
+              <div className="col-xs-12"><h2 style={{textAlign: "center"}}>{itemInCategory[0]?.CatName}</h2></div>
+            }
+
+            <div className="col-xs-9">
               <div className="bootstrap-tagsinput">
               </div>
             </div>
             <div className="col-xs-3">
               <div className="typeFilter text-left">
-                <a className="filterToggle" onClick={()=>setFilterButton(true)}><span className="icon-settings"></span>Filter</a>
+                <a className="filterToggle" onClick={() => setFilterButton(true)}><span
+                  className="icon-settings"></span>Filter</a>
               </div>
             </div>
           </div>
@@ -34,10 +67,12 @@ const ListProduct=()=>{
         </div>
 
         <div className="menuFilter">
-          <a className="filterClose" onClick={()=>setFilterButton(false)}><span className="icon-meunu-close"></span></a>
+          <a className="filterClose" onClick={() => setFilterButton(false)}><span
+            className="icon-meunu-close"></span></a>
           <div className="filterIcon"><span className="icon-settings"></span>Filter</div>
           <div className="filterItems">
-            <div className={dropdownButton===true?"dropdown open":"dropdown"} onClick={()=>setDropdownButton(!dropdownButton)}>
+            <div className={dropdownButton === true ? "dropdown open" : "dropdown"}
+                 onClick={() => setDropdownButton(!dropdownButton)}>
               <div className="btn btn-default btn-xs dropdown-toggle" type="button" id="sortUsers"
                    data-toggle="dropdown">
                 Sort &nbsp;&nbsp;
@@ -218,15 +253,16 @@ const ListProduct=()=>{
                 <li style={{width: "90%"}}>
                   <p>
                     <input type="text" id="amount" readOnly=""
-                           style={{border:"0", color:"#f6931f", fontWeight:"bold", width: "100%"}}/>
+                           style={{border: "0", color: "#f6931f", fontWeight: "bold", width: "100%"}}/>
                   </p>
                   <div id="slider-range"
                        className="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-                    <div className="ui-slider-range ui-corner-all ui-widget-header" style={{left: "3.0303%", width: "16.1616%"}}></div>
+                    <div className="ui-slider-range ui-corner-all ui-widget-header"
+                         style={{left: "3.0303%", width: "16.1616%"}}></div>
                     <span tabIndex="0" className="ui-slider-handle ui-corner-all ui-state-default"
                           style={{left: "3.0303%"}}></span><span tabIndex="0"
-                                                              className="ui-slider-handle ui-corner-all ui-state-default"
-                                                              style={{left: "19.1919%"}}></span></div>
+                                                                 className="ui-slider-handle ui-corner-all ui-state-default"
+                                                                 style={{left: "19.1919%"}}></span></div>
                 </li>
               </ul>
             </div>
@@ -236,689 +272,20 @@ const ListProduct=()=>{
 
       </div>
       <div className="row products">
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/7452-air-jordan-1-retro-high-og-university-blue">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2021/03/19/480x320/605479b65d160.jpg"
-                       alt=" Air Jordan 1 Retro High OG University Blue"
-                       title=" Air Jordan 1 Retro High OG University Blue" style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a
-                      href="https://www.glab.vn/product/detail/7452-air-jordan-1-retro-high-og-university-blue?size=7.5 US"
-                      className="size">7.5 US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/7452-air-jordan-1-retro-high-og-university-blue?size=9 US"
-                      className="size">9 US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/7452-air-jordan-1-retro-high-og-university-blue?size=10.5 US"
-                      className="size">10.5 US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/7452-air-jordan-1-retro-high-og-university-blue?size=12 US"
-                      className="size">12 US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/7452-air-jordan-1-retro-high-og-university-blue"> Air
-                    Jordan 1 Retro High OG University Blue</a></p>
-
-                  <p className="product-price">
-
-                    <span className="price-decoration">đ 11,000,000</span><br/>
-                    <span>đ 10,200,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
+        {itemInCategory.map(index => (
+          <div className="col-lg-4 col-md-6">
+            <CardComponent name={index.ProName}
+                           img={index.ImageMain}
+                           priceDiscount={index.Price} priceNonDiscount={index.Discount === 0 ? null : index.Discount}/>
           </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/7068-nike-dunk-low-retro-white-black-2021">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2021/02/04/480x320/601ba3545a88c.jpg"
-                       alt="Nike Dunk Low Retro White Black (2021)" title="Nike Dunk Low Retro White Black (2021)"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/7068-nike-dunk-low-retro-white-black-2021?size=8 US"
-                       className="size">8 US</a>
-                    <a href="https://www.glab.vn/product/detail/7068-nike-dunk-low-retro-white-black-2021?size=9 US"
-                       className="size">9 US</a>
-                    <a href="https://www.glab.vn/product/detail/7068-nike-dunk-low-retro-white-black-2021?size=9.5 US"
-                       className="size">9.5 US</a>
-                    <a href="https://www.glab.vn/product/detail/7068-nike-dunk-low-retro-white-black-2021?size=10 US"
-                       className="size">10 US</a>
-                    <a href="https://www.glab.vn/product/detail/7068-nike-dunk-low-retro-white-black-2021?size=10.5 US"
-                       className="size">10.5 US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/7068-nike-dunk-low-retro-white-black-2021">Nike Dunk Low
-                    Retro White Black (2021)</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 4,500,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/7971-nike-dunk-low-se-gs-free-99-white">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2021/05/24/480x320/60ab7a3bbb53d.jpg"
-                       alt="Nike  Dunk Low SE GS Free 99 White" title="Nike  Dunk Low SE GS Free 99 White"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/7971-nike-dunk-low-se-gs-free-99-white?size=4Y"
-                       className="size">4Y</a>
-                    <a href="https://www.glab.vn/product/detail/7971-nike-dunk-low-se-gs-free-99-white?size=5Y"
-                       className="size">5Y</a>
-                    <a href="https://www.glab.vn/product/detail/7971-nike-dunk-low-se-gs-free-99-white?size=5.5Y"
-                       className="size">5.5Y</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/7971-nike-dunk-low-se-gs-free-99-white">Nike Dunk Low SE GS
-                    Free 99 White</a></p>
-
-                  <p className="product-price">
-
-                    <span className="price-decoration">đ 4,800,000</span><br/>
-                    <span>đ 3,300,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/7009-air-jordan-1-low-black-siren-red-w">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2021/01/19/480x320/6006e45216668.jpg"
-                       alt="Air Jordan 1 Low Black Siren Red (W)" title="Air Jordan 1 Low Black Siren Red (W)"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/7009-air-jordan-1-low-black-siren-red-w?size=5.5W US"
-                       className="size">5.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/7009-air-jordan-1-low-black-siren-red-w?size=7W US"
-                       className="size">7W US</a>
-                    <a href="https://www.glab.vn/product/detail/7009-air-jordan-1-low-black-siren-red-w?size=7.5W US"
-                       className="size">7.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/7009-air-jordan-1-low-black-siren-red-w?size=11W US"
-                       className="size">11W US</a>
-                    <a href="https://www.glab.vn/product/detail/7009-air-jordan-1-low-black-siren-red-w?size=11.5W US"
-                       className="size">11.5W US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/7009-air-jordan-1-low-black-siren-red-w">Air Jordan 1 Low
-                    Black Siren Red (W)</a></p>
-
-                  <p className="product-price">
-
-                    <span className="price-decoration">đ 5,400,000</span><br/>
-                    <span>đ 3,000,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a
-                href="https://www.glab.vn/product/detail/9451-nike-wmns-air-force-1-low-07-essential-white-blue-paisley">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/04/04/480x320/624ac798d4426.jpg"
-                       alt="Nike WMNS Air Force 1 Low '07 Essential White Blue Paisley"
-                       title="Nike WMNS Air Force 1 Low '07 Essential White Blue Paisley"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a
-                      href="https://www.glab.vn/product/detail/9451-nike-wmns-air-force-1-low-07-essential-white-blue-paisley?size=5.5W US"
-                      className="size">5.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/9451-nike-wmns-air-force-1-low-07-essential-white-blue-paisley?size=6W US"
-                      className="size">6W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/9451-nike-wmns-air-force-1-low-07-essential-white-blue-paisley?size=7W US"
-                      className="size">7W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/9451-nike-wmns-air-force-1-low-07-essential-white-blue-paisley?size=7.5W US"
-                      className="size">7.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/9451-nike-wmns-air-force-1-low-07-essential-white-blue-paisley?size=8W US"
-                      className="size">8W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/9451-nike-wmns-air-force-1-low-07-essential-white-blue-paisley?size=8.5W US"
-                      className="size">8.5W US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/9451-nike-wmns-air-force-1-low-07-essential-white-blue-paisley">Nike
-                    WMNS Air Force 1 Low '07 Essential White Blue Paisley</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 4,000,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/9744-air-jordan-1-low-shadow-toe-gs">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/05/13/480x320/627e4d5cebce2.jpg"
-                       alt="Air Jordan 1 Low Shadow Toe (GS)" title="Air Jordan 1 Low Shadow Toe (GS)"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/9744-air-jordan-1-low-shadow-toe-gs?size=4Y"
-                       className="size">4Y</a>
-                    <a href="https://www.glab.vn/product/detail/9744-air-jordan-1-low-shadow-toe-gs?size=5Y"
-                       className="size">5Y</a>
-                    <a href="https://www.glab.vn/product/detail/9744-air-jordan-1-low-shadow-toe-gs?size=5.5Y"
-                       className="size">5.5Y</a>
-                    <a href="https://www.glab.vn/product/detail/9744-air-jordan-1-low-shadow-toe-gs?size=6Y"
-                       className="size">6Y</a>
-                    <a href="https://www.glab.vn/product/detail/9744-air-jordan-1-low-shadow-toe-gs?size=6.5Y"
-                       className="size">6.5Y</a>
-                    <a href="https://www.glab.vn/product/detail/9744-air-jordan-1-low-shadow-toe-gs?size=7Y"
-                       className="size">7Y</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/9744-air-jordan-1-low-shadow-toe-gs">Air Jordan 1 Low
-                    Shadow Toe (GS)</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 5,300,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/07/06/480x320/62c5617322f30.jpg"
-                       alt="Air Jordan 1 Low Vintage Grey (GS)" title="Air Jordan 1 Low Vintage Grey (GS)"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs?size=3.5Y"
-                       className="size">3.5Y</a>
-                    <a href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs?size=4Y"
-                       className="size">4Y</a>
-                    <a href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs?size=4.5Y"
-                       className="size">4.5Y</a>
-                    <a href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs?size=5Y"
-                       className="size">5Y</a>
-                    <a href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs?size=5.5Y"
-                       className="size">5.5Y</a>
-                    <a href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs?size=6Y"
-                       className="size">6Y</a>
-                    <a href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs?size=7Y"
-                       className="size">7Y</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/10196-air-jordan-1-low-vintage-grey-gs">Air Jordan 1 Low
-                    Vintage Grey (GS)</a></p>
-
-                  <p className="product-price">
-
-                    <span className="price-decoration">đ 4,200,000</span><br/>
-                    <span>đ 3,700,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/11/02/480x320/636263dd7c2f3.jpg"
-                       alt="Wmns Air Jordan 1 Low Aluminum" title="Wmns Air Jordan 1 Low Aluminum"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=5.5W US"
-                       className="size">5.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=6W US"
-                       className="size">6W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=6.5W US"
-                       className="size">6.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=7W US"
-                       className="size">7W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=7.5W US"
-                       className="size">7.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=8W US"
-                       className="size">8W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=10W US"
-                       className="size">10W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=10.5W US"
-                       className="size">10.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=11W US"
-                       className="size">11W US</a>
-                    <a href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum?size=11.5W US"
-                       className="size">11.5W US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/11041-wmns-air-jordan-1-low-aluminum">Wmns Air Jordan 1 Low
-                    Aluminum</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 4,500,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/8887-nike-wmns-air-force-1-low-shadow-sail-pink-glaze">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/01/13/480x320/61e000afdf7f1.jpg"
-                       alt="Nike WMNS Air Force 1 Low Shadow Sail Pink Glaze "
-                       title="Nike WMNS Air Force 1 Low Shadow Sail Pink Glaze " style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a
-                      href="https://www.glab.vn/product/detail/8887-nike-wmns-air-force-1-low-shadow-sail-pink-glaze?size=5W US"
-                      className="size">5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/8887-nike-wmns-air-force-1-low-shadow-sail-pink-glaze?size=6.5W US"
-                      className="size">6.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/8887-nike-wmns-air-force-1-low-shadow-sail-pink-glaze?size=7.5W US"
-                      className="size">7.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/8887-nike-wmns-air-force-1-low-shadow-sail-pink-glaze?size=8W US"
-                      className="size">8W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/8887-nike-wmns-air-force-1-low-shadow-sail-pink-glaze?size=8.5W US"
-                      className="size">8.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/8887-nike-wmns-air-force-1-low-shadow-sail-pink-glaze?size=9W US"
-                      className="size">9W US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/8887-nike-wmns-air-force-1-low-shadow-sail-pink-glaze">Nike
-                    WMNS Air Force 1 Low Shadow Sail Pink Glaze </a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 3,800,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/10892-air-jordan-1-low-triple-white-2022">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/10/04/480x320/633bf1ee24304.jpg"
-                       alt="Air Jordan 1 Low Triple White (2022)" title="Air Jordan 1 Low Triple White (2022)"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/10892-air-jordan-1-low-triple-white-2022?size=10.5 US"
-                       className="size">10.5 US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/10892-air-jordan-1-low-triple-white-2022">Air Jordan 1 Low
-                    Triple White (2022)</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 5,000,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/10/05/480x320/633d47bcc471d.jpg"
-                       alt="WMNS Air Jordan 1 Low Triple White (2022)" title="WMNS Air Jordan 1 Low Triple White (2022)"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=5W US"
-                      className="size">5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=5.5W US"
-                      className="size">5.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=6W US"
-                      className="size">6W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=6.5W US"
-                      className="size">6.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=7W US"
-                      className="size">7W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=7.5W US"
-                      className="size">7.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=8W US"
-                      className="size">8W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=8.5W US"
-                      className="size">8.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=9W US"
-                      className="size">9W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=9.5W US"
-                      className="size">9.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=10W US"
-                      className="size">10W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=10.5W US"
-                      className="size">10.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=11W US"
-                      className="size">11W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=11.5W US"
-                      className="size">11.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022?size=12W US"
-                      className="size">12W US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/10904-wmns-air-jordan-1-low-triple-white-2022">WMNS Air
-                    Jordan 1 Low Triple White (2022)</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 3,300,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/9591-wmns-nike-air-force-1-shadow-white-pink-oxford">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/04/25/480x320/62666d96993d8.jpg"
-                       alt="Wmns Nike Air Force 1 Shadow White Pink Oxford"
-                       title="Wmns Nike Air Force 1 Shadow White Pink Oxford" style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a
-                      href="https://www.glab.vn/product/detail/9591-wmns-nike-air-force-1-shadow-white-pink-oxford?size=7.5W US"
-                      className="size">7.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/9591-wmns-nike-air-force-1-shadow-white-pink-oxford?size=8.5W US"
-                      className="size">8.5W US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/9591-wmns-nike-air-force-1-shadow-white-pink-oxford">Wmns
-                    Nike Air Force 1 Shadow White Pink Oxford</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 3,600,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2020/03/19/480x320/5e72e69ade5f6.jpg"
-                       alt="Nike Air Force 1 Shadow Triple White (W)" title="Nike Air Force 1 Shadow Triple White (W)"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a
-                      href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w?size=5.5W US"
-                      className="size">5.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w?size=6W US"
-                       className="size">6W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w?size=6.5W US"
-                      className="size">6.5W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w?size=7.5W US"
-                      className="size">7.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w?size=8W US"
-                       className="size">8W US</a>
-                    <a
-                      href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w?size=8.5W US"
-                      className="size">8.5W US</a>
-                    <a href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w?size=9W US"
-                       className="size">9W US</a>
-                    <a href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w?size=12W US"
-                       className="size">12W US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/4180-nike-air-force-1-shadow-triple-white-w">Nike Air Force
-                    1 Shadow Triple White (W)</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 3,500,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/10559-nike-dunk-low-hot-curry-game-royal-gs">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/08/16/480x320/62fb5aaa22aa9.jpg"
-                       alt="Nike Dunk Low Hot Curry Game Royal (GS)" title="Nike Dunk Low Hot Curry Game Royal (GS)"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/10559-nike-dunk-low-hot-curry-game-royal-gs?size=4Y"
-                       className="size">4Y</a>
-                    <a href="https://www.glab.vn/product/detail/10559-nike-dunk-low-hot-curry-game-royal-gs?size=6Y"
-                       className="size">6Y</a>
-                    <a href="https://www.glab.vn/product/detail/10559-nike-dunk-low-hot-curry-game-royal-gs?size=6.5Y"
-                       className="size">6.5Y</a>
-                    <a href="https://www.glab.vn/product/detail/10559-nike-dunk-low-hot-curry-game-royal-gs?size=7Y"
-                       className="size">7Y</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/10559-nike-dunk-low-hot-curry-game-royal-gs">Nike Dunk Low
-                    Hot Curry Game Royal (GS)</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 3,900,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="product__item">
-            <div className="product__item--pic">
-              <a href="https://www.glab.vn/product/detail/3378-adidas-yeezy-boost-700-wave-runner">
-                <div className="product__img">
-                  <img className="lazy" src="https://glab.vn/storage/products/2022/03/23/480x320/623b1acc698db.jpg"
-                       alt="adidas Yeezy Boost 700 Wave Runner" title="adidas Yeezy Boost 700 Wave Runner"
-                       style={{display: "inline-block"}}/>
-                </div>
-              </a>
-              <div className="product__item--infor">
-                <div className="text-center mgB-5 hide">
-                  <div className="size-item">
-                    <a href="https://www.glab.vn/product/detail/3378-adidas-yeezy-boost-700-wave-runner?size=4.5 US"
-                       className="size">4.5 US</a>
-                    <a href="https://www.glab.vn/product/detail/3378-adidas-yeezy-boost-700-wave-runner?size=5 US"
-                       className="size">5 US</a>
-                  </div>
-                  <p className="text-uper">available size</p>
-                </div>
-
-                <div className="clearfix">
-                  <p className="product-name text-uper"><a
-                    href="https://www.glab.vn/product/detail/3378-adidas-yeezy-boost-700-wave-runner">adidas Yeezy Boost
-                    700 Wave Runner</a></p>
-
-                  <p className="product-price">
-
-                    <span>đ 9,000,000</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
-      <div className="text-center">
-
-
-        <a href="https://www.glab.vn/product/footwear?page=2&amp;category=footwear"
-           className="btn-see-more ajax text-uper">see more</a>
-      </div>
+      {itemInCategory.length > 9 ?
+        <div className="text-center" onClick={() => navigate(`/product/${index.category.CatName}`)}>
+          <a className="btn-see-more text-uper">see more</a>
+        </div>
+        : ""
+      }
 
     </div>
   )

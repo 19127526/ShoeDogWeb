@@ -36,8 +36,8 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img})=>{
               onClick={()=>navigate("/detail")}>{name}</a>
             </p>
             <p className="product-price">
-              {priceNonDiscount===null?"":<><span className="price-decoration">{priceNonDiscount} VNĐ</span><br/></>}
-              <span>{priceDiscount} VNĐ</span>
+              {priceNonDiscount===null?"":<><span className="price-decoration">{priceNonDiscount.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</span><br/></>}
+              <span>{priceDiscount.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</span>
             </p>
           </div>
         </div>

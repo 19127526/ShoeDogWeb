@@ -1,6 +1,6 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {convertArrayToOptions, getBase64} from "../../utils/Utils";
-import {Image, InputNumber, Select} from "antd";
+import {Image, InputNumber, message, Modal, Select, Upload} from "antd";
 import {useRef, useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
 import JoditEditor from "jodit-react";
@@ -25,7 +25,8 @@ const EditProductPage = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [fileList, setFileList] = useState([]);
+  const [fileImageMainList, setFileImageMainList] = useState([]);
+  const [fileImageSubList, setFileImageSubList] = useState([]);
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -35,8 +36,12 @@ const EditProductPage = () => {
     setPreviewOpen(true);
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
   };
-  const handleChange = ({fileList: newFileList}) => {
-    setFileList(newFileList)
+  const handleChangeMain = ({fileList: newFileList}) => {
+    setFileImageMainList(newFileList)
+  };
+
+  const handleChangeSub = ({fileList: newFileList}) => {
+    setFileImageSubList(newFileList)
   };
 
   function localStringToNumber( s ){
@@ -225,9 +230,30 @@ const EditProductPage = () => {
             <label className="col-sm-3 form-control-label text-xs-right"> Hình ảnh chính: </label>
             <div className="col-sm-9">
               <div className="images-container">
-                <Image.PreviewGroup>
-                  <Image width={200} src={index.ImageMain}/>
-                </Image.PreviewGroup>
+                <Upload
+                  listType="picture-card"
+                  fileList={fileImageMainList}
+                  onPreview={handlePreview}
+                  onChange={handleChangeMain}
+                  beforeUpload={(file) => {
+                    const isPNG = file.type === 'image/png' || file.type === 'image/jpeg'||file.type==='image/svg+xml';
+                    if (!isPNG) {
+                      message.error(`${file.name} is not a png, svg and jpeg file`);
+                    }
+                    return false;
+                  }}
+                >
+                  { uploadButton}
+                </Upload>
+                <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+                  <img
+                    alt="example"
+                    style={{
+                      width: '100%',
+                    }}
+                    src={previewImage}
+                  />
+                </Modal>
               </div>
             </div>
           </div>
@@ -235,13 +261,37 @@ const EditProductPage = () => {
             <label className="col-sm-3 form-control-label text-xs-right"> Hình ảnh phụ: </label>
             <div className="col-sm-9">
               <div className="images-container">
-                <Image.PreviewGroup>
-                  <Image width={200} src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"/>
-                  <Image
-                    width={200}
-                    src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
+                <Upload
+                  listType="picture-card"
+                  fileList={fileImageSubList}
+                  onPreview={handlePreview}
+                  onChange={handleChangeSub}
+                  multiple={true}
+                  beforeUpload={(file) => {
+                    const isPNG = file.type === 'image/png' || file.type === 'image/jpeg'||file.type==='image/svg+xml';
+                    if (!isPNG) {
+                      message.error(`${file.name} is not a png, svg and jpeg file`);
+                    }
+                    return false;
+                  }}
+                >
+                  { uploadButton}
+                </Upload>
+                <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+                  <img
+                    alt="example"
+                    style={{
+                      width: '100%',
+                    }}
+                    src={previewImage}
                   />
-                </Image.PreviewGroup>
+                </Modal>
+              </div>
+              <div className="form-group row">
+                <div className="col-sm-10 col-sm-offset-2 "
+                     style={{display: "flex", justifyContent: "center", width: "100%", marginLeft: "50px"}}>
+                  <button type="submit" id="post" className="btn btn-primary"> Chỉnh sửa sản phẩm</button>
+                </div>
               </div>
             </div>
           </div>

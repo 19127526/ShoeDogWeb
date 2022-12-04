@@ -6,7 +6,9 @@ const request = axios.create({
   baseURL: SERVER_URL,
 });
 
-
+request.interceptors.request.use(index=>{
+  return index;
+})
 request.interceptors.response.use(
   async (response) => {
     return response;
