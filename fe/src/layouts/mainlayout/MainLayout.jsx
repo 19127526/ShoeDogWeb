@@ -76,7 +76,7 @@ const MainLayout = () => {
         </form>
       </div>
       <HeaderComponent categoryList={categories} searchButton={()=>setSearchButton(!searchButton)}  />
-      <Content>
+      <Content style={{minHeight:"50px"}}>
         <RoutesPage/>
         <BackTop >
           <BackTopComponent/>
