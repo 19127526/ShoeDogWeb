@@ -4,7 +4,7 @@ const FooterComponent=()=>{
   return (
     <footer className="clearfix">
       <div className="footer__logo">
-      <a href="https://www.glab.vn"><img src={logo} alt="" /></a>
+      <a><img src={logo} alt="" /></a>
       </div>
       <div className="row">
         <div className="col-sm-12">

@@ -109,11 +109,6 @@ const ProductListPage = () => {
                 <span>Ngày đăng</span>
               </div>
             </div>
-
-
-
-
-
           </div>
         </li>
         {

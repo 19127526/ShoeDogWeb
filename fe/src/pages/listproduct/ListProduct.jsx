@@ -5,6 +5,8 @@ import Notification from "../../components/notification/Notification";
 import * as constraintNotification from "../../components/notification/Notification.constraints";
 import CardComponent from "../../components/card/CardComponent";
 import LoadingComponent from "../../components/loading/LoadingComponent";
+import {useDispatch} from "react-redux";
+import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 
 const ListProduct = () => {
   const [filterButton, setFilterButton] = useState(false);
@@ -12,8 +14,10 @@ const ListProduct = () => {
   const {product} = useParams();
   const [loading,setLoading]=useState(false)
   const [itemInCategory, setItemInCategory] = useState([]);
+  const dispatch=useDispatch();
   useEffect(() => {
     const getListProductByCatId2 = async () => {
+      dispatch(turnOnLoading())
       await getListProductsByCatId(product)
         .then(res => {
           if (res.data.status === 'success') {
@@ -26,6 +30,9 @@ const ListProduct = () => {
         })
         .catch(err => {
           Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+        })
+        .finally(()=>{
+          dispatch(turnOffLoading())
         })
     }
     getListProductByCatId2()

@@ -6,13 +6,18 @@
     position: fixed;
     z-index: 100;
     top: calc(50% - 40px);
-    left: calc(50% - 40px);
+    left: calc(45% - 40px);
 }
+
 
 .loader p{
     height: 100%;
-    width: 100px;
+    width: 160px;
     position: fixed;
+    color: #0c0c0c;
+
+    font-size: 15px;
+    font-weight: bold;
     z-index: 100;
    text-align: center;
 
