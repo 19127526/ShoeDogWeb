@@ -12,6 +12,8 @@ import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout
 import ErrorPage from "../error/ErrorPage";
 import Parser from 'html-react-parser';
 import {Image} from "antd";
+import { useElementSize } from 'use-element-size'
+
 
 const DetailPage = () => {
   const [detailProduct,setDetailProduct]=useState();
@@ -25,14 +27,12 @@ const DetailPage = () => {
   const [sizeList,setSizeList]=useState([]);
   const [colorList,setColorList]=useState([]);
   const [empty,setEmpty]=useState(false);
+  const ref = useElementSize((size, prevSize, elem) => {
+    getWindowWidth().innerWidth>784?setHeight(size.height):setHeight(339)
+  })
   for (let i = 0; i < 10; i++) {
     a.push(CardComponent);
   }
-  useEffect(()=>{
-    console.log(useRefDetailImg.current?.offsetHeight)
-    getWindowWidth().innerWidth>784?setHeight(useRefDetailImg.current.offsetHeight):setHeight(339)
-  },[useRefDetailImg.current?.offsetHeight])
-
   useEffect(()=>{
     const getDetailProduct=()=>{
       dispatch(turnOnLoading())
@@ -60,6 +60,9 @@ const DetailPage = () => {
     }
     getDetailProduct();
   },[proId]);
+  
+
+
 
   if(empty===true){
     return (<ErrorPage/>)
@@ -68,7 +71,7 @@ const DetailPage = () => {
     <div id="container">
       <div className="container detail">
         <div className="detailInner clearfix" data-sticky_parent="" >
-          <div className="detail__img"  ref={useRefDetailImg} >
+          <div className="detail__img"  ref={ref} >
             <div className="main-slide-detail" >
               <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
                         autoFocus={true} emulateTouch={true} >
@@ -76,7 +79,7 @@ const DetailPage = () => {
                   <img  src={detailProduct?.ImageMain}/>
                 </div>
                 {imageSubArray.map(index => (
-                  <div>
+                  <div >
                     <img src={index}/>
                   </div>
                 ))}
@@ -177,8 +180,8 @@ const DetailPage = () => {
                   <div className="detail__desc--intro">
                     <p className="title__detailproduct">Chi tiết sản phẩm</p>
                     <div className="color-7c7c7c mgB-5">
-                      <div dangerouslySetInnerHTML={{__html: detailProduct?.Des}} />
-
+                      {/*<div dangerouslySetInnerHTML={{__html: detailProduct?.Des}} />
+*/}
                       <div className="alert alert-danger alert-dismissable alert-used hide">
                         <button type="button" className="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h4><i className="icon fa fa-ban"></i> Alert!</h4>

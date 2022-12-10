@@ -2,7 +2,7 @@ import CardComponent from "../../components/card/CardComponent";
 import SlideComponent from "../../components/slide/SlideComponent";
 import "./HomePage.css"
 import {useNavigate} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {getListCategories} from "../../apis/categories/CategoriesApi";
 import * as constraintNotification from "../../components/notification/Notification.constraints";
 import Notification from "../../components/notification/Notification";
@@ -60,7 +60,6 @@ const HomePage = () => {
         })
     }
     getListCategory()
-
   }, [])
 
   return (
