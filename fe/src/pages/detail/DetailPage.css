@@ -1,12 +1,29 @@
-.main-slide{
+.main-slide-detail{
     padding-top: 30px;
+    padding-right: 30px;
 }
-.carousel .slide-wrapper{
-    width: 50%;
+
+.carousel  {
+    width:50vw
+}
+.main-slide-detail>.carousel-root>.carousel>.slider-wrapper{
+    width: 50vw;
 }
 .carousel .thumb{
-    width: 5%;
-    height:50px
+    width: 8%!important;
+    height:10%
+}
+@media (max-width: 768px) {
+    .carousel .thumb{
+        width: 14%!important;
+    }
+    .carousel .slider-wrapper {
+        width:80vw
+    }
+    .main-slide{
+        padding-top: 30px;
+        padding-right: 0;
+    }
 }
 .carousel{
     text-align: center;

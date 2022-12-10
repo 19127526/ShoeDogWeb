@@ -1,37 +1,28 @@
 import logo from '../../assets/themes/icons/faviconFooter.svg';
-
+import "./FooterComponent.css"
 const FooterComponent=()=>{
   return (
     <footer className="clearfix">
       <div className="footer__logo">
-      <a><img src={logo} alt="" /></a>
+      <a><img src={logo} alt="" className="img-footer"/></a>
       </div>
       <div className="row">
         <div className="col-sm-12">
           <div className="row">
-            <div className="col-sm-4 col-xs-4">
+            <div className="col-sm-6 col-xs-6">
               <div className="items__footer">
-                <p className="item__title">Service &amp; Support</p>
-                <p><a href="">glabvn@gmail.com</a></p>
-                <p><a href="">+84945378809</a></p>
-                <p><a href="https://goo.gl/maps/nFxWKN4ihUWKviNT6">Locations</a></p>
+                <p className="item__title">Thông tin liên hệ</p>
+                <p style={{color:"whitesmoke"}}>CN 1: 666/4 Đường 3/2, phường 14, quận 10</p>
+                <p style={{color:"whitesmoke"}}>CN 2: 86/118 Trường Chinh , P12 , Q.Tân Bình</p>
+                <p style={{color:"whitesmoke"}}>Hotline: 0865414134</p>
               </div>
             </div>
-            <div className="col-sm-4 col-xs-4">
+            <div className="col-sm-6 col-xs-6">
               <div className="items__footer">
-                <p className="item__title">Info</p>
-                <p><a href="https://www.glab.vn/page/consignment-term">Consignment Terms</a></p>
-                <p><a href="https://www.glab.vn/page/about">Connect with Us</a></p>
-                <p><a href="https://www.glab.vn/page/delivery-return">Delivery and Returns</a></p>
-                <p><a href="https://www.glab.vn/page/faq">FAQs</a></p>
-              </div>
-            </div>
-            <div className="col-sm-4 col-xs-4">
-              <div className="items__footer">
-                <p className="item__title">Follow Us</p>
-                <p><a href="https://www.facebook.com/glab.vn/">Facebook</a></p>
-                <p><a href="https://www.instagram.com/glab.vn/">Instagram</a></p>
-                <p><a href="https://www.youtube.com/user/giaytv">Youtube</a></p>
+                <p className="item__title">Kết nối fanpage</p>
+                <p style={{color:"whitesmoke"}}>Email: Shoedogsneakers@gmail.com</p>
+                <p style={{color:"whitesmoke"}}>Website: www.shoedog.vn</p>
+                <p style={{color:"whitesmoke"}}>Instagram: www.instagram.com/shoedog.vn_/</p>
               </div>
             </div>
           </div>
@@ -41,23 +32,23 @@ const FooterComponent=()=>{
 
       <div className="container hide">
         <div className="footer__left">
-          <a href=""><img src="/themes/v1/icons/logo-footer.svg"/></a>
+          <a ><img src="/themes/v1/icons/logo-footer.svg"/></a>
         </div>
         <div className="footer__menu">
           <ul>
-            <li><a href="">home</a></li>
-            <li><a href="">store</a></li>
-            <li><a href="">CONSIGNMENT</a></li>
-            <li><a href="https://www.glab.vn/page/about">CONNECT WITH US</a></li>
-            <li><a href="">LOCATION</a></li>
-            <li><a href="">POLICY &amp; TERM</a></li>
+            <li><a >home</a></li>
+            <li><a >store</a></li>
+            <li><a >CONSIGNMENT</a></li>
+            <li><a >CONNECT WITH US</a></li>
+            <li><a >LOCATION</a></li>
+            <li><a >POLICY &amp; TERM</a></li>
           </ul>
 
         </div>
         <div className="footer__right">
 
-          <div className="footer__right__social"><a href=""><span className="icon-facebook2"></span></a><a href=""><span
-            className="icon-306026"></span></a><a href=""><span className="icon-play"></span></a>
+          <div className="footer__right__social"><a ><span className="icon-facebook2"></span></a><a ><span
+            className="icon-306026"></span></a><a ><span className="icon-play"></span></a>
           </div>
           <form id="frm-email" className="">
             <div className="frm-icon">

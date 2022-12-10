@@ -8,7 +8,7 @@ const ProductDetailPage = (prop) => {
   const navigate = useNavigate();
   let location = useLocation();
   let index=location.state.index;
-  console.log(index)
+  const imageSubArray=convertArrayToOptions(index.ImageArray,", ");
   const optionsSize =[]
   const optionsColor =[];
   if(index.Size===null){
@@ -29,7 +29,6 @@ const ProductDetailPage = (prop) => {
       value: convertArrayToOptions(index.Color)[i],
     });
   }
-  console.log(index)
   return (
     <>
       <article className="content item-editor-page">
@@ -186,11 +185,10 @@ const ProductDetailPage = (prop) => {
             <div className="col-sm-9">
               <div className="images-container">
                 <Image.PreviewGroup>
-                  <Image width={200} src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"/>
-                  <Image
-                    width={200}
-                    src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
-                  />
+                  {imageSubArray.map(index=>(
+                    <Image width={200} src={index}/>
+                    )
+                  )}
                 </Image.PreviewGroup>
               </div>
             </div>

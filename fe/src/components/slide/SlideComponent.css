@@ -2,8 +2,9 @@
     padding-top: 30px;
 }
 .carousel .slide-wrapper{
-    width: 50%;
+    width: 50% !important;
 }
+
 .carousel .thumb{
     width: 5%;
     height:50px
@@ -17,6 +18,7 @@
     height: 416px;
     object-fit:cover;
 }
+
 @media (max-width: 768px) {
     .carousel-image img{
         object-fit:fill;

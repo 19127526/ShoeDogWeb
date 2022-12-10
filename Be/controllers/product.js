@@ -21,6 +21,32 @@ exports.getProductsById=async (req,res)=>{
     }
 }
 
+exports.searchProduct=async (req,res)=>{
+    try{
+        const products=await product.searchProducts(req.body.productName);
+        return res.status(200).json({"status": "success", "data": products});
+    }
+    catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.getDetailProductByProId=async (req,res)=>{
+    try{
+        const id = req.params.id;
+        const result = await product.getDetailProductsByProId(id);
+        if(result.length==0){
+            return res.status(200).json({"status": "empty", "message": result});
+        }
+        else{
+            return res.status(200).json({"status": "success", "data": result});
+        }
+    }catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+
+}
+
 exports.addProduct = async (req, res) => {
     try{
         const product = req.body;
@@ -34,6 +60,7 @@ exports.addProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
     try{
         const id = req.body.id;
+        console.log(req.body.id)
         const result = await product.deleteProduct(id);
         return res.status(200).json({"status": "success", "data": result});
     }catch (e) {

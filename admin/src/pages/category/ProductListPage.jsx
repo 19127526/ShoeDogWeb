@@ -8,7 +8,8 @@ import {ADD_NEW_PRODUCT} from "../../configs/url";
 
 const ProductListPage = () => {
   const {catId} = useParams();
-  const [item, setItem] = useState([])
+  const [item, setItem] = useState([]);
+  const [loading,setLoading]=useState(false);
   useEffect(() => {
     const getListItemByCatId = async () => {
       await getListProductsByCatId(catId || null)
@@ -24,16 +25,16 @@ const ProductListPage = () => {
         })
     }
     getListItemByCatId();
-  }, [catId]);
+  }, [catId,loading]);
   const navigate = useNavigate();
   return (<article className="content items-list-page">
     <div className="title-search-block">
       <div className="title-block">
         <div className="row">
           <div className="col-md-6">
-            <h3 className="title"> Items
-              <a onClick={() => navigate(`${ADD_NEW_PRODUCT}`)} className="btn btn-primary btn-sm rounded-s"> Add
-                New </a>
+            <h3 className="title"> Sản phẩm &nbsp;
+              <a onClick={() => navigate(`${ADD_NEW_PRODUCT}`)} className="btn btn-primary btn-sm rounded-s"> Thêm mới  </a>
+              &nbsp;
               <div className="action dropdown">
                 <button className="btn  btn-sm rounded-s btn-secondary dropdown-toggle" type="button"
                         id="dropdownMenu1"
@@ -47,7 +48,7 @@ const ProductListPage = () => {
                 </div>
               </div>
             </h3>
-            <p className="title-description"> List of sample items - e.g. books, movies, events, etc... </p>
+            <p className="title-description"> Danh sách sản phẩm </p>
           </div>
         </div>
       </div>
@@ -113,7 +114,7 @@ const ProductListPage = () => {
         </li>
         {
           item.map(index => (
-            <CardComponent index={index}/>
+            <CardComponent index={index} setLoading={()=>setLoading(!loading)}/>
           ))
         }
       </ul>

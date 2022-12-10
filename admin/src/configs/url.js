@@ -5,6 +5,7 @@ export const CLIENT_URL="http://localhost:3000/"
 export const GET_CATEGORIES_URI="category"
 export const GET_PRODUCTS_URI="product"
 export const ADD_CATEGORIES_URI="category/add"
+export const REMOVE_PRODUCT_URI="product/delete"
 
 
 //Client

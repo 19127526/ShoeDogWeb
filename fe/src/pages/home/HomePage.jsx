@@ -63,8 +63,6 @@ const HomePage = () => {
 
   }, [])
 
-
-
   return (
     <>
       <div className="container" ref={resultsRef}>
@@ -83,6 +81,7 @@ const HomePage = () => {
                         <div className="col-lg-4 col-md-6 ">
                           <CardComponent name={u.ProName}
                                          img={u.ImageMain}
+                                         proId={u.ProId}
                                          priceDiscount={u.Price} priceNonDiscount={u.Discount === 0 ? null : u.Discount}/>
                         </div>
                       ))}

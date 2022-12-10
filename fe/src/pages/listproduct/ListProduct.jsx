@@ -7,7 +7,7 @@ import CardComponent from "../../components/card/CardComponent";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
-
+import "./ListProduct.css"
 const ListProduct = () => {
   const [filterButton, setFilterButton] = useState(false);
   const [dropdownButton, setDropdownButton] = useState(false);
@@ -49,10 +49,10 @@ const ListProduct = () => {
     return <LoadingComponent/>
   }
   return (
-    <div className="container" style={{marginTop: "50px"}}>
+    <div className="container container-list-product" >
       <div className="text-center">
         <div className="typeProducts">
-          <div className="row" style={{width: "100%"}}>
+          <div className="row text-title" style={{width: "100%"}}>
             {itemInCategory[0]?.CatName===null?
               <div className="col-xs-12"><h2 style={{textAlign: "center"}}>Nothing</h2></div>
               :
@@ -283,6 +283,7 @@ const ListProduct = () => {
           <div className="col-lg-4 col-md-6">
             <CardComponent name={index.ProName}
                            img={index.ImageMain}
+                           proId={index.ProId}
                            priceDiscount={index.Price} priceNonDiscount={index.Discount === 0 ? null : index.Discount}/>
           </div>
         ))}

@@ -1555,8 +1555,6 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
         margin-bottom: 5px;
     }
     footer {
-        padding-left: 15px;
-        padding-right: 15px;
         margin-top: 20px;
     }
     footer .row {

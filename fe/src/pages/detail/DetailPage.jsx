@@ -1,48 +1,93 @@
 import image from "../../assets/img/62dfdb668b98a.jpg"
 import {ShareAltOutlined} from '@ant-design/icons';
-import {getWindowWidth} from "../../utils/Utils";
+import {convertArrayToOptions, getWindowWidth} from "../../utils/Utils";
 import {Carousel} from "react-responsive-carousel";
 import "./DetailPage.css"
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import CardComponent from "../../components/card/CardComponent";
+import {getDetailProductByProId} from "../../apis/products/ProductsApi";
+import {useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
+import ErrorPage from "../error/ErrorPage";
+import Parser from 'html-react-parser';
+import {Image} from "antd";
 
 const DetailPage = () => {
+  const [detailProduct,setDetailProduct]=useState();
   const useRefDetailImg=useRef(null);
   const [chooseSizeBtn,setChooseSizeBtn]=useState(false);
   const [height,setHeight]=useState();
+  const {proId}=useParams();
   const a = [];
+  const dispatch=useDispatch();
+  const [imageSubArray,setImageSubArray]=useState([]);
+  const [sizeList,setSizeList]=useState([]);
+  const [colorList,setColorList]=useState([]);
+  const [empty,setEmpty]=useState(false);
   for (let i = 0; i < 10; i++) {
     a.push(CardComponent);
   }
   useEffect(()=>{
-    getWindowWidth().innerWidth>784?setHeight(useRefDetailImg.current?.offsetHeight):setHeight(339)
+    console.log(useRefDetailImg.current?.offsetHeight)
+    getWindowWidth().innerWidth>784?setHeight(useRefDetailImg.current.offsetHeight):setHeight(339)
   },[useRefDetailImg.current?.offsetHeight])
+
+  useEffect(()=>{
+    const getDetailProduct=()=>{
+      dispatch(turnOnLoading())
+      setColorList([])
+      setImageSubArray([])
+      getDetailProductByProId(proId||0)
+        .then(res=>{
+          if (res.data.status === 'success') {
+            setDetailProduct(res.data.data[0]);
+            setSizeList(convertArrayToOptions(res.data.data[0].Size,", "));
+            setColorList(convertArrayToOptions(res.data.data[0].Color,", "))
+            setImageSubArray(convertArrayToOptions(res.data.data[0].ImageArray,", "))
+            setEmpty(false);
+          }
+          else if(res.data.status==='empty'){
+            setEmpty(true);
+          }
+        })
+        .catch(err=>{
+          console.log(err);
+        })
+        .finally(()=> {
+          dispatch(turnOffLoading())
+        })
+    }
+    getDetailProduct();
+  },[proId]);
+
+  if(empty===true){
+    return (<ErrorPage/>)
+  }
   return (
     <div id="container">
       <div className="container detail">
         <div className="detailInner clearfix" data-sticky_parent="" >
-          <div className="detail__img"  ref={useRefDetailImg}>
-            <div className="main-slide" >
+          <div className="detail__img"  ref={useRefDetailImg} >
+            <div className="main-slide-detail" >
               <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
-                        autoFocus={true} emulateTouch={true}>
+                        autoFocus={true} emulateTouch={true} >
                 <div>
+                  <img  src={detailProduct?.ImageMain}/>
+                </div>
+                {imageSubArray.map(index => (
+                  <div>
+                    <img src={index}/>
+                  </div>
+                ))}
+              {/*  <div>
                   <img src={image}/>
                 </div>
                 <div>
-                  <img src={image}/>
-                </div>
-                <div>
-                  <img src={image}/>
-                </div>
-                <div>
-                  <img src={image}/>
-                </div>
-                <div>
-                  <img src={image}/>
-                </div>
-                <div>
-                  <img src={image}/>
-                </div>
+                  <img className="detail-image" src={detailProduct?.ImageMain}/>
+                </div>*/}
+
+
               </Carousel>
             </div>
             <ul className="breakcum hide">
@@ -58,7 +103,7 @@ const DetailPage = () => {
               </ul>
             </div>
           </div>
-            <div className="detail__desc" style={{height:height}}>
+            <div className="detail__desc" style={{height: height}}>
               <div className="detail__desc--inner">
                 <div className="detail__desc--fix">
                   <ul className="breakcum hide">
@@ -68,9 +113,9 @@ const DetailPage = () => {
                     <li><span>/</span></li>
                     <li>Nike Dunk Low SB 'Pink Pig'</li>
                   </ul>
-                  <p className="color7c7c7c font-700 fs-14"><a href="https://www.glab.vn/product?brand=nike">Nike</a>
+                  <p className="color7c7c7c font-700 fs-14"><a href="https://www.glab.vn/product?brand=nike">Mã sản phẩm: {detailProduct?.Inventory}</a>
                   </p>
-                  <p className="text-uper font-500  fs-24 mgB-0 lh-40 mgB-20">Nike Dunk Low SB 'Pink Pig'</p>
+                  <p className="text-uper font-500  fs-24 mgB-0 lh-40 mgB-20">{detailProduct?.ProName}</p>
                   <div className="mgB-20">
                     <div className="dropdownChooseSize">
                         <a onClick={()=>setChooseSizeBtn(!chooseSizeBtn)} className={chooseSizeBtn===true?"val-selected clearfix active":"val-selected clearfix"}>
@@ -80,16 +125,18 @@ const DetailPage = () => {
                         <div className={chooseSizeBtn===true?"chooseSize active": "chooseSize"}>
                           <div className="chooseSizeInner">
                             <ul>
-                              <li data-size="9.5 US">
-                                <a href="">
-                                  <span className="pull-right detail__price">7,600,000 đ</span>
-                                  <span className="detail__size" data-size="12" data-size-value="9.5 US"
-                                        data-price="7600000.0000" data-new-status="1.00"
-                                        data-product="eyJpdiI6IjZndDkwQ1pwQ2JWVEFWTHFjU0hRSFE9PSIsInZhbHVlIjoiZXVZYmZuWXkybmsyeVVxVWhmc3JFUT09IiwibWFjIjoiM2E4MTM0N2NlNTZmOWZhNTdlNDRiYmJjOGY4NjFlMTdiYWJhYTZmOWNhZjY5NmQzZTA3NDBlMWEzOTVjMTI0OCJ9">
-                                                                        9.5 US - New
-                                                                </span>
-                                </a>
-                              </li>
+                              {sizeList.map(index=>(
+                                <li>
+                                  <a>
+                                  <span className="pull-right detail__price">
+                                    {detailProduct?.Price.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}
+                                  </span>
+                                    <span className="detail__size" >
+                                      {index}
+                                  </span>
+                                  </a>
+                                </li>
+                              ))}
                             </ul>
                             <input type="hidden" name="size" id="val-size" value=""/>
                             <input type="hidden" name="sizeValue" id="val-sizeValue" value=""/>
@@ -99,7 +146,7 @@ const DetailPage = () => {
                             <input type="hidden" name="quantity" value="1"/>
                           </div>
                         </div>
-                        <button type="submit" className="btn-buy text-uper">add to cart</button>
+                        <button type="submit" className="btn-buy text-uper">Thêm vào giỏ hàng</button>
                     </div>
                   </div>
                   <div className="shareWrap">
@@ -128,13 +175,9 @@ const DetailPage = () => {
                     </div>
                   </div>
                   <div className="detail__desc--intro">
-                    <p className="title__detailproduct">Detail</p>
+                    <p className="title__detailproduct">Chi tiết sản phẩm</p>
                     <div className="color-7c7c7c mgB-5">
-                      <p>
-                        <label>SKU</label>
-                        CV1655-600
-                      </p>
-                      Nike Dunk Low SB 'Pink Pig'
+                      <div dangerouslySetInnerHTML={{__html: detailProduct?.Des}} />
 
                       <div className="alert alert-danger alert-dismissable alert-used hide">
                         <button type="button" className="close" data-dismiss="alert" aria-hidden="true">×</button>

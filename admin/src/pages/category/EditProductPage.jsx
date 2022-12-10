@@ -93,6 +93,7 @@ const EditProductPage = () => {
       value: convertArrayToOptions(index.Color)[i],
     });
   }
+  console.log(valueEditorMain)
 
 
   return (<>
@@ -146,7 +147,7 @@ const EditProductPage = () => {
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả ngắn</label>
             <div className="col-sm-9">
-              <JoditEditor className="form-control boxed" ref={editor} onChange={content => setValueEditorSub(content)}
+              <JoditEditor className="form-control boxed" tabIndex={1} ref={editor} onChange={content => setValueEditorSub(content)}
                            value={index.ShortDes}/>
             </div>
           </div>
