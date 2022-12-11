@@ -1,5 +1,5 @@
 import image from "../../assets/img/62dfdb668b98a.jpg"
-import {ShareAltOutlined} from '@ant-design/icons';
+import {CloseCircleOutlined, ShareAltOutlined} from '@ant-design/icons';
 import {convertArrayToOptions, getWindowWidth} from "../../utils/Utils";
 import {Carousel} from "react-responsive-carousel";
 import "./DetailPage.css"
@@ -13,7 +13,7 @@ import ErrorPage from "../error/ErrorPage";
 import Parser from 'html-react-parser';
 import {Image} from "antd";
 import { useElementSize } from 'use-element-size'
-
+import {  message } from 'antd';
 
 const DetailPage = () => {
   const [detailProduct,setDetailProduct]=useState();
@@ -27,6 +27,11 @@ const DetailPage = () => {
   const [sizeList,setSizeList]=useState([]);
   const [colorList,setColorList]=useState([]);
   const [empty,setEmpty]=useState(false);
+  const [chooseSizeSuccess,setChooseSizeSuccess]=useState({
+    size:null,
+    price:null
+  });
+
   const ref = useElementSize((size, prevSize, elem) => {
     getWindowWidth().innerWidth>784?setHeight(size.height):setHeight(339)
   })
@@ -61,24 +66,42 @@ const DetailPage = () => {
     getDetailProduct();
   },[proId]);
   
+  const setChooseSize=(index,price)=>{
+    console.log(index,price)
+    setChooseSizeSuccess({
+      size: index,
+      price: price
+    })
+  }
 
+  const addProductToCart=()=>{
+    console.log(chooseSizeSuccess)
+    if(chooseSizeSuccess.size===null &&chooseSizeSuccess.price===null){
+      message.info('Vui lòng chọn size trước khi thêm vào giỏ hàng');
+    }
+    else{
+
+    }
+  }
 
 
   if(empty===true){
     return (<ErrorPage/>)
   }
   return (
+    <>
+
     <div id="container">
       <div className="container detail">
         <div className="detailInner clearfix" data-sticky_parent="" >
-          <div className="detail__img"  ref={ref} >
+          <div className="detail__img"  ref={ref} style={{border:"1 solid white"}}>
             <div className="main-slide-detail" >
               <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
                         autoFocus={true} emulateTouch={true} >
                 <div>
                   <img  src={detailProduct?.ImageMain}/>
                 </div>
-                {imageSubArray.map(index => (
+                {imageSubArray?.map(index => (
                   <div >
                     <img src={index}/>
                   </div>
@@ -93,13 +116,6 @@ const DetailPage = () => {
 
               </Carousel>
             </div>
-            <ul className="breakcum hide">
-              <li><a href="https://www.glab.vn">home</a></li>
-              <li><span>/</span></li>
-              <li><a href="https://www.glab.vn/product?category=footwear">footwear</a></li>
-              <li><span>/</span></li>
-              <li>Nike Dunk Low SB 'Pink Pig'</li>
-            </ul>
             <div className="slidedetail__pagi hide" style={{display: "block"}}>
               <ul>
                 <li><a href=""><span></span></a></li>
@@ -109,13 +125,6 @@ const DetailPage = () => {
             <div className="detail__desc" style={{height: height}}>
               <div className="detail__desc--inner">
                 <div className="detail__desc--fix">
-                  <ul className="breakcum hide">
-                    <li><a href="https://www.glab.vn">home</a></li>
-                    <li><span>/</span></li>
-                    <li><a href="https://www.glab.vn/product?category=footwear">footwear</a></li>
-                    <li><span>/</span></li>
-                    <li>Nike Dunk Low SB 'Pink Pig'</li>
-                  </ul>
                   <p className="color7c7c7c font-700 fs-14"><a href="https://www.glab.vn/product?brand=nike">Mã sản phẩm: {detailProduct?.Inventory}</a>
                   </p>
                   <p className="text-uper font-500  fs-24 mgB-0 lh-40 mgB-20">{detailProduct?.ProName}</p>
@@ -123,19 +132,30 @@ const DetailPage = () => {
                     <div className="dropdownChooseSize">
                         <a onClick={()=>setChooseSizeBtn(!chooseSizeBtn)} className={chooseSizeBtn===true?"val-selected clearfix active":"val-selected clearfix"}>
                           <span className="icon-uniF140"></span>
-                          <div className="get-val clearfix">choose your size</div>
+                          <div className="get-val clearfix">
+
+                            {chooseSizeSuccess.size===null? <span className="txtSize">Chọn size</span>:
+                              <div className="get-val clearfix">
+                                <span className="icon-uniF335" onClick={()=>{setChooseSizeSuccess({size: null,price: null})}}></span>
+                                <span className="txtPrice">{chooseSizeSuccess.price.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</span>
+                                <span className="txtSize">Size {chooseSizeSuccess.size}</span>
+                              </div>
+                            }
+                          </div>
                         </a>
+
+
                         <div className={chooseSizeBtn===true?"chooseSize active": "chooseSize"}>
                           <div className="chooseSizeInner">
                             <ul>
                               {sizeList.map(index=>(
-                                <li>
+                                <li onClick={()=>setChooseSize(index,detailProduct?.TotalPrice )}>
                                   <a>
                                   <span className="pull-right detail__price">
-                                    {detailProduct?.Price.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}
+                                    {detailProduct?.TotalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}
                                   </span>
                                     <span className="detail__size" >
-                                      {index}
+                                      Size {index}
                                   </span>
                                   </a>
                                 </li>
@@ -149,7 +169,7 @@ const DetailPage = () => {
                             <input type="hidden" name="quantity" value="1"/>
                           </div>
                         </div>
-                        <button type="submit" className="btn-buy text-uper">Thêm vào giỏ hàng</button>
+                        <button type="submit" className="btn-buy text-uper" onClick={addProductToCart}>Thêm vào giỏ hàng</button>
                     </div>
                   </div>
                   <div className="shareWrap">
@@ -251,6 +271,7 @@ const DetailPage = () => {
 
       </div>
     </div>
+    </>
   )
 }
 

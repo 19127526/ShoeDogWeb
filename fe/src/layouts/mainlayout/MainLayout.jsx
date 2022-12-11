@@ -13,6 +13,8 @@ import {changeStateLoading, turnOffLoading, turnOnLoading} from "./MainLayout.ac
 import {ERROR_ROUTE} from "../../configs/url";
 import useDebounce from "../../customhooks/useDebounce";
 import {searchProducts} from "../../apis/products/ProductsApi";
+import {useElementSize} from "use-element-size";
+import {getWindowWidth} from "../../utils/Utils";
 
 
 const {Header, Footer, Sider, Content} = Layout;

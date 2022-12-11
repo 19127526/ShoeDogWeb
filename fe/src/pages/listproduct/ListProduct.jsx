@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getListProductsByCatId} from "../../apis/products/ProductsApi";
 import Notification from "../../components/notification/Notification";
@@ -8,6 +8,10 @@ import LoadingComponent from "../../components/loading/LoadingComponent";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import "./ListProduct.css"
+import InfiniteScroll from 'react-infinite-scroll-component';
+import {List} from "antd";
+import { Pagination } from 'antd';
+const pageIndex = 9;
 const ListProduct = () => {
   const [filterButton, setFilterButton] = useState(false);
   const [dropdownButton, setDropdownButton] = useState(false);
@@ -15,14 +19,25 @@ const ListProduct = () => {
   const [loading,setLoading]=useState(false)
   const [itemInCategory, setItemInCategory] = useState([]);
   const dispatch=useDispatch();
+
+
+  const [page, setPage] = useState(1);
+  const currentIndexPage = pageIndex * page;
+  const prevIndexPage = pageIndex * (page - 1);
+
+  const navigate=useNavigate()
   useEffect(() => {
     const getListProductByCatId2 = async () => {
       dispatch(turnOnLoading())
       await getListProductsByCatId(product)
         .then(res => {
           if (res.data.status === 'success') {
-            console.log(res.data.data)
-            setItemInCategory(res.data.data);
+            const test=[]
+            for(let i=0;i<12;i++){
+              test.push(res.data.data[0])
+            }
+            console.log(test)
+            setItemInCategory(test);
             setLoading(true)
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
@@ -279,22 +294,29 @@ const ListProduct = () => {
 
       </div>
       <div className="row products">
-        {itemInCategory.map(index => (
-          <div className="col-lg-4 col-md-6">
-            <CardComponent name={index.ProName}
-                           img={index.ImageMain}
-                           proId={index.ProId}
-                           priceDiscount={index.Price} priceNonDiscount={index.Discount === 0 ? null : index.Discount}/>
-          </div>
-        ))}
+
+
+
+          {itemInCategory.map((value,index) => {
+            return prevIndexPage <= index && index < currentIndexPage ? (
+              <div className="col-lg-4 col-md-6">
+                <CardComponent name={value.ProName}
+                               img={value.ImageMain}
+                               proId={value.ProId}
+                               priceDiscount={value.Price}
+                               priceNonDiscount={value.Discount === 0 ? null : value.Discount}/>
+              </div>):""
+          })}
+
+
+
       </div>
       {itemInCategory.length > 9 ?
-        <div className="text-center" onClick={() => navigate(`/product/${index.category.CatName}`)}>
-          <a className="btn-see-more text-uper">see more</a>
+        <div className="text-center" style={{padding:"10px 0 0 0"}}>
+          <Pagination total={itemInCategory.length} defaultCurrent={1} pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
         </div>
         : ""
       }
-
     </div>
   )
 }

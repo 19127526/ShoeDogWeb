@@ -2,12 +2,17 @@ import logo from '../../assets/themes/icons/favicon.svg';
 import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import CartComponent from "../cart/CartComponent";
+import {useElementSize} from "use-element-size";
+import {getWindowWidth} from "../../utils/Utils";
  const HeaderComponent=({categoryList,searchButton})=>{
    const navigate=useNavigate();
    const [cartButton,setCartButton]=useState(false);
+   const ref = useElementSize((size, prevSize, elem) => {
+     console.log(size,prevSize)
+   })
   return (
     <header className="clearfix" >
-      <a  id="togger__menu">
+      <a  id="togger__menu" >
         <span></span>
         <span></span>
       </a>
