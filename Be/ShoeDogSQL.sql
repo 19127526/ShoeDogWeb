@@ -33,7 +33,7 @@ create table Products
     Quantity bigint default 1 null,
     Discount float default 1.0 null,
     TotalPrice double default (Price * Discount) null ,
-    ImageMain longtext not null,
+    ImageMain longtext null,
     Size varchar(20) charset utf8,
     Color varchar(30) charset utf8,
     constraint `product-category`
