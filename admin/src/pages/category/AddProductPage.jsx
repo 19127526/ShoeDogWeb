@@ -5,7 +5,11 @@ import {InputNumber, message, Modal, Select, Upload} from 'antd';
 import {getBase64} from "../../utils/Utils";
 import {useNavigate} from "react-router-dom";
 import InputColor from 'react-input-color';
-const {Dragger} = Upload;
+import { AutoComplete } from 'antd';
+import {getAllBrands} from "../../apis/products/ProductsApi";
+import Notification from "../../components/notification/Notification";
+import * as constraintNotification from "../../components/notification/Notification.constraints";
+import {getListCategories} from "../../apis/categories/CategoriesApi";
 
 
 const uploadButton = (
@@ -21,7 +25,34 @@ const uploadButton = (
   </div>
 );
 
+
+
+function localStringToNumber( s ){
+  return Number(String(s).replace(/[^0-9.-]+/g,""))
+}
+
+function onFocus(e){
+  let value = e.target.value.split(" VND")[0];
+  value=value.replaceAll(".","");
+  console.log(value)
+  e.target.value = value ? localStringToNumber(value) : ''
+}
+
+function onBlur(e) {
+  var value = e.target.value
+  var options = {
+    style: "currency",
+    currency: 'VND',
+    currencyDisplay: "symbol"
+  }
+  e.target.value = (value || value === 0)
+    ? localStringToNumber(value).toLocaleString('it-IT', options)
+    : ''
+}
+
+
 const AddProductPage = () => {
+  const navigate=useNavigate();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -34,16 +65,61 @@ const AddProductPage = () => {
   const [totalPrice,setTotalPrice]=useState(0);
   const [price,setPrice]=useState(0);
   const [discount,setDiscount]=useState(0);
-  const [valueEditor, setValueEditor] = useState(null);
+  const [brand,setBrand]=useState("");
   const [color, setColor] = useState({});
+  const [category,setCategory]=useState("");
+  const [optionCategories,setOptionCategories]=useState([]);
+  const [optionsSize,setOptionSize] = useState([])
+  const [optionsColor,setOptionColor] = useState([]);
+  const [optionsBrand,setOptionBrand]=useState([]);
+
+  useEffect(()=>{
+    const getAllBrandss= ()=>{
+       getAllBrands()
+        .then((res)=>{
+          if (res.data.status === 'success') {
+            setOptionBrand(res.data.data.map(index=>{return{value:index.Brand}}));
+            console.log(optionsBrand);
+          } else {
+            Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
+          }
+        })
+        .catch((err)=>{
+          Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
+        })
+    }
+    const getAllCategoriess= ()=>{
+      getListCategories()
+        .then((res)=>{
+          if (res.data.status === 'success') {
+            setOptionCategories(res.data.data.map(index=>{return {value:index.CatId,label:index.CatName}}));
+            console.log(res.data.data);
+          } else {
+            Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
+          }
+        })
+        .catch((err)=>{
+          Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
+        })
+    }
+    getAllBrandss();
+    getAllCategoriess();
+  },[])
 
 
-  const optionsSize = []
-  const optionsColor = [];
-  const navigate=useNavigate();
+  useEffect(()=>{
+    if(discount===0){
+      setTotalPrice(price*1)
+    }
+    else{
+      setTotalPrice(discount*price)
+    }
+
+  },[discount,price])
+
+
+
   const handleCancel = () => setPreviewOpen(false);
-
-
 
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -57,54 +133,24 @@ const AddProductPage = () => {
     setFileImageMainList(newFileList)
   };
 
+  const handleChangeBrand=(e)=>{
+    setBrand(e);
+  }
+
   const handleChangeSub = ({fileList: newFileList}) => {
     setFileImageSubList(newFileList)
   };
-
-  function localStringToNumber( s ){
-    return Number(String(s).replace(/[^0-9.-]+/g,""))
-  }
-
-  function onFocus(e){
-    let value = e.target.value.split(" VND")[0];
-    value=value.replaceAll(".","");
-    console.log(value)
-    e.target.value = value ? localStringToNumber(value) : ''
-  }
-
-  function onBlur(e) {
-    var value = e.target.value
-    var options = {
-      style: "currency",
-      currency: 'VND',
-      currencyDisplay: "symbol"
-    }
-    e.target.value = (value || value === 0)
-      ? localStringToNumber(value).toLocaleString('it-IT', options)
-      : ''
-  }
-
   const handleChangeCategory = (value) => {
     console.log(`selected ${value}`);
   };
 
+
   const onChangeDiscount=(e)=>{
     setDiscount((100-e)/100);
-
   }
-
   const onChangePrice=(e)=>{
     setPrice(e.target.value)
   }
-  useEffect(()=>{
-    if(discount===0){
-      setTotalPrice(price*1)
-    }
-    else{
-      setTotalPrice(discount*price)
-    }
-
-  },[discount,price])
 
   return (<>
     <article className="content item-editor-page" id="ajax">
@@ -133,36 +179,34 @@ const AddProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên danh mục </label>
           <div className="col-sm-9">
             <Select
-
-              defaultValue="lucy"
+              placeholder="Lựa chọn danh mục"
               style={{
                 width: 300,
               }}
               onChange={handleChangeCategory}
-              options={[
-                {
-                  value: 'jack',
-                  label: 'Jack',
-                },
-                {
-                  value: 'lucy',
-                  label: 'Lucy',
-                },
-                {
-                  value: 'disabled',
-                  disabled: true,
-                  label: 'Disabled',
-                },
-                {
-                  value: 'Yiminghe',
-                  label: 'yiminghe',
-                },
-              ]}
+              options={optionCategories}
             />
 
           </div>
         </div>
 
+        <div className="form-group row">
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên thương hiệu </label>
+          <div className="col-sm-9">
+            <AutoComplete
+              options={optionsBrand}
+              style={{
+                width: 300,
+              }}
+              onChange={handleChangeBrand}
+              placeholder="Nhập tên thương hiệu"
+              filterOption={(inputValue, option) =>
+                option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+              }
+            />
+
+          </div>
+        </div>
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Số lượng </label>
           <div className="col-sm-9">

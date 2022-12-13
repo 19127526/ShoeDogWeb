@@ -30,17 +30,39 @@ create table Products
     DateStart TIMESTAMP default CURRENT_TIMESTAMP not null,
     CatId int not null,
     ImageArray longtext null,
-    Quantity bigint default 1 null,
+    Brand longtext null,
     Discount float default 1.0 null,
     TotalPrice double default (Price * Discount) null ,
     ImageMain longtext not null,
-    Size varchar(20) charset utf8,
     Color varchar(30) charset utf8,
     constraint `product-category`
         foreign key (CatId) references Categories (CatId)
 );
 
-INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Quantity, Discount, TotalPrice, ImageMain, Size, Color) VALUES (1, 'abc1234', 'Stussy Built Tough Tee', 115000, '<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong>
+DROP TABLE IF EXISTS `Sizes`;
+create table Sizes
+(
+    SizeId int auto_increment primary key,
+    SizeName varchar(20) charset utf8  not null,
+    constraint `size-product`
+        foreign key (SizeId) references Categories (CatId)
+);
+
+DROP TABLE IF EXISTS `SizesDetails`;
+create table SizesDetails
+(
+    SizeDetailId int auto_increment primary key,
+    ProId int not null,
+    SizeId int not null,
+    Quantity bigint default 1 null,
+    constraint `sizeDetail-product`
+        foreign key(ProId) references Products (ProId),
+    constraint `sizeDetail-size`
+        foreign key(SizeId) references Sizes (SizeId)
+
+);
+
+INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray,Brand, Discount, TotalPrice, ImageMain, Color) VALUES (1, 'abc1234', 'Stussy Built Tough Tee', 115000, '<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong>
 \\n
 \\n<strong>Địa chỉ:</strong>
 \\n
@@ -56,8 +78,8 @@ INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro
 \\n
 \\n<em>- Ribbed collar</em>
 \\n
-\\n<em>- 100% Cotton</em>', 1, '2022-12-03 23:53:28', 1, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_1_38d3cedd-f0a4-47a6-8013-a9497c7304f8_720x.webp, https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_2_98c74189-1d94-4e9c-90a7-4f2726b57bfe_720x.webp', 100, 0, 115000, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_1_38d3cedd-f0a4-47a6-8013-a9497c7304f8_720x.webp', 'L, M', 'Đen');
-INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Quantity, Discount, TotalPrice, ImageMain, Size, Color) VALUES (2, 'aaabbbb', 'Stussy Built Tough Tee', 115000, '<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong>
+\\n<em>- 100% Cotton</em>', 1, '2022-12-03 23:53:28', 1, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_1_38d3cedd-f0a4-47a6-8013-a9497c7304f8_720x.webp, https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_2_98c74189-1d94-4e9c-90a7-4f2726b57bfe_720x.webp','Adidas', 0, 115000, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_1_38d3cedd-f0a4-47a6-8013-a9497c7304f8_720x.webp',  'Đen');
+INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Brand, Discount, TotalPrice, ImageMain, Color) VALUES (2, 'aaabbbb', 'Stussy Built Tough Tee', 115000, '<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong>
 \\n
 \\n<strong>Địa chỉ:</strong>
 \\n
@@ -73,8 +95,8 @@ INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro
 \\n
 \\n<em>- Ribbed collar</em>
 \\n
-\\n<em>- 100% Cotton</em>', 1, '2022-12-04 00:11:24', 1, null, 100, 0, 115000, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_WHIT_1_ae5513bc-1746-4dd1-9dff-76980280a5ce_720x.webp, https://shoedog.vn/wp-content/uploads/2022/09/1904893_WHIT_2_de581c52-91d5-4644-9564-c1bfa0ffc06c_720x.webp', 'L, M', 'Trắng');
-INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Quantity, Discount, TotalPrice, ImageMain, Size, Color) VALUES (3, 'ccccccc', 'Nón Nike Heritage 86 chính hãng', 85000, '<img class="aligncenter size-full wp-image-1120" src="https://shoedog.vn/wp-content/uploads/2022/01/271595152_3178837255775151_8041934531318166492_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1121" src="https://shoedog.vn/wp-content/uploads/2022/01/271599349_3178837249108485_5362027506056020752_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1122" src="https://shoedog.vn/wp-content/uploads/2022/01/271610182_3178837229108487_1476959637064592103_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1123" src="https://shoedog.vn/wp-content/uploads/2022/01/271653126_3178837232441820_3981912697630967423_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1124" src="https://shoedog.vn/wp-content/uploads/2022/01/271656884_3178837239108486_1446433627113033019_n.jpg" alt="" width="1440" height="1439" /> <img class="aligncenter size-full wp-image-1126" src="https://shoedog.vn/wp-content/uploads/2022/01/271660445_3178837245775152_4525744367107358356_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1127" src="https://shoedog.vn/wp-content/uploads/2022/01/271664559_3178837225775154_5648722583419083262_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1128" src="https://shoedog.vn/wp-content/uploads/2022/01/271664559_3178837252441818_8870196710787165471_n.jpg" alt="" width="1440" height="1439" /> <img class="aligncenter size-full wp-image-1129" src="https://shoedog.vn/wp-content/uploads/2022/01/271688593_3178837242441819_4887242882146411619_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1130" src="https://shoedog.vn/wp-content/uploads/2022/01/271700747_3178837235775153_7776080202202517120_n.jpg" alt="" width="1440" height="1440" />
+\\n<em>- 100% Cotton</em>', 1, '2022-12-04 00:11:24', 1, null,'Gucci', 0, 115000, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_WHIT_1_ae5513bc-1746-4dd1-9dff-76980280a5ce_720x.webp, https://shoedog.vn/wp-content/uploads/2022/09/1904893_WHIT_2_de581c52-91d5-4644-9564-c1bfa0ffc06c_720x.webp',  'Trắng');
+INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Brand, Discount, TotalPrice, ImageMain,  Color) VALUES (3, 'ccccccc', 'Nón Nike Heritage 86 chính hãng', 85000, '<img class="aligncenter size-full wp-image-1120" src="https://shoedog.vn/wp-content/uploads/2022/01/271595152_3178837255775151_8041934531318166492_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1121" src="https://shoedog.vn/wp-content/uploads/2022/01/271599349_3178837249108485_5362027506056020752_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1122" src="https://shoedog.vn/wp-content/uploads/2022/01/271610182_3178837229108487_1476959637064592103_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1123" src="https://shoedog.vn/wp-content/uploads/2022/01/271653126_3178837232441820_3981912697630967423_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1124" src="https://shoedog.vn/wp-content/uploads/2022/01/271656884_3178837239108486_1446433627113033019_n.jpg" alt="" width="1440" height="1439" /> <img class="aligncenter size-full wp-image-1126" src="https://shoedog.vn/wp-content/uploads/2022/01/271660445_3178837245775152_4525744367107358356_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1127" src="https://shoedog.vn/wp-content/uploads/2022/01/271664559_3178837225775154_5648722583419083262_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1128" src="https://shoedog.vn/wp-content/uploads/2022/01/271664559_3178837252441818_8870196710787165471_n.jpg" alt="" width="1440" height="1439" /> <img class="aligncenter size-full wp-image-1129" src="https://shoedog.vn/wp-content/uploads/2022/01/271688593_3178837242441819_4887242882146411619_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1130" src="https://shoedog.vn/wp-content/uploads/2022/01/271700747_3178837235775153_7776080202202517120_n.jpg" alt="" width="1440" height="1440" />
 \\n
 \\nNón Nike Heritage 86 chính hãng, mới 100% full tag đầy đủ. Giá store 24$ chưa kể phí ship về nữa đó cả nhà.
 \\n<div class="woocommerce-tabs wc-tabs-wrapper container tabbed-content">
@@ -102,22 +124,22 @@ INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro
 \\n</div>
 \\n<div class="cxmmr5t8 oygrvhab hcukyx3x c1et5uql o9v6fnle ii04i59q">
 \\n<div dir="auto">Dây cài làm bằng chất liệu da thật cao cấp, bọc cẩn thận.</div>
-\\n</div>', 1, '2022-12-04 00:15:23', 2, null, 100, 0, 85000, 'https://shoedog.vn/wp-content/uploads/2022/01/271660445_3178837245775152_4525744367107358356_n.jpg', null, 'Trắng');
-INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Quantity, Discount, TotalPrice, ImageMain, Size, Color) VALUES (4, 'ddddddd', 'Balo Adidas BP Mini', 650000, '<img class="aligncenter size-full wp-image-1099" src="https://shoedog.vn/wp-content/uploads/2022/01/271779126_3182053078786902_892526941942475405_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1100" src="https://shoedog.vn/wp-content/uploads/2022/01/271788803_3182053085453568_3083065279543118305_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1101" src="https://shoedog.vn/wp-content/uploads/2022/01/271805728_3182053095453567_5437710691344004953_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1102" src="https://shoedog.vn/wp-content/uploads/2022/01/271941571_3182053088786901_2358267383490890704_n.jpg" alt="" width="1440" height="1440" />', '<div dir="auto">Kích thước: 8 cm x 15 cm x 22 cm</div>
+\\n</div>', 1, '2022-12-04 00:15:23', 2, null,  'Nike',0, 85000, 'https://shoedog.vn/wp-content/uploads/2022/01/271660445_3178837245775152_4525744367107358356_n.jpg',  'Trắng');
+INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Brand, Discount, TotalPrice, ImageMain,  Color) VALUES (4, 'ddddddd', 'Balo Adidas BP Mini', 650000, '<img class="aligncenter size-full wp-image-1099" src="https://shoedog.vn/wp-content/uploads/2022/01/271779126_3182053078786902_892526941942475405_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1100" src="https://shoedog.vn/wp-content/uploads/2022/01/271788803_3182053085453568_3083065279543118305_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1101" src="https://shoedog.vn/wp-content/uploads/2022/01/271805728_3182053095453567_5437710691344004953_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1102" src="https://shoedog.vn/wp-content/uploads/2022/01/271941571_3182053088786901_2358267383490890704_n.jpg" alt="" width="1440" height="1440" />', '<div dir="auto">Kích thước: 8 cm x 15 cm x 22 cm</div>
 \\n<div dir="auto">Dung tích: 4 L</div>
 \\n<div dir="auto">Vải jacquard làm từ 100% polyester tái chế</div>
 \\n<div dir="auto">Ngăn khóa kéo phía trước</div>
 \\n<div dir="auto">Quai đeo vai lót đệm tùy chỉnh</div>
-\\n<div dir="auto">Chất vải satin bóng</div>', 1, '2022-12-04 00:19:01', 3, null, 100, 0, 650000, 'https://shoedog.vn/wp-content/uploads/2022/01/271660445_3178837245775152_4525744367107358356_n.jpg', null, 'Trắng');
-INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Quantity, Discount, TotalPrice, ImageMain, Size, Color) VALUES (5, 'eeeeeee', 'Ví cầm tay Coach Chính hãng', 950000, 'Cap MLB, LA, mlb', 'Cap MLB, LA, mlb', 1, '2022-12-04 00:21:38', 4, null, 100, 0, 950000, 'https://shoedog.vn/wp-content/uploads/2022/08/8269cce23249f017a958.jpg', null, 'Trắng');
-INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Quantity, Discount, TotalPrice, ImageMain, Size, Color) VALUES (6, 'kjjjjjj', 'DÉP DISCOVERY SANDLINE', 100000, '<div class="woocommerce-tabs wc-tabs-wrapper container tabbed-content"> \\n<div class="tab-panels"> \\n<div id="tab-description" class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content active" role="tabpanel" aria-labelledby="tab-title-description"> \\n \\n<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong> \\n \\n<strong>Địa chỉ:</strong> \\n \\n<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="?" />Chi nhánh 1: 86/118 Trường Chinh, phường 12, quận Tân Bình</strong> \\n \\n<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="?" />Chi nhánh 2: 666/4 Ba tháng hai, phường 14, quận 10</strong> \\n \\n<strong>Mọi thông tin chi tiết xin vui lòng liên hệ: 0865414134</strong> \\n \\n<strong>Facebook: https://www.facebook.com/giay2handschatluong</strong> \\n \\n<strong>Instagram: https://www.instagram.com/shoedog.vn_/</strong> \\n \\n</div> \\n</div> \\n</div>', '<ul>
+\\n<div dir="auto">Chất vải satin bóng</div>', 1, '2022-12-04 00:19:01', 3, null, 'Nike', 0, 650000, 'https://shoedog.vn/wp-content/uploads/2022/01/271660445_3178837245775152_4525744367107358356_n.jpg',  'Trắng');
+INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Brand, Discount, TotalPrice, ImageMain,  Color) VALUES (5, 'eeeeeee', 'Ví cầm tay Coach Chính hãng', 950000, 'Cap MLB, LA, mlb', 'Cap MLB, LA, mlb', 1, '2022-12-04 00:21:38', 4, null, 'Adidas', 0, 950000, 'https://shoedog.vn/wp-content/uploads/2022/08/8269cce23249f017a958.jpg',  'Trắng');
+INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Brand, Discount, TotalPrice, ImageMain,  Color) VALUES (6, 'kjjjjjj', 'DÉP DISCOVERY SANDLINE', 100000, '<div class="woocommerce-tabs wc-tabs-wrapper container tabbed-content"> \\n<div class="tab-panels"> \\n<div id="tab-description" class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content active" role="tabpanel" aria-labelledby="tab-title-description"> \\n \\n<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong> \\n \\n<strong>Địa chỉ:</strong> \\n \\n<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="?" />Chi nhánh 1: 86/118 Trường Chinh, phường 12, quận Tân Bình</strong> \\n \\n<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="?" />Chi nhánh 2: 666/4 Ba tháng hai, phường 14, quận 10</strong> \\n \\n<strong>Mọi thông tin chi tiết xin vui lòng liên hệ: 0865414134</strong> \\n \\n<strong>Facebook: https://www.facebook.com/giay2handschatluong</strong> \\n \\n<strong>Instagram: https://www.instagram.com/shoedog.vn_/</strong> \\n \\n</div> \\n</div> \\n</div>', '<ul>
 \\n 	<li>Tên sản phẩm : Dép Slipper
 \\nThương hiệu : Discovery
 \\n+ Xuất sứ  : Hàn Quốc
 \\n+ Chất liệu : Chất liệu da tổng hợp mềm mại và sang trọng khi trải nghiệm
 \\nThiết kế trẻ trung phù hợp với mọi lứa tuổi</li>
-\\n</ul>', 1, '2022-12-04 00:24:26', 5, null, 100, 0, 100000, 'https://shoedog.vn/wp-content/uploads/2022/07/f92bb92eee6c2c32757d.jpg', null, 'Trắng');
-INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Quantity, Discount, TotalPrice, ImageMain, Size, Color) VALUES (7, 'asaaaaa', 'NIKE DUNK LOW PANDA', 199999, '<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong>
+\\n</ul>', 1, '2022-12-04 00:24:26', 5, null, 'Nike', 0, 100000, 'https://shoedog.vn/wp-content/uploads/2022/07/f92bb92eee6c2c32757d.jpg',  'Trắng');
+INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Brand, Discount, TotalPrice, ImageMain,  Color) VALUES (7, 'asaaaaa', 'NIKE DUNK LOW PANDA', 199999, '<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong>
 \\n
 \\n<strong>Địa chỉ:</strong>
 \\n
@@ -136,7 +158,7 @@ INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro
 \\n
 \\nStyle code: <span style="font-size: 14.4px;">DC0774-141</span>
 \\n<div class="release-attr-item"></div>
-\\n</div>', 1, '2022-12-04 00:26:52', 6, null, 1000, 0, 199999, 'https://shoedog.vn/wp-content/uploads/2022/09/Thiet-ke-chua-co-ten-2.png', '28', 'Trắng');
+\\n</div>', 1, '2022-12-04 00:26:52', 6, null, 'Adidas', 0, 199999, 'https://shoedog.vn/wp-content/uploads/2022/09/Thiet-ke-chua-co-ten-2.png',  'Trắng');
 
 
 DROP TABLE IF EXISTS `Orders`;

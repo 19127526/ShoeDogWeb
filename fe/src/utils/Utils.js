@@ -31,3 +31,5 @@ export const resizeImage=(url,width,height)=>{
 export const convertArrayToOptions=(arr,splitIndex)=>{
   return arr.split(splitIndex)
 }
+
+

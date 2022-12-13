@@ -6,6 +6,7 @@ export const GET_CATEGORIES_URI="category"
 export const GET_PRODUCTS_URI="product"
 export const ADD_CATEGORIES_URI="category/add"
 export const REMOVE_PRODUCT_URI="product/delete"
+export const GET_BRANDS_URI="product/brand"
 
 
 //Client

@@ -1,3 +1,5 @@
+
+
 const db = require('../utils/db');
 exports.getProducts = () => {
   return db('products');
@@ -35,4 +37,8 @@ exports.searchProducts=async (product) => {
   `
   const raw_data = await db.raw(sql)
   return raw_data[0]
+}
+exports.getAllBrands= ()=>{
+  return db("products")
+    .distinct('Brand');
 }

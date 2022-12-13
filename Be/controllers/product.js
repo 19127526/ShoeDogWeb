@@ -1,5 +1,8 @@
 const product = require('../models/product');
 
+
+
+
 exports.getAllProducts = async (req, res) => {
     try{
         const products = await product.getProducts();
@@ -78,3 +81,16 @@ exports.updateProduct = async (req, res) => {
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }
+
+exports.getAllBrandsInProducts = async (req, res) => {
+    try {
+        const brands = await product.getAllBrands();
+        return res.status(200).json({"status": "success", "data": brands});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+
+
+

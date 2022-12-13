@@ -10,34 +10,52 @@ import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout
 import "./ListProduct.css"
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {List} from "antd";
+import { Tag } from 'antd';
+
 import { Pagination } from 'antd';
+import {convertArrayToOptions} from "../../utils/Utils";
 const pageIndex = 9;
+
+const onlyUnique=(value, index, self)=> {
+  return self.indexOf(value) === index;
+}
+
 const ListProduct = () => {
+  const dispatch=useDispatch();
   const [filterButton, setFilterButton] = useState(false);
-  const [dropdownButton, setDropdownButton] = useState(false);
+  const [sortButton, setSortButton] = useState(false);
+  const [brandButton,setBrandButton]=useState(false);
+  const [sizeButton,setSizeButton]=useState(false);
+  const [priceButton,setPriceButton]=useState(false);
+
   const {product} = useParams();
   const [loading,setLoading]=useState(false)
   const [itemInCategory, setItemInCategory] = useState([]);
-  const dispatch=useDispatch();
-
+  const [itemTempInCategory,setItemTempInCategory]=useState([]);
+  const[listBrand,setListBrand]=useState([]);
+  const [listSize,setListSize]=useState([]);
 
   const [page, setPage] = useState(1);
   const currentIndexPage = pageIndex * page;
   const prevIndexPage = pageIndex * (page - 1);
+  const [resultFilter,setResultFilter]=useState({
+    brand:null,
+    size:null,
+    sort:null
+  });
 
   const navigate=useNavigate()
   useEffect(() => {
+    setPage(1)
     const getListProductByCatId2 = async () => {
       dispatch(turnOnLoading())
       await getListProductsByCatId(product)
         .then(res => {
           if (res.data.status === 'success') {
-            const test=[];
-            for(let i=0;i<12;i++){
-              test.push(res.data.data[0])
-            }
-            console.log(test)
-            setItemInCategory(test);
+            console.log(res.data.data.map(index=>index.Size).map(index=>convertArrayToOptions(index,", ")))
+            setListBrand(res.data.data.map(index=>index.Brand).filter(onlyUnique))
+            setItemInCategory(res.data.data);
+            setItemTempInCategory(res.data.data);
             setLoading(true)
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
@@ -59,6 +77,45 @@ const ListProduct = () => {
       document.body.classList.remove("filterActive")
     }
   }, [filterButton])
+
+  const filterBrand=(brandName)=>{
+    const tempBrand=itemTempInCategory.filter(index=>index.Brand===brandName);
+    setItemInCategory(tempBrand);
+    setResultFilter({...resultFilter,brand: brandName})
+    setFilterButton(false);
+  }
+
+  const filterSize=(sizeName)=>{
+    const tempBrand=itemTempInCategory.filter(index=>index.Brand===brandName);
+    setItemInCategory(tempBrand);
+    setResultFilter({...resultFilter,brand: brandName})
+    setFilterButton(false);
+  }
+  const handleChangeFilter=()=>{
+     setFilterButton(true);
+  }
+  const handleCloseFilter=()=>{
+    setFilterButton(false);
+    setSortButton(false)
+    setBrandButton(false)
+    setSizeButton(false)
+    setPriceButton(false)
+  }
+  const handleChangeBrand=()=>{
+    setSortButton(false)
+    setBrandButton(!brandButton);
+  }
+  const handleChangeSize=()=>{
+    setSortButton(false)
+    setSizeButton(!sizeButton);
+  }
+  const handleChangePrice=()=>{
+    setSortButton(false)
+    setPriceButton(!priceButton);
+  }
+  const log = (e) => {
+    console.log(e.target)
+  }
   if(loading===false){
     return <LoadingComponent/>
   }
@@ -75,11 +132,15 @@ const ListProduct = () => {
 
             <div className="col-xs-9">
               <div className="bootstrap-tagsinput">
+                {resultFilter.brand===null?"":(<Tag closable onClose={log}>{resultFilter.brand}</Tag>)}
+                {resultFilter.size===null?"":(<Tag closable onClose={log}>{resultFilter.size}</Tag>)}
+                {resultFilter.sort===null?"":(<Tag closable onClose={log}>{resultFilter.sort}</Tag>)}
               </div>
+
             </div>
             <div className="col-xs-3">
               <div className="typeFilter text-left">
-                <a className="filterToggle" onClick={() => setFilterButton(true)}><span
+                <a className="filterToggle" onClick={handleChangeFilter}><span
                   className="icon-settings"></span>Filter</a>
               </div>
             </div>
@@ -88,12 +149,12 @@ const ListProduct = () => {
         </div>
 
         <div className="menuFilter">
-          <a className="filterClose" onClick={() => setFilterButton(false)}><span
+          <a className="filterClose" onClick={handleCloseFilter}><span
             className="icon-meunu-close"></span></a>
           <div className="filterIcon"><span className="icon-settings"></span>Filter</div>
           <div className="filterItems">
-            <div className={dropdownButton === true ? "dropdown open" : "dropdown"}
-                 onClick={() => setDropdownButton(!dropdownButton)}>
+            <div className={sortButton === true ? "dropdown open" : "dropdown"}
+                 onClick={() => setSortButton(!sortButton)}>
               <div className="btn btn-default btn-xs dropdown-toggle" type="button" id="sortUsers"
                    data-toggle="dropdown">
                 Sort &nbsp;&nbsp;
@@ -114,162 +175,24 @@ const ListProduct = () => {
                   New <i className="fa fa-sort-amount-desc" aria-hidden="true"></i></a></li>
               </ul>
             </div>
-            <div className="filterItem">
-              <a href="">Brand <span className="toggleSub icon-add-2"></span></a>
+
+
+            <div className={brandButton===true?"filterItem active":"filterItem"} onClick={handleChangeBrand}>
+              <a >Brand <span className="toggleSub icon-add-2"></span></a>
               <ul className="clearfix">
-                <li><a href="https://www.glab.vn/product/footwear?brand=adidas">adidas</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=air-jordan">Air Jordan</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=anti-social-social-club">Anti Social Social
-                  Club</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=asics">Asics</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=bape">Bape</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=bearbrick">Bearbrick</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=billionaire-boys-club">Billionaire Boys Club</a>
-                </li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=casio">CASIO</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=champion">Champion</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=chrome-hearts">Chrome Hearts</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=comme-des-garcons">Comme Des Garcons </a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=conic">CONIC</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=converse">Converse</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=crep-protect">Crep Protect</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=drew-house">Drew House</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=fear-of-god">Fear Of God </a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=front">FRONT</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=glab">GLAB</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=grateful-dead">Grateful Dead</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=huf">HUF</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=jason-mark">Jason Mark</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=loop-brand">Loop Brand</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=mlb">MLB</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=new-balance">New Balance</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=nike">Nike</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=off-white">Off-White </a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=others">OTHERS</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=palace">Palace</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=puma">Puma</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=reebok">Reebok</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=reshoevn8r">Reshoevn8r</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=ripndip">RIPNDIP</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=shoex">ShoeX</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=stussy">Stussy</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=supreme">Supreme</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=the-collectors">The Collectors </a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=undefeated">Undefeated</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=under-armour">Under Armour</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=uniqlo">Uniqlo </a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=vans">Vans</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?brand=vintage">Vintage</a></li>
+                {listBrand.map(index=>(<li onClick={()=>filterBrand(index)}><a>{index}</a></li>))}
               </ul>
             </div>
-            <div className="filterItem">
-              <a href="">Subcategory <span className="toggleSub icon-add-2"></span></a>
+            <div className={sizeButton===true?"filterItem active":"filterItem"} onClick={handleChangeSize}>
+              <a >Sizes <span className="toggleSub icon-add-2"></span></a>
               <ul className="clearfix">
-                <li><a href="https://www.glab.vn/product/footwear?sub_cat=newest-sneakers">Newest Sneakers</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?sub_cat=lifestyle">Lifestyle</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?sub_cat=running">Running</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?sub_cat=basketball">Basketball</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?sub_cat=gym-training">Gym &amp; Training</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?sub_cat=sandal">Sandal</a></li>
+                <li onClick={()=>filterBrand("S")}><a >S</a></li>
+                <li onClick={()=>filterBrand("M")}><a >M</a></li>
+                <li onClick={()=>filterBrand("L")}><a >L</a></li>
               </ul>
             </div>
-            <div className="filterItem">
-              <a href="">Sizes <span className="toggleSub icon-add-2"></span></a>
-              <ul className="clearfix">
-                <li><a href="https://www.glab.vn/product/footwear?size=149">6C</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=122">9CM</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=130">2Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=134">1.5Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=135">18.5 CM</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=150">5.5K</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=152">37</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=153">21CM</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=154">20CM</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=157">13 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=158">15 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=141">1Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=139">1 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=124">3 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=123">3.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=1">4 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=2">4.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=3">5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=4">5.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=5">6 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=6">6.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=7">7 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=8">7.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=9">8 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=10">8.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=11">9 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=12">9.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=13">10 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=128">13cm</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=14">10.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=15">11 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=16">11.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=17">12 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=18">12.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=60">13 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=113">13.5 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=101">14 US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=27">3.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=28">4W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=29">4.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=30">5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=31">5.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=32">6W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=33">6.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=34">7W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=35">7.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=36">8W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=37">8.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=38">9W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=39">9.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=40">10W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=41">10.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=42">11W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=43">11.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=118">12.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=117">13.5W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=79">12W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=114">14W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=115">13W US</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=104">3Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=44">3.5Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=45">4Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=46">4.5Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=47">5Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=48">5.5Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=49">6Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=50">6.5Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=51">7Y</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=94">32</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=110">35.5</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=95">33.5</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=100">36</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=109">37</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=102">34</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=108">36.5</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=76">38</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=75">39</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=52">40</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=78">41.5</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=53">41</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=54">42</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=55">43</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=58">44</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=112">29.5CM</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=111">37.5</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=87">12cm</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=106">17CM</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=105">18CM</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=88">14cm</a></li>
-                <li><a href="https://www.glab.vn/product/footwear?size=89">16cm</a></li>
-              </ul>
-            </div>
-            <div className="filterItem">
-              <a href="">Price <span className="toggleSub icon-add-2"></span></a>
+            <div className={priceButton===true?"filterItem active":"filterItem"} onClick={handleChangePrice}>
+              <a >Price <span className="toggleSub icon-add-2"></span></a>
               <ul className="clearfix" style={{padding: "0 0 20px 50px"}}>
                 <li style={{width: "90%"}}>
                   <p>
@@ -302,8 +225,8 @@ const ListProduct = () => {
                 <CardComponent name={value?.ProName}
                                img={value?.ImageMain}
                                proId={value?.ProId}
-                               priceDiscount={value?.Price}
-                               priceNonDiscount={value.Discount === 0 ? null : value.Discount}/>
+                               priceDiscount={value?.TotalPrice}
+                               priceNonDiscount={value.Discount === 0 ? null : value?.Price}/>
               </div>):""
           })}
 
@@ -312,7 +235,7 @@ const ListProduct = () => {
       </div>
       {itemInCategory.length > 9 ?
         <div className="text-center" style={{padding:"10px 0 0 0"}}>
-          <Pagination total={itemInCategory.length} defaultCurrent={1} pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
+          <Pagination total={itemInCategory.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
         </div>
         : ""
       }
