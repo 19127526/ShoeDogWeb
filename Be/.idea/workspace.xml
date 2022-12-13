@@ -10,12 +10,12 @@
       <change beforePath="$PROJECT_DIR$/ShoeDogSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ShoeDogSQL.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/products.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/apis/products/ProductsApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/apis/products/ProductsApi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.constraints.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.constraints.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.reducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/utils/Utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/utils/Utils.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +65,7 @@
       <workItem from="1670829895514" duration="1957000" />
       <workItem from="1670915628429" duration="2980000" />
       <workItem from="1670918660766" duration="5458000" />
+      <workItem from="1670936262103" duration="5710000" />
     </task>
     <servers />
   </component>

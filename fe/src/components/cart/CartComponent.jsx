@@ -1,11 +1,18 @@
 import {useNavigate} from "react-router-dom";
 import {Tooltip} from "antd";
+import {useDispatch, useSelector} from "react-redux";
+import {removeItem} from "../../pages/detail/DetailPage.actions";
 
 
-const CartComponent = ({productName, price, size, quantity, img, index,}) => {
+const CartComponent = ({productName, price, size, quantity, img, index}) => {
 
   const navigate = useNavigate();
-
+  const dispatch=useDispatch();
+  const data = useSelector(state => state.cartReducer);
+  const removeItemIntoCart=()=>{
+    const dataCart=data.cartItem.filter(index2=>(index2?.detailProduct?.ProId !==index?.detailProduct?.ProId||index2?.aboutSize.size !==size))
+    dispatch(removeItem(dataCart));
+  }
   return (
 
     <div className="header__cart--items">
@@ -21,7 +28,7 @@ const CartComponent = ({productName, price, size, quantity, img, index,}) => {
             <a onClick={() => navigate(`/detail/${index?.detailProduct?.ProId}`)}>
               <span className="text-uper fs-15 font-700">{productName}</span>
             </a>
-            <a onClick={() => {}}>
+            <a onClick={removeItemIntoCart}>
               <Tooltip title="Nhấn để xóa" color={"blue"}>
                 <i className="fa fa-times" >x</i>
               </Tooltip>

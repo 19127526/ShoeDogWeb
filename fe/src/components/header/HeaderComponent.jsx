@@ -15,13 +15,13 @@ const HeaderComponent = ({categoryList, searchButton}) => {
   const dataProduct = useSelector(state => state.cartReducer);
   const [cartItem, setCartItem] = useState([dataProduct?.cartItem]);
   const [totalPriceCart,setTotalPriceCart]=useState(0);
-
   useEffect(
     () => {
       if (data.isLoading === false) {
         ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
       }
     }, []);
+
 
   useEffect(() => {
     setCartItem(dataProduct?.cartItem.map(index=>{
@@ -49,8 +49,8 @@ const HeaderComponent = ({categoryList, searchButton}) => {
 
           <a className="header__right--mbsearch" style={{display: "inline-block"}} onClick={() => searchButton()}><span
             className="icon-search"></span></a>
-          <div className="header__cart dropdown" onClick={() => setCartButton(!cartButton)}>
-            <a className={cartButton === true ? "val-selected active" : "val-selected"}>
+          <div className="header__cart dropdown" >
+            <a className={cartButton === true ? "val-selected active" : "val-selected"} onClick={() => setCartButton(!cartButton)}>
 
               <Badge size={"small"} count={cartItem?.length} offset={[8, 1]}>
               <span className="icon-slice8"></span>

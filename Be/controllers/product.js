@@ -7,6 +7,7 @@ const category = require('../models/category');
 exports.getAllProducts = async (req, res) => {
     try {
         const products = await product.getProducts();
+        console.log(products)
         return res.status(200).json({"status": "success", "data": products});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -18,7 +19,10 @@ exports.getProductsById = async (req, res) => {
     try {
         const catId = req.params.id;
         const products = await product.getProductsByCatId(catId);
-        console.log(products)
+
+        if(products.length===0){
+            return res.status(200).json({"status": "empty", "data": products});
+        }
         return res.status(200).json({"status": "success", "data": products});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -103,9 +107,10 @@ exports.addProduct = async (req, res) => {
         }
         if (arrayImage.length > 0) {
             await product.updateImageMain(productId, arrayImage[0]);
+            const productStr = arrayImage.join(", ");
+            await product.updateArrayImage(productId, productStr);
         }
-        const productStr = arrayImage.join(", ");
-        await product.updateArrayImage(productId, productStr);
+
         return res.status(200).json({"status": "success", "data": productFinding});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
