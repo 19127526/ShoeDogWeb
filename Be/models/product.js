@@ -18,6 +18,14 @@ exports.updateProduct = (id, product) => {
   return db('products').where('id', id).update(product);
 }
 
+exports.updateImageMain = (id, image) => {
+    return db('products').where('ProId', id).update({ImageMain: image});
+}
+
+exports.updateArrayImage = (id, image) => {
+    return db('products').where('ProId', id).update({ImageArray: image});
+}
+
 exports.getProductsByCatId = (id) => {
   return db('products')
     .join('categories','products.CatId','categories.CatId')

@@ -14,3 +14,7 @@ exports.deleteCategory = (id) => {
 exports.updateCategory = (id, category) => {
     return db('categories').where('id', id).update(category);
 }
+
+exports.getCategoryById = (category) => {
+    return db('categories').where('CatName', category).select('CatId').first();
+}
