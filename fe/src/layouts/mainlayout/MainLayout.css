@@ -1,0 +1,13 @@
+.ant-back-top{
+    right:30px
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 420px) {
+    .ant-back-top{
+        right:15px
+    }
+}

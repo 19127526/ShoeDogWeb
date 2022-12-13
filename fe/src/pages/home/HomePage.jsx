@@ -30,7 +30,14 @@ const HomePage = () => {
       await getListCategories()
         .then(res => {
           if (res.data.status === 'success') {
-            res.data.data.forEach(async index => {
+
+            const a=res.data.data.filter(index=>{
+              if(index?.CatId ===1 || index?.CatId===4 ||index?.CatId===6){
+                return index
+              }
+            })
+            console.log("dsdsd",a)
+            a.forEach(async index => {
                 await getListProductsByCatId(index.CatId)
                   .then(res => {
                     if (res.data.status === 'success') {
@@ -61,7 +68,6 @@ const HomePage = () => {
     }
     getListCategory()
   }, [])
-
   return (
     <>
       <div className="container" ref={resultsRef}>

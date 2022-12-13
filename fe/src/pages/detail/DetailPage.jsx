@@ -10,16 +10,17 @@ import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import ErrorPage from "../error/ErrorPage";
-import Parser from 'html-react-parser';
 import {Image} from "antd";
-import { useElementSize } from 'use-element-size'
 import {  message } from 'antd';
+import { useComponentSize } from "react-use-size";
+import {addItemSuccess} from "./DetailPage.actions";
+
 
 const DetailPage = () => {
   const [detailProduct,setDetailProduct]=useState();
   const useRefDetailImg=useRef(null);
   const [chooseSizeBtn,setChooseSizeBtn]=useState(false);
-  const [height,setHeight]=useState();
+  const [height2,setHeight2]=useState();
   const {proId}=useParams();
   const a = [];
   const dispatch=useDispatch();
@@ -31,10 +32,7 @@ const DetailPage = () => {
     size:null,
     price:null
   });
-
-  const ref = useElementSize((size, prevSize, elem) => {
-    getWindowWidth().innerWidth>784?setHeight(size.height):setHeight(339)
-  })
+  const { ref,height, width } = useComponentSize();
   for (let i = 0; i < 10; i++) {
     a.push(CardComponent);
   }
@@ -65,9 +63,13 @@ const DetailPage = () => {
     }
     getDetailProduct();
   },[proId]);
-  
+
+  useEffect(()=>{
+    /*setHeight2(339)*/
+    getWindowWidth().innerWidth>784?setHeight2(height):""
+  },)
+
   const setChooseSize=(index,price)=>{
-    console.log(index,price)
     setChooseSizeSuccess({
       size: index,
       price: price
@@ -80,7 +82,7 @@ const DetailPage = () => {
       message.info('Vui lòng chọn size trước khi thêm vào giỏ hàng');
     }
     else{
-
+      dispatch(addItemSuccess({aboutSize:chooseSizeSuccess,detailProduct}))
     }
   }
 
@@ -94,7 +96,7 @@ const DetailPage = () => {
     <div id="container">
       <div className="container detail">
         <div className="detailInner clearfix" data-sticky_parent="" >
-          <div className="detail__img"  ref={ref} style={{border:"1 solid white"}}>
+          <div className="detail__img"  ref={ref}>
             <div className="main-slide-detail" >
               <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
                         autoFocus={true} emulateTouch={true} >
@@ -122,7 +124,7 @@ const DetailPage = () => {
               </ul>
             </div>
           </div>
-            <div className="detail__desc" style={{height: height}}>
+            <div className="detail__desc" style={{height: height2}}>
               <div className="detail__desc--inner">
                 <div className="detail__desc--fix">
                   <p className="color7c7c7c font-700 fs-14"><a href="https://www.glab.vn/product?brand=nike">Mã sản phẩm: {detailProduct?.Inventory}</a>
@@ -217,7 +219,7 @@ const DetailPage = () => {
         </div>
 
         <div className="detail__related">
-          <div className="text-center text-uper font-700 fs-25 mgB-20">related products</div>
+          <div className="text-center text-uper font-700 fs-25 mgB-20">Sản phẩm liên quan</div>
           <div className="row products">
             {a.map(u => (
               <div className="col-lg-4 col-md-6 ">
@@ -264,7 +266,7 @@ const DetailPage = () => {
 
 
             <a href="https://www.glab.vn/product/detail/8575-nike-dunk-low-sb-pink-pig?page=2"
-               className="btn-see-more ajax text-uper">see more</a>
+               className="btn-see-more ajax text-uper">Xem thêm</a>
           </div>
 
         </div>

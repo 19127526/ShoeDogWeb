@@ -8,7 +8,29 @@ export const DetailPageReducer=(state=initialState, action)=>
   produce(state, draft => {
     switch (action.type) {
       case types.ADD_ITEM_INTO_CART_SUCCESS:
-        draft.cartItem.push(action.payload)
+        if(draft.cartItem.length===0) {
+          draft.cartItem.push({...action.payload,quantity:1});
+        }
+        else{
+          let isFlag=false
+          draft.cartItem.forEach(index=>{
+            if(index?.detailProduct?.ProId===action.payload.detailProduct?.ProId
+              &&index?.aboutSize.size===action.payload?.aboutSize.size)
+            {
+              isFlag=true;
+              draft.cartItem.map(index=>{
+                if(index?.detailProduct?.ProId===action.payload.detailProduct?.ProId
+                &&index?.aboutSize.size===action.payload?.aboutSize.size) {
+                  index.quantity=index.quantity+1;
+                }
+              })
+              return;
+            }
+          })
+          if(isFlag==false) {
+            draft.cartItem.push({...action.payload,quantity:1});
+          }
+        }
         break;
       default:
         return state;

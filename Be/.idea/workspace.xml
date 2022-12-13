@@ -5,19 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/EditProductPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/backtop/BackTopComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/backtop/BackTopComponent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +64,7 @@
       <workItem from="1670579501803" duration="3708000" />
       <workItem from="1670658163975" duration="13972000" />
       <workItem from="1670747674048" duration="3196000" />
+      <workItem from="1670829895514" duration="1957000" />
     </task>
     <servers />
   </component>

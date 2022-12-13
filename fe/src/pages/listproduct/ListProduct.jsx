@@ -32,7 +32,7 @@ const ListProduct = () => {
       await getListProductsByCatId(product)
         .then(res => {
           if (res.data.status === 'success') {
-            const test=[]
+            const test=[];
             for(let i=0;i<12;i++){
               test.push(res.data.data[0])
             }
@@ -59,7 +59,6 @@ const ListProduct = () => {
       document.body.classList.remove("filterActive")
     }
   }, [filterButton])
-
   if(loading===false){
     return <LoadingComponent/>
   }
@@ -300,10 +299,10 @@ const ListProduct = () => {
           {itemInCategory.map((value,index) => {
             return prevIndexPage <= index && index < currentIndexPage ? (
               <div className="col-lg-4 col-md-6">
-                <CardComponent name={value.ProName}
-                               img={value.ImageMain}
-                               proId={value.ProId}
-                               priceDiscount={value.Price}
+                <CardComponent name={value?.ProName}
+                               img={value?.ImageMain}
+                               proId={value?.ProId}
+                               priceDiscount={value?.Price}
                                priceNonDiscount={value.Discount === 0 ? null : value.Discount}/>
               </div>):""
           })}
