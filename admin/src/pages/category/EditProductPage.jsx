@@ -25,6 +25,8 @@ const EditProductPage = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
+
+
   const [fileImageMainList, setFileImageMainList] = useState([]);
   const [fileImageSubList, setFileImageSubList] = useState([]);
   const handleCancel = () => setPreviewOpen(false);
@@ -103,11 +105,14 @@ const EditProductPage = () => {
             <span className="sparkline bar" data-type="bar"></span>
           </h3>
         </div>
+
         <div class="form-group row">
           <div class="col-sm-10 col-sm-offset-2">
             <button type="submit" id="quaylai" class="btn btn-danger" onClick={() => navigate(-1)}> Quay lại</button>
           </div>
         </div>
+
+
         <div className="card card-block">
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mã kho </label>

@@ -1,6 +1,6 @@
 import {BackTop, Layout, Spin} from 'antd';
 import HeaderComponent from "../../components/header/HeaderComponent";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import FooterComponent from "../../components/footer/FooterComponent";
 import RoutesPage from "../../routes/RoutesPage";
 import {getListCategories} from "../../apis/categories/CategoriesApi";
@@ -13,7 +13,9 @@ import {changeStateLoading, turnOffLoading, turnOnLoading} from "./MainLayout.ac
 import {ERROR_ROUTE} from "../../configs/url";
 import useDebounce from "../../customhooks/useDebounce";
 import {searchProducts} from "../../apis/products/ProductsApi";
-
+import {useElementSize} from "use-element-size";
+import {getWindowHeight, getWindowWidth} from "../../utils/Utils";
+import "./MainLayout.css"
 
 const {Header, Footer, Sider, Content} = Layout;
 
@@ -27,6 +29,7 @@ const MainLayout = () => {
   const [searchValue,setSearchValue]=useState("");
   const [searchListResult,setSearchListResult]=useState([]);
   const debounceValue = useDebounce(searchValue, 500);
+  const [scrollY, setScrollY] = useState(0);
   useEffect(() => {
     const getListCategory = () => {
       dispatch(turnOnLoading())
@@ -49,6 +52,8 @@ const MainLayout = () => {
     setSearchValue(e.target.value);
   }
 
+
+
   useEffect(
     () => {
       if (debounceValue) {
@@ -70,6 +75,23 @@ const MainLayout = () => {
         setSearchValue("");
       }
     },[debounceValue]);
+
+
+
+  useEffect(() => {
+
+    const logit=()=> {
+      setScrollY(window.pageYOffset);
+    }
+
+    const watchScroll=()=>{
+      window.addEventListener("scroll", logit);
+    }
+    watchScroll();
+    return () => {
+      window.removeEventListener("scroll", logit);
+    };
+  },[window.pageYOffset]);
   return (
     <>
     {
@@ -138,7 +160,7 @@ const MainLayout = () => {
               <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)}/>
               <Content style={{minHeight: "100px"}}>
                 <RoutesPage/>
-                <BackTop>
+                <BackTop visible={scrollY>=400?true:false}>
                   <BackTopComponent/>
                 </BackTop>
               </Content>

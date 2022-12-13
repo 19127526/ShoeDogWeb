@@ -3,21 +3,25 @@
     padding-right: 30px;
 }
 
-.carousel  {
-    width:50vw
-}
+
 .main-slide-detail>.carousel-root>.carousel>.slider-wrapper{
     width: 50vw;
 }
 .carousel .thumb{
-    width: 8%!important;
+    width: 5%!important;
     height:10%
 }
 @media (max-width: 768px) {
     .carousel .thumb{
         width: 14%!important;
     }
-    .carousel .slider-wrapper {
+
+    .main-slide-detail{
+        padding-top: 30px;
+        padding-right: 0;
+    }
+
+    .main-slide-detail>.carousel-root>.carousel>.slider-wrapper {
         width:80vw
     }
     .main-slide{
