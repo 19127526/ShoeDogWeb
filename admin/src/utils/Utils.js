@@ -17,7 +17,12 @@ export const getBase64 = (file) =>
 
 
 export const convertArrayToOptions=(arr,splitIndex)=>{
-  return arr.split(splitIndex)
+  if(arr===null){
+    return null
+  }
+  else{
+    return arr.split(splitIndex)
+  }
 }
 
 

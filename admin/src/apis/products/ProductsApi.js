@@ -1,5 +1,5 @@
 import request from "../request";
-import {GET_BRANDS_URI, GET_PRODUCTS_URI, REMOVE_PRODUCT_URI} from "../../configs/url";
+import {ADD_NEW_PRODUCT_URI, GET_BRANDS_URI, GET_PRODUCTS_URI, REMOVE_PRODUCT_URI} from "../../configs/url";
 
 export const getListProducts= async ()=>{
   return await request.get(GET_PRODUCTS_URI);
@@ -10,6 +10,26 @@ export const getListProductsByCatId=async (id)=>{
 
 export const removeProductByProId=async ({proId})=>{
   return await request.post(REMOVE_PRODUCT_URI,{id:proId});
+}
+
+export const addProduct=async (payload)=>{
+ /* category: payload.catName,
+    name: payload.proName,
+    des:payload.des,
+    shortDes:"",
+    status:1,
+    brand:payload.brand,
+    price:payload.price,
+    discount:payload.discount,
+    total:payload.totalPrice,
+    image:payload.image,
+    size:payload.size,
+    color:payload.color,*/
+  return await request.post(ADD_NEW_PRODUCT_URI,payload,{
+    headers:{
+      "Content-Type": "multipart/form-data"
+    }
+  })
 }
 
 export const getAllBrands=async ()=>{

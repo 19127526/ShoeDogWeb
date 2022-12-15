@@ -7,7 +7,6 @@ const category = require('../models/category');
 exports.getAllProducts = async (req, res) => {
     try {
         const products = await product.getProducts();
-        console.log(products)
         return res.status(200).json({"status": "success", "data": products});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -80,10 +79,10 @@ exports.addProduct = async (req, res) => {
             Inventory: random,
             ProName: productBody.name,
             Price: productBody.price,
+            Brand:productBody.brand,
             Des: productBody.des,
             ShortDes: productBody.shortDes,
             StatusPro: productBody.status,
-            Quantity: productBody.quantity,
             Size: productBody.size,
             Color: productBody.color,
             Discount: productBody.discount,
@@ -91,6 +90,7 @@ exports.addProduct = async (req, res) => {
             TotalPrice: productBody.total,
             CatId: catId.CatId
         }
+
         const productId = await product.addProduct(productAdd);
         const productFinding = await product.getDetailProductsByProId(productId);
         const arrayFile = req.files;
@@ -120,7 +120,6 @@ exports.addProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
     try {
         const id = req.body.id;
-        console.log(req.body.id)
         const result = await product.deleteProduct(id);
         return res.status(200).json({"status": "success", "data": result});
     } catch (e) {

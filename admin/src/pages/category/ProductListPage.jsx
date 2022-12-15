@@ -14,7 +14,7 @@ const ProductListPage = () => {
     const getListItemByCatId = async () => {
       await getListProductsByCatId(catId || null)
         .then(res => {
-          if (res.data.status === 'success') {
+          if (res.data.status === 'success'||res.data.status==='empty') {
             setItem(res.data.data);
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)

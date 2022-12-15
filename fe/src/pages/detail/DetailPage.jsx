@@ -26,7 +26,7 @@ const DetailPage = () => {
   const dispatch=useDispatch();
   const [imageSubArray,setImageSubArray]=useState([]);
   const [sizeList,setSizeList]=useState([]);
-  const [colorList,setColorList]=useState([]);
+  const [color,setColor]=useState();
   const [empty,setEmpty]=useState(false);
   const [chooseSizeSuccess,setChooseSizeSuccess]=useState({
     size:null,
@@ -39,15 +39,16 @@ const DetailPage = () => {
   useEffect(()=>{
     const getDetailProduct=()=>{
       dispatch(turnOnLoading())
-      setColorList([])
+      setColor()
       setImageSubArray([])
       getDetailProductByProId(proId||0)
         .then(res=>{
           if (res.data.status === 'success') {
             setDetailProduct(res.data.data[0]);
-            setSizeList(convertArrayToOptions(res.data.data[0].Size,", "));
-            setColorList(convertArrayToOptions(res.data.data[0].Color,", "))
-            setImageSubArray(convertArrayToOptions(res.data.data[0].ImageArray,", "))
+            setSizeList(convertArrayToOptions(res.data.data[0].Size,", ")
+              .map(index=>convertArrayToOptions(index,": ")[0]));
+            setColor(res.data.data[0].Color)
+            setImageSubArray(convertArrayToOptions(res.data.data[0].ImageArray,", "));
             setEmpty(false);
           }
           else if(res.data.status==='empty'){
@@ -77,7 +78,6 @@ const DetailPage = () => {
   }
 
   const addProductToCart=()=>{
-    console.log(chooseSizeSuccess)
     if(chooseSizeSuccess.size===null &&chooseSizeSuccess.price===null){
       message.info('Vui lòng chọn size trước khi thêm vào giỏ hàng');
     }
@@ -100,20 +100,18 @@ const DetailPage = () => {
             <div className="main-slide-detail" >
               <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
                         autoFocus={true} emulateTouch={true} >
-                <div>
-                  <img  src={detailProduct?.ImageMain}/>
-                </div>
-                {imageSubArray?.map(index => (
-                  <div >
-                    <img src={index}/>
+
+                {imageSubArray.length===0||imageSubArray===undefined||imageSubArray[0]===""?
+                  <div>
+                    <img  src={detailProduct?.ImageMain}/>
                   </div>
-                ))}
-              {/*  <div>
-                  <img src={image}/>
-                </div>
-                <div>
-                  <img className="detail-image" src={detailProduct?.ImageMain}/>
-                </div>*/}
+                  :
+                  imageSubArray?.map(index => (
+                    <div >
+                      <img src={index}/>
+                    </div>
+                  ))
+                }
 
 
               </Carousel>

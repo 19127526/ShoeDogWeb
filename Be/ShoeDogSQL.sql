@@ -33,7 +33,7 @@ create table Products
     Brand varchar(150) charset utf8 not null ,
     Discount float default 1.0 null,
     TotalPrice double default (Price * Discount) null ,
-    ImageMain longtext not null,
+    ImageMain longtext  null,
     Size varchar(150) charset utf8,
     Color varchar(30) charset utf8,
     constraint `product-category`
@@ -57,7 +57,7 @@ INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro
 \\n<em>- Ribbed collar</em>
 \\n
 \\n<em>- 100% Cotton</em>', 1, '2022-12-03 23:53:28', 1, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_1_38d3cedd-f0a4-47a6-8013-a9497c7304f8_720x.webp, https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_2_98c74189-1d94-4e9c-90a7-4f2726b57bfe_720x.webp', 0, 115000, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_BLAC_1_38d3cedd-f0a4-47a6-8013-a9497c7304f8_720x.webp', 'L, M', 'Đen','Nike');
-INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Discount, TotalPrice, ImageMain, Size, Color) VALUES (2, 'aaabbbb', 'Stussy Built Tough Tee', 115000, '<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong>
+INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray, Discount, TotalPrice, ImageMain, Size, Color,Brand) VALUES (2, 'aaabbbb', 'Stussy Built Tough Tee', 115000, '<strong><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" />Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong>
 \\n
 \\n<strong>Địa chỉ:</strong>
 \\n
@@ -73,7 +73,7 @@ INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro
 \\n
 \\n<em>- Ribbed collar</em>
 \\n
-\\n<em>- 100% Cotton</em>', 1, '2022-12-04 00:11:24', 1, null,  0, 115000, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_WHIT_1_ae5513bc-1746-4dd1-9dff-76980280a5ce_720x.webp, https://shoedog.vn/wp-content/uploads/2022/09/1904893_WHIT_2_de581c52-91d5-4644-9564-c1bfa0ffc06c_720x.webp', 'L, M', 'Trắng');
+\\n<em>- 100% Cotton</em>', 1, '2022-12-04 00:11:24', 1, null,  0, 115000, 'https://shoedog.vn/wp-content/uploads/2022/09/1904893_WHIT_1_ae5513bc-1746-4dd1-9dff-76980280a5ce_720x.webp, https://shoedog.vn/wp-content/uploads/2022/09/1904893_WHIT_2_de581c52-91d5-4644-9564-c1bfa0ffc06c_720x.webp', 'L, M', 'Trắng','Gucci');
 INSERT INTO products (ProId, Inventory, ProName, Price, Des, ShortDes, StatusPro, DateStart, CatId, ImageArray,  Discount, TotalPrice, ImageMain, Size, Color,Brand) VALUES (3, 'ccccccc', 'Nón Nike Heritage 86 chính hãng', 85000, '<img class="aligncenter size-full wp-image-1120" src="https://shoedog.vn/wp-content/uploads/2022/01/271595152_3178837255775151_8041934531318166492_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1121" src="https://shoedog.vn/wp-content/uploads/2022/01/271599349_3178837249108485_5362027506056020752_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1122" src="https://shoedog.vn/wp-content/uploads/2022/01/271610182_3178837229108487_1476959637064592103_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1123" src="https://shoedog.vn/wp-content/uploads/2022/01/271653126_3178837232441820_3981912697630967423_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1124" src="https://shoedog.vn/wp-content/uploads/2022/01/271656884_3178837239108486_1446433627113033019_n.jpg" alt="" width="1440" height="1439" /> <img class="aligncenter size-full wp-image-1126" src="https://shoedog.vn/wp-content/uploads/2022/01/271660445_3178837245775152_4525744367107358356_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1127" src="https://shoedog.vn/wp-content/uploads/2022/01/271664559_3178837225775154_5648722583419083262_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1128" src="https://shoedog.vn/wp-content/uploads/2022/01/271664559_3178837252441818_8870196710787165471_n.jpg" alt="" width="1440" height="1439" /> <img class="aligncenter size-full wp-image-1129" src="https://shoedog.vn/wp-content/uploads/2022/01/271688593_3178837242441819_4887242882146411619_n.jpg" alt="" width="1440" height="1440" /> <img class="aligncenter size-full wp-image-1130" src="https://shoedog.vn/wp-content/uploads/2022/01/271700747_3178837235775153_7776080202202517120_n.jpg" alt="" width="1440" height="1440" />
 \\n
 \\nNón Nike Heritage 86 chính hãng, mới 100% full tag đầy đủ. Giá store 24$ chưa kể phí ship về nữa đó cả nhà.
@@ -141,15 +141,27 @@ DROP TABLE IF EXISTS `Orders`;
 create table Orders
 (
     OrderId int auto_increment primary key,
-    StatusOrder int default 0 not null
+    FullName varchar(100) charset utf8  not null,
+    Email varchar(100) charset utf8  null,
+    Address longtext  not null ,
+    PhoneNumber longtext  not null ,
+    Note longtext null ,
+    InventoryOrder longtext null,
+    OrderDate TIMESTAMP default CURRENT_TIMESTAMP not null,
+    StatusOrder int default 0 not null,
+    MethodPay int not null
 );
+
+
 DROP TABLE IF EXISTS `OrderDetails`;
 create table OrdersDetails
 (
     OrderDetailId int auto_increment primary key,
     ProId int not null,
-    Amount bigint default 1 null,
+    Amount bigint not null ,
+    Size longtext not null ,
     OrderId int not null,
+
     constraint `orderDetail-product`
         foreign key(ProId) references Products (ProId),
     constraint `orderDetail-order`

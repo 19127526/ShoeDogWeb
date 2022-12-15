@@ -578,3 +578,12 @@
         padding: 0 5px;
     }
 }
+
+@media (max-width: 320px) {
+    .header__cart .dropdown__inner{
+        width: 200px;
+        max-height: 450px;
+        overflow-y: auto
+    }
+
+}

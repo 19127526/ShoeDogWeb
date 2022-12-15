@@ -317,6 +317,8 @@ header.active {
     line-height: 18px;
     width: 500px;
     top: 35px;
+    max-height: 650px;
+    overflow-y: auto
 }
 
 .header__cart .dropdown__inner h2 {

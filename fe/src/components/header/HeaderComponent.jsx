@@ -34,6 +34,11 @@ const HeaderComponent = ({categoryList, searchButton}) => {
 
     setTotalPriceCart(temp.reduce((previousScore, currentScore)=>previousScore+currentScore,0))
   }, [dataProduct?.cartItem]);
+
+  const checkOutButton=()=>{
+    setCartButton(false)
+    navigate("/order");
+  }
   return (
     <header className="clearfix" ref={ref}>
       <a id="togger__menu">
@@ -57,7 +62,7 @@ const HeaderComponent = ({categoryList, searchButton}) => {
               </Badge>
             <span className={cartItem?.length===0?"header__cart--num hide":"header__cart--num"}></span></a>
             <div className={cartButton === true ? "dropdown-up-style active" : "dropdown-up-style hide"}>
-              <div className="dropdown__inner">
+              <div className="dropdown__inner" >
                 <h2 className="text-uper font-700 fs-16">Giỏ hàng của bạn</h2>
                 {cartItem.length === 0 ?
                   <div className="text-center">
@@ -78,11 +83,9 @@ const HeaderComponent = ({categoryList, searchButton}) => {
                     </div>
                     <div className="text-center">
                       <p className="font-500 fs-15 mgB-15">Phí vận chuyển và thuế sẽ tính lúc thanh toán</p>
-                      <a onClick={() => navigate("/order")} className="text-uper btn-checkout ">Thanh toán</a>
+                      <a onClick={checkOutButton} className="text-uper btn-checkout ">Thanh toán</a>
                     </div>
                   </>
-
-
                 }
               </div>
             </div>
@@ -103,49 +106,10 @@ const HeaderComponent = ({categoryList, searchButton}) => {
                     <a><span>{index.CatName}</span></a></li>
                 ))}
                 <li>
-                  <a href="https://www.glab.vn/product/features"><span>Liên hệ</span></a>
+                  <a ><span>Liên hệ</span></a>
 
                 </li>
-                {/*<li>
-                    <a href="https://www.glab.vn/product/accessories"><span>Accessories</span></a>
-                    <div className="menu__sub">
-                      <ul>
-                        <li>
-                          <a href="https://www.glab.vn/product/watch">Watch</a>
-                        </li>
-                        <li>
-                          <a href="https://www.glab.vn/product/socks">Socks</a>
-                        </li>
-                        <li>
-                          <a href="https://www.glab.vn/product/cap">Cap</a>
-                        </li>
-                        <li>
-                          <a href="https://www.glab.vn/product/backpack-and-bag">Backpack and Bag</a>
-                        </li>
-                        <li>
-                          <a href="https://www.glab.vn/product/shoe-care">Shoe Care</a>
-                        </li>
-                        <li>
-                          <a href="https://www.glab.vn/product/miscellaneous">Miscellaneous</a>
-                        </li>
-                        <li>
-                          <a href="https://www.glab.vn/product/glasses">Glasses</a>
-                        </li>
-                        <li>
-                          <a href="https://www.glab.vn/product/bearbrick">Bearbrick</a>
-                        </li>
-                        <li>
-                          <a href="https://www.glab.vn/product/face-mask">Face Mask</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                <li>
-                  <a href="https://www.glab.vn/product/type/used"><span>Used</span></a>
-                </li>
-                <li>
-                  <a href="https://www.glab.vn/product/type/sale"><span>Sale</span></a>
-                </li>*/}
+
               </ul>
             </div>
           </div>

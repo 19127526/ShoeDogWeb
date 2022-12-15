@@ -6,7 +6,14 @@ export const GET_PRODUCTS_URI="product"
 export const ADD_CATEGORIES_URI="category/add"
 export const GET_DETAIL_PRODUCT_URI="product/detail"
 export const SEARCH_PRODUCT_URI="product/search"
+export const ADD_ORDER_URI="order/add"
 
+
+
+//api provinces
+export const GET_ALL_PROVINCES_URL="https://provinces.open-api.vn/api/p/";
+export const GET_ALL_DISTRICTS_URL="https://provinces.open-api.vn/api/d/";
+export const GET_ALL_WARDS_URL="https://provinces.open-api.vn/api/w/";
 //client route
 export const DETAIL_PRODUCT_ROUTE="/detail/:proId"
 export const ORDER_PRODUCT_ROUTE="/order"

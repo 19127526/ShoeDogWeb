@@ -1,259 +1,287 @@
 import OrderProductComponent from "../../components/order/OrderProductComponent";
+import {useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {GET_ALL_DISTRICTS_URL, GET_ALL_PROVINCES_URL, GET_ALL_WARDS_URL} from "../../configs/url";
+import {useNavigate} from "react-router-dom";
+import {addOrderApi} from "../../apis/orders/OrderApi";
+import {Collapse, Input, Radio, Space} from "antd";
 
 const OrderPage = () => {
+  const navigate=useNavigate();
+  const dataProduct = useSelector(state => state.cartReducer);
+  const cartItem = dataProduct.cartItem;
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [listProvinces, setListProvinces] = useState([{
+    name: null,
+    code: null
+  }])
+  const [listDistricts, setListDistricts] = useState([{
+    name: null,
+    code: null,
+    provinceCode:null
+  }])
+  const [listWards, setListWards] = useState([{
+    name: null,
+    code: null,
+    districtCode:null
+  }]);
+
+
+
+  const [fullName,setFullName]=useState("");
+  const [email,setEmail]=useState("");
+  const [province,setProvince]=useState("");
+  const [district,setDistrict]=useState("");
+  const [ward,setWard]=useState("");
+  const [address,setAddress]=useState("");
+  const [phoneNumber,setPhoneNumber]=useState("");
+  const [note,setNote]=useState("");
+
+  useEffect(() => {
+    const temp = cartItem.map(index => {
+      return index?.aboutSize.price * index?.quantity
+    })
+    setTotalPrice(temp.reduce((previousScore, currentScore) => previousScore + currentScore, 0))
+  }, [cartItem])
+
+  useEffect(() => {
+    const getListProvinces = async () => {
+      await axios.get(GET_ALL_PROVINCES_URL)
+        .then(res => {
+          const temp = res.data.map(index => {
+            return {name: index.name, code: index.code}
+          });
+          setListProvinces(temp);
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    getListProvinces()
+  }, []);
+  
+  
+  const handleChangeFullName=(e)=>{
+    setFullName(e.target.value)
+  }
+
+  const handleChangeEmail=(e)=>{
+    setEmail(e.target.value)
+  }
+
+
+  const handleChangeListProvinces=async (e)=>{
+    const value=e.target.value;
+    let index = e.nativeEvent.target.selectedIndex;
+    setProvince(e.nativeEvent.target[index].text)
+    setListDistricts([]);
+    setListWards([])
+    await axios.get(GET_ALL_DISTRICTS_URL)
+      .then(res => {
+        const temp=res.data.map(index=>{
+          return {
+            name:index.name,
+            code:index.code,
+            provinceCode:index.province_code
+          }
+        }).filter(index=>{
+          if(index.provinceCode==value) {
+            return index;
+          }
+        });
+        setListDistricts(temp);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const handleChangeListDistricts=async (e)=>{
+    const value=e.target.value;
+    let index = e.nativeEvent.target.selectedIndex;
+    setDistrict(e.nativeEvent.target[index].text)
+    setListWards([])
+    await axios.get(GET_ALL_WARDS_URL)
+      .then(res => {
+        const temp=res.data.map(index=>{
+          return{
+            name:index.name,
+            code:index.code,
+            districtCode:index.district_code
+          }
+        }).filter(index=>{
+          if(index.districtCode==value) {
+            return index;
+          }
+        });
+        setListWards(temp);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const handleChangeListWards=async (event)=>{
+    let index = event.nativeEvent.target.selectedIndex;
+    setWard(event.nativeEvent.target[index].text)
+  }
+
+  const handleChangeAddress=(e)=>{
+    setAddress(e.target.value)
+  }
+
+
+  const handleChangePhoneNumber=(e)=>{
+    setPhoneNumber(e.target.value)
+  }
+
+  const handleChangeNote = (e) => {
+    setNote(e.target.value)
+  }
+
+  const orderButton=async ()=>{
+    const information={
+      fullName:fullName,
+      email:email,
+      province:province,
+      district:district,
+      ward:ward,
+      address:address,
+      phoneNumber:phoneNumber,
+      note:note,
+      methodPay:methodPay
+    }
+    const item=cartItem.map(index=>{
+      return {
+        proId:index.detailProduct.ProId,
+        size:index.aboutSize.size,
+        amount: index.quantity
+      }
+    });
+
+    const totalPayload={information,item}
+    console.log(totalPayload);
+    console.log(information)
+
+    await addOrderApi(totalPayload)
+      .then(res=>{
+        if(res.data.status==="success"){
+          console.log(res.data.data)
+        }
+      })
+      .catch(err=>console.log(err))
+  }
+
+  const [methodPay,setMethodPay]=useState()
+  const onChangeMethodPay=(e)=>{
+    setMethodPay(e.target.value);
+  }
   return (
     <div id="container">
       <div className="container detail wrap-checkout">
         <div className="checkout__inner clearfix">
-          <form action="https://www.glab.vn/order/checkout/step2" method="post">
-            <input type="hidden" name="_token" value="cRIx55nnE35ibwxD1uhtjxuQPuSE1xMvPEiS3qCN"/>
             <div className="checkout__infor">
               <div className="checkout__infor__shipping step-checkout">
                 <div className="checkout__infor__user__shipping">
                   <p className="font-700 mgB-20 fs-24 mgT-20">SHIPPING INFOMATION</p>
                   <div className="frm-item">
                     <input name="shipping_name" placeholder="Họ Tên (*)" className="form-control" type="text"
-                           value=""/>
+                           onChange={handleChangeFullName}/>
                   </div>
                   <div className="frm-item">
                     <input name="email" placeholder="Email" className="form-control" type="text"
-                           value="phamtienquan2001@gmail.com"/>
+                           onChange={handleChangeEmail}/>
                   </div>
                   <div className="frm-item same-city">
-                    <select className="select-city" data-child="district" name="shipping_city_id">
+                    <select className="select-city" data-child="district" name="shipping_city_id" onChange={handleChangeListProvinces}>
                       <option value="0">Tỉnh/Thành phố</option>
-                      <option value="1">Hồ Chí Minh</option>
-                      <option value="2">Hà Nội</option>
-                      <option value="3">Bình Dương</option>
-                      <option value="4">Đà Nẵng</option>
-                      <option value="5">Hải Phòng</option>
-                      <option value="6">Long An</option>
-                      <option value="7">Bà Rịa Vũng Tàu</option>
-                      <option value="8">An Giang</option>
-                      <option value="9">Bắc Giang</option>
-                      <option value="10">Bắc Kạn</option>
-                      <option value="11">Bạc Liêu</option>
-                      <option value="12">Bắc Ninh</option>
-                      <option value="13">Bến Tre</option>
-                      <option value="14">Bình Định</option>
-                      <option value="15">Bình Phước</option>
-                      <option value="16">Bình Thuận</option>
-                      <option value="17">Cà Mau</option>
-                      <option value="18">Cần Thơ</option>
-                      <option value="19">Cao Bằng</option>
-                      <option value="20">Đắk Lắk</option>
-                      <option value="21">Đắk Nông</option>
-                      <option value="22">Điện Biên</option>
-                      <option value="23">Đồng Nai</option>
-                      <option value="24">Đồng Tháp</option>
-                      <option value="25">Gia Lai</option>
-                      <option value="26">Hà Giang</option>
-                      <option value="27">Hà Nam</option>
-                      <option value="28">Hà Tĩnh</option>
-                      <option value="29">Hải Dương</option>
-                      <option value="30">Hậu Giang</option>
-                      <option value="31">Hòa Bình</option>
-                      <option value="32">Hưng Yên</option>
-                      <option value="33">Khánh Hòa</option>
-                      <option value="34">Kiên Giang</option>
-                      <option value="35">Kon Tum</option>
-                      <option value="36">Lai Châu</option>
-                      <option value="37">Lâm Đồng</option>
-                      <option value="38">Lạng Sơn</option>
-                      <option value="39">Lào Cai</option>
-                      <option value="40">Nam Định</option>
-                      <option value="41">Nghệ An</option>
-                      <option value="42">Ninh Bình</option>
-                      <option value="43">Ninh Thuận</option>
-                      <option value="44">Phú Thọ</option>
-                      <option value="45">Phú Yên</option>
-                      <option value="46">Quảng Bình</option>
-                      <option value="47">Quảng Nam</option>
-                      <option value="48">Quảng Ngãi</option>
-                      <option value="49">Quảng Ninh</option>
-                      <option value="50">Quảng Trị</option>
-                      <option value="51">Sóc Trăng</option>
-                      <option value="52">Sơn La</option>
-                      <option value="53">Tây Ninh</option>
-                      <option value="54">Thái Bình</option>
-                      <option value="55">Thái Nguyên</option>
-                      <option value="56">Thanh Hóa</option>
-                      <option value="57">Thừa Thiên Huế</option>
-                      <option value="58">Tiền Giang</option>
-                      <option value="59">Trà Vinh</option>
-                      <option value="60">Tuyên Quang</option>
-                      <option value="61">Vĩnh Long</option>
-                      <option value="62">Vĩnh Phúc</option>
-                      <option value="63">Yên Bái</option>
+                      {
+                        listProvinces.map(index=>
+                          ( <option value={index.code} key={index.code}>{index.name}</option>)
+                        )
+                      }
                     </select>
                   </div>
                   <div className="frm-item same-district">
-                    <select className="select-district" data-child="ward" name="shipping_district_id">
+                    <select className="select-district"  name="shipping_district_id" onChange={handleChangeListDistricts}>
                       <option value="0">Quận/Huyện</option>
+                      {
+                        listDistricts.map(index=>
+                          ( <option value={index.code} key={index.code}>{index.name}</option>)
+                        )
+                      }
                     </select>
                   </div>
                   <div className="frm-item same-ward">
-                    <select className="select-ward" name="shipping_ward_id">
+                    <select className="select-ward" name="shipping_ward_id" onChange={handleChangeListWards}>
                       <option value="0">Phường/Xã</option>
+                      {
+                        listWards.map(index=>
+                          (<option value={index.code} key={index.code}>{index.name}</option>)
+                        )
+                      }
                     </select>
                   </div>
                   <div className="frm-item">
                     <input name="shipping_address"
                            placeholder="Địa chỉ. Vui lòng điền CHÍNH XÁC 'tầng, số nhà, đường'.  (*)"
-                           className="form-control" type="text" value=""/>
+                           className="form-control" type="text" onChange={handleChangeAddress}/>
                   </div>
                   <div className="frm-item">
                     <input name="shipping_phone" placeholder="Điện thoại  (*)" className="form-control" type="number"
-                           value=""/>
+                           onChange={handleChangePhoneNumber}/>
                   </div>
                   <div className="frm-item">
-                    <textarea className="form-control" name="comment" placeholder="Lưu ý"></textarea>
+                    <textarea className="form-control" name="comment" placeholder="Lưu ý" onChange={handleChangeNote}></textarea>
                     <div className="error">abc</div>
                   </div>
                 </div>
 
-                <div className="checkout__infor__user__billing hide">
-                  <p className="font-700 mgB-20 fs-24 mgT-40">BILLING INFORMATION</p>
-                  <div className="row mgB-20">
-                    <div className="col-sm-6">
-                      <label htmlFor="" className="frm">
-                        <input type="radio" name="chk-same-info" checked="" value="1"/>SAME AS SHIPPING
-                      </label>
-                    </div>
-                    <div className="col-sm-6">
-                      <label htmlFor="" className="frm">
-                        <input type="radio" name="chk-same-info" value="0"/>ENTER DIFFERENT BILLING ADDRESS
-                      </label>
-                    </div>
-                  </div>
-                  <div className="frm-item">
-                    <input name="billing_name" placeholder="Họ Tên (*)" className="form-control" type="text"
-                           value=""/>
-                  </div>
-                  <div className="frm-item">
-                    <input name="billing_address"
-                           placeholder="Địa chỉ. Vui lòng điền CHÍNH XÁC 'tầng, số nhà, đường'. (*)"
-                           className="form-control" type="text" value=""/>
-                  </div>
-                  <div className="frm-item same-city">
-                    <select className="select-city" data-child="district" name="billing_city_id">
-                      <option value="0">Tỉnh/Thành phố</option>
-                      <option value="1">Hồ Chí Minh</option>
-                      <option value="2">Hà Nội</option>
-                      <option value="3">Bình Dương</option>
-                      <option value="4">Đà Nẵng</option>
-                      <option value="5">Hải Phòng</option>
-                      <option value="6">Long An</option>
-                      <option value="7">Bà Rịa Vũng Tàu</option>
-                      <option value="8">An Giang</option>
-                      <option value="9">Bắc Giang</option>
-                      <option value="10">Bắc Kạn</option>
-                      <option value="11">Bạc Liêu</option>
-                      <option value="12">Bắc Ninh</option>
-                      <option value="13">Bến Tre</option>
-                      <option value="14">Bình Định</option>
-                      <option value="15">Bình Phước</option>
-                      <option value="16">Bình Thuận</option>
-                      <option value="17">Cà Mau</option>
-                      <option value="18">Cần Thơ</option>
-                      <option value="19">Cao Bằng</option>
-                      <option value="20">Đắk Lắk</option>
-                      <option value="21">Đắk Nông</option>
-                      <option value="22">Điện Biên</option>
-                      <option value="23">Đồng Nai</option>
-                      <option value="24">Đồng Tháp</option>
-                      <option value="25">Gia Lai</option>
-                      <option value="26">Hà Giang</option>
-                      <option value="27">Hà Nam</option>
-                      <option value="28">Hà Tĩnh</option>
-                      <option value="29">Hải Dương</option>
-                      <option value="30">Hậu Giang</option>
-                      <option value="31">Hòa Bình</option>
-                      <option value="32">Hưng Yên</option>
-                      <option value="33">Khánh Hòa</option>
-                      <option value="34">Kiên Giang</option>
-                      <option value="35">Kon Tum</option>
-                      <option value="36">Lai Châu</option>
-                      <option value="37">Lâm Đồng</option>
-                      <option value="38">Lạng Sơn</option>
-                      <option value="39">Lào Cai</option>
-                      <option value="40">Nam Định</option>
-                      <option value="41">Nghệ An</option>
-                      <option value="42">Ninh Bình</option>
-                      <option value="43">Ninh Thuận</option>
-                      <option value="44">Phú Thọ</option>
-                      <option value="45">Phú Yên</option>
-                      <option value="46">Quảng Bình</option>
-                      <option value="47">Quảng Nam</option>
-                      <option value="48">Quảng Ngãi</option>
-                      <option value="49">Quảng Ninh</option>
-                      <option value="50">Quảng Trị</option>
-                      <option value="51">Sóc Trăng</option>
-                      <option value="52">Sơn La</option>
-                      <option value="53">Tây Ninh</option>
-                      <option value="54">Thái Bình</option>
-                      <option value="55">Thái Nguyên</option>
-                      <option value="56">Thanh Hóa</option>
-                      <option value="57">Thừa Thiên Huế</option>
-                      <option value="58">Tiền Giang</option>
-                      <option value="59">Trà Vinh</option>
-                      <option value="60">Tuyên Quang</option>
-                      <option value="61">Vĩnh Long</option>
-                      <option value="62">Vĩnh Phúc</option>
-                      <option value="63">Yên Bái</option>
-                    </select>
-                  </div>
-                  <div className="frm-item same-district">
-                    <select className="select-district" data-child="ward" name="billing_district_id">
-                      <option value="0">Quận/Huyện</option>
-                    </select>
-                  </div>
-                  <div className="frm-item same-ward">
-                    <select className="select-ward" name="billing_ward_id">
-                      <option value="0">Phường/Xã</option>
-                    </select>
-                  </div>
-                  <div className="frm-item">
-                    <input name="billing_phone" placeholder="Điện thoại (*)" className="form-control" type="number"
-                           value=""/>
-                  </div>
-                  <div className="frm-item">
-                    <input name="billing_tax_code" placeholder="Mã số thuế" className="form-control" type="text"
-                           value=""/>
-                  </div>
-                </div>
-                <div className="text-center mgT-30">
-                  <button className="btn__conti--pay">CONTINUE TO PAYMENT METHOD</button>
+
+                <div className="text-center mgT-30" onClick={orderButton}>
+                  <button className="btn__conti--pay">ĐẶT HÀNG</button>
                 </div>
               </div>
             </div>
             <div className="checkout__inforpro">
-              <p className="font-700 mgB-30 text-center fs-17">YOUR CART</p>
-              <OrderProductComponent size="4Y" name="Air Jordan 1 Low Taxi (GS)" price="2,900,000 đ" quantity={1} sku="553560-701"/>
-              <OrderProductComponent size="4Y" name="Air Jordan 1 Low Taxi (GS)" price="2,900,000 đ" quantity={1} sku="553560-701"/>
-              <div className="clearfix mgB-10">
-                <p className="pull-right font-600 fs-12">47,900,000 đ</p>
-                <p className="font-600 fs-12">Thành Tiền</p>
-              </div>
-
-              <div className="clearfix mgB-10">
-                <p className="pull-right font-700 fs-12">0 đ</p>
-                <p className="font-700 fs-12">Tiền Ship</p>
-              </div>
-              <div className="clearfix mgB-10">
-                <p className="pull-right font-700 fs-12">0 đ</p>
-                <p className="font-700 fs-12">Giảm Giá</p>
-              </div>
+              <p className="font-700 mgB-30 text-center fs-17">GIỎ HÀNG CỦA BẠN</p>
+              {cartItem.map(index =>
+                (
+                  <OrderProductComponent size={index.aboutSize.size} name={index.detailProduct.ProName}
+                                         totalPrice={index.detailProduct.TotalPrice} quantity={index.quantity}
+                                         sku={index.detailProduct.Inventory} discount={index.detailProduct.Discount}
+                                         index={index}/>
+                )
+              )}
               <div className="clearfix mgB-40">
-                <p className="pull-right font-700 fs-17">47,900,000 đ</p>
-                <p className="font-700 fs-17">Tổng Số Tiền</p>
+
+                <Radio.Group onChange={onChangeMethodPay} >
+                  <Space direction="vertical">
+                    <Radio value={1}>Chuyển khoản ngân hàng
+                      {methodPay === 1 ? (
+                        <div className="font-600 fs-11 justifyAround mgB-5">
+                          Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã chuyển. Moị thắc mắc xin liên hệ trực tiếp hotline: 0865414134
+                        </div>
+                      ):""}
+                    </Radio>
+                    <Radio value={0}>Trả tiền mặt khi nhận hàng
+                      {methodPay === 0 ? (
+                        <div className="font-600 fs-11 justifyAround mgB-5">
+                          Khách hàng trả tiền mặt khi giao hàng
+                        </div>
+                      ):""}
+                    </Radio>
+                  </Space>
+                </Radio.Group>
               </div>
+              <hr/>
+
               <div className="backLink">
-                <a href="https://www.glab.vn/product"><span className="icon-navigate_before"></span>RETURN TO STOCK
-                  INFOMATION</a>
+                <a onClick={()=>navigate("/")}><span className="icon-navigate_before"></span>QUAY LẠI TRANG
+                  CHỦ</a>
               </div>
             </div>
-          </form>
         </div>
       </div>
     </div>

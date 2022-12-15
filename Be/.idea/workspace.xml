@@ -5,17 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/order.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/order.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/orders.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.actions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.constraints.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/reduce/Reduce.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../admin/src/store/Store.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/apis/orders/OrderApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ShoeDogSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ShoeDogSQL.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middlewares/routeMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/routeMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/apis/products/ProductsApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/apis/products/ProductsApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/card/CardComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/card/CardComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/ProductDetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/ProductDetailPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/ProductListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/ProductListPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/utils/Utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/utils/Utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.constraints.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.constraints.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/order/OrderProductComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/order/OrderProductComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/configs/url.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +69,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Nam 4 - ki 1/Web nâng cao (2)/KahootClone" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -66,6 +95,8 @@
       <workItem from="1670915628429" duration="2980000" />
       <workItem from="1670918660766" duration="5458000" />
       <workItem from="1670936262103" duration="5710000" />
+      <workItem from="1671001985240" duration="23866000" />
+      <workItem from="1671101920026" duration="9654000" />
     </task>
     <servers />
   </component>

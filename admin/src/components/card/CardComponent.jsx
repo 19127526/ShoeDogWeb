@@ -6,50 +6,27 @@ import Notification from "../notification/Notification";
 import * as constraintNotification from "../notification/Notification.constraints";
 
 
-const RemoveModal=({proId,proName,setLoading})=>{
 
-  const removeProduct= async ()=>{
-   await removeProductByProId({proId:proId})
-     .then(res => {
-       console.log(res)
-       if (res.data.status === 'success') {
-         setLoading();
-         Notification("Thông báo dữ liệu", `Xóa sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
-       } else {
-         Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
-       }
-     })
-     .catch(err => {
-       Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
-     })
-  }
-  return (
-    <div className="modal fade" id="confirm-modal">
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title">
-              <i className="fa fa-warning"></i> Alert</h4>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            <p>Bạn có chắc chắn xóa sản phẩm này ??</p>
-          </div>
-          <div className="modal-footer">
-            <button type="button" onClick={()=>removeProduct()} className="btn btn-primary" data-dismiss="modal">Có</button>
-            <button type="button" className="btn btn-secondary" data-dismiss="modal">Không</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
 const CardComponent = ({index,setLoading}) => {
   const navigate = useNavigate();
-
   const [openSetting,setOpenSetting]=useState(false);
+  const removeProduct= async ()=>{
+    console.log(index.proId);
+    await removeProductByProId({proId:index?.ProId})
+      .then(res => {
+        console.log(res)
+        if (res.data.status === 'success') {
+
+          Notification("Thông báo dữ liệu", `Xóa sản phẩm ${index?.ProName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
+        } else {
+          Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
+        }
+      })
+      .catch(err => {
+        Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+      })
+      .finally(()=> {setLoading()})
+  }
   return (
     <li className="item">
       <div className="item-row">
@@ -116,10 +93,9 @@ const CardComponent = ({index,setLoading}) => {
             <div className="item-actions-block" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
               <ul className="item-actions-list">
                 <li>
-                  <a className="remove" href="#" data-toggle="modal" data-target="#confirm-modal">
-                    <i className="fa fa-trash-o "></i>
+                  <a className="remove" data-toggle="modal" data-target="#confirm-modal">
+                    <i className="fa fa-trash-o " onClick={removeProduct}></i>
                   </a>
-                  <RemoveModal proId={index.ProId} proName={index.ProName} setLoading={setLoading}/>
                 </li>
                 <li>
                   <a className="edit" onClick={()=>navigate(`${EDIT_PRODUCT}`+`${index.ProId}`,{state:{index:index}})}>

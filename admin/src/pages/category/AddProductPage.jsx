@@ -1,16 +1,16 @@
 import {useEffect, useRef, useState} from "react";
 import JoditEditor from 'jodit-react'
 import {PlusOutlined} from '@ant-design/icons';
-import {InputNumber, message, Modal, Select, Upload} from 'antd';
+import {AutoComplete, Input, InputNumber, message, Modal, Radio, Select, Upload} from 'antd';
 import {getBase64} from "../../utils/Utils";
 import {useNavigate} from "react-router-dom";
-import InputColor from 'react-input-color';
-import { AutoComplete } from 'antd';
-import {getAllBrands} from "../../apis/products/ProductsApi";
+import {addProduct, getAllBrands} from "../../apis/products/ProductsApi";
 import Notification from "../../components/notification/Notification";
 import * as constraintNotification from "../../components/notification/Notification.constraints";
 import {getListCategories} from "../../apis/categories/CategoriesApi";
-
+import "./AddProductPage.css"
+import {useDispatch, useSelector} from "react-redux";
+import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 
 const uploadButton = (
   <div>
@@ -26,15 +26,13 @@ const uploadButton = (
 );
 
 
-
-function localStringToNumber( s ){
-  return Number(String(s).replace(/[^0-9.-]+/g,""))
+function localStringToNumber(s) {
+  return Number(String(s).replace(/[^0-9.-]+/g, ""))
 }
 
-function onFocus(e){
+function onFocus(e) {
   let value = e.target.value.split(" VND")[0];
-  value=value.replaceAll(".","");
-  console.log(value)
+  value = value.replaceAll(".", "");
   e.target.value = value ? localStringToNumber(value) : ''
 }
 
@@ -52,74 +50,115 @@ function onBlur(e) {
 
 
 const AddProductPage = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const loadingRedux = useSelector(state => state.mainReducer);
+  const dispatch = useDispatch();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
 
 
+  const editor = useRef(null);
+
+
+  const [proName, setProName] = useState("");
+
+  const [category, setCategory] = useState("");
+  const [optionCategories, setOptionCategories] = useState([]);
+
+  const [brand, setBrand] = useState("");
+  const [optionsBrand, setOptionBrand] = useState([]);
+
+  const [valueEditorMain, setValueEditorMain] = useState(null);
+  const [sizeList, setSizeList] = useState([{size: "", quantity: 0}]);
+  const [color, setColor] = useState("");
+  const [price, setPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [fileImageMainList, setFileImageMainList] = useState([]);
   const [fileImageSubList, setFileImageSubList] = useState([]);
-  const [valueEditorMain, setValueEditorMain] = useState(null);
-  const editor = useRef(null);
-  const [totalPrice,setTotalPrice]=useState(0);
-  const [price,setPrice]=useState(0);
-  const [discount,setDiscount]=useState(0);
-  const [brand,setBrand]=useState("");
-  const [color, setColor] = useState({});
-  const [category,setCategory]=useState("");
-  const [optionCategories,setOptionCategories]=useState([]);
-  const [optionsSize,setOptionSize] = useState([])
-  const [optionsColor,setOptionColor] = useState([]);
-  const [optionsBrand,setOptionBrand]=useState([]);
 
-  useEffect(()=>{
-    const getAllBrandss= ()=>{
-       getAllBrands()
-        .then((res)=>{
+
+  useEffect(() => {
+    const getAllBrandss = () => {
+      getAllBrands()
+        .then((res) => {
           if (res.data.status === 'success') {
-            setOptionBrand(res.data.data.map(index=>{return{value:index.Brand}}));
-            console.log(optionsBrand);
+            setOptionBrand(res.data.data.map(index => {
+              return {value: index.Brand}
+            }).filter(index => (index.value !== "" && index.value !== null)));
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
           }
         })
-        .catch((err)=>{
+        .catch((err) => {
           Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
         })
     }
-    const getAllCategoriess= ()=>{
+    const getAllCategoriess = () => {
       getListCategories()
-        .then((res)=>{
+        .then((res) => {
           if (res.data.status === 'success') {
-            setOptionCategories(res.data.data.map(index=>{return {value:index.CatId,label:index.CatName}}));
-            console.log(res.data.data);
+            setOptionCategories(res.data.data.map(index => {
+              return {value: index.CatName, label: index.CatName}
+            }));
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
           }
         })
-        .catch((err)=>{
+        .catch((err) => {
           Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
         })
     }
     getAllBrandss();
     getAllCategoriess();
-  },[])
-
-
-  useEffect(()=>{
-    if(discount===0){
-      setTotalPrice(price*1)
-    }
-    else{
-      setTotalPrice(discount*price)
+  }, [])
+  useEffect(() => {
+    if (discount === 0) {
+      setTotalPrice(price * 1)
+    } else {
+      setTotalPrice(discount * price)
     }
 
-  },[discount,price])
+  }, [discount, price])
 
 
+  const handleChangeProName = (e) => {
+    setProName(e.target.value);
+  }
 
-  const handleCancel = () => setPreviewOpen(false);
+  const handleChangeCategory = (value) => {
+    setCategory(value)
+  };
+
+  const handleChangeBrand = (e) => {
+    setBrand(e);
+  }
+
+  const handleChangeDescription = (content) => {
+    setValueEditorMain(content)
+  }
+
+  const handleChangeColor = (e) => {
+    setColor(e.target.value)
+  }
+
+  const handleChangePrice = (e) => {
+    setPrice(e.target.value)
+  }
+
+  const handleChangeDiscount = (e) => {
+    setDiscount((100 - e) / 100);
+  }
+
+  const handleChangeMain = ({fileList: newFileList}) => {
+    setFileImageMainList(newFileList)
+  };
+
+  const handleChangeSub = ({fileList: newFileList}) => {
+    setFileImageSubList(newFileList)
+  };
+
 
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -129,28 +168,99 @@ const AddProductPage = () => {
     setPreviewOpen(true);
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
   };
-  const handleChangeMain = ({fileList: newFileList}) => {
-    setFileImageMainList(newFileList)
-  };
 
-  const handleChangeBrand=(e)=>{
-    setBrand(e);
+  const handleCancel = () => setPreviewOpen(false);
+
+  const addProductClick = () => {
+    const tempSize = sizeList.map((value, index) => {
+      const temp = value.size + ": " + value.quantity
+      if (index === 0) {
+        return temp
+      } else {
+        return ", " + temp
+      }
+    })
+    const size = tempSize.reduce((prev, next) => prev + next);
+
+    const tempSubImg=fileImageSubList.map(index=>(index.originFileObj));
+    const image = [fileImageMainList[0].originFileObj,...tempSubImg];
+    const formData = new FormData();
+
+    formData.append('category',category);
+    formData.append('name',proName);
+    formData.append('des',valueEditorMain);
+    formData.append('shortDes',valueEditorMain);
+    formData.append('status',1);
+    formData.append('brand',brand);
+    formData.append('price',price);
+    formData.append('discount',discount);
+    formData.append('total',totalPrice);
+    for(let i=0;i<image.length;i++){
+      formData.append('image',image[i]);
+    }
+
+    formData.append('size',size);
+    formData.append('color',color);
+
+
+
+
+    const payload = {
+      catName: category,
+      proName: proName,
+      brand:brand,
+      des: valueEditorMain,
+      price: price,
+      discount: discount,
+      totalPrice: totalPrice,
+      formData,
+      size: size,
+      color: color
+    }
+    console.log(payload)
+    const callApiAddProduct = async () => {
+      dispatch(turnOnLoading());
+      await addProduct(formData)
+        .then(res => {
+          if(res.data.status==="success"){
+            Notification("Thông báo thêm sản phẩm", `Thêm sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
+          }
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(()=>{
+          dispatch(turnOffLoading());
+        })
+    }
+    callApiAddProduct();
   }
 
-  const handleChangeSub = ({fileList: newFileList}) => {
-    setFileImageSubList(newFileList)
-  };
-  const handleChangeCategory = (value) => {
-    console.log(`selected ${value}`);
+
+  //Size
+
+  // handle input change
+  const handleInputChange = (e, index) => {
+    const {name, value} = e.target;
+    const list = [...sizeList];
+    list[index][name] = value;
+    setSizeList(list);
   };
 
 
-  const onChangeDiscount=(e)=>{
-    setDiscount((100-e)/100);
-  }
-  const onChangePrice=(e)=>{
-    setPrice(e.target.value)
-  }
+  // handle click event of the Remove button
+  const handleRemoveClick = index => {
+    const list = [...sizeList];
+    list.splice(index, 1);
+    setSizeList(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setSizeList([...sizeList, {size: "", quantity: ""}]);
+  };
+
 
   return (<>
     <article className="content item-editor-page" id="ajax">
@@ -171,7 +281,8 @@ const AddProductPage = () => {
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên sản phẩm </label>
           <div className="col-sm-9">
-            <input type="text" className="form-control boxed" id="title"
+            <input type="text" className="form-control boxed" onChange={handleChangeProName} id="title"
+                   placeholder="Hãy điền tên sản phẩm"
             />
           </div>
         </div>
@@ -208,62 +319,70 @@ const AddProductPage = () => {
           </div>
         </div>
         <div className="form-group row">
-          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Số lượng </label>
-          <div className="col-sm-9">
-            <InputNumber  style={{width:120}} onKeyPress={(event)=>{ if (!/[0-9]/.test(event.key)) {
-              event.preventDefault();
-            }}} />
-          </div>
-        </div>
-        <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả </label>
           <div className="col-sm-9">
-            <JoditEditor className="form-control boxed" ref={editor} onChange={content => setValueEditorMain(content)} />
+            <JoditEditor className="form-control boxed" ref={editor} onChange={handleChangeDescription}/>
 
           </div>
         </div>
 
         <div className="form-group row">
-          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Size </label>
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Size-Số lượng </label>
           <div className="col-sm-9">
-            <Select
-              mode="tags"
-              allowClear
-              style={{
-                width: '100%',
-              }}
-              defaultValue={optionsSize}
-              tokenSeparators={[',']}
-              placeholder="Hãy chọn size"
-              options={optionsSize}
-            />
+            &#9; &#9;
+            {sizeList.map((x, i) => {
+              return (
+                <div className="row" style={{marginBottom: "10px"}}>
+                  <Input
+                    name="size"
+                    style={{width: "20%", marginLeft: "10px", marginRight: "5px"}}
+                    placeholder="Hãy nhập size"
+                    value={x.size}
+                    onChange={e => handleInputChange(e, i)}
+                  />
+                  <Input
+                    className="ml10 discountInput"
+                    style={{width: "40%"}}
+                    name="quantity"
+                    placeholder="Hãy nhập số lượng"
+                    value={x.quantity}
+                    onChange={e => handleInputChange(e, i)}
+                    onKeyPress={(event) => {
+                      if (!/[0-9]/.test(event.key)) {
+                        event.preventDefault();
+                      }
+                    }}
+                  />
+                  <div style={{width: "30%"}}>
+                    {sizeList.length > 1 ?
+                      <Radio.Button style={{marginRight: "5px", marginBottom: "5px"}} value="large"
+                                    onClick={() => handleRemoveClick(i)}>Remove</Radio.Button> : ""
+                    }
+                    {sizeList.length - 1 === i &&
+                      <Radio.Button value="large" onClick={handleAddClick}>Add</Radio.Button>}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="form-group row">
-          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sẵc </label>
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
           <div className="col-sm-9">
-            <Select
-              mode="tags"
-              allowClear
-              style={{
-                width: '100%',
-              }}
-              defaultValue={optionsColor}
-              placeholder="Hãy chọn màu sắc"
-              options={optionsColor}
+            <input type="text" className="form-control boxed" id="title" placeholder="Hãy điền màu sắc"
+                   onChange={handleChangeColor}
             />
-
-
           </div>
         </div>
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Giá tiền gốc </label>
           <div className="col-sm-9">
 
-            <input className="form-control boxed" onKeyPress={(event)=>{ if (!/[0-9]/.test(event.key)) {
-              event.preventDefault();
-            }}} onBlur={onBlur} onFocus={onFocus} onChange={onChangePrice} defaultValue={price}/>
-
+            <input className="form-control boxed" onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }} onBlur={onBlur} onFocus={onFocus} onChange={handleChangePrice} defaultValue={price}/>
 
 
           </div>
@@ -271,18 +390,19 @@ const AddProductPage = () => {
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title">Khuyến mãi</label>
           <div className="col-sm-9">
-
             <InputNumber
-              className="form-control boxed"
+              className="form-control boxed discountInput"
               defaultValue={100}
               min={0}
               max={100}
               formatter={(value) => `${value}%`}
               parser={(value) => value.replace('%', '')}
-              onChange={onChangeDiscount}
-              onKeyPress={(event)=>{ if (!/[0-9]/.test(event.key)) {
-                event.preventDefault();
-              }}}
+              onChange={handleChangeDiscount}
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
               defaultValue={discount}
             />
 
@@ -292,7 +412,7 @@ const AddProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title">Tổng tiền</label>
           <div className="col-sm-9">
             <input type="text" className="form-control boxed" id="title" placeholder="Điền số tiền"
-                   value={totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})} />
+                   value={totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
           </div>
         </div>
         <div className="form-group row">
@@ -305,14 +425,14 @@ const AddProductPage = () => {
                 onPreview={handlePreview}
                 onChange={handleChangeMain}
                 beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg'||file.type==='image/svg+xml';
+                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml';
                   if (!isPNG) {
                     message.error(`${file.name} is not a png, svg and jpeg file`);
                   }
                   return false;
                 }}
               >
-                { uploadButton}
+                {uploadButton}
               </Upload>
               <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
@@ -337,14 +457,14 @@ const AddProductPage = () => {
                 onChange={handleChangeSub}
                 multiple={true}
                 beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg'||file.type==='image/svg+xml';
+                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml';
                   if (!isPNG) {
                     message.error(`${file.name} is not a png, svg and jpeg file`);
                   }
                   return false;
                 }}
               >
-                { uploadButton}
+                {uploadButton}
               </Upload>
               <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
@@ -359,7 +479,8 @@ const AddProductPage = () => {
             <div className="form-group row">
               <div className="col-sm-10 col-sm-offset-2 "
                    style={{display: "flex", justifyContent: "center", width: "100%", marginLeft: "50px"}}>
-                <button type="submit" id="post" className="btn btn-primary"> Thêm sản phẩm</button>
+                <button type="submit" id="post" className="btn btn-primary" onClick={addProductClick}> Thêm sản phẩm
+                </button>
               </div>
             </div>
           </div>

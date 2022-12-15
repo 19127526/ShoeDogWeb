@@ -10,7 +10,6 @@ const ProductDetailPage = (prop) => {
   let index=location.state.index;
   const imageSubArray=convertArrayToOptions(index.ImageArray,", ");
   const optionsSize =[]
-  const optionsColor =[];
   if(index.Size===null){
 
   }
@@ -21,13 +20,6 @@ const ProductDetailPage = (prop) => {
         value: convertArrayToOptions(index.Size,", ")[i],
       });
     }
-  }
-
-  for (let i=0;i< convertArrayToOptions(index.Color).length;i++){
-    optionsColor.push({
-      label: convertArrayToOptions(index.Color)[i],
-      value: convertArrayToOptions(index.Color)[i],
-    });
   }
   return (
     <>
@@ -142,10 +134,9 @@ const ProductDetailPage = (prop) => {
                   width: '100%',
                 }}
                 disabled={true}
-                defaultValue={optionsColor}
+                defaultValue={"dd"}
                 tokenSeparators={[',']}
                 placeholder="Không có"
-                options={optionsColor}
               />
             </div>
           </div>
@@ -175,7 +166,7 @@ const ProductDetailPage = (prop) => {
             <div className="col-sm-9">
               <div className="images-container">
                 <Image.PreviewGroup>
-                  <Image width={200} src={index.ImageMain}/>
+                  <Image width={200} src={index.ImageMain===null?null:index.ImageMain}/>
                 </Image.PreviewGroup>
               </div>
             </div>
@@ -185,7 +176,7 @@ const ProductDetailPage = (prop) => {
             <div className="col-sm-9">
               <div className="images-container">
                 <Image.PreviewGroup>
-                  {imageSubArray.map(index=>(
+                  {imageSubArray&&imageSubArray.map(index=>(
                     <Image width={200} src={index}/>
                     )
                   )}
