@@ -23,7 +23,7 @@ exports.addOrder = async (req, res) => {
       Address: orderInformationBody.address+", "+orderInformationBody.ward+", " +orderInformationBody.district+", "+orderInformationBody.province,
       PhoneNumber:orderInformationBody.phoneNumber,
       Note: orderInformationBody.note,
-      InventoryOrder:generateString(7),
+      InventoryOrder:generateString(10),
       MethodPay:orderInformationBody.methodPay
     }
     const orderId = await order.addOrder(orderAdd);
