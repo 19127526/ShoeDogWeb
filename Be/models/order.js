@@ -2,10 +2,6 @@
 
 const db = require('../utils/db');
 
-exports.getAllBrands= ()=>{
-  return db("products")
-    .distinct('Brand');
-}
 
 exports.addOrder=(order)=>{
   return db('orders')
@@ -22,3 +18,18 @@ exports.getDetailOrderByOrderId=(orderId)=>{
     .join('ordersdetails','orders.OrderId','ordersdetails.OrderId')
     .where('orders.OrderId',orderId)
 }
+
+exports.getAllOrders = () => {
+  return db('orders')
+}
+
+exports.getAllDetailOrders=()=>{
+  return db('ordersdetails')
+    .join('products','products.ProId','ordersdetails.ProId')
+    .select('ordersdetails.*','products.ProName',
+      'products.ProId','products.TotalPrice','products.Brand',
+      'products.ImageMain','products.Inventory'
+    ,'products.Color','products.CatId')
+}
+
+

@@ -12,6 +12,7 @@ const ProductItemDetailPageLazy=React.lazy(()=>import("../pages/category/Product
 const AddItemProductPageLazy=React.lazy(()=>import("../pages/category/AddProductPage"))
 const EditItemProductPageLazy=React.lazy(()=>import("../pages/category/EditProductPage"))
 const OrderItemProductPageLazy=React.lazy(()=>import("../pages/order/OrderPage"))
+const ErrorPageLazy=React.lazy(()=>import("../pages/error/ErrorPage"))
 const RoutesPage=()=>{
   return (
     <Routes>
@@ -24,6 +25,7 @@ const RoutesPage=()=>{
       <Route path="/admin/category/:catId/:proId"  element={<React.Suspense fallback={<Loading/>} > <ProductItemDetailPageLazy/> </React.Suspense>}/>
       <Route path="/admin/product/edit/:proId"  element={<React.Suspense fallback={<Loading/>} > <EditItemProductPageLazy/> </React.Suspense>}/>
       <Route path={ORDER_PRODUCT}  element={<React.Suspense fallback={<Loading/>} > <OrderItemProductPageLazy/> </React.Suspense>}/>
+      <Route path="*" element={<React.Suspense fallback={<Loading/>} >  <ErrorPageLazy/> </React.Suspense>}/>
     </Routes>
   )
 }

@@ -25,4 +25,39 @@ export const convertArrayToOptions=(arr,splitIndex)=>{
   }
 }
 
+export const convertDate=(newDate)=>{
+  let dateVal ="/Date("+newDate+")/";
+  let date = new Date(parseFloat(dateVal.substr(6)));
+  const YYYY = date.getFullYear();
+  let DD = date.getMonth()+1;
+  let MM = date.getDate();
+  let HH = date.getHours() ;
+  let mm = date.getMinutes()
+  let ss = date.getSeconds();
+
+
+  if(DD<10)
+  {
+    DD=`0${DD}`;
+  }
+  if(MM<10)
+  {
+    MM=`0${MM}`;
+  }
+
+  if(HH<10)
+  {
+    HH=`0${HH}`;
+  }
+  if(mm<10)
+  {
+    mm=`0${mm}`;
+  }
+  if(ss<10)
+  {
+    ss=`0${ss}`;
+  }
+  return (DD+"/"+MM+"/"+YYYY+", "+mm+ss)
+}
+
 

@@ -1,26 +1,47 @@
 import {Image, Select} from "antd";
-import {useLocation, useNavigate} from "react-router-dom";
-import { Markup } from 'interweave';
-import {useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {Markup} from 'interweave';
+import {useEffect, useState} from "react";
 import {convertArrayToOptions} from "../../utils/Utils";
+import {getDetailProductByProId} from "../../apis/products/ProductsApi";
+import dateFormat from 'dateformat';
+
 
 const ProductDetailPage = (prop) => {
   const navigate = useNavigate();
-  let location = useLocation();
-  let index=location.state.index;
-  const imageSubArray=convertArrayToOptions(index.ImageArray,", ");
-  const optionsSize =[]
-  if(index.Size===null){
+  const [indexValueDetail, setIndexValueDetail] = useState();
+  const [imageSubArray, setImageSubArray] = useState([]);
+  const [optionsSize, setOptionSize] = useState([]);
+  const [quantity, setQuantity] = useState();
+  const {proId} = useParams();
+  useEffect(() => {
+    const getDetailProduct = async () => {
+      await getDetailProductByProId(proId)
+        .then(res => {
+          if (res.data.status === "success") {
+            setIndexValueDetail(res.data.data[0]);
+            setImageSubArray(convertArrayToOptions(res.data.data[0]?.ImageArray, ", "));
+            if (res.data.data[0].Size === null) {
 
-  }
-  else{
-    for (let i=0;i< convertArrayToOptions(index.Size,", ").length;i++){
-      optionsSize.push({
-        label: convertArrayToOptions(index.Size,", ")[i],
-        value: convertArrayToOptions(index.Size,", ")[i],
-      });
+            } else {
+              const a = convertArrayToOptions(res.data.data[0].Size, ", ");
+              const tempValue = a.map(index => {
+                const temp = convertArrayToOptions(index, ": ");
+                return {
+                  size:temp[0],
+                  quantity:temp[1]
+                }
+              });
+              setOptionSize(tempValue.map(index=>index.size));
+             setQuantity(tempValue.map(index=>index.quantity).reduce((previousScore, currentScore, index) => previousScore + currentScore))
+            }
+          }
+        })
+        .catch(err => {
+        })
     }
-  }
+    getDetailProduct();
+  }, []);
   return (
     <>
       <article className="content item-editor-page">
@@ -39,72 +60,49 @@ const ProductDetailPage = (prop) => {
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mã kho </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.Inventory}/>
+                     value={indexValueDetail?.Inventory}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên danh mục </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.CatName}/>
+                     value={indexValueDetail?.CatName}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên sản phẩm </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.ProName}/>
+                     value={indexValueDetail?.ProName}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Ngày đăng </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.DateStart}/>
+                     value={dateFormat(indexValueDetail?.DateStart, "dd/mm/yyyy hh:mm:ss")}/>
+
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Số lượng </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.Quantity}/>
+                     value={quantity}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả </label>
             <div className="col-sm-9">
-              <Markup className="form-control boxed" content={index.Des} />
+              <Markup className="form-control boxed" content={indexValueDetail?.Des}/>
             </div>
           </div>
-          <div className="form-group row">
-            <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả ngắn</label>
-            <div className="col-sm-9">
-              <Markup className="form-control boxed" content={index.ShortDes} />
-            </div>
-          </div>
-
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Trạng thái </label>
             <div className="col-sm-9">
-              <Select
-                defaultValue={index.StatusPro===1?"Còn hàng":"Hết hàng"}
-                style={{
-                  width: "fit-content",
-                }}
-                disabled={true}
-
-                options={[
-                  {
-                    value: '1',
-                    label: 'Còn hàng',
-                  },
-                  {
-                    value: '0',
-                    label: 'Hết hàng',
-                  },
-                ]}
-              />
-
+              <input type="text" className="form-control boxed" id="title" placeholder=""
+                     value={indexValueDetail?.StatusPro === 1 ? "Còn hàng" : "Hết hàng"}/>
             </div>
           </div>
           <div className="form-group row">
@@ -116,11 +114,11 @@ const ProductDetailPage = (prop) => {
                 style={{
                   width: '100%',
                 }}
+
                 disabled={true}
-                tokenSeparators={[',']}
                 defaultValue={optionsSize}
                 placeholder="Không có"
-                options={optionsSize}
+
               />
             </div>
           </div>
@@ -144,21 +142,21 @@ const ProductDetailPage = (prop) => {
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Giá tiền gốc </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.Price.toLocaleString('it-IT',{style:'currency',currency:"VND"})}/>
+                     value={indexValueDetail?.Price.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title">Khuyến mãi</label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.Discount+"%"}/>
+                     value={indexValueDetail?.Discount + "%"}/>
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title">Tổng tiền</label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={index.TotalPrice.toLocaleString('it-IT',{style:'currency',currency:"VND"})}/>
+                     value={indexValueDetail?.TotalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
             </div>
           </div>
           <div className="form-group row">
@@ -166,7 +164,7 @@ const ProductDetailPage = (prop) => {
             <div className="col-sm-9">
               <div className="images-container">
                 <Image.PreviewGroup>
-                  <Image width={200} src={index.ImageMain===null?null:index.ImageMain}/>
+                  <Image width={200} src={indexValueDetail?.ImageMain === null ? null : indexValueDetail?.ImageMain}/>
                 </Image.PreviewGroup>
               </div>
             </div>
@@ -176,8 +174,8 @@ const ProductDetailPage = (prop) => {
             <div className="col-sm-9">
               <div className="images-container">
                 <Image.PreviewGroup>
-                  {imageSubArray&&imageSubArray.map(index=>(
-                    <Image width={200} src={index}/>
+                  {imageSubArray && imageSubArray?.map(index => (
+                      <Image width={200} src={index}/>
                     )
                   )}
                 </Image.PreviewGroup>

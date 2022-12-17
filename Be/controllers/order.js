@@ -43,3 +43,23 @@ exports.addOrder = async (req, res) => {
   }
 }
 
+exports.getAllOrders = async (req, res) => {
+  try {
+    const getAllOrders = await order.getAllOrders();
+    const getAllDetailOrders=await order.getAllDetailOrders();
+    for(let i=0;i<getAllOrders.length;i++){
+      const temp=[]
+      for(let j=0;j<getAllDetailOrders.length;j++){
+        if(getAllOrders[i].OrderId===getAllDetailOrders[j].OrderId){
+          temp.push(getAllDetailOrders[j])
+        }
+      }
+      getAllOrders[i].items=temp;
+    }
+
+    return res.status(200).json({"status": "success", "data": getAllOrders});
+  } catch (e) {
+    return res.status(500).json({"status": "error", "message": e.message});
+  }
+}
+

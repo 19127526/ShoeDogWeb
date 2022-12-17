@@ -9,6 +9,8 @@ export const REMOVE_PRODUCT_URI="product/delete"
 export const GET_BRANDS_URI="product/brand"
 export const ADD_NEW_PRODUCT_URI="product/add"
 export const SEARCH_PRODUCT_URI="product/search/category"
+export const DETAIL_PRODUCT_URI="product/detail/"
+export const GET_ALL_ORDER_URI="order"
 
 
 //Client
