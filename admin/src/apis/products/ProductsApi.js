@@ -1,5 +1,11 @@
 import request from "../request";
-import {ADD_NEW_PRODUCT_URI, GET_BRANDS_URI, GET_PRODUCTS_URI, REMOVE_PRODUCT_URI} from "../../configs/url";
+import {
+  ADD_NEW_PRODUCT_URI,
+  GET_BRANDS_URI,
+  GET_PRODUCTS_URI,
+  REMOVE_PRODUCT_URI,
+  SEARCH_PRODUCT_URI
+} from "../../configs/url";
 
 export const getListProducts= async ()=>{
   return await request.get(GET_PRODUCTS_URI);
@@ -34,4 +40,9 @@ export const addProduct=async (payload)=>{
 
 export const getAllBrands=async ()=>{
   return await request.get(GET_BRANDS_URI);
+}
+
+
+export const searchProductsByCatId=async ({productName,catId})=>{
+  return await request.post(SEARCH_PRODUCT_URI,{productName:productName,catId:catId})
 }

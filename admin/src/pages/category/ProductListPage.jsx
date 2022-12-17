@@ -1,21 +1,40 @@
 import CardComponent from "../../components/card/CardComponent";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getListProductsByCatId} from "../../apis/products/ProductsApi";
+import {getListProductsByCatId, searchProducts, searchProductsByCatId} from "../../apis/products/ProductsApi";
 import Notification from "../../components/notification/Notification";
 import * as constraintNotification from "../../components/notification/Notification.constraints";
 import {ADD_NEW_PRODUCT} from "../../configs/url";
+import {Pagination} from "antd";
+import useDebounce from "../../customhooks/useDebounce";
+import {useDispatch} from "react-redux";
+import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
+
+
+const pageIndex = 6;
+
 
 const ProductListPage = () => {
   const {catId} = useParams();
   const [item, setItem] = useState([]);
   const [loading,setLoading]=useState(false);
+  const [page, setPage] = useState(1);
+  const [searchValue,setSearchValue]=useState("")
+  const currentIndexPage = pageIndex * page;
+  const prevIndexPage = pageIndex * (page - 1);
+  const navigate = useNavigate();
+  const dispatch=useDispatch();
   useEffect(() => {
     const getListItemByCatId = async () => {
       await getListProductsByCatId(catId || null)
         .then(res => {
           if (res.data.status === 'success'||res.data.status==='empty') {
-            setItem(res.data.data);
+            const a=[]
+            for(let i=0;i<10;i++){
+              a.push(res.data.data[0])
+            }
+            console.log(a)
+            setItem(a);
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
           }
@@ -26,7 +45,25 @@ const ProductListPage = () => {
     }
     getListItemByCatId();
   }, [catId,loading]);
-  const navigate = useNavigate();
+
+  const searchProductBtn=()=>{
+    dispatch(turnOnLoading())
+    searchProductsByCatId({productName:searchValue,catId:catId})
+      .then(res=>{
+        if(res.data.status==='success') {
+          setItem(res.data.data)
+        }
+      })
+      .catch(err=>{console.log(err)})
+      .finally(()=>{
+        dispatch(turnOffLoading())
+      })
+  }
+
+
+  const handleSearchProduct=(e)=>{
+    setSearchValue(e.target.value);
+  }
   return (<article className="content items-list-page">
     <div className="title-search-block">
       <div className="title-block">
@@ -35,7 +72,7 @@ const ProductListPage = () => {
             <h3 className="title"> Sản phẩm &nbsp;
               <a onClick={() => navigate(`${ADD_NEW_PRODUCT}`)} className="btn btn-primary btn-sm rounded-s"> Thêm mới  </a>
               &nbsp;
-              <div className="action dropdown">
+             {/* <div className="action dropdown">
                 <button className="btn  btn-sm rounded-s btn-secondary dropdown-toggle" type="button"
                         id="dropdownMenu1"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More actions...
@@ -46,7 +83,7 @@ const ProductListPage = () => {
                   <a className="dropdown-item" href="#" data-toggle="modal" data-target="#confirm-modal">
                     <i className="fa fa-close icon"></i>Delete</a>
                 </div>
-              </div>
+              </div>*/}
             </h3>
             <p className="title-description"> Danh sách sản phẩm </p>
           </div>
@@ -55,9 +92,9 @@ const ProductListPage = () => {
       <div className="items-search">
         <form className="form-inline">
           <div className="input-group">
-            <input type="text" className="form-control boxed rounded-s" placeholder="Search for..."/>
+            <input type="text" className="form-control boxed rounded-s" placeholder="Nhập vào để tìm kiếm..." onChange={handleSearchProduct}/>
             <span className="input-group-btn">
-                  <button className="btn btn-secondary rounded-s" type="button">
+                  <button className="btn btn-secondary rounded-s" type="button" style={{height:"100%"}} onClick={()=>searchProductBtn()}>
                       <i className="fa fa-search"></i>
                   </button>
               </span>
@@ -112,37 +149,17 @@ const ProductListPage = () => {
             </div>
           </div>
         </li>
-        {
-          item.map(index => (
-            <CardComponent index={index} setLoading={()=>setLoading(!loading)}/>
-          ))
-        }
+
+        {item.map((value,index) => {
+          return prevIndexPage <= index && index < currentIndexPage ? (
+            <CardComponent index={value} setLoading={()=>setLoading(!loading)}/>):""
+        })}
+
       </ul>
     </div>
-    <nav className="text-right">
+    <nav className="text-right" style={{display:"flex",justifyContent:"center",marginTop:"3%"}}>
       <ul className="pagination">
-        <li className="page-item">
-          <a className="page-link" href="#"> Prev </a>
-        </li>
-
-        <li className="page-item active">
-          <a className="page-link" href="#"> 1 </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#"> 2 </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#"> 3 </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#"> 4 </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#"> 5 </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#"> Next </a>
-        </li>
+      <Pagination total={item.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
       </ul>
     </nav>
   </article>)

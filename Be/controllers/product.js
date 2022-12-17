@@ -147,6 +147,34 @@ exports.getAllBrandsInProducts = async (req, res) => {
     }
 }
 
+exports.relatedProduct=async (req,res)=>{
+    try{
+        const productBody=req.body;
+        console.log(req.params)
+        console.log("dsd")
+        console.log(productBody)
+        return res.status(200).json({"status": "success", "data": "sd"});
+    }
+    catch (e){
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.searchProductByCatId=async (req,res)=>{
+    try{
+        const productBody=req.body;
+        const searchProduct={
+            proName:productBody.productName,
+            catId:productBody.catId
+        }
+        console.log(searchProduct)
+        const listProduct=await product.searchProductsByCatId(searchProduct)
+        return res.status(200).json({"status": "success", "data": listProduct});
+    }
+    catch (e){
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
 
 
 

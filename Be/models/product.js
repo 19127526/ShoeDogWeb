@@ -60,3 +60,13 @@ exports.getAllBrands= ()=>{
   return db("products")
     .distinct('Brand');
 }
+
+exports.searchProductsByCatId=async (product) => {
+  const sql = `select a.*,b.*
+               FROM products as a
+                        join categories as b on a.CatId = b.CatId
+               WHERE a.ProName like "%${product.proName}%" AND a.CatId=${product.catId}
+  `
+  const raw_data = await db.raw(sql)
+  return raw_data[0]
+}

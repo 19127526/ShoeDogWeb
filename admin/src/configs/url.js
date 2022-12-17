@@ -8,6 +8,7 @@ export const ADD_CATEGORIES_URI="category/add"
 export const REMOVE_PRODUCT_URI="product/delete"
 export const GET_BRANDS_URI="product/brand"
 export const ADD_NEW_PRODUCT_URI="product/add"
+export const SEARCH_PRODUCT_URI="product/search/category"
 
 
 //Client
@@ -15,5 +16,6 @@ export const LIST_PRODUCT_BY_CATEGORY_ID="admin/category/"
 export const DETAIL_PRODUCT="/admin/category/"
 export const ADD_NEW_PRODUCT="/admin/product/add"
 export const EDIT_PRODUCT="/admin/product/edit/"
+export const ORDER_PRODUCT="/admin/order"
 
 

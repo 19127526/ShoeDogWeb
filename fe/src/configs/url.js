@@ -6,6 +6,7 @@ export const GET_PRODUCTS_URI="product"
 export const ADD_CATEGORIES_URI="category/add"
 export const GET_DETAIL_PRODUCT_URI="product/detail"
 export const SEARCH_PRODUCT_URI="product/search"
+export const GET_RELATED_PRODUCT_URI="product/related"
 export const ADD_ORDER_URI="order/add"
 
 
@@ -17,6 +18,7 @@ export const GET_ALL_WARDS_URL="https://provinces.open-api.vn/api/w/";
 //client route
 export const DETAIL_PRODUCT_ROUTE="/detail/:proId"
 export const ORDER_PRODUCT_ROUTE="/order"
+export const ORDER_SUCCESS_ROUTE="/order/success"
 export const ERROR_ROUTE="/error"
 export const LIST_PRODUCT_CATEGORYID_ROUTE="/product/:product"
 export const HOME_ROUTE="/"

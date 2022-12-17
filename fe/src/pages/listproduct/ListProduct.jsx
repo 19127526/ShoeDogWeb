@@ -17,7 +17,7 @@ import {convertArrayToOptions} from "../../utils/Utils";
 import ErrorPage from "../error/ErrorPage";
 import {FrownOutlined, SmileOutlined} from "@ant-design/icons";
 import useDebounce from "../../customhooks/useDebounce";
-const pageIndex = 9;
+const pageIndex = 6;
 
 const onlyUnique=(value, index, self)=> {
   return self.indexOf(value) === index;
@@ -323,7 +323,7 @@ const ListProduct = () => {
 
 
       </div>
-      {itemInCategory.length > 9 ?
+      {itemInCategory.length > pageIndex ?
         <div className="text-center" style={{padding:"10px 0 0 0"}}>
           <Pagination total={itemInCategory.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
         </div>

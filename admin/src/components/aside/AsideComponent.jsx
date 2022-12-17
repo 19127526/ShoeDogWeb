@@ -3,7 +3,7 @@ import {getListCategories} from "../../apis/categories/CategoriesApi";
 import Notification from "../notification/Notification";
 import * as constraintNotification from "../notification/Notification.constraints"
 import {useNavigate} from "react-router-dom";
-import {LIST_PRODUCT_BY_CATEGORY_ID} from "../../configs/url";
+import {LIST_PRODUCT_BY_CATEGORY_ID, ORDER_PRODUCT} from "../../configs/url";
 const AsideComponent = ({onClose}) => {
   const [categories,setCategories]=useState([]);
   const navigate=useNavigate()
@@ -27,7 +27,7 @@ const AsideComponent = ({onClose}) => {
           <ul className="nav-profile">
 
             <li className="profile dropdown">
-              <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+              <a className="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true"
                  aria-expanded="true">
                 <div className="img" style={{backgroundImage: ""}}></div>
                 <span className="name">haha </span>
@@ -41,14 +41,14 @@ const AsideComponent = ({onClose}) => {
                      left: "0px",
                      willChange: "transform"
                    }}>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" >
                   <i className="fa fa-user icon"></i> Profile </a>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" >
                   <i className="fa fa-bell icon"></i> Notifications </a>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" >
                   <i className="fa fa-gear icon"></i> Settings </a>
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="login.html">
+                <a className="dropdown-item" >
                   <i className="fa fa-power-off icon"></i> Logout </a>
               </div>
             </li>
@@ -67,13 +67,13 @@ const AsideComponent = ({onClose}) => {
                 <span className="l l4"></span>
                 <span className="l l5"></span>
               </div>
-              <a className="navbar-brand text-brand" href="/">Shoe<span className="color-b"> Dog</span></a>
+              <a className="navbar-brand text-brand" >Shoe<span className="color-b"> Dog</span></a>
             </div>
           </div>
           <nav className="menu">
             <ul className="sidebar-menu metismenu" id="sidebar-menu">
               <li id="dashboard">
-                <a href="/">
+                <a onClick={()=>navigate("/")}>
                   <i className="fa fa-home"></i> Dashboard </a>
               </li>
               <li id="managementProduct">
@@ -99,8 +99,8 @@ const AsideComponent = ({onClose}) => {
                 </ul>
               </li>
               <li>
-                <a href="/admin/quan-li-tai-khoan">
-                  <i className="fa fa-pencil-square-o"></i> Quản lí tài khoản
+                <a onClick={()=>navigate(ORDER_PRODUCT)}>
+                  <i className="fa fa-pencil-square-o"></i> Quản lí đơn
                 </a>
               </li>
             </ul>

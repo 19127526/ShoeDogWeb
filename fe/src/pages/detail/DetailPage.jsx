@@ -5,7 +5,7 @@ import {Carousel} from "react-responsive-carousel";
 import "./DetailPage.css"
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import CardComponent from "../../components/card/CardComponent";
-import {getDetailProductByProId} from "../../apis/products/ProductsApi";
+import {getDetailProductByProId, getRelatedProduct} from "../../apis/products/ProductsApi";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
@@ -14,6 +14,9 @@ import {Image} from "antd";
 import {  message } from 'antd';
 import { useComponentSize } from "react-use-size";
 import {addItemSuccess} from "./DetailPage.actions";
+import { ImageViewer } from "react-image-viewer-dv"
+
+
 
 
 const DetailPage = () => {
@@ -42,16 +45,16 @@ const DetailPage = () => {
       setColor()
       setImageSubArray([])
       getDetailProductByProId(proId||0)
-        .then(res=>{
+        .then( res => {
           if (res.data.status === 'success') {
             setDetailProduct(res.data.data[0]);
-            setSizeList(convertArrayToOptions(res.data.data[0].Size,", ")
-              .map(index=>convertArrayToOptions(index,": ")[0]));
+            setSizeList(convertArrayToOptions(res.data.data[0].Size, ", ")
+              .map(index => convertArrayToOptions(index, ": ")[0]));
             setColor(res.data.data[0].Color)
-            setImageSubArray(convertArrayToOptions(res.data.data[0].ImageArray,", "));
+            setImageSubArray(convertArrayToOptions(res.data.data[0].ImageArray, ", "));
             setEmpty(false);
-          }
-          else if(res.data.status==='empty'){
+
+          } else if (res.data.status === 'empty') {
             setEmpty(true);
           }
         })
@@ -62,6 +65,17 @@ const DetailPage = () => {
           dispatch(turnOffLoading())
         })
     }
+
+    const getRelatedProductByProduct=async ()=> {
+      await getRelatedProduct({catId: detailProduct.CatId, proName: detailProduct.ProName})
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    getRelatedProductByProduct();
     getDetailProduct();
   },[proId]);
 
@@ -98,8 +112,8 @@ const DetailPage = () => {
         <div className="detailInner clearfix" data-sticky_parent="" >
           <div className="detail__img"  ref={ref}>
             <div className="main-slide-detail" >
-              <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
-                        autoFocus={true} emulateTouch={true} >
+              <Carousel  showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
+                        autoFocus={true}  >
 
                 {imageSubArray.length===0||imageSubArray===undefined||imageSubArray[0]===""?
                   <div>
@@ -115,6 +129,7 @@ const DetailPage = () => {
 
 
               </Carousel>
+
             </div>
             <div className="slidedetail__pagi hide" style={{display: "block"}}>
               <ul>
