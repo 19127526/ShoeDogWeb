@@ -36,6 +36,7 @@ create table Products
     ImageMain longtext  null,
     Size varchar(150) charset utf8,
     Color varchar(30) charset utf8,
+    ImageId varchar(150) charset utf8,
     constraint `product-category`
         foreign key (CatId) references Categories (CatId)
 );
@@ -143,10 +144,10 @@ create table Orders
     OrderId int auto_increment primary key,
     FullName varchar(100) charset utf8  not null,
     Email varchar(100) charset utf8  null,
-    Address longtext  not null ,
-    PhoneNumber longtext  not null ,
-    Note longtext null ,
-    InventoryOrder longtext null,
+    Address varchar(100)  not null ,
+    PhoneNumber varchar(100)  not null ,
+    Note varchar(100) null ,
+    InventoryOrder varchar(10) null,
     OrderDate TIMESTAMP default CURRENT_TIMESTAMP not null,
     StatusOrder int default 0 not null,
     MethodPay int not null
