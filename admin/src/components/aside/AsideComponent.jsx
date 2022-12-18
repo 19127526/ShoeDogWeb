@@ -3,7 +3,7 @@ import {getListCategories} from "../../apis/categories/CategoriesApi";
 import Notification from "../notification/Notification";
 import * as constraintNotification from "../notification/Notification.constraints"
 import {useNavigate} from "react-router-dom";
-import {LIST_PRODUCT_BY_CATEGORY_ID, ORDER_PRODUCT} from "../../configs/url";
+import {LIST_PRODUCT_BY_CATEGORY_ID, ORDER_PRODUCT, ORDER_SUCCESS_PRODUCT} from "../../configs/url";
 const AsideComponent = ({onClose}) => {
   const [categories,setCategories]=useState([]);
   const navigate=useNavigate()
@@ -74,10 +74,10 @@ const AsideComponent = ({onClose}) => {
             <ul className="sidebar-menu metismenu" id="sidebar-menu">
               <li id="dashboard">
                 <a onClick={()=>navigate("/")}>
-                  <i className="fa fa-home"></i> Dashboard </a>
+                  <i className="fa fa-home"></i> Thống kê </a>
               </li>
               <li id="managementProduct">
-                <a href="#">
+                <a >
                   <i className="fa fa-th-large">
                   </i> Quản lí sản phẩm
                   <i className="fa arrow"></i>
@@ -89,19 +89,18 @@ const AsideComponent = ({onClose}) => {
                 </ul>
               </li>
               <li>
-                <a href="#">
-                  <i className="fa fa-area-chart"></i> Quản lí danh mục
-                  &nbsp;&nbsp; &nbsp;
-                  <i className="fa fa-plus" aria-hidden="true" data-toggle="modal" data-target="#addCategory"></i>
+                <a >
+                  <i className="fa fa-pencil-square-o"></i> Quản lí đơn
                   <i className="fa arrow"></i>
                 </a>
                 <ul className="sidebar-nav">
+                  <li key={1} onClick={()=>navigate(ORDER_PRODUCT)}>
+                    <a> Đơn hàng đang xử lý </a>
+                  </li>
+                  <li key={1} onClick={()=>navigate(ORDER_SUCCESS_PRODUCT)}>
+                    <a> Đơn hàng dã xử lý </a>
+                  </li>
                 </ul>
-              </li>
-              <li>
-                <a onClick={()=>navigate(ORDER_PRODUCT)}>
-                  <i className="fa fa-pencil-square-o"></i> Quản lí đơn
-                </a>
               </li>
             </ul>
           </nav>

@@ -1,22 +1,31 @@
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {EDIT_PRODUCT} from "../../configs/url";
 import {removeProductByProId} from "../../apis/products/ProductsApi";
 import Notification from "../notification/Notification";
 import * as constraintNotification from "../notification/Notification.constraints";
+import {convertArrayToOptions} from "../../utils/Utils";
+import dateFormat from "dateformat";
 
 
 
 const CardComponent = ({index,setLoading}) => {
   const navigate = useNavigate();
   const [openSetting,setOpenSetting]=useState(false);
+  const a = convertArrayToOptions(index.Size, ", ");
+  const tempValue = a.map(index => {
+    const temp = convertArrayToOptions(index, ": ");
+    return {
+      quantity:temp[1]
+    }
+  });
+  const quantity=tempValue.map(index=>index.quantity).reduce((previousScore, currentScore, index) => previousScore + currentScore)
   const removeProduct= async ()=>{
     console.log(index.proId);
     await removeProductByProId({proId:index?.ProId})
       .then(res => {
         console.log(res)
         if (res.data.status === 'success') {
-
           Notification("Thông báo dữ liệu", `Xóa sản phẩm ${index?.ProName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
         } else {
           Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
@@ -30,12 +39,7 @@ const CardComponent = ({index,setLoading}) => {
   return (
     <li className="item">
       <div className="item-row">
-        <div className="item-col fixed item-col-check">
-          <label className="item-check" id="select-all-items">
-            <input type="checkbox" className="checkbox"/>
-            <span></span>
-          </label>
-        </div>
+
         <div className="item-col fixed item-col-img md">
           <a onClick={() => navigate(`/admin/category/${index.CatId}/${index.ProId}`, {state: {index: index}})}>
             <div className="item-img rounded"
@@ -66,7 +70,7 @@ const CardComponent = ({index,setLoading}) => {
         <div className="item-col item-col-category no-overflow">
           <div className="item-heading">Số lượng</div>
           <div className="no-overflow" style={{marginLeft:"45px"}}>
-            <div>{index.Quantity}</div>
+            <div>{quantity}</div>
           </div>
         </div>
         <div className="item-col item-col-author">
@@ -77,7 +81,7 @@ const CardComponent = ({index,setLoading}) => {
         </div>
         <div className="item-col item-col-date">
           <div className="item-heading">Ngày đăng</div>
-          <div className="no-overflow"> {index.DateStart}</div>
+          <div className="no-overflow"> {dateFormat(index?.DateStart, "dd/mm/yyyy hh:mm:ss")}</div>
         </div>
 
         <div className="item-col fixed item-col-actions-dropdown" onClick={()=>setOpenSetting(!openSetting)}>

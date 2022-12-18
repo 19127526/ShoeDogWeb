@@ -11,6 +11,7 @@ export const ADD_NEW_PRODUCT_URI="product/add"
 export const SEARCH_PRODUCT_URI="product/search/category"
 export const DETAIL_PRODUCT_URI="product/detail/"
 export const GET_ALL_ORDER_URI="order"
+export const REMOVE_ORDER_URI="order/delete"
 
 
 //Client
@@ -18,6 +19,6 @@ export const LIST_PRODUCT_BY_CATEGORY_ID="admin/category/"
 export const DETAIL_PRODUCT="/admin/category/"
 export const ADD_NEW_PRODUCT="/admin/product/add"
 export const EDIT_PRODUCT="/admin/product/edit/"
-export const ORDER_PRODUCT="/admin/order"
-
+export const ORDER_PRODUCT="/admin/order/process"
+export const ORDER_SUCCESS_PRODUCT="/admin/order/success"
 

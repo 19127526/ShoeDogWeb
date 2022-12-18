@@ -168,8 +168,7 @@ exports.searchProductByCatId=async (req,res)=>{
             proName:productBody.productName,
             catId:productBody.catId
         }
-        console.log(searchProduct)
-        const listProduct=await product.searchProductsByCatId(searchProduct)
+        const listProduct=await product.searchProductsByCatId(searchProduct);
         return res.status(200).json({"status": "success", "data": listProduct});
     }
     catch (e){

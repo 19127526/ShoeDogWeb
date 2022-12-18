@@ -19,7 +19,7 @@ const ProductListPage = () => {
   const [item, setItem] = useState([]);
   const [loading,setLoading]=useState(false);
   const [page, setPage] = useState(1);
-  const [searchValue,setSearchValue]=useState("")
+  const [searchValue,setSearchValue]=useState("");
   const currentIndexPage = pageIndex * page;
   const prevIndexPage = pageIndex * (page - 1);
   const navigate = useNavigate();
@@ -33,7 +33,6 @@ const ProductListPage = () => {
             for(let i=0;i<10;i++){
               a.push(res.data.data[0])
             }
-            console.log(a)
             setItem(a);
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
@@ -51,6 +50,7 @@ const ProductListPage = () => {
     searchProductsByCatId({productName:searchValue,catId:catId})
       .then(res=>{
         if(res.data.status==='success') {
+          console.log(res.data.data)
           setItem(res.data.data)
         }
       })
@@ -72,18 +72,6 @@ const ProductListPage = () => {
             <h3 className="title"> Sản phẩm &nbsp;
               <a onClick={() => navigate(`${ADD_NEW_PRODUCT}`)} className="btn btn-primary btn-sm rounded-s"> Thêm mới  </a>
               &nbsp;
-             {/* <div className="action dropdown">
-                <button className="btn  btn-sm rounded-s btn-secondary dropdown-toggle" type="button"
-                        id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More actions...
-                </button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <a className="dropdown-item" href="#">
-                    <i className="fa fa-pencil-square-o icon"></i>Mark as a draft</a>
-                  <a className="dropdown-item" href="#" data-toggle="modal" data-target="#confirm-modal">
-                    <i className="fa fa-close icon"></i>Delete</a>
-                </div>
-              </div>*/}
             </h3>
             <p className="title-description"> Danh sách sản phẩm </p>
           </div>
@@ -106,12 +94,7 @@ const ProductListPage = () => {
       <ul className="item-list striped">
         <li className="item item-list-header">
           <div className="item-row">
-            <div className="item-col fixed item-col-check">
-              <label className="item-check" id="select-all-items">
-                <input type="checkbox" className="checkbox"/>
-                <span></span>
-              </label>
-            </div>
+
             <div className="item-col item-col-header fixed item-col-img md">
               <div>
                 <span>Hình ảnh</span>

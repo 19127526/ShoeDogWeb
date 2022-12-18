@@ -1,4 +1,5 @@
 const order = require("../models/order");
+const product = require("../models/product");
 
 // declare all characters
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -58,6 +59,18 @@ exports.getAllOrders = async (req, res) => {
     }
 
     return res.status(200).json({"status": "success", "data": getAllOrders});
+  } catch (e) {
+    return res.status(500).json({"status": "error", "message": e.message});
+  }
+}
+
+exports.deleteOrderByOrderId=async (req,res)=>{
+  try {
+    const orderId=req.body.orderId;
+    console.log(orderId)
+    const resultDeteleOrderDetail=await order.deleteOrderDetail(orderId);
+    const result = await order.deleteOrder(orderId);
+    return res.status(200).json({"status": "success", "data": result});
   } catch (e) {
     return res.status(500).json({"status": "error", "message": e.message});
   }

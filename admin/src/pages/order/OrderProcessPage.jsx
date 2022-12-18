@@ -1,19 +1,21 @@
 import OrderProductComponent from "../../components/order/OrderProductComponent";
 import {ADD_NEW_PRODUCT} from "../../configs/url";
 import CardComponent from "../../components/card/CardComponent";
-import {Pagination} from "antd";
+import {Dropdown, Pagination} from "antd";
 import {useEffect, useState} from "react"
 import { DownOutlined } from '@ant-design/icons';
-import { Form, Radio, Space, Switch, Table } from 'antd';
+import { Form, Radio, Space, Switch, Table,Typography } from 'antd';
 import DescriptionComponent from "../../components/description/DescriptionComponent";
-import {getAllOrders} from "../../apis/orders/OrdersApi";
+import {getAllOrders, removeOrdersByOrderId} from "../../apis/orders/OrdersApi";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import dateFormat from 'dateformat';
+import Notification from "../../components/notification/Notification";
+import * as constraintNotification from "../../components/notification/Notification.constraints";
 
 
 
-const OrderPage = () => {
+const OrderProcessPage = () => {
   const dispatch=useDispatch()
   const [rowSelection, setRowSelection] = useState({});
   const [tableLayout, setTableLayout] = useState(undefined);
@@ -22,7 +24,7 @@ const OrderPage = () => {
   const [sort, setSort] = useState('ascend');
   const [valueOrder,setValueOrder]=useState([]);
   const scroll = {};
-
+  const [isLoading,setIsLoading]=useState(false);
   const columns = [
     {
       title: 'Mã order',
@@ -75,12 +77,12 @@ const OrderPage = () => {
       responsive: ['md'],
       filters: [
         {
-          text: 'Chưa thanh toán',
-          value: 'Chưa thanh toán',
+          text: 'Chưa nhận hàng',
+          value: 'Chưa nhận hàng',
         },
         {
-          text: 'Đã thanh toán',
-          value: 'Đã thanh toán',
+          text: 'Đã nhận hàng',
+          value: 'Đã nhận hàng',
         },
       ],
       onFilter: (value, record) => record.statusOrder.indexOf(value) === 0,
@@ -89,16 +91,7 @@ const OrderPage = () => {
       title: 'Action',
       responsive: ['md'],
       key: 'action',
-      render: () => (
-        <Space size="middle">
-          <a>
-            <Space>
-              Tùy chỉnh
-              <DownOutlined />
-            </Space>
-          </a>
-        </Space>
-      ),
+      dataIndex: 'action',
     },
   ];
 
@@ -143,6 +136,27 @@ const OrderPage = () => {
             let temp=[];
 
             res.data.data.map(index=>{
+
+              const items = [
+                {
+                  key: index.OrderId+".1",
+                  label: 'Xóa order',
+                },
+                {
+                  key: index.OrderId+".2",
+                  label: 'Chỉnh sửa order',
+                },
+                {
+                  key: index.OrderId+".3",
+                  label: 'Hoàn thành đơn hàng',
+                },
+              ];
+
+              const menuProps = {
+                items,
+                onClick: handleMenuClick,
+                selectable: true,
+              };
               const tempIndex={
                 key: index.OrderId,
                 orderInventory: index.InventoryOrder,
@@ -150,10 +164,26 @@ const OrderPage = () => {
                 email: index.Email,
                 orderPay: index.MethodPay===0?"Thanh toán khi nhận hàng": "Chuyển khoản",
                 orderDate:dateFormat(index.OrderDate, "dd/mm/yyyy hh:mm:ss"),
-                statusOrder: index.StatusOrder===0?"Chưa thanh toán":"Đã thanh toán",
+                statusOrder: index.StatusOrder===0?"Chưa nhận hàng":"Đã nhận hàng",
                 description: <DescriptionComponent index={index}/>,
+                action: <Dropdown
+                  menu={menuProps}
+
+                >
+                  <Typography.Link>
+                    <Space size={"middle"}>
+                      Tùy chỉnh
+                      <DownOutlined />
+                    </Space>
+                  </Typography.Link>
+                </Dropdown>
               }
-              temp.push(tempIndex)
+
+              if(index.StatusOrder===0){
+                temp.push(tempIndex)
+              }else{
+              }
+
             })
 
             setValueOrder(temp);
@@ -163,7 +193,33 @@ const OrderPage = () => {
         .finally(()=>dispatch(turnOffLoading()))
     }
     getAllOrdersInit()
-  },[])
+  },[isLoading])
+
+  const handleMenuClick=async (e) => {
+    const type = e.key.substring(e.key.indexOf(".") + 1, e.key.length);
+    const orderId = e.key.substring(0, e.key.indexOf("."));
+    //remove order
+    if (type.includes(1)) {
+      dispatch(turnOnLoading());
+      await removeOrdersByOrderId(orderId)
+        .then(res => {
+          if (res.data.status === "success") {
+            setIsLoading(!isLoading)
+            Notification("Thông báo đơn đặt hàng", "Đã xóa thành công", constraintNotification.NOTIFICATION_SUCCESS)
+          } else {
+            Notification("Thông báo đơn đặt hàng", "Xóa thất bại", constraintNotification.NOTIFICATION_ERROR)
+          }
+        })
+        .catch(err => {
+          Notification("Thông báo đơn đặt hàng", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+        })
+        .finally(() => dispatch(turnOffLoading()))
+    }
+    else {
+
+    }
+
+  }
 
   return (
     <article className="content items-list-page">
@@ -171,7 +227,7 @@ const OrderPage = () => {
         <div className="title-block">
           <div className="row">
             <div className="col-md-6">
-              <h3 className="title"> Đơn hàng &nbsp;
+              <h3 className="title"> Đơn hàng đang xử lý&nbsp;
                 <a  className="btn btn-primary btn-sm rounded-s"> Thêm mới  </a>
                 &nbsp;
               </h3>
@@ -214,4 +270,4 @@ const OrderPage = () => {
     </article>
   )
 }
-export default OrderPage
+export default OrderProcessPage
