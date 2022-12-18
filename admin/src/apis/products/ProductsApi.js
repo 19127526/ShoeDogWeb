@@ -1,6 +1,6 @@
 import request from "../request";
 import {
-  ADD_NEW_PRODUCT_URI,
+  ADD_NEW_PRODUCT_URI, DETAIL_PRODUCT_URI,
   GET_BRANDS_URI,
   GET_PRODUCTS_URI,
   REMOVE_PRODUCT_URI,
@@ -45,4 +45,8 @@ export const getAllBrands=async ()=>{
 
 export const searchProductsByCatId=async ({productName,catId})=>{
   return await request.post(SEARCH_PRODUCT_URI,{productName:productName,catId:catId})
+}
+
+export const getDetailProductByProId=async (proId)=>{
+  return await request.get(DETAIL_PRODUCT_URI+proId);
 }
