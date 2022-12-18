@@ -30,9 +30,6 @@ S
 Be/utils/db.js,4\9\49ed4f36d0a49482d10f8eead72b117016fe1f8b
 B
 Be/routes/index.js,0\c\0c3e128171c13cdec9ffdbd5b1792b78f74338e4
-:
-
-.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 B
 Be/routes/users.js,b\3\b38f61c631b57c7462f21146af739e6a0658cb10
 >
@@ -47,11 +44,11 @@ S
 #Fe/src/apis/products/ProductsApi.js,3\c\3ca19d85c9cbd1e4599e69e8cfc488a7dd5313a3
 G
 Be/routes/categories.js,0\9\09b8f637651606761bd9e792bd7ecaf6c43822d5
-9
-	Be/app.js,0\8\08733a60a3352b4082300ab56b0ec3f6cfdc4073
 @
 admin/src/App.js,a\2\a22ea86ff47cb49b97708e5bd1c1bc8b8d298cf0
-E
-Be/routes/products.js,1\3\132c15f8a119dacc37b8c7b16859ae28517228e5
 J
 Be/controllers/category.js,0\1\017ddf29fff7ba82fe5d2456aaf2476752583ca1
+?
+Be/package.json,7\c\7c85e015ca9221add7d5721d365fb9a6d6acca27
+9
+	Be/app.js,0\8\08733a60a3352b4082300ab56b0ec3f6cfdc4073

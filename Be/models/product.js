@@ -7,6 +7,9 @@ exports.getProducts = () => {
   return db('products')
 }
 
+exports.getProductById = (ProId) => {
+    return db('products').where('ProId', ProId);
+}
 
 exports.addProduct = (product) => {
   return db('products').insert(product);
@@ -20,7 +23,11 @@ exports.deleteProduct = async (id) => {
 }
 
 exports.updateProduct = (id, product) => {
-  return db('products').where('id', id).update(product);
+ return db('products').where('ProId', id).update(product);
+}
+
+exports.getImageIdByProId = (id) => {
+    return db('products').select('ImageId').where('ProId', id);
 }
 
 exports.updateImageMain = (id, image) => {
@@ -29,6 +36,10 @@ exports.updateImageMain = (id, image) => {
 
 exports.updateArrayImage = (id, image) => {
     return db('products').where('ProId', id).update({ImageArray: image});
+}
+
+exports.updateImageId = (id, image) => {
+  return db('products').where('ProId', id).update({ImageId: image});
 }
 
 
