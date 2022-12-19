@@ -98,7 +98,7 @@ const AsideComponent = ({onClose}) => {
                     <a> Đơn hàng đang xử lý </a>
                   </li>
                   <li key={1} onClick={()=>navigate(ORDER_SUCCESS_PRODUCT)}>
-                    <a> Đơn hàng dã xử lý </a>
+                    <a> Đơn hàng đã xử lý </a>
                   </li>
                 </ul>
               </li>

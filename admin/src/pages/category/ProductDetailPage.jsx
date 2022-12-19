@@ -33,7 +33,7 @@ const ProductDetailPage = (prop) => {
                 }
               });
               setOptionSize(tempValue.map(index=>index.size));
-             setQuantity(tempValue.map(index=>index.quantity).reduce((previousScore, currentScore, index) => previousScore + currentScore))
+             setQuantity(tempValue.map(index=>index.quantity).reduce((previousScore, currentScore, index) => Number(previousScore) + Number(currentScore)))
             }
           }
         })

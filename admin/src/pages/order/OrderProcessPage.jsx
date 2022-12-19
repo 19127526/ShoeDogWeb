@@ -6,7 +6,7 @@ import {useEffect, useState} from "react"
 import { DownOutlined } from '@ant-design/icons';
 import { Form, Radio, Space, Switch, Table,Typography } from 'antd';
 import DescriptionComponent from "../../components/description/DescriptionComponent";
-import {getAllOrders, removeOrdersByOrderId} from "../../apis/orders/OrdersApi";
+import {completeOrdersByOrderId, getAllOrders, removeOrdersByOrderId} from "../../apis/orders/OrdersApi";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import dateFormat from 'dateformat';
@@ -17,7 +17,7 @@ import * as constraintNotification from "../../components/notification/Notificat
 
 const OrderProcessPage = () => {
   const dispatch=useDispatch()
-  const [rowSelection, setRowSelection] = useState({});
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableLayout, setTableLayout] = useState(undefined);
   const [yScroll, setYScroll] = useState(false);
   const [xScroll, setXScroll] = useState(undefined);
@@ -115,6 +115,14 @@ const OrderProcessPage = () => {
   };
 
 
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
 
 
   const tableProps = {
@@ -215,10 +223,64 @@ const OrderProcessPage = () => {
         })
         .finally(() => dispatch(turnOffLoading()))
     }
+    else if(type.includes(3)){
+      dispatch(turnOnLoading());
+      await completeOrdersByOrderId(orderId)
+        .then(res => {
+          if (res.data.status === "success") {
+            setIsLoading(!isLoading)
+            Notification("Thông báo đơn đặt hàng", "Đã cập nhật đơn hàng thành công", constraintNotification.NOTIFICATION_SUCCESS)
+          } else {
+            Notification("Thông báo đơn đặt hàng", "Cập nhật đơn hàng thất bại", constraintNotification.NOTIFICATION_ERROR)
+          }
+        })
+        .catch(err => {
+          Notification("Thông báo đơn đặt hàng", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+        })
+        .finally(() => dispatch(turnOffLoading()))
+    }
     else {
 
     }
 
+  }
+
+  const handleConfirmOrderChoose=async ()=>{
+    dispatch(turnOnLoading());
+    for(let i=0;i<selectedRowKeys.length;i++){
+      await completeOrdersByOrderId(selectedRowKeys[i])
+        .then(res => {
+          if (res.data.status === "success") {
+            setIsLoading(!isLoading)
+            Notification("Thông báo đơn đặt hàng", "Đã cập nhật đơn hàng thành công", constraintNotification.NOTIFICATION_SUCCESS)
+          } else {
+            Notification("Thông báo đơn đặt hàng", "Cập nhật đơn hàng thất bại", constraintNotification.NOTIFICATION_ERROR)
+          }
+        })
+        .catch(err => {
+          Notification("Thông báo đơn đặt hàng", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+        })
+    }
+    dispatch(turnOffLoading())
+  }
+
+  const handleRemoveOrderChoose=async ()=>{
+    dispatch(turnOnLoading());
+    for(let i=0;i<selectedRowKeys.length;i++){
+      await removeOrdersByOrderId(selectedRowKeys[i])
+        .then(res => {
+          if (res.data.status === "success") {
+            setIsLoading(!isLoading)
+            Notification("Thông báo đơn đặt hàng", "Đã xóa thành công", constraintNotification.NOTIFICATION_SUCCESS)
+          } else {
+            Notification("Thông báo đơn đặt hàng", "Xóa thất bại", constraintNotification.NOTIFICATION_ERROR)
+          }
+        })
+        .catch(err => {
+          Notification("Thông báo đơn đặt hàng", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+        })
+    }
+    dispatch(turnOffLoading())
   }
 
   return (
@@ -228,10 +290,29 @@ const OrderProcessPage = () => {
           <div className="row">
             <div className="col-md-6">
               <h3 className="title"> Đơn hàng đang xử lý&nbsp;
-                <a  className="btn btn-primary btn-sm rounded-s"> Thêm mới  </a>
-                &nbsp;
+
+              {selectedRowKeys.length === 0 ? ""
+                :
+                <div className="action dropdown">
+                  <button className="btn  btn-sm rounded-s btn-secondary dropdown-toggle" type="button"
+                          id="dropdownMenu1"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Thiết lập
+                  </button>
+                  <div className="dropdown-menu" aria-labelledby="dropdownMenu1" x-placement="bottom-start"
+                       style={{
+                         position: "absolute",
+                         transform: "translate3d(0px, 25px, 0px)",
+                         left: "0px",
+                         willChange: "transform"
+                       }}>
+                    <a className="dropdown-item" onClick={handleConfirmOrderChoose}>
+                      <i className="fa fa-pencil-square-o icon"></i>Hoàn thành đơn hàng đã chọn</a>
+                    <a className="dropdown-item"  onClick={handleRemoveOrderChoose}>
+                      <i className="fa fa-close icon"></i>Xóa đơn hàng</a>
+                  </div>
+                </div>
+              }
               </h3>
-              <p className="title-description"> Danh sách sản phẩm </p>
             </div>
           </div>
         </div>
@@ -262,11 +343,6 @@ const OrderProcessPage = () => {
           />
         </ul>
       </div>
-      <nav className="text-right" style={{display:"flex",justifyContent:"center",marginTop:"3%"}}>
-       {/* <ul className="pagination">
-          <Pagination total={item.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
-        </ul>*/}
-      </nav>
     </article>
   )
 }

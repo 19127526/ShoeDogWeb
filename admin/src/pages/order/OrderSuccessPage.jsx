@@ -1,10 +1,6 @@
-import OrderProductComponent from "../../components/order/OrderProductComponent";
-import {ADD_NEW_PRODUCT} from "../../configs/url";
-import CardComponent from "../../components/card/CardComponent";
-import {Dropdown, Pagination} from "antd";
+import {Dropdown, Space, Table, Typography} from "antd";
 import {useEffect, useState} from "react"
-import { DownOutlined } from '@ant-design/icons';
-import { Form, Radio, Space, Switch, Table,Typography } from 'antd';
+import {DownOutlined} from '@ant-design/icons';
 import DescriptionComponent from "../../components/description/DescriptionComponent";
 import {getAllOrders, removeOrdersByOrderId} from "../../apis/orders/OrdersApi";
 import {useDispatch} from "react-redux";
@@ -15,15 +11,15 @@ import * as constraintNotification from "../../components/notification/Notificat
 
 
 const OrderProcessPage = () => {
-  const dispatch=useDispatch()
-  const [rowSelection, setRowSelection] = useState({});
+  const dispatch = useDispatch()
   const [tableLayout, setTableLayout] = useState(undefined);
   const [yScroll, setYScroll] = useState(false);
   const [xScroll, setXScroll] = useState(undefined);
   const [sort, setSort] = useState('ascend');
-  const [valueOrder,setValueOrder]=useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [valueOrder, setValueOrder] = useState([]);
   const scroll = {};
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const columns = [
     {
       title: 'Mã order',
@@ -61,12 +57,11 @@ const OrderProcessPage = () => {
       dataIndex: 'orderDate',
       responsive: ['md'],
 
-      sorter: (a, b,sortOrder) =>{
-        if(sortOrder.includes("ascend")){
-          return a.orderDate<b.orderDate
-        }
-        else{
-          return a.orderDate>=b.orderDate
+      sorter: (a, b, sortOrder) => {
+        if (sortOrder.includes("ascend")) {
+          return a.orderDate < b.orderDate
+        } else {
+          return a.orderDate >= b.orderDate
         }
       },
     },
@@ -114,31 +109,38 @@ const OrderProcessPage = () => {
   };
 
 
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
 
 
   const tableProps = {
-    bordered:false,
-    loading:false,
-    size:"large",
-    expandable:defaultExpandable,
+    bordered: false,
+    loading: false,
+    size: "large",
+    expandable: defaultExpandable,
     rowSelection,
     scroll,
     tableLayout,
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(turnOnLoading());
-    const getAllOrdersInit=async ()=>{
+    const getAllOrdersInit = async () => {
       await getAllOrders()
-        .then(res=>{
-          if(res.data.status==="success"){
-            let temp=[];
+        .then(res => {
+          if (res.data.status === "success") {
+            let temp = [];
 
-            res.data.data.map(index=>{
+            res.data.data.map(index => {
 
               const items = [
                 {
-                  key: index.OrderId+".1",
+                  key: index.OrderId + ".1",
                   label: 'Xóa order',
                 },
               ];
@@ -148,14 +150,14 @@ const OrderProcessPage = () => {
                 onClick: handleMenuClick,
                 selectable: true,
               };
-              const tempIndex={
+              const tempIndex = {
                 key: index.OrderId,
                 orderInventory: index.InventoryOrder,
                 fullName: index.FullName,
                 email: index.Email,
-                orderPay: index.MethodPay===0?"Thanh toán khi nhận hàng": "Chuyển khoản",
-                orderDate:dateFormat(index.OrderDate, "dd/mm/yyyy hh:mm:ss"),
-                statusOrder: index.StatusOrder===0?"Chưa nhận hàng":"Đã nhận hàng",
+                orderPay: index.MethodPay === 0 ? "Thanh toán khi nhận hàng" : "Chuyển khoản",
+                orderDate: dateFormat(index.OrderDate, "dd/mm/yyyy hh:mm:ss"),
+                statusOrder: index.StatusOrder === 0 ? "Chưa nhận hàng" : "Đã nhận hàng",
                 description: <DescriptionComponent index={index}/>,
                 action: <Dropdown
                   menu={menuProps}
@@ -164,14 +166,14 @@ const OrderProcessPage = () => {
                   <Typography.Link>
                     <Space size={"middle"}>
                       Tùy chỉnh
-                      <DownOutlined />
+                      <DownOutlined/>
                     </Space>
                   </Typography.Link>
                 </Dropdown>
               }
-              if(index.StatusOrder===0){
+              if (index.StatusOrder === 0) {
 
-              }else{
+              } else {
                 temp.push(tempIndex)
               }
             })
@@ -179,40 +181,57 @@ const OrderProcessPage = () => {
             setValueOrder(temp);
           }
         })
-        .catch(err=>console.log(err))
-        .finally(()=>dispatch(turnOffLoading()))
+        .catch(err => console.log(err))
+        .finally(() => dispatch(turnOffLoading()))
     }
     getAllOrdersInit()
-  },[isLoading])
+  }, [isLoading])
 
-  const handleMenuClick=async (e)=>{
-    const type=e.key.substring(e.key.indexOf(".")+1,e.key.length);
-    const orderId=e.key.substring(0,e.key.indexOf("."));
-    console.log(type,orderId)
+  const handleMenuClick = async (e) => {
+    const type = e.key.substring(e.key.indexOf(".") + 1, e.key.length);
+    const orderId = e.key.substring(0, e.key.indexOf("."));
     //remove order
-    if(type.includes(1)){
+    if (type.includes(1)) {
       dispatch(turnOnLoading());
       await removeOrdersByOrderId(orderId)
-        .then(res=>{
-          if(res.data.status==="success"){
+        .then(res => {
+          if (res.data.status === "success") {
             setIsLoading(!isLoading)
             Notification("Thông báo đơn đặt hàng", "Đã xóa thành công", constraintNotification.NOTIFICATION_SUCCESS)
-          }
-          else{
+          } else {
             Notification("Thông báo đơn đặt hàng", "Xóa thất bại", constraintNotification.NOTIFICATION_ERROR)
           }
         })
-        .catch(err=>{
+        .catch(err => {
           Notification("Thông báo đơn đặt hàng", err.toString(), constraintNotification.NOTIFICATION_ERROR)
         })
-        .finally(()=>dispatch(turnOffLoading()))
+        .finally(() => dispatch(turnOffLoading()))
 
-    }
-    else{
+    } else {
 
     }
 
   }
+
+  const handleClickRemoveOrderChoose=async ()=>{
+    dispatch(turnOnLoading());
+    for(let i=0;i<selectedRowKeys.length;i++){
+      await removeOrdersByOrderId(selectedRowKeys[i])
+        .then(res => {
+          if (res.data.status === "success") {
+            setIsLoading(!isLoading)
+            Notification("Thông báo đơn đặt hàng", "Đã xóa thành công", constraintNotification.NOTIFICATION_SUCCESS)
+          } else {
+            Notification("Thông báo đơn đặt hàng", "Xóa thất bại", constraintNotification.NOTIFICATION_ERROR)
+          }
+        })
+        .catch(err => {
+          Notification("Thông báo đơn đặt hàng", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+        })
+    }
+    dispatch(turnOffLoading())
+  }
+
 
   return (
     <article className="content items-list-page">
@@ -220,20 +239,22 @@ const OrderProcessPage = () => {
         <div className="title-block">
           <div className="row">
             <div className="col-md-6">
-              <h3 className="title"> Đơn hàng đã hoản thành (Đã nhận hàng)
-                <a  className="btn btn-primary btn-sm rounded-s"> Thêm mới  </a>
-                &nbsp;
+              <h3 className="title"> Đơn hàng đã hoản thành (Đã nhận hàng) &nbsp;
+                {selectedRowKeys.length === 0 ?
+                  ""
+                  :
+                  <button onClick={handleClickRemoveOrderChoose} className="btn btn-danger btn-sm rounded-s"> Xóa đơn hàng </button>
+                }
               </h3>
-              <p className="title-description"> Danh sách sản phẩm </p>
             </div>
           </div>
         </div>
         <div className="items-search">
           <form className="form-inline">
             <div className="input-group">
-              <input type="text" className="form-control boxed rounded-s" placeholder="Nhập vào để tìm kiếm..." />
+              <input type="text" className="form-control boxed rounded-s" placeholder="Nhập vào để tìm kiếm..."/>
               <span className="input-group-btn">
-                  <button className="btn btn-secondary rounded-s" type="button" style={{height:"100%"}}>
+                  <button className="btn btn-secondary rounded-s" type="button" style={{height: "100%"}}>
                       <i className="fa fa-search"></i>
                   </button>
               </span>
@@ -255,8 +276,8 @@ const OrderProcessPage = () => {
           />
         </ul>
       </div>
-      <nav className="text-right" style={{display:"flex",justifyContent:"center",marginTop:"3%"}}>
-       {/* <ul className="pagination">
+      <nav className="text-right" style={{display: "flex", justifyContent: "center", marginTop: "3%"}}>
+        {/* <ul className="pagination">
           <Pagination total={item.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
         </ul>*/}
       </nav>

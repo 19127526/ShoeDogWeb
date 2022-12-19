@@ -29,11 +29,7 @@ const ProductListPage = () => {
       await getListProductsByCatId(catId || null)
         .then(res => {
           if (res.data.status === 'success'||res.data.status==='empty') {
-            const a=[]
-            for(let i=0;i<10;i++){
-              a.push(res.data.data[0])
-            }
-            setItem(a);
+            setItem(res.data.data);
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
           }
@@ -64,7 +60,8 @@ const ProductListPage = () => {
   const handleSearchProduct=(e)=>{
     setSearchValue(e.target.value);
   }
-  return (<article className="content items-list-page">
+  return (
+    <article className="content items-list-page">
     <div className="title-search-block">
       <div className="title-block">
         <div className="row">
@@ -73,6 +70,7 @@ const ProductListPage = () => {
               <a onClick={() => navigate(`${ADD_NEW_PRODUCT}`)} className="btn btn-primary btn-sm rounded-s"> Thêm mới  </a>
               &nbsp;
             </h3>
+
             <p className="title-description"> Danh sách sản phẩm </p>
           </div>
         </div>
@@ -90,6 +88,9 @@ const ProductListPage = () => {
         </form>
       </div>
     </div>
+
+
+
     <div className="card items">
       <ul className="item-list striped">
         <li className="item item-list-header">
@@ -145,6 +146,10 @@ const ProductListPage = () => {
       <Pagination total={item.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
       </ul>
     </nav>
+
+
+
+
   </article>)
 }
 

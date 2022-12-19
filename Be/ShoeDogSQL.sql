@@ -36,7 +36,7 @@ create table Products
     ImageMain longtext  null,
     Size varchar(150) charset utf8,
     Color varchar(30) charset utf8,
-    ImageId varchar(150) charset utf8,
+    ImageId longtext not null ,
     constraint `product-category`
         foreign key (CatId) references Categories (CatId)
 );

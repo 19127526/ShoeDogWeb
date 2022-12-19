@@ -44,3 +44,13 @@ exports.deleteOrderDetail = async (id) => {
 }
 
 
+exports.acceptOrder=async (id)=>{
+  const check=db('orders')
+    .where('orders.OrderId', id)
+    .update({
+      StatusOrder:1
+    })
+  return check;
+}
+
+

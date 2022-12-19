@@ -39,7 +39,6 @@ exports.getDetailProductByProId = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await product.getDetailProductsByProId(id);
-        console.log(result)
         if (result.length == 0) {
             return res.status(200).json({"status": "empty", "message": result});
         } else {
@@ -115,6 +114,7 @@ exports.addProduct = async (req, res) => {
 
         return res.status(200).json({"status": "success", "data": productFinding});
     } catch (e) {
+        console.log(e.message)
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }
@@ -194,11 +194,14 @@ exports.getAllBrandsInProducts = async (req, res) => {
 
 exports.relatedProduct = async (req, res) => {
     try {
-        const productBody = req.body;
-        console.log(req.params)
-        console.log("dsd")
-        console.log(productBody)
-        return res.status(200).json({"status": "success", "data": "sd"});
+        const catId = req.body.catId;
+        const proId = req.body.proId;
+        console.log("dsd",catId)
+        const tempProducts=await product.relatedProductByCatId(catId);
+
+        const products=tempProducts.filter(index=>index.ProId!==proId)
+
+        return res.status(200).json({"status": "success", "data":products});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }

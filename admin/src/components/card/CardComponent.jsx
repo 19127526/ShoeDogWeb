@@ -19,7 +19,7 @@ const CardComponent = ({index,setLoading}) => {
       quantity:temp[1]
     }
   });
-  const quantity=tempValue.map(index=>index.quantity).reduce((previousScore, currentScore, index) => previousScore + currentScore)
+  const quantity=tempValue.map(index=>index.quantity).reduce((previousScore, currentScore, index) => Number(previousScore) + Number(currentScore))
   const removeProduct= async ()=>{
     console.log(index.proId);
     await removeProductByProId({proId:index?.ProId})
