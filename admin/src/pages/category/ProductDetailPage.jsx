@@ -149,7 +149,7 @@ const ProductDetailPage = (prop) => {
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title">Khuyến mãi</label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder=""
-                     value={indexValueDetail?.Discount + "%"}/>
+                     value={indexValueDetail?.Discount*100 + "%"}/>
             </div>
           </div>
           <div className="form-group row">

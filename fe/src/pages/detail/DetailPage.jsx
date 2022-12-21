@@ -6,7 +6,7 @@ import {useEffect, useRef, useState} from "react";
 import CardComponent from "../../components/card/CardComponent";
 import {getDetailProductByProId, relatedProduct} from "../../apis/products/ProductsApi";
 import {useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import ErrorPage from "../error/ErrorPage";
 import {message} from "antd";
@@ -23,8 +23,8 @@ const DetailPage = () => {
   const dispatch = useDispatch();
   const [imageSubArray, setImageSubArray] = useState([]);
   const [sizeList, setSizeList] = useState([{
-    size:null,
-    quantity:null,
+    size: null,
+    quantity: null,
   }]);
   const [color, setColor] = useState();
   const [empty, setEmpty] = useState(false);
@@ -34,6 +34,8 @@ const DetailPage = () => {
   });
   const [relatedProductList, setRelatedProductList] = useState([]);
   const {ref, height, width} = useComponentSize();
+  const dataProduct = useSelector(state => state.cartReducer);
+
   useEffect(() => {
     const getDetailProduct = () => {
       dispatch(turnOnLoading())
@@ -44,17 +46,16 @@ const DetailPage = () => {
             setDetailProduct(res.data.data[0]);
             setSizeList(convertArrayToOptions(res.data.data[0].Size, ", ")
               .map(index => {
-                const temp=convertArrayToOptions(index, ": ");
-                return{
-                  size:temp[0],
-                  quantity:temp[1]
+                const temp = convertArrayToOptions(index, ": ");
+                return {
+                  size: temp[0],
+                  quantity: temp[1]
                 }
               }));
             setColor(res.data.data[0].Color);
-            if(res.data.data[0].ImageArray===null||res.data.data[0].ImageArray===undefined||res.data.data[0].ImageArray===""){
+            if (res.data.data[0].ImageArray === null || res.data.data[0].ImageArray === undefined || res.data.data[0].ImageArray === "") {
               setImageSubArray([])
-            }
-            else{
+            } else {
               setImageSubArray(convertArrayToOptions(res.data.data[0].ImageArray, ", "));
             }
             setEmpty(false);
@@ -103,16 +104,29 @@ const DetailPage = () => {
   }
 
   const addProductToCart = () => {
-
     if (chooseSizeSuccess.size === null && chooseSizeSuccess.price === null) {
       message.info('Vui lòng chọn size trước khi thêm vào giỏ hàng');
     } else {
-      for(let i=0;i<sizeList.length;i++){
-        if(sizeList[i].size===chooseSizeSuccess.size){
-
+      let isAddItem=false;
+      const data=dataProduct?.cartItem;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].detailProduct.ProId == proId) {
+          if (data[i].aboutSize.size == chooseSizeSuccess.size) {
+            const prev=data[i].quantity;
+            const next= sizeList.filter(index=>index.size===chooseSizeSuccess.size).map(index=>index.quantity)[0];
+            console.log(next);
+            if(next>=prev){
+              isAddItem=true;
+            }
+          }
         }
       }
-      dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
+      if(isAddItem===false) {
+        dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
+      }
+      else{
+        message.info('Số lượng size của Sản phẩm này đã hết, vui lòng chọn size khác');
+      }
     }
   }
 
@@ -156,65 +170,65 @@ const DetailPage = () => {
             <div className="detail__desc" style={{height: height2}}>
               <div className="detail__desc--inner">
                 <div className="detail__desc--fix">
-                  <p className="color7c7c7c font-700 fs-14"><a >Mã sản
+                  <p className="color7c7c7c font-700 fs-14"><a>Mã sản
                     phẩm: {detailProduct?.Inventory}</a>
                   </p>
                   <p className="text-uper font-500  fs-24 mgB-0 lh-40 mgB-20">{detailProduct?.ProName}</p>
-                    <div className="mgB-20">
-                      <div className="dropdownChooseSize">
-                        <a onClick={() => setChooseSizeBtn(!chooseSizeBtn)}
-                           className={chooseSizeBtn === true ? "val-selected clearfix active" : "val-selected clearfix"}>
-                          <span className="icon-uniF140"></span>
-                          <div className="get-val clearfix">
+                  <div className="mgB-20">
+                    <div className="dropdownChooseSize">
+                      <a onClick={() => setChooseSizeBtn(!chooseSizeBtn)}
+                         className={chooseSizeBtn === true ? "val-selected clearfix active" : "val-selected clearfix"}>
+                        <span className="icon-uniF140"></span>
+                        <div className="get-val clearfix">
 
-                            {chooseSizeSuccess.size === null ? <span className="txtSize">Chọn size</span> :
-                              <div className="get-val clearfix">
+                          {chooseSizeSuccess.size === null ? <span className="txtSize">Chọn size</span> :
+                            <div className="get-val clearfix">
                                 <span className="icon-uniF335" onClick={() => {
                                   setChooseSizeSuccess({size: null, price: null})
                                 }}></span>
-                                <span className="txtPrice">{chooseSizeSuccess.price.toLocaleString('it-IT', {
-                                  style: 'currency',
-                                  currency: "VND"
-                                })}</span>
-                                <span className="txtSize">Size {chooseSizeSuccess.size}</span>
-                              </div>
-                            }
-                          </div>
-                        </a>
+                              <span className="txtPrice">{chooseSizeSuccess.price.toLocaleString('it-IT', {
+                                style: 'currency',
+                                currency: "VND"
+                              })}</span>
+                              <span className="txtSize">Size {chooseSizeSuccess.size}</span>
+                            </div>
+                          }
+                        </div>
+                      </a>
 
 
-                        <div className={chooseSizeBtn === true ? "chooseSize active" : "chooseSize"}>
-                          <div className="chooseSizeInner">
-                            <ul>
-                              {sizeList.map(index => (
-                                <li onClick={() => setChooseSize(index.size, detailProduct?.TotalPrice)}>
-                                  <a>
+                      <div className={chooseSizeBtn === true ? "chooseSize active" : "chooseSize"}>
+                        <div className="chooseSizeInner">
+                          <ul>
+                            {sizeList.map(index => (
+                              <li onClick={() => setChooseSize(index.size, detailProduct?.TotalPrice)}>
+                                <a>
                                   <span className="pull-right detail__price">
                                     {detailProduct?.TotalPrice.toLocaleString('it-IT', {
                                       style: 'currency',
                                       currency: "VND"
                                     })}
                                   </span>
-                                    <span className="detail__size">
+                                  <span className="detail__size">
                                       {index.size} - Số lượng {index.quantity}
                                   </span>
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        {detailProduct?.StatusPro === 0 ?
-                          <p className="color7c7c7c font-700 fs-14">
-                            Sản phẩm này hiện hết hàng
-                          </p>
-                          :
+                      </div>
+                      {detailProduct?.StatusPro === 0 ?
+                        <p className="color7c7c7c font-700 fs-14">
+                          Sản phẩm này hiện hết hàng
+                        </p>
+                        :
                         <button type="submit" className="btn-buy text-uper" onClick={addProductToCart}>Thêm vào giỏ
                           hàng
                         </button>
-                        }
-                      </div>
+                      }
                     </div>
+                  </div>
 
                   <div className="shareWrap">
                     <button className="btn btn-share">&nbsp; &nbsp;<ShareAltOutlined/><span>&nbsp; Share</span></button>
@@ -226,7 +240,7 @@ const DetailPage = () => {
                             <a target="_blank"><i
                               className="fa fa-facebook"></i></a>
                             <a target="_blank"
-                              className="fa fa-twitter"><i
+                               className="fa fa-twitter"><i
                               className="fa fa-facebook"></i></a>
                           </div>
                           <div className="col-sm-10">

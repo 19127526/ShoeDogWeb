@@ -133,6 +133,8 @@ exports.updateProduct = async (req, res) => {
     try {
         const products = req.body
         const ProductId = products.ProId;
+        const cateName = req.body.category;
+        const catId = await category.getCategoryById(cateName);
         const initProduct = {
             ProName: products.name,
             Des: products.des,
@@ -144,6 +146,7 @@ exports.updateProduct = async (req, res) => {
             TotalPrice: products.total,
             Price: products.price,
             Brand: products.brand,
+            CatId: catId.CatId
         }
         const updateProduct = await product.updateProduct(ProductId, initProduct)
         const productAfterUpdate = await product.getDetailProductsByProId(ProductId)

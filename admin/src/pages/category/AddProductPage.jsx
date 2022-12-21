@@ -189,12 +189,12 @@ const AddProductPage = () => {
     formData.append('category',category);
     formData.append('name',proName);
     formData.append('des',valueEditorMain);
-    formData.append('shortDes',valueEditorMain);
+    formData.append('shortDes',"empty");
     formData.append('status',1);
     formData.append('brand',brand);
-    formData.append('price',price);
-    formData.append('discount',discount);
-    formData.append('total',totalPrice);
+    formData.append('price',Math.round(price));
+    formData.append('discount',1.0-discount);
+    formData.append('total',Math.round(totalPrice));
     for(let i=0;i<image.length;i++){
       formData.append('image',image[i]);
     }
@@ -205,13 +205,14 @@ const AddProductPage = () => {
 
 
 
+    console.log(1.0-discount)
     const payload = {
       catName: category,
       proName: proName,
       brand:brand,
       des: valueEditorMain,
       price: price,
-      discount: discount,
+      discount: (1-discount),
       totalPrice: totalPrice,
       formData,
       size: size,
@@ -222,6 +223,7 @@ const AddProductPage = () => {
       dispatch(turnOnLoading());
       await addProduct(formData)
         .then(res => {
+          console.log(res)
           if(res.data.status==="success"){
             Notification("Thông báo thêm sản phẩm", `Thêm sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
           }
@@ -327,7 +329,7 @@ const AddProductPage = () => {
         </div>
 
         <div className="form-group row">
-          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Size-Số lượng </label>
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Size - Số lượng </label>
           <div className="col-sm-9">
             &#9; &#9;
             {sizeList.map((x, i) => {
@@ -432,7 +434,7 @@ const AddProductPage = () => {
                   return false;
                 }}
               >
-                {uploadButton}
+                {fileImageMainList.length===0?uploadButton:""}
               </Upload>
               <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
