@@ -6,7 +6,7 @@ export const GET_PRODUCTS_URI="product"
 export const ADD_CATEGORIES_URI="category/add"
 export const GET_DETAIL_PRODUCT_URI="product/detail"
 export const SEARCH_PRODUCT_URI="product/search"
-export const GET_RELATED_PRODUCT_URI="product/related"
+export const RELATED_PRODUCT_URI="product/related"
 export const ADD_ORDER_URI="order/add"
 
 

@@ -32,4 +32,25 @@ exports.getAllDetailOrders=()=>{
     ,'products.Color','products.CatId')
 }
 
+exports.deleteOrder = async (id) => {
+  const check=db('orders')
+    .where('orders.OrderId', id).del();
+  return check;
+}
+exports.deleteOrderDetail = async (id) => {
+  const check=db('ordersdetails')
+    .where('ordersdetails.OrderId', id).del();
+  return check;
+}
+
+
+exports.acceptOrder=async (id)=>{
+  const check=db('orders')
+    .where('orders.OrderId', id)
+    .update({
+      StatusOrder:1
+    })
+  return check;
+}
+
 

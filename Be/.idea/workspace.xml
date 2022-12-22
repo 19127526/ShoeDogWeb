@@ -5,23 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../admin/src/apis/orders/OrdersApi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../admin/src/components/description/DescriptionComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/order.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/orders.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/products.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/apis/products/ProductsApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/apis/products/ProductsApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/EditProductPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/ProductDetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/ProductDetailPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/error/ErrorPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/error/ErrorPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/order/OrderPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/order/OrderPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/routes/RoutesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/routes/RoutesPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/utils/Utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/utils/Utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,8 +39,9 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.data.extractors.current.export.id" value="SQL Inserts" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Nam 4 - ki 1/Web nâng cao (2)/KahootClone" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../admin" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -77,6 +70,11 @@
       <workItem from="1671101920026" duration="10852000" />
       <workItem from="1671181947940" duration="3722000" />
       <workItem from="1671263914311" duration="15583000" />
+      <workItem from="1671362718046" duration="11943000" />
+      <workItem from="1671444893847" duration="14605000" />
+      <workItem from="1671474151152" duration="607000" />
+      <workItem from="1671510095256" duration="2688000" />
+      <workItem from="1671631380632" duration="7986000" />
     </task>
     <servers />
   </component>

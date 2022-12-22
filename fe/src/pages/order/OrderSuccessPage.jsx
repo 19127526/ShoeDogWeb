@@ -1,11 +1,17 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import "./OrSuccessPage.css"
 import ErrorPage from "../error/ErrorPage";
+import {useDispatch} from "react-redux";
+import {removeAllItem} from "../detail/DetailPage.actions";
 const OrderSuccessPage=()=>{
   const navigate=useNavigate();
   const location =useLocation();
+  const dispatch=useDispatch();
   if(location.state===null||location.state===undefined||location.state.length===0){
     return <ErrorPage/>
+  }
+  else{
+    dispatch(removeAllItem())
   }
   return (
     <div >

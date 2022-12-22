@@ -1,6 +1,6 @@
 import request from "../request";
 import {
-  ADD_NEW_PRODUCT_URI, DETAIL_PRODUCT_URI,
+  ADD_NEW_PRODUCT_URI, DETAIL_PRODUCT_URI, EDIT_PRODUCT_URI,
   GET_BRANDS_URI,
   GET_PRODUCTS_URI,
   REMOVE_PRODUCT_URI,
@@ -38,6 +38,14 @@ export const addProduct=async (payload)=>{
   })
 }
 
+export const editProduct=async (payload)=>{
+  return await request.post(EDIT_PRODUCT_URI,payload,{
+    headers:{
+      "Content-Type": "multipart/form-data"
+    }
+  })
+}
+
 export const getAllBrands=async ()=>{
   return await request.get(GET_BRANDS_URI);
 }
@@ -50,3 +58,4 @@ export const searchProductsByCatId=async ({productName,catId})=>{
 export const getDetailProductByProId=async (proId)=>{
   return await request.get(DETAIL_PRODUCT_URI+proId);
 }
+

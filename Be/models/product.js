@@ -81,3 +81,28 @@ exports.searchProductsByCatId=async (product) => {
   const raw_data = await db.raw(sql)
   return raw_data[0]
 }
+
+
+exports.relatedProductByCatId= (catId)=>{
+  return db("products")
+    .join('categories','categories.CatId','products.CatId')
+    .where('products.CatId',catId)
+    .orderByRaw('RAND()')
+    .limit(9)
+}
+
+exports.updateSizeAndQuantityByProId=({proId,size})=>{
+  return db("products")
+    .where('products.ProId',proId)
+    .update({
+      Size:size
+    })
+}
+
+exports.changeStatusProDuctByProId=async (proId,statusPro)=>{
+  return db("products")
+    .where('products.ProId',proId)
+    .update({
+      StatusPro:statusPro
+    })
+}

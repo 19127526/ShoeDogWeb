@@ -115,7 +115,6 @@ const ListProduct = () => {
   }, [filterButton]);
 
   useEffect(()=>{
-    console.log(listPrice)
     if(turnOnSliderPrice===false){
       return;
     }
@@ -190,14 +189,25 @@ const ListProduct = () => {
   }
 
   const onChange = (value) => {
-    setTurnOnSliderPrice(true);
+    if(value[0]===listPrice.min&&value[1]===listPrice.max){
+      setTurnOnSliderPrice(false);
+    }
+    else{
+      setTurnOnSliderPrice(true);
+    }
+
     setListPrice({
       min: value[0],
       max: value[1]
     })
   };
   const onAfterChange = (value) => {
-    setTurnOnSliderPrice(true);
+    if(value[0]===listPrice.min&&value[1]===listPrice.max){
+      setTurnOnSliderPrice(false);
+    }
+    else{
+      setTurnOnSliderPrice(true);
+    }
     setListPrice({
       min: value[0],
       max: value[1]
@@ -315,6 +325,7 @@ const ListProduct = () => {
                 <CardComponent name={value?.ProName}
                                img={value?.ImageMain}
                                proId={value?.ProId}
+                               statusPro={value?.StatusPro}
                                priceDiscount={value?.TotalPrice}
                                priceNonDiscount={value.Discount === 0 ? null : value?.Price}/>
               </div>):""

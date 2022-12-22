@@ -1319,21 +1319,21 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>3</Position>
     </column>
     <column id="366" parent="305" name="Address">
-      <DataType>longtext|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="367" parent="305" name="PhoneNumber">
-      <DataType>longtext|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="368" parent="305" name="Note">
-      <DataType>longtext|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <Position>6</Position>
     </column>
     <column id="369" parent="305" name="InventoryOrder">
-      <DataType>longtext|0s</DataType>
+      <DataType>varchar(10)|0s</DataType>
       <Position>7</Position>
     </column>
     <column id="370" parent="305" name="OrderDate">
@@ -1488,26 +1488,31 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DataType>varchar(30)|0s</DataType>
       <Position>16</Position>
     </column>
-    <foreign-key id="400" parent="307" name="product-category">
+    <column id="400" parent="307" name="ImageId">
+      <Collation>utf8_general_ci</Collation>
+      <DataType>varchar(150)|0s</DataType>
+      <Position>17</Position>
+    </column>
+    <foreign-key id="401" parent="307" name="product-category">
       <ColNames>CatId</ColNames>
       <RefColNames>CatId</RefColNames>
       <RefTableName>categories</RefTableName>
     </foreign-key>
-    <index id="401" parent="307" name="Inventory">
+    <index id="402" parent="307" name="Inventory">
       <ColNames>Inventory</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="402" parent="307" name="product-category">
+    <index id="403" parent="307" name="product-category">
       <ColNames>CatId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="403" parent="307" name="PRIMARY">
+    <key id="404" parent="307" name="PRIMARY">
       <ColNames>ProId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="404" parent="307" name="Inventory">
+    <key id="405" parent="307" name="Inventory">
       <ColNames>Inventory</ColNames>
       <UnderlyingIndexName>Inventory</UnderlyingIndexName>
     </key>

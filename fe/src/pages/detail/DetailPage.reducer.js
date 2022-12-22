@@ -33,8 +33,10 @@ export const DetailPageReducer=(state=initialState, action)=>
         }
         break;
       case types.REMOVE_ITEM_INTO_CART:
-        console.log(action.payload)
         draft.cartItem=action.payload;
+        break;
+      case types.REMOVE_ALL_ITEM_INTO_CART:
+        draft.cartItem=[];
         break;
       default:
         return state;

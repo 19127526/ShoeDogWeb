@@ -10,3 +10,8 @@ export const removeItem=(payload)=>({
   type: types.REMOVE_ITEM_INTO_CART,
   payload
 })
+
+
+export const removeAllItem=()=>({
+  type: types.REMOVE_ALL_ITEM_INTO_CART,
+})

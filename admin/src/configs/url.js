@@ -8,16 +8,18 @@ export const ADD_CATEGORIES_URI="category/add"
 export const REMOVE_PRODUCT_URI="product/delete"
 export const GET_BRANDS_URI="product/brand"
 export const ADD_NEW_PRODUCT_URI="product/add"
+export const EDIT_PRODUCT_URI="product/update"
 export const SEARCH_PRODUCT_URI="product/search/category"
 export const DETAIL_PRODUCT_URI="product/detail/"
 export const GET_ALL_ORDER_URI="order"
-
+export const REMOVE_ORDER_URI="order/delete"
+export const COMPLETE_ORDER_URI="order/complete"
 
 //Client
 export const LIST_PRODUCT_BY_CATEGORY_ID="admin/category/"
 export const DETAIL_PRODUCT="/admin/category/"
 export const ADD_NEW_PRODUCT="/admin/product/add"
 export const EDIT_PRODUCT="/admin/product/edit/"
-export const ORDER_PRODUCT="/admin/order"
-
+export const ORDER_PRODUCT="/admin/order/process"
+export const ORDER_SUCCESS_PRODUCT="/admin/order/success"
 
