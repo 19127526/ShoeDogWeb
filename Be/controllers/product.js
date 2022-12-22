@@ -110,6 +110,7 @@ exports.addProduct = async (req, res) => {
             const productStr = arrayImage.join(", ");
             await product.updateArrayImage(productId, productStr);
             const imageIdStr = imageId.join(", ");
+            console.log(imageIdStr)
             await product.updateImageId(productId, imageIdStr);
         }
 
@@ -219,5 +220,31 @@ exports.searchProductByCatId = async (req, res) => {
     }
 }
 
+exports.getStatisticDay = async (req, res) => {
+    try {
+        // const statistic = await product.getStatisticDay();
+        return res.status(200).json({"status": "success", "data": "a"});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
 
+exports.getStatisticMonth = async (req, res) => {
 
+}
+
+exports.getStatisticYear = async (req, res) => {
+
+}
+
+exports.getMaxQuantityPurchase = async (req, res) => {
+
+}
+
+exports.getMinQuantityPurchase = async (req, res) => {
+
+}
+
+exports.getInventoryInDay = async (req, res) => {
+
+}

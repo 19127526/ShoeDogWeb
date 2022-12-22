@@ -48,3 +48,9 @@ J
 Be/controllers/category.js,0\1\017ddf29fff7ba82fe5d2456aaf2476752583ca1
 9
 	Be/app.js,0\8\08733a60a3352b4082300ab56b0ec3f6cfdc4073
+^
+.fe/src/assets/css/bootstrap-3.3.6/Gruntfile.js,7\d\7d422a80c7f3b404da17888481cc0df74fcac24c
+G
+Be/utils/imageUpload.js,0\5\05eef8dc5db87798d2aed2e34272232e7c6ba1dc
+D
+Be/package-lock.json,2\b\2b1230e88cacdc23ee854282bd5e0550cb22ee50

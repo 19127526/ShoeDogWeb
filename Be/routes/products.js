@@ -13,4 +13,10 @@ router.post('/delete', deleteProduct)
 router.post('/update', updateProduct)
 router.post('/search/category',searchProductByCatId)
 router.post('/search',searchProduct);
+// router.get('/statistic/day',getStatisticDay);
+// router.get('/statistic/month',getStatisticMonth);
+// router.get('/statistic/year',getStatisticYear);
+// router.get('/statistic/maxquantitypurchase',getMaxQuantityPurchase);
+// router.get('/statistic/minquantitypurchase',getMinQuantityPurchase);
+// router.get('/statistic/inventoryinday',getInventoryInDay);
 module.exports = router;
