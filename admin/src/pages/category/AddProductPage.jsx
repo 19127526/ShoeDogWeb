@@ -202,7 +202,9 @@ const AddProductPage = () => {
     formData.append('size',size);
     formData.append('color',color);
 
-
+    for (const value of formData.values()) {
+      console.log(value);
+    }
 
 
     console.log(1.0-discount)

@@ -114,10 +114,11 @@ const DetailPage = () => {
           if (data[i].aboutSize.size == chooseSizeSuccess.size) {
             const prev=data[i].quantity;
             const next= sizeList.filter(index=>index.size===chooseSizeSuccess.size).map(index=>index.quantity)[0];
-            console.log(next);
-            if(next>=prev){
+            if(next<=prev){
               isAddItem=true;
             }
+            console.log(next);
+            console.log(prev)
           }
         }
       }
@@ -125,7 +126,7 @@ const DetailPage = () => {
         dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
       }
       else{
-        message.info('Số lượng size của Sản phẩm này đã hết, vui lòng chọn size khác');
+        message.info('Số lượng size của sản phẩm này đã hết, vui lòng chọn size khác');
       }
     }
   }

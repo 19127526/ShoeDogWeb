@@ -61,3 +61,24 @@ export const convertDate=(newDate)=>{
 }
 
 
+const getUrlExtension = (url) => {
+  return url
+    .split(/[#?]/)[0]
+    .split(".")
+    .pop()
+    .trim();
+}
+
+export const onImageEdit = async (imgUrl) => {
+  let imgExt = getUrlExtension(imgUrl);
+
+  const response = await fetch(imgUrl);
+  const blob = await response.blob();
+  const file = await new File([blob], "profileImage." + imgExt, {
+    type: blob.type,
+  });
+
+  return file;
+}
+
+

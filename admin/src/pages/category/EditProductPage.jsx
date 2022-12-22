@@ -1,5 +1,5 @@
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {convertArrayToOptions, getBase64} from "../../utils/Utils";
+import {convertArrayToOptions, getBase64, onImageEdit} from "../../utils/Utils";
 import {AutoComplete, Image, Input, InputNumber, message, Modal, Radio, Select, Upload} from "antd";
 import {useEffect, useRef, useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
@@ -71,7 +71,7 @@ const EditProductPage = () => {
 
   const [brand, setBrand] = useState("");
   const [optionsBrand, setOptionBrand] = useState([]);
-
+  const [imageList,setImageList]=useState([]);
   const [valueEditorMain, setValueEditorMain] = useState(null);
   const [sizeList, setSizeList] = useState([{size: "", quantity: 0}]);
   const [color, setColor] = useState("");
@@ -124,7 +124,6 @@ const EditProductPage = () => {
       await getDetailProductByProId(proId)
         .then(res => {
           if (res.data.status === "success") {
-            console.log(res.data.data[0])
             setProductDetail(res.data.data[0])
             setPrice(res.data.data[0]?.Price);
             setDiscount(1-res.data.data[0]?.Discount);
@@ -135,6 +134,9 @@ const EditProductPage = () => {
             setColor(res.data.data[0].Color);
             setValueEditorMain(res.data.data[0].Des)
             setIsLoading(true);
+
+
+
             setFileImageMainList([{
               url:res.data.data[0]?.ImageMain
             }])
@@ -240,7 +242,7 @@ const EditProductPage = () => {
 
   const handleCancel = () => setPreviewOpen(false);
 
-  const addProductClick = () => {
+  const editProductClick = async () => {
     const tempSize = sizeList.map((value, index) => {
       const temp = value.size + ": " + value.quantity
       if (index === 0) {
@@ -251,41 +253,56 @@ const EditProductPage = () => {
     })
     const size = tempSize.reduce((prev, next) => prev + next);
 
-    const tempSubImg=fileImageSubList.map(index=>(index.originFileObj));
-    const image = [fileImageMainList[0].originFileObj,...tempSubImg];
+    let test = null;
+
+
+    let tempImageSub=[];
+    let tempImageMain=[];
+    for (let i = 0; i < fileImageSubList.length; i++) {
+      console.log(fileImageSubList[i])
+      if (fileImageSubList[i].url === undefined || fileImageSubList[i].url === null) {
+        tempImageSub.push(fileImageSubList[i].originFileObj)
+      } else {
+        await onImageEdit(fileImageSubList[i].url)
+          .then(res => {
+            tempImageSub.push(res)
+          })
+      }
+    }
+
+    if(fileImageMainList[0].url===undefined||fileImageMainList[0].url===null){
+      tempImageMain.push(fileImageMainList[0]?.originFileObj)
+    }
+    else{
+      await onImageEdit(fileImageMainList[0].url)
+        .then(res=>{
+          tempImageMain.push(res)
+        })
+    }
+
+    const tempImageTotal = tempImageMain.concat(tempImageSub);
+
+
     const formData = new FormData();
 
-    formData.append('category',category);
-    formData.append('ProId',proId);
-    formData.append('name',proName);
-    formData.append('des',valueEditorMain);
-    formData.append('shortDes',"empty");
-    formData.append('status',1);
-    formData.append('brand',brand);
-    formData.append('price',Math.round(price));
-    formData.append('discount',(1.0-discount));
-    formData.append('total',Math.round(totalPrice));
-    for(let i=0;i<image.length;i++){
-      formData.append('image',image[i]);
-    }
+    formData.append('category', category);
+    formData.append('ProId', proId);
+    formData.append('name', proName);
+    formData.append('des', valueEditorMain);
+    formData.append('shortDes', "empty");
+    formData.append('status', 1);
+    formData.append('brand', brand);
+    formData.append('price', Math.round(price));
+    formData.append('discount', (1.0 - discount));
+    formData.append('total', Math.round(totalPrice));
 
-    formData.append('size',size);
-    formData.append('color',color);
-
-    const payload = {
-      catName: category,
-      proName: proName,
-      ProId:proId,
-      brand:brand,
-      des: valueEditorMain,
-      price: price,
-      discount: (1-discount),
-      totalPrice: totalPrice,
-      formData,
-      size: size,
-      color: color
+    console.log(tempImageTotal.length)
+    for (let i = 0; i < tempImageTotal.length; i++) {
+      console.log(tempImageTotal[i])
+      formData.append('image', tempImageTotal[i]);
     }
-    console.log(payload)
+    formData.append('size', size);
+    formData.append('color', color);
 
 
     const callApiEditProduct = async () => {
@@ -293,15 +310,17 @@ const EditProductPage = () => {
       await editProduct(formData)
         .then(res => {
           console.log(res)
-          if(res.data.status==="success"){
+          if (res.data?.status === "success") {
             navigate(-1)
             Notification("Thông báo thêm sản phẩm", `Sửa đổi sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
+          } else {
+            console.log(res)
           }
         })
         .catch(err => {
           console.log(err)
         })
-        .finally(()=>{
+        .finally(() => {
           dispatch(turnOffLoading());
         })
     }
@@ -575,7 +594,7 @@ const EditProductPage = () => {
             <div className="form-group row">
               <div className="col-sm-10 col-sm-offset-2 "
                    style={{display: "flex", justifyContent: "center", width: "100%", marginLeft: "50px"}}>
-                <button type="submit" id="post" className="btn btn-primary" onClick={addProductClick}> Thêm sản phẩm
+                <button type="submit" id="post" className="btn btn-primary" onClick={editProductClick}> Chỉnh sửa sản phẩm
                 </button>
               </div>
             </div>
