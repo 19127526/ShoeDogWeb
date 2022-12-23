@@ -9,6 +9,7 @@ import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout
 import "./ListProduct.css"
 import {Pagination, Slider, Tag} from "antd";
 import ErrorPage from "../error/ErrorPage";
+import {convertArrayToOptions} from "../../utils/Utils";
 
 const pageIndex = 6;
 
@@ -42,7 +43,6 @@ const ListProduct = () => {
   const [loading, setLoading] = useState(false)
   const [itemInCategory, setItemInCategory] = useState([]);
   const [itemTempInCategory, setItemTempInCategory] = useState([]);
-  const [itemTempInCategoryAfterChooseFilter, setItemTempInCategoryAfterChooseFilter] = useState([]);
   const [listBrand, setListBrand] = useState([]);
   const [listSize, setListSize] = useState([]);
   const [listPrice, setListPrice] = useState({
@@ -56,11 +56,6 @@ const ListProduct = () => {
   const [page, setPage] = useState(1);
   const currentIndexPage = pageIndex * page;
   const prevIndexPage = pageIndex * (page - 1);
-  const [resultFilter, setResultFilter] = useState({
-    brand: null,
-    size: null,
-    sort: null
-  });
 
   const [stateFilter, setStateFilter] = useState([
     {
@@ -95,11 +90,6 @@ const ListProduct = () => {
   const navigate = useNavigate()
   useEffect(() => {
     setPage(1);
-    setResultFilter({
-      size: null,
-      sort: null,
-      brand: null
-    });
     setStateFilter([
       {
         name: "Brand",
@@ -138,6 +128,24 @@ const ListProduct = () => {
             setItemInCategory(res.data.data);
             setItemTempInCategory(res.data.data);
             setLoading(true)
+
+            if (res.data.Size !== null) {
+              const a = res.data.data.map(index => {
+                const temp = convertArrayToOptions(index.Size, ", ");
+                const tempResult = temp.map(index => {
+                  const Size = convertArrayToOptions(index, ": ");
+                  return Size[0];
+                })
+                return tempResult;
+              })
+              const mySet = new Set()
+              for (let i = 0; i < a.length; i++) {
+                for (let j = 0; j < a[i].length; j++) {
+                  mySet.add(a[i][j])
+                }
+              }
+              setListSize(Array.from(mySet))
+            }
           } else {
             setLoading(false);
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
@@ -159,52 +167,59 @@ const ListProduct = () => {
       document.body.classList.remove("filterActive")
     }
   }, [filterButton]);
-
   useEffect(() => {
     if (turnOnSliderPrice === false) {
       return;
     } else {
-
       dispatch(turnOnLoading());
       let isChooseAnother = false;
+      const tempPriceSet = itemTempInCategory?.filter(index => (index?.TotalPrice <= listPrice.max && index?.TotalPrice >= listPrice.min));
+      let tempPrice = itemTempInCategory?.filter(index => (index?.TotalPrice <= listPrice.max && index?.TotalPrice >= listPrice.min));
       for (let i = 0; i < stateFilter.length; i++) {
         if (stateFilter[i].name !== "Price") {
           if (stateFilter[i].state === true) {
             isChooseAnother = true;
-            const tempBrand = stateFilter[i].arr?.filter(index => (index?.TotalPrice <= listPrice.max && index?.TotalPrice >= listPrice.min));
-            setItemInCategory(tempBrand);
-
-
-
-            const tempBrand2 = stateFilter.map(index => {
-              if (index.name === "Price") {
-                return {
-                  name: "Price",
-                  state: true,
-                  nameIndex: "Price",
-                  arr: tempBrand,
+            const temp = tempPrice.map(index => {
+              let isFlag = false;
+              for (let j = 0; j < stateFilter[i].arr.length; j++) {
+                if (stateFilter[i].arr[j].ProId === index.ProId) {
+                  isFlag = true;
+                  return index;
                 }
-              } else {
-                return index
               }
-            })
-
-            setStateFilter(tempBrand2)
+              if (isFlag === false) {
+                return null
+              }
+            }).filter(index => index !== null)
+            tempPrice = temp;
           }
         }
       }
-      if (isChooseAnother === false) {
-        const tempBrand = itemTempInCategory?.filter(index => (index?.TotalPrice <= listPrice.max && index?.TotalPrice >= listPrice.min));
-        setItemInCategory(tempBrand)
 
-
+      if (isChooseAnother === true) {
+        setItemInCategory(tempPrice)
         const tempBrand2 = stateFilter.map(index => {
           if (index.name === "Price") {
             return {
               name: "Price",
               state: true,
               nameIndex: "Price",
-              arr: tempBrand,
+              arr: tempPriceSet,
+            }
+          } else {
+            return index
+          }
+        })
+        setStateFilter(tempBrand2)
+      } else if (isChooseAnother === false) {
+        setItemInCategory(tempPrice)
+        const tempBrand2 = stateFilter.map(index => {
+          if (index.name === "Price") {
+            return {
+              name: "Price",
+              state: true,
+              nameIndex: "Price",
+              arr: tempPrice,
             }
           } else {
             return index
@@ -219,44 +234,155 @@ const ListProduct = () => {
 
   }, [listPrice])
 
-  console.log(stateFilter)
 
   const filterBrand = (brandName) => {
-    const tempBrand = itemTempInCategory.filter(index => index.Brand === brandName);
-    setItemInCategory(tempBrand);
-    setItemTempInCategoryAfterChooseFilter(tempBrand);
 
-    /*let isChooseAnother=false;
-    for(let i=0;i<stateFilter.length;i++){
-      if(stateFilter[i].state===true){
-        isChooseAnother=true;
-        const tempBrand = stateFilter[i].arr?.filter(index => (index?.TotalPrice <= listPrice.max && index?.TotalPrice >= listPrice.min));
-        setItemInCategory(tempBrand)
-      }
-    }*/
+    dispatch(turnOnLoading());
 
-    const tempBrand2 = stateFilter.map(index => {
-      if (index.name === "Brand") {
-        return {
-          name: "Brand",
-          state: true,
-          arr: tempBrand,
-          nameIndex: brandName
+
+    let isChooseAnother = false;
+    let tempBrand = itemTempInCategory.filter(index => index.Brand === brandName);
+    for (let i = 0; i < stateFilter.length; i++) {
+      if (stateFilter[i].name !== "Brand") {
+        if (stateFilter[i].state === true) {
+          isChooseAnother = true;
+          const temp = tempBrand.map(index => {
+            let isFlag = false;
+            for (let j = 0; j < stateFilter[i].arr.length; j++) {
+              if (stateFilter[i].arr[j].ProId === index.ProId) {
+                isFlag = true;
+                return index;
+              }
+            }
+            if (isFlag === false) {
+              return null
+            }
+          }).filter(index => index !== null)
+          tempBrand = temp;
         }
-      } else {
-        return index
       }
-    })
-    setStateFilter(tempBrand2)
+    }
+
+    const tempBrandSet = itemTempInCategory.filter(index => index.Brand === brandName);
+    if (isChooseAnother === true) {
+      setItemInCategory(tempBrand)
+
+
+      const tempBrand2 = stateFilter.map(index => {
+        if (index.name === "Brand") {
+          return {
+            name: "Brand",
+            state: true,
+            arr: tempBrandSet,
+            nameIndex: brandName
+          }
+        } else {
+          return index
+        }
+      })
+      setStateFilter(tempBrand2)
+    } else if (isChooseAnother === false) {
+      setItemInCategory(tempBrand)
+      const tempBrand2 = stateFilter.map(index => {
+        if (index.name === "Brand") {
+          return {
+            name: "Brand",
+            state: true,
+            arr: tempBrandSet,
+            nameIndex: brandName
+          }
+        } else {
+          return index
+        }
+      })
+      setStateFilter(tempBrand2)
+    }
     setFilterButton(false);
     setChooseAnotherFilter(true)
+    dispatch(turnOffLoading());
   }
 
   const filterSize = (sizeName) => {
-    const tempBrand = itemTempInCategory.filter(index => index.Brand === brandName);
-    setItemInCategory(tempBrand);
-    setResultFilter({...resultFilter, brand: brandName})
+    dispatch(turnOnLoading());
+
+    let isChooseAnother = false;
+    const sizeArr = itemTempInCategory.map(index => {
+      const a = convertArrayToOptions(index.Size, ", ");
+      const tempResult = a.map(index => {
+        const temp = convertArrayToOptions(index, ": ");
+        return temp[0]
+      })
+      return {value:index, size: tempResult};
+    })
+    let tempSize = sizeArr.filter(index=>{
+      for(let i=0;i<index.size.length;i++){
+        if(index.size[i]===(sizeName)){
+          return true;
+        }
+      }
+    }).map(index=>index.value);
+    for (let i = 0; i < stateFilter.length; i++) {
+      if (stateFilter[i].name !== "Size") {
+        if (stateFilter[i].state === true) {
+          isChooseAnother = true;
+          const temp = tempSize.map(index => {
+            let isFlag = false;
+            for (let j = 0; j < stateFilter[i].arr.length; j++) {
+              if (stateFilter[i].arr[j].ProId === index.ProId) {
+                isFlag = true;
+                return index;
+              }
+            }
+            if (isFlag === false) {
+              return null
+            }
+          }).filter(index => index !== null)
+          tempSize = temp;
+        }
+      }
+    }
+    const tempSizeSet = sizeArr.filter(index=>{
+      for(let i=0;i<index.size.length;i++){
+        if(index.size[i]===(sizeName)){
+          return true;
+        }
+      }
+    }).map(index=>index.value);
+    if (isChooseAnother === true) {
+      setItemInCategory(tempSize)
+
+      const tempBrand2 = stateFilter.map(index => {
+        if (index.name === "Size") {
+          return {
+            name: "Size",
+            state: true,
+            arr: tempSizeSet,
+            nameIndex: sizeName
+          }
+        } else {
+          return index
+        }
+      })
+      setStateFilter(tempBrand2)
+    } else if (isChooseAnother === false) {
+      setItemInCategory(tempSize)
+      const tempBrand2 = stateFilter.map(index => {
+        if (index.name === "Size") {
+          return {
+            name: "Size",
+            state: true,
+            arr: tempSizeSet,
+            nameIndex: sizeName
+          }
+        } else {
+          return index
+        }
+      })
+      setStateFilter(tempBrand2)
+    }
     setFilterButton(false);
+    setChooseAnotherFilter(true)
+    dispatch(turnOffLoading());
   }
   const handleChangeFilter = () => {
     setFilterButton(true);
@@ -268,7 +394,7 @@ const ListProduct = () => {
     setSizeButton(false)
     setPriceButton(false)
   }
-  const handleChangeBrand = () => {
+  const handleChangeBrand = (e) => {
     setSortButton(false)
     setBrandButton(!brandButton);
   }
@@ -280,22 +406,40 @@ const ListProduct = () => {
     setSortButton(false)
     setPriceButton(!priceButton);
   }
-  const log = (e,name) => {
+  const log = (e, name) => {
     e.preventDefault();
+    let tempRemove = itemTempInCategory;
+    for (let i = 0; i < stateFilter.length; i++) {
+      if (stateFilter[i].name !== name) {
+        if (stateFilter[i].state === true) {
+          const temp = tempRemove.map(index => {
+            let isFlag = false;
+            for (let j = 0; j < stateFilter[i].arr.length; j++) {
+              if (stateFilter[i].arr[j].ProId === index.ProId) {
+                isFlag = true;
+                return index;
+              }
+            }
+            if (isFlag === false) {
+              return null
+            }
+          }).filter(index => index !== null)
+          tempRemove = temp;
+        }
+      }
+    }
+    setItemInCategory(tempRemove);
 
     setChooseAnotherFilter(false);
-    setItemInCategory(itemTempInCategory)
-    const tempState=stateFilter.map(index=>{
-      if(index.name===name){
-        return {...index,state:false}
-      }
-      else{
+    const tempState = stateFilter.map(index => {
+      if (index.name === name) {
+        return {...index, state: false, arr: []}
+      } else {
         return index
       }
     })
-    setStateFilter(tempState)
+    setStateFilter(tempState);
 
-    console.log(e)
   }
 
 
@@ -346,7 +490,7 @@ const ListProduct = () => {
                 {
                   stateFilter.map(index => {
                     if (index.state === true) {
-                      return (<Tag closable onClose={(e)=>log(e,index?.name)}>{index?.nameIndex}</Tag>)
+                      return (<Tag closable onClose={(e) => log(e, index?.name)}>{index?.nameIndex}</Tag>)
                     } else {
                       return ""
                     }
@@ -373,7 +517,7 @@ const ListProduct = () => {
             className="icon-meunu-close"></span></a>
           <div className="filterIcon"><span className="icon-settings"></span>Filter</div>
           <div className="filterItems">
-            <div className={sortButton === true ? "dropdown open" : "dropdown"}
+            {/*<div className={sortButton === true ? "dropdown open" : "dropdown"}
                  onClick={() => setSortButton(!sortButton)}>
               <div className="btn btn-default btn-xs dropdown-toggle" type="button" id="sortUsers"
                    data-toggle="dropdown">
@@ -394,7 +538,7 @@ const ListProduct = () => {
                                            href="https://www.glab.vn/product/footwear?sortBy=a.created_at_asc">Old to
                   New <i className="fa fa-sort-amount-desc" aria-hidden="true"></i></a></li>
               </ul>
-            </div>
+            </div>*/}
 
 
             <div className={brandButton === true ? "filterItem active" : "filterItem"} onClick={handleChangeBrand}>
@@ -407,11 +551,10 @@ const ListProduct = () => {
 
 
             <div className={sizeButton === true ? "filterItem active" : "filterItem"} onClick={handleChangeSize}>
-              <a>Sizes <span className="toggleSub icon-add-2"></span></a>
+              <a>Size <span className="toggleSub icon-add-2"></span></a>
               <ul className="clearfix">
-                <li onClick={() => filterBrand("S")}><a>S</a></li>
-                <li onClick={() => filterBrand("M")}><a>M</a></li>
-                <li onClick={() => filterBrand("L")}><a>L</a></li>
+                {listSize.map(index => index === null ? "" : (
+                  <li onClick={() => filterSize(index)}><a>{index}</a></li>))}
               </ul>
             </div>
 
