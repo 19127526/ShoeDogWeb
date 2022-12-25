@@ -132,6 +132,7 @@ exports.deleteProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
+        console.log(req.body, req.files)
         const products = req.body
         const ProductId = products.ProId;
         const cateName = req.body.category;
@@ -183,6 +184,7 @@ exports.updateProduct = async (req, res) => {
             return res.status(200).json({"status": "success", "data": updateProduct});
         }else return res.status(500).json({"status": "error", "message": "Can not find user"});
     } catch (e) {
+        console.log(e.message)
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }

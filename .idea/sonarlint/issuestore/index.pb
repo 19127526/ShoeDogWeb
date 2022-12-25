@@ -46,11 +46,23 @@ G
 admin/src/App.js,a\2\a22ea86ff47cb49b97708e5bd1c1bc8b8d298cf0
 J
 Be/controllers/category.js,0\1\017ddf29fff7ba82fe5d2456aaf2476752583ca1
-9
-	Be/app.js,0\8\08733a60a3352b4082300ab56b0ec3f6cfdc4073
 ^
 .fe/src/assets/css/bootstrap-3.3.6/Gruntfile.js,7\d\7d422a80c7f3b404da17888481cc0df74fcac24c
 G
 Be/utils/imageUpload.js,0\5\05eef8dc5db87798d2aed2e34272232e7c6ba1dc
 D
 Be/package-lock.json,2\b\2b1230e88cacdc23ee854282bd5e0550cb22ee50
+7
+Be/.env,7\a\7ae71e78a3404ea42cf6fee529f1575eb965baea
+?
+Be/package.json,7\c\7c85e015ca9221add7d5721d365fb9a6d6acca27
+Q
+!Be/middlewares/routeMiddleware.js,6\4\649a6c5dbd5c05ac9123238d75bf0a8be9c3105c
+B
+Be/routes/users.js,b\3\b38f61c631b57c7462f21146af739e6a0658cb10
+C
+Be/routes/orders.js,6\3\63c6b2d280695810fdbfd8cca90dd8598994bfc2
+G
+Be/controllers/order.js,4\6\46b28bc25948b40fdff81b753e6580487d8dc88d
+9
+	Be/app.js,0\8\08733a60a3352b4082300ab56b0ec3f6cfdc4073

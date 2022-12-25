@@ -39,7 +39,7 @@ export const addProduct=async (payload)=>{
 }
 
 export const editProduct=async (payload)=>{
-  return await request.post(EDIT_PRODUCT_URI,payload,{
+    return await request.post(EDIT_PRODUCT_URI,payload,{
     headers:{
       "Content-Type": "multipart/form-data"
     }
