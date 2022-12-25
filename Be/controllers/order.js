@@ -24,13 +24,15 @@ exports.addOrder = async (req, res) => {
   try {
     const orderInformationBody = req.body.information;
     const orderItem = req.body.item;
+    const totalPrice=req.body.information.totalPrice
+    const random=generateString(10);
     const orderAdd = {
       FullName: orderInformationBody.fullName,
       Email: orderInformationBody.email,
       Address: orderInformationBody.address + ", " + orderInformationBody.ward + ", " + orderInformationBody.district + ", " + orderInformationBody.province,
       PhoneNumber: orderInformationBody.phoneNumber,
       Note: orderInformationBody.note,
-      InventoryOrder: generateString(10),
+      InventoryOrder: random,
       MethodPay: orderInformationBody.methodPay
     }
     const orderId = await order.addOrder(orderAdd);
@@ -53,12 +55,12 @@ exports.addOrder = async (req, res) => {
           isSame=true;
         }
       }
-     if(isSame===true){
+      if(isSame===true){
 
-     }
-     else{
-       listProductAfterAdd.push(tempProduct[0])
-     }
+      }
+      else{
+        listProductAfterAdd.push(tempProduct[0])
+      }
     }
     const orderFinding = await order.getDetailOrderByOrderId(orderId[0]);
     const getSizeAndQuantityProduct=[];
@@ -94,19 +96,18 @@ exports.addOrder = async (req, res) => {
 
     const resultProductAfterOrder=[];
     for (let i=0;i<getSizeAndQuantityProduct.length;i++){
-
       const items=getSizeAndQuantityProduct[i].item;
       let str="";
       let isHasQuantity=false;
       for(let j=0;j<items.length;j++){
+        if(items[j].quantity!=0){
+          isHasQuantity=true;
+        }
         if(j===0){
           str+=`${items[j].size}: ${items[j].quantity}`
         }
         else{
           str+=`, ${items[j].size}: ${items[j].quantity}`
-        }
-        if(items[j].quantity!==0){
-          isHasQuantity=true;
         }
       }
       if(isHasQuantity===false){
@@ -120,7 +121,6 @@ exports.addOrder = async (req, res) => {
 
 
     for(let i=0;i<resultProductAfterOrder.length;i++){
-      console.log(resultProductAfterOrder[i])
       await product.updateSizeAndQuantityByProId({proId:resultProductAfterOrder[i].proId,size:resultProductAfterOrder[i].size})
     }
 
@@ -128,45 +128,65 @@ exports.addOrder = async (req, res) => {
 
 
 
+    const listProductEmail=listProductAfterAdd.map(index=>{
+      for(let i=0;i<orderItem.length;i++){
+        if(index.ProId==orderItem[i].proId){
+          return {
+            detail:index,
+            size2Quantity:{
+              size:orderItem[i].size,
+              amount:orderItem[i].amount
+            }
+          }
+        }
+      }
+    });
     const templateCredit = {
       name: orderInformationBody.fullName,
       notes: 'Check this out!',
       to_mail: orderInformationBody.email,
+      date:new Date().toLocaleDateString(),
     };
     const templateCash = {
-      name: orderInformationBody.fullName,
+      name: orderAdd.FullName,
       notes: 'Check this out!',
-      to_mail: orderInformationBody.email,
+      address:orderAdd.Address,
+      inventoryorder:orderAdd.InventoryOrder,
+      to_mail: orderAdd.Email,
+      date:new Date().toISOString().slice(0, 10).split('-').reverse().join('/'),
+      productList:listProductEmail,
+      totalPrice:totalPrice,
     }
-    /*if (orderInformationBody.methodPay === 0) {
-      emailjs
-        .send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_CASH_ID, templateCash, {
-          publicKey: process.env.EMAILJS_PUBLIC_KEY,
-          privateKey: process.env.EMAILJS_PRIVATE_KEY, // optional, highly recommended for security reasons
-        })
-        .then(
-          (response) => {
-            console.log('SUCCESS!', response.status, response.text);
-          },
-          (err) => {
-            console.log('FAILED...', err);
-          },
-        );
-    } else if (orderInformationBody.methodPay === 1) {
-      emailjs
-        .send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_CASH_ID, templateCash, {
-          publicKey: process.env.EMAILJS_PUBLIC_KEY,
-          privateKey: process.env.EMAILJS_PRIVATE_KEY, // optional, highly recommended for security reasons
-        })
-        .then(
-          (response) => {
-            console.log('SUCCESS!', response.status, response.text);
-          },
-          (err) => {
-            console.log('FAILED...', err);
-          },
-        );
-    }*/
+    console.log("dsd",templateCash)
+    /* if (orderInformationBody.methodPay === 0) {
+       emailjs
+         .send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_CASH_ID, templateCash, {
+           publicKey: process.env.EMAILJS_PUBLIC_KEY,
+           privateKey: process.env.EMAILJS_PRIVATE_KEY, // optional, highly recommended for security reasons
+         })
+         .then(
+           (response) => {
+             console.log('SUCCESS!', response.status, response.text);
+           },
+           (err) => {
+             console.log('FAILED...', err);
+           },
+         );
+     } else if (orderInformationBody.methodPay === 1) {
+       emailjs
+         .send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_CREDIT_ID, templateCash, {
+           publicKey: process.env.EMAILJS_PUBLIC_KEY,
+           privateKey: process.env.EMAILJS_PRIVATE_KEY, // optional, highly recommended for security reasons
+         })
+         .then(
+           (response) => {
+             console.log('SUCCESS!', response.status, response.text);
+           },
+           (err) => {
+             console.log('FAILED...', err);
+           },
+         );
+     }*/
     return res.status(200).json({"status": "success", "data": orderFinding});
   } catch (e) {
     return res.status(500).json({"status": "error", "message": e.message});

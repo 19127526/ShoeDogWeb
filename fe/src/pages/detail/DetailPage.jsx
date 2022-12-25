@@ -12,6 +12,7 @@ import ErrorPage from "../error/ErrorPage";
 import {message} from "antd";
 import {useComponentSize} from "react-use-size";
 import {addItemSuccess} from "./DetailPage.actions";
+import listProduct from "../listproduct/ListProduct";
 
 
 const DetailPage = () => {
@@ -109,6 +110,14 @@ const DetailPage = () => {
     } else {
       let isAddItem=false;
       const data=dataProduct?.cartItem;
+      for (let i=0;i<sizeList.length;i++){
+        if(sizeList[i].size===chooseSizeSuccess.size){
+          if(sizeList[i].quantity==0){
+            message.info('Số lượng size của sản phẩm này đã hết, vui lòng chọn size khác');
+            return;
+          }
+        }
+      }
       for (let i = 0; i < data.length; i++) {
         if (data[i].detailProduct.ProId == proId) {
           if (data[i].aboutSize.size == chooseSizeSuccess.size) {
