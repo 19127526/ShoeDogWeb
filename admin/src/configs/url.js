@@ -14,6 +14,7 @@ export const DETAIL_PRODUCT_URI="product/detail/"
 export const GET_ALL_ORDER_URI="order"
 export const REMOVE_ORDER_URI="order/delete"
 export const COMPLETE_ORDER_URI="order/complete"
+export const POST_LOGIN_URI="auth/login"
 
 //Client
 export const LIST_PRODUCT_BY_CATEGORY_ID="admin/category/"

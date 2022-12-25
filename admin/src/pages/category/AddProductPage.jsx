@@ -202,7 +202,9 @@ const AddProductPage = () => {
     formData.append('size',size);
     formData.append('color',color);
 
-
+    for (const value of formData.values()) {
+      console.log(value);
+    }
 
 
     console.log(1.0-discount)
@@ -218,13 +220,13 @@ const AddProductPage = () => {
       size: size,
       color: color
     }
-    console.log(payload)
     const callApiAddProduct = async () => {
       dispatch(turnOnLoading());
       await addProduct(formData)
         .then(res => {
-          console.log(res)
+          console.log(res?.response?.data.message)
           if(res.data.status==="success"){
+            navigate(-1)
             Notification("Thông báo thêm sản phẩm", `Thêm sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
           }
           console.log(res)
