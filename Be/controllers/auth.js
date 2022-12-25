@@ -11,7 +11,6 @@ exports.loginByUserAndPassword = async (req, res) => {
     const userName=req.body.userName;
     const passWord=req.body.password;
     const passwordMatch = compare(passwordTemp, passWord, secret);
-    console.log(userName,passwordMatch)
     if(userName==userNameTemp&&passwordMatch==true){
       return res.status(200).json({"status": "success", "data": passwordMatch});
     }

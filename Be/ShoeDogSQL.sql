@@ -71,3 +71,18 @@ create table OrdersDetails
     constraint `orderDetail-order`
         foreign key(OrderId) references Orders (OrderId)
 );
+
+DROP TABLE IF EXISTS `Users`;
+create table Users
+(
+    UserId int auto_increment primary key,
+    UserName varchar(100) charset utf8  not null,
+    Password varchar(100) charset utf8  not null,
+    FullName varchar(100) charset utf8 null,
+    Email varchar(100) charset utf8  null,
+    Address varchar(100)  null ,
+    PhoneNumber varchar(100)  null ,
+    Role int default 0 not null,
+    StatusUser int default 1 not null,
+    tokens longtext null
+);
