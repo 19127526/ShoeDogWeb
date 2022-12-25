@@ -47,18 +47,10 @@ J
 .fe/src/assets/css/bootstrap-3.3.6/Gruntfile.js,7\d\7d422a80c7f3b404da17888481cc0df74fcac24c
 G
 Be/utils/imageUpload.js,0\5\05eef8dc5db87798d2aed2e34272232e7c6ba1dc
-C
-Be/routes/orders.js,6\3\63c6b2d280695810fdbfd8cca90dd8598994bfc2
-G
-Be/controllers/order.js,4\6\46b28bc25948b40fdff81b753e6580487d8dc88d
 V
 &admin/src/apis/products/ProductsApi.js,7\c\7c3588e1ec463d1c0f22a1f741be584678eb02bc
 \
 ,admin/src/pages/category/EditProductPage.jsx,a\d\ad97db648fb9eb88a8b99395aa149eeb6c9fa806
-I
-Be/controllers/product.js,7\d\7d041b88fe3dce5a29651fcaa8c8377ce9d313a5
-D
-Be/models/product.js,d\6\d6ba6af82be0cdf26d35b9e3f1bb69adbf3c0735
 :
 
 Be/bin/www,b\b\bb752858c9ff21c696a88a31ed5d41979ae3d9eb

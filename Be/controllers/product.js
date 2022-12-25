@@ -230,19 +230,32 @@ exports.searchProductByCatId = async (req, res) => {
 
 exports.getStatisticDay = async (req, res) => {
     try {
-        // const statistic = await product.getStatisticDay();
-        return res.status(200).json({"status": "success", "data": "a"});
+        const statistic = await product.getStatisticDay();
+        const data = statistic[0][0].total_cost?statistic[0][0].total_cost:null
+        return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }
 
 exports.getStatisticMonth = async (req, res) => {
-
+    try {
+        const statistic = await product.getStatisticMonth();
+        const data = statistic[0][0].total_cost?statistic[0][0].total_cost:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
 }
 
 exports.getStatisticYear = async (req, res) => {
-
+    try {
+        const statistic = await product.getStatisticYear();
+        const data = statistic[0][0].total_cost?statistic[0][0].total_cost:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
 }
 
 exports.getMaxQuantityPurchase = async (req, res) => {

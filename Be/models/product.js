@@ -106,3 +106,21 @@ exports.changeStatusProDuctByProId=async (proId,statusPro)=>{
       StatusPro:statusPro
     })
 }
+
+exports.getStatisticDay = () =>{
+    return db.raw('select sum(o.TotalCost) as total_cost\n' +
+        'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
+        'where DATE(o.OrderDate) = DATE(NOW())\n')
+}
+
+exports.getStatisticMonth = () =>{
+    return db.raw('select sum(o.TotalCost) as total_cost\n' +
+        'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
+        'where MONTH(o.OrderDate) = MONTH(NOW())\n')
+}
+
+exports.getStatisticYear = () =>{
+    return db.raw('select sum(o.TotalCost) as total_cost\n' +
+        'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
+        'where YEAR(o.OrderDate) = YEAR(NOW())\n')
+}
