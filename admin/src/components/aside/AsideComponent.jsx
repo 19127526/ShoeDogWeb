@@ -30,7 +30,7 @@ const AsideComponent = ({onClose}) => {
               <a className="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true"
                  aria-expanded="true">
                 <div className="img" style={{backgroundImage: ""}}></div>
-                <span className="name">haha </span>
+                <span className="name">Admin</span>
               </a>
               <div className="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1"
                    x-placement="bottom-start"
@@ -41,14 +41,14 @@ const AsideComponent = ({onClose}) => {
                      left: "0px",
                      willChange: "transform"
                    }}>
-                <a className="dropdown-item" >
+               {/* <a className="dropdown-item" >
                   <i className="fa fa-user icon"></i> Profile </a>
                 <a className="dropdown-item" >
                   <i className="fa fa-bell icon"></i> Notifications </a>
                 <a className="dropdown-item" >
-                  <i className="fa fa-gear icon"></i> Settings </a>
+                  <i className="fa fa-gear icon"></i> Settings </a>*/}
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" >
+                <a className="dropdown-item" onClick={()=>navigate("/login")}>
                   <i className="fa fa-power-off icon"></i> Logout </a>
               </div>
             </li>

@@ -314,7 +314,7 @@ const EditProductPage = () => {
             navigate(-1)
             Notification("Thông báo thêm sản phẩm", `Sửa đổi sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
           } else {
-            console.log(res)
+            console.log(res.response.data.message)
           }
         })
         .catch(err => {

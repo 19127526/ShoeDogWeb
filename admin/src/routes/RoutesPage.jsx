@@ -18,7 +18,7 @@ const RoutesPage=()=>{
   return (
     <Routes>
      {/* <Route path="/home"  element={<React.Suspense fallback={<Loading/>} >  <DetailPageLazy/> </React.Suspense>}/>*/}
-      <Route path="/"  element={<React.Suspense fallback={<Loading/>} >  <HomePageLazy/> </React.Suspense>}/>
+      <Route path="/admin"  element={<React.Suspense fallback={<Loading/>} >  <HomePageLazy/> </React.Suspense>}/>
       <Route path="/login"  element={<React.Suspense fallback={<Loading/>} >  <LoginPageLazy/> </React.Suspense>}/>
       <Route path="/chart"  element={<React.Suspense fallback={<Loading/>} >  <ChartPageLazy/> </React.Suspense>}/>
       <Route path="/admin/product/add"  element={<React.Suspense fallback={<Loading/>} > <AddItemProductPageLazy/> </React.Suspense>}/>

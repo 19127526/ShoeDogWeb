@@ -3,6 +3,7 @@ const usersRouter = require("../routes/users");
 const categoryRouter = require("../routes/categories");
 const productRouter = require("../routes/products");
 const orderRouter=require("../routes/orders")
+const authRouter=require("../routes/auth")
 const multer = require('multer');
 const storage = multer.diskStorage({})
 const fileFilter = (req, file, cb) => {
@@ -20,6 +21,7 @@ const activateRouteMiddleware = (app) => {
     app.use('/category', categoryRouter);
     app.use('/product', uploads, productRouter);
     app.use('/order',orderRouter);
+    app.use('/auth',authRouter)
 }
 
 module.exports = activateRouteMiddleware;
