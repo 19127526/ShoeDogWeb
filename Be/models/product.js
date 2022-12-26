@@ -1,10 +1,8 @@
-
-
 const db = require('../utils/db');
 
 //s
 exports.getProducts = () => {
-  return db('products')
+    return db('products')
 }
 
 exports.getProductById = (ProId) => {
@@ -12,18 +10,18 @@ exports.getProductById = (ProId) => {
 }
 
 exports.addProduct = (product) => {
-  return db('products').insert(product);
+    return db('products').insert(product);
 }
 
 
 //s
 exports.deleteProduct = async (id) => {
-  const check=db('products').where('ProId', id).del();
-  return check;
+    const check = db('products').where('ProId', id).del();
+    return check;
 }
 
 exports.updateProduct = (id, product) => {
- return db('products').where('ProId', id).update(product);
+    return db('products').where('ProId', id).update(product);
 }
 
 exports.getImageIdByProId = (id) => {
@@ -39,88 +37,149 @@ exports.updateArrayImage = (id, image) => {
 }
 
 exports.updateImageId = (id, image) => {
-  return db('products').where('ProId', id).update({ImageId: image});
+    return db('products').where('ProId', id).update({ImageId: image});
 }
 
 
 //s
 exports.getProductsByCatId = (id) => {
-  return db('products')
-    .join('categories','products.CatId','categories.CatId')
-    .where('products.CatId',id)
+    return db('products')
+        .join('categories', 'products.CatId', 'categories.CatId')
+        .where('products.CatId', id)
 }
 
 
 //s
-exports.getDetailProductsByProId=(id)=>{
-  return db("products")
-    .join('categories','products.CatId','categories.CatId')
-    .where('products.ProId',id)
+exports.getDetailProductsByProId = (id) => {
+    return db("products")
+        .join('categories', 'products.CatId', 'categories.CatId')
+        .where('products.ProId', id)
 }
 
-exports.searchProducts=async (product) => {
-  const sql = `select a.*,b.*
-               FROM products as a
-                        join categories as b on a.CatId = b.CatId
-               WHERE a.ProName like "%${product}%"
-  `
-  const raw_data = await db.raw(sql)
-  return raw_data[0]
+exports.searchProducts = async (product) => {
+    const sql = `select a.*, b.*
+                 FROM products as a
+                          join categories as b on a.CatId = b.CatId
+                 WHERE a.ProName like "%${product}%"
+    `
+    const raw_data = await db.raw(sql)
+    return raw_data[0]
 }
-exports.getAllBrands= ()=>{
-  return db("products")
-    .distinct('Brand');
-}
-
-exports.searchProductsByCatId=async (product) => {
-  const sql = `select a.*,b.*
-               FROM products as a
-                        join categories as b on a.CatId = b.CatId
-               WHERE a.ProName like "%${product.proName}%" AND a.CatId=${product.catId}
-  `
-  const raw_data = await db.raw(sql)
-  return raw_data[0]
+exports.getAllBrands = () => {
+    return db("products")
+        .distinct('Brand');
 }
 
-
-exports.relatedProductByCatId= (catId)=>{
-  return db("products")
-    .join('categories','categories.CatId','products.CatId')
-    .where('products.CatId',catId)
-    .orderByRaw('RAND()')
-    .limit(9)
+exports.searchProductsByCatId = async (product) => {
+    const sql = `select a.*, b.*
+                 FROM products as a
+                          join categories as b on a.CatId = b.CatId
+                 WHERE a.ProName like "%${product.proName}%"
+                   AND a.CatId = ${product.catId}
+    `
+    const raw_data = await db.raw(sql)
+    return raw_data[0]
 }
 
-exports.updateSizeAndQuantityByProId=({proId,size})=>{
-  return db("products")
-    .where('products.ProId',proId)
-    .update({
-      Size:size
-    })
+
+exports.relatedProductByCatId = (catId) => {
+    return db("products")
+        .join('categories', 'categories.CatId', 'products.CatId')
+        .where('products.CatId', catId)
+        .orderByRaw('RAND()')
+        .limit(9)
 }
 
-exports.changeStatusProDuctByProId=async (proId,statusPro)=>{
-  return db("products")
-    .where('products.ProId',proId)
-    .update({
-      StatusPro:statusPro
-    })
+exports.updateSizeAndQuantityByProId = ({proId, size}) => {
+    return db("products")
+        .where('products.ProId', proId)
+        .update({
+            Size: size
+        })
 }
 
-exports.getStatisticDay = () =>{
+exports.changeStatusProDuctByProId = async (proId, statusPro) => {
+    return db("products")
+        .where('products.ProId', proId)
+        .update({
+            StatusPro: statusPro
+        })
+}
+
+exports.getStatisticDay = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
         'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
         'where DATE(o.OrderDate) = DATE(NOW())\n')
 }
 
-exports.getStatisticMonth = () =>{
+exports.getStatisticMonth = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
         'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
         'where MONTH(o.OrderDate) = MONTH(NOW())\n')
 }
 
-exports.getStatisticYear = () =>{
+exports.getStatisticYear = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
         'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
         'where YEAR(o.OrderDate) = YEAR(NOW())\n')
+}
+
+exports.getMaxQuantityPurchase = (limit) => {
+    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+        'from products p join ordersdetails o on p.ProId = o.ProId\n' +
+        'join orders o2 on o2.OrderId = o.OrderId\n' +
+        'where DAY(o2.OrderDate) = DAY(NOW())\n' +
+        'group by p.ProId\n' +
+        'order by Amount desc\n' +
+        `limit ${limit}\n`)
+}
+
+exports.getMaxQuantityPurchaseMonth = (limit) => {
+    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+        'from products p join ordersdetails o on p.ProId = o.ProId\n' +
+        'join orders o2 on o2.OrderId = o.OrderId\n' +
+        'where MONTH(o2.OrderDate) = MONTH(NOW())\n' +
+        'group by p.ProId\n' +
+        'order by Amount desc\n' +
+        `limit ${limit}\n`)
+}
+
+exports.getMaxQuantityPurchaseYear = (limit) => {
+    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+        'from products p join ordersdetails o on p.ProId = o.ProId\n' +
+        'join orders o2 on o2.OrderId = o.OrderId\n' +
+        'where YEAR(o2.OrderDate) = YEAR(NOW())\n' +
+        'group by p.ProId\n' +
+        'order by Amount desc\n' +
+        `limit ${limit}\n`)
+}
+
+exports.getMinQuantityPurchaseDay = (limit) => {
+    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+        'from products p join ordersdetails o on p.ProId = o.ProId\n' +
+        'join orders o2 on o2.OrderId = o.OrderId\n' +
+        'where DAY(o2.OrderDate) = DAY(NOW())\n' +
+        'group by p.ProId\n' +
+        'order by Amount asc\n' +
+        `limit ${limit}\n`)
+}
+
+exports.getMinQuantityPurchaseMonth = (limit) => {
+    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+        'from products p join ordersdetails o on p.ProId = o.ProId\n' +
+        'join orders o2 on o2.OrderId = o.OrderId\n' +
+        'where MONTH(o2.OrderDate) = MONTH(NOW())\n' +
+        'group by p.ProId\n' +
+        'order by Amount asc\n' +
+        `limit ${limit}\n`)
+}
+
+exports.getMinQuantityPurchaseYear = (limit) => {
+    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+        'from products p join ordersdetails o on p.ProId = o.ProId\n' +
+        'join orders o2 on o2.OrderId = o.OrderId\n' +
+        'where YEAR(o2.OrderDate) = YEAR(NOW())\n' +
+        'group by p.ProId\n' +
+        'order by Amount asc\n' +
+        `limit ${limit}\n`)
 }
