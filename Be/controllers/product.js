@@ -258,14 +258,66 @@ exports.getStatisticYear = async (req, res) => {
     }
 }
 
-exports.getMaxQuantityPurchase = async (req, res) => {
-
+exports.getMaxQuantityPurchaseDay = async (req, res) => {
+    try {
+        const limit= req.query.limit;
+        const statistic = await product.getMaxQuantityPurchase(limit);
+        const data = statistic[0]?statistic[0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
 }
 
-exports.getMinQuantityPurchase = async (req, res) => {
-
+exports.getMaxQuantityPurchaseMonth = async (req, res) => {
+    try {
+        const limit= req.query.limit;
+        const statistic = await product.getMaxQuantityPurchaseMonth(limit);
+        const data = statistic[0]?statistic[0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
 }
 
-exports.getInventoryInDay = async (req, res) => {
+exports.getMaxQuantityPurchaseYear = async (req, res) => {
+    try {
+        const limit= req.query.limit;
+        const statistic = await product.getMaxQuantityPurchaseYear(limit);
+        const data = statistic[0]?statistic[0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
 
+exports.getMinQuantityPurchaseDay = async (req, res) => {
+    try {
+        const limit= req.query.limit;
+        const statistic = await product.getMinQuantityPurchaseDay(limit);
+        const data = statistic[0]?statistic[0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+exports.getMinQuantityPurchaseMonth = async (req, res) => {
+    try {
+        const limit= req.query.limit;
+        const statistic = await product.getMinQuantityPurchaseMonth(limit);
+        const data = statistic[0]?statistic[0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+exports.getMinQuantityPurchaseYear = async (req, res) => {
+    try {
+        const limit= req.query.limit;
+        const statistic = await product.getMinQuantityPurchaseYear(limit);
+        const data = statistic[0]?statistic[0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
 }
