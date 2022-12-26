@@ -304,7 +304,6 @@ const ListProduct = () => {
 
   const filterSize = (sizeName) => {
     dispatch(turnOnLoading());
-
     let isChooseAnother = false;
     const sizeArr = itemTempInCategory.map(index => {
       const a = convertArrayToOptions(index.Size, ", ");
@@ -385,8 +384,10 @@ const ListProduct = () => {
     dispatch(turnOffLoading());
   }
   const handleChangeFilter = () => {
-    setFilterButton(true);
+    setFilterButton(!filterButton);
   }
+
+
   const handleCloseFilter = () => {
     setFilterButton(false);
     setSortButton(false)
@@ -485,7 +486,7 @@ const ListProduct = () => {
               </div>
             }
 
-            <div className="col-xs-9">
+            <div className="col-xs-9 filter-screen">
               <div className="bootstrap-tagsinput">
                 {
                   stateFilter.map(index => {

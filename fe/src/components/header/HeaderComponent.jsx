@@ -5,9 +5,10 @@ import CartComponent from "../cart/CartComponent";
 import {useComponentSize} from "react-use-size";
 import {useSelector} from "react-redux";
 import {Avatar, Badge, Space} from "antd";
+import LoadingComponent from "../loading/LoadingComponent";
 
 
-const HeaderComponent = ({categoryList, searchButton}) => {
+const HeaderComponent = ({categoryList, searchButton, loading}) => {
   const navigate = useNavigate();
   const [cartButton, setCartButton] = useState(false);
   const data = useSelector(state => state.mainReducer);
@@ -17,8 +18,10 @@ const HeaderComponent = ({categoryList, searchButton}) => {
   const [totalPriceCart,setTotalPriceCart]=useState(0);
   useEffect(
     () => {
-      if (data.isLoading === false) {
-        ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+      if(loading==true) {
+        if (data.isLoading === false) {
+          ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+        }
       }
     }, []);
 
@@ -38,6 +41,10 @@ const HeaderComponent = ({categoryList, searchButton}) => {
   const checkOutButton=()=>{
     setCartButton(false)
     navigate("/order");
+  }
+
+  if(loading==false){
+    return <LoadingComponent/>
   }
   return (
     <header className="clearfix" ref={ref}>

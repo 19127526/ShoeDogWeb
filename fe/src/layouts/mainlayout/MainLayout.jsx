@@ -30,13 +30,15 @@ const MainLayout = () => {
   const [searchListResult,setSearchListResult]=useState([]);
   const debounceValue = useDebounce(searchValue, 500);
   const [scrollY, setScrollY] = useState(0);
+  const [loading,isLoading]=useState(false);
   useEffect(() => {
     const getListCategory = () => {
       dispatch(turnOnLoading())
       getListCategories()
         .then(res => {
           if (res.data.status === 'success') {
-            setCategories(res.data.data)
+            setCategories(res.data.data);
+            isLoading(true)
           }
         })
         .catch(err => {
@@ -157,7 +159,7 @@ const MainLayout = () => {
                   </div>
                 </form>
               </div>
-              <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)}/>
+              <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)} loading={loading}/>
               <Content style={{minHeight: "100px"}}>
                 <RoutesPage/>
                 <BackTop visible={scrollY>=400?true:false}>

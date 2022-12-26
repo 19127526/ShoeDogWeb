@@ -20,6 +20,8 @@ const convertArrayToOptions = (arr, splitIndex) => {
 }
 
 
+
+const urlClient="http://localhost:3000/detail/"
 exports.addOrder = async (req, res) => {
   try {
     const orderInformationBody = req.body.information;
@@ -124,23 +126,24 @@ exports.addOrder = async (req, res) => {
       await product.updateSizeAndQuantityByProId({proId:resultProductAfterOrder[i].proId,size:resultProductAfterOrder[i].size})
     }
 
-
-
-
-
-    const listProductEmail=listProductAfterAdd.map(index=>{
-      for(let i=0;i<orderItem.length;i++){
-        if(index.ProId==orderItem[i].proId){
+    const listProductEmail=orderItem.map(index=>{
+      for(let i=0;i<listProductAfterAdd.length;i++){
+        if(index.proId==listProductAfterAdd[i].ProId){
           return {
-            detail:index,
+            detail:listProductAfterAdd[i],
             size2Quantity:{
-              size:orderItem[i].size,
-              amount:orderItem[i].amount
+              size:index.size,
+              amount:index.amount,
+              total:(listProductAfterAdd[i].TotalPrice*index.amount).toLocaleString('it-IT', {style: 'currency', currency: "VND"}),
+              urlClient:urlClient+listProductAfterAdd[i].ProId,
             }
           }
         }
       }
     });
+    for(let i=0;i<listProductEmail.length;i++){
+      console.log(listProductEmail[i])
+    }
     const templateCredit = {
       name: orderInformationBody.fullName,
       notes: 'Check this out!',
@@ -157,8 +160,7 @@ exports.addOrder = async (req, res) => {
       productList:listProductEmail,
       totalPrice:totalPrice,
     }
-    console.log("dsd",templateCash)
-    /* if (orderInformationBody.methodPay === 0) {
+     if (orderInformationBody.methodPay === 0) {
        emailjs
          .send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_CASH_ID, templateCash, {
            publicKey: process.env.EMAILJS_PUBLIC_KEY,
@@ -186,7 +188,7 @@ exports.addOrder = async (req, res) => {
              console.log('FAILED...', err);
            },
          );
-     }*/
+     }
     return res.status(200).json({"status": "success", "data": orderFinding});
   } catch (e) {
     return res.status(500).json({"status": "error", "message": e.message});
