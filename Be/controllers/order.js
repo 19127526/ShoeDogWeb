@@ -23,88 +23,136 @@ const convertArrayToOptions = (arr, splitIndex) => {
 
 const urlClient="http://localhost:3000/detail/"
 exports.addOrder = async (req, res) => {
-    try {
-        const orderInformationBody = req.body.information;
-        const orderItem = req.body.item;
-        const orderAdd = {
-            FullName: orderInformationBody.fullName,
-            Email: orderInformationBody.email,
-            Address: orderInformationBody.address + ", " + orderInformationBody.ward + ", " + orderInformationBody.district + ", " + orderInformationBody.province,
-            PhoneNumber: orderInformationBody.phoneNumber,
-            Note: orderInformationBody.note,
-            InventoryOrder: generateString(10),
-            MethodPay: orderInformationBody.methodPay,
-            TotalCost: orderInformationBody.total
-        }
-        const orderId = await order.addOrder(orderAdd);
+  try {
+    const orderInformationBody = req.body.information;
+    const orderItem = req.body.item;
+    const orderAdd = {
+      FullName: orderInformationBody.fullName,
+      Email: orderInformationBody.email,
+      Address: orderInformationBody.address + ", " + orderInformationBody.ward + ", " + orderInformationBody.district + ", " + orderInformationBody.province,
+      PhoneNumber: orderInformationBody.phoneNumber,
+      Note: orderInformationBody.note,
+      InventoryOrder: generateString(10),
+      MethodPay: orderInformationBody.methodPay,
+      TotalCost: orderInformationBody.total
+    }
+    const orderId = await order.addOrder(orderAdd);
 
-        const listProductAfterAdd = [];
-        for (let i = 0; i < orderItem.length; i++) {
-            const orderDetailAdd = {
-                ProId: orderItem[i].proId,
-                Amount: orderItem[i].amount,
-                Size: orderItem[i].size,
-                OrderId: orderId[0]
-            }
-            await order.addDetailOrder(orderDetailAdd);
-            const tempProduct = await product.getProductById(orderItem[i].proId);
+    const listProductAfterAdd = [];
+    for (let i = 0; i < orderItem.length; i++) {
+      const orderDetailAdd = {
+        ProId: orderItem[i].proId,
+        Amount: orderItem[i].amount,
+        Size: orderItem[i].size,
+        OrderId: orderId[0]
+      }
+      await order.addDetailOrder(orderDetailAdd);
+      const tempProduct = await product.getProductById(orderItem[i].proId);
 
-            let isSame = false;
+      let isSame = false;
 
-
-
-    const resultProductAfterOrder=[];
-    for (let i=0;i<getSizeAndQuantityProduct.length;i++){
-      const items=getSizeAndQuantityProduct[i].item;
-      let str="";
-      let isHasQuantity=false;
-      for(let j=0;j<items.length;j++){
-        if(items[j].quantity!=0){
-          isHasQuantity=true;
-        }
-        if(j===0){
-          str+=`${items[j].size}: ${items[j].quantity}`
-        }
-        else{
-          str+=`, ${items[j].size}: ${items[j].quantity}`
+      for (let k = 0; k < listProductAfterAdd.length; k++) {
+        if (listProductAfterAdd[k].ProId === tempProduct[0].ProId) {
+          isSame = true;
         }
       }
-      if(isHasQuantity===false){
-        await product.changeStatusProDuctByProId(getSizeAndQuantityProduct[i].proId,0);
+      if (isSame === true) {
+
+      } else {
+        listProductAfterAdd.push(tempProduct[0])
+      }
+    }
+    const orderFinding = await order.getDetailOrderByOrderId(orderId[0]);
+    const getSizeAndQuantityProduct = [];
+    for (let i = 0; i < listProductAfterAdd.length; i++) {
+      const temp = convertArrayToOptions(listProductAfterAdd[i].Size, ", ");
+      const itemSize = []
+      for (let j = 0; j < temp.length; j++) {
+        const tempProDuct = convertArrayToOptions(temp[j], ": ");
+        itemSize.push({
+          size: tempProDuct[0],
+          quantity: tempProDuct[1]
+        })
+      }
+      getSizeAndQuantityProduct.push({proId: listProductAfterAdd[i].ProId, item: itemSize});
+    }
+
+    for (let i = 0; i < getSizeAndQuantityProduct.length; i++) {
+      for (let j = 0; j < orderItem.length; j++) {
+        if (orderItem[j].proId === getSizeAndQuantityProduct[i].proId) {
+          const sizeQuantityBefore = getSizeAndQuantityProduct[i].item;
+          const sizeQuantityEdit = orderItem[j];
+          for (let k = 0; k < sizeQuantityBefore.length; k++) {
+            if (sizeQuantityBefore[k].size === sizeQuantityEdit.size) {
+              sizeQuantityBefore[k].quantity = Number(sizeQuantityBefore[k].quantity) - Number(sizeQuantityEdit.amount);
+            }
+          }
+        }
+      }
+    }
+
+
+    const resultProductAfterOrder = [];
+    for (let i = 0; i < getSizeAndQuantityProduct.length; i++) {
+
+      const items = getSizeAndQuantityProduct[i].item;
+      let str = "";
+      let isHasQuantity = false;
+      for (let j = 0; j < items.length; j++) {
+        if (j === 0) {
+          str += `${items[j].size}: ${items[j].quantity}`
+        } else {
+          str += `, ${items[j].size}: ${items[j].quantity}`
+        }
+        if (items[j].quantity != 0) {
+          isHasQuantity = true;
+        }
+      }
+
+      if (isHasQuantity == false) {
+        await product.changeStatusProDuctByProId(getSizeAndQuantityProduct[i].proId, 0);
       }
       resultProductAfterOrder.push({
-        proId:getSizeAndQuantityProduct[i].proId,
-        size:str,
+        proId: getSizeAndQuantityProduct[i].proId,
+        size: str,
       })
     }
 
 
-    for(let i=0;i<resultProductAfterOrder.length;i++){
-      await product.updateSizeAndQuantityByProId({proId:resultProductAfterOrder[i].proId,size:resultProductAfterOrder[i].size})
+    for (let i = 0; i < resultProductAfterOrder.length; i++) {
+      console.log(resultProductAfterOrder[i])
+      await product.updateSizeAndQuantityByProId({
+        proId: resultProductAfterOrder[i].proId,
+        size: resultProductAfterOrder[i].size
+      })
     }
 
     const listProductEmail=orderItem.map(index=>{
-      for(let i=0;i<listProductAfterAdd.length;i++){
-        if(index.proId==listProductAfterAdd[i].ProId){
+      for(let i=0;i<listProductAfterAdd.length;i++) {
+        if (index.proId == listProductAfterAdd[i].ProId) {
           return {
-            detail:listProductAfterAdd[i],
-            size2Quantity:{
-              size:index.size,
-              amount:index.amount,
-              total:(listProductAfterAdd[i].TotalPrice*index.amount).toLocaleString('it-IT', {style: 'currency', currency: "VND"}),
-              urlClient:urlClient+listProductAfterAdd[i].ProId,
+            detail: listProductAfterAdd[i],
+            size2Quantity: {
+              size: index.size,
+              amount: index.amount,
+              total: (listProductAfterAdd[i].TotalPrice * index.amount).toLocaleString('it-IT', {
+                style: 'currency',
+                currency: "VND"
+              }),
+              urlClient: urlClient + listProductAfterAdd[i].ProId,
             }
+          }
         }
-      }
-    });
-    for(let i=0;i<listProductEmail.length;i++){
-      console.log(listProductEmail[i])
-    }
+      }});
     const templateCredit = {
-      name: orderInformationBody.fullName,
+      name: orderAdd.FullName,
       notes: 'Check this out!',
-      to_mail: orderInformationBody.email,
-      date:new Date().toLocaleDateString(),
+      address:orderAdd.Address,
+      inventoryorder:orderAdd.InventoryOrder,
+      to_mail: orderAdd.Email,
+      date:new Date().toISOString().slice(0, 10).split('-').reverse().join('/'),
+      productList:listProductEmail,
+      totalPrice:orderAdd.TotalCost,
     };
     const templateCash = {
       name: orderAdd.FullName,
@@ -114,7 +162,7 @@ exports.addOrder = async (req, res) => {
       to_mail: orderAdd.Email,
       date:new Date().toISOString().slice(0, 10).split('-').reverse().join('/'),
       productList:listProductEmail,
-      totalPrice:totalPrice,
+      totalPrice:orderAdd.TotalCost,
     }
      if (orderInformationBody.methodPay === 0) {
        emailjs

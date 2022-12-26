@@ -161,7 +161,7 @@ const OrderPage = () => {
         phoneNumber: phoneNumber,
         note: note,
         methodPay: methodPay,
-        totalPrice:totalPrice,
+        total:totalPrice,
       }
       const item = cartItem.map(index => {
         return {
