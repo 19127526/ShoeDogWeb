@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {GET_ALL_DISTRICTS_URL, GET_ALL_PROVINCES_URL, GET_ALL_WARDS_URL, ORDER_SUCCESS_ROUTE} from "../../configs/url";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {addOrderApi} from "../../apis/orders/OrderApi";
 import {Input, message, Radio, Space} from "antd";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
@@ -12,6 +12,7 @@ import * as containts from "../../components/notification/Notification.constrain
 const OrderPage = () => {
   const navigate = useNavigate();
   const dispatch=useDispatch();
+  const location =useLocation();
   const dataProduct = useSelector(state => state.cartReducer);
   const cartItem = dataProduct.cartItem;
   const [totalPrice, setTotalPrice] = useState(0);
@@ -30,7 +31,7 @@ const OrderPage = () => {
     districtCode: null
   }]);
 
-
+  console.log(location)
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [province, setProvince] = useState('Tỉnh/Thành phố');
@@ -160,7 +161,7 @@ const OrderPage = () => {
         phoneNumber: phoneNumber,
         note: note,
         methodPay: methodPay,
-        totalPrice:totalPrice
+        total:totalPrice,
       }
       const item = cartItem.map(index => {
         return {

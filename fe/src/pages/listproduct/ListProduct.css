@@ -12,3 +12,19 @@
         margin-left: 0;
     }
 }
+
+.filter-screen{
+    padding-left: 5%;
+}
+
+@media (max-width: 770px) {
+    .filter-screen{
+        padding-left: 5% !important;
+    }
+}
+
+@media (min-width:771px) and (max-width: 992px) {
+    .filter-screen{
+        padding-left: 7% !important;
+    }
+}

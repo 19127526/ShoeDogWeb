@@ -16,6 +16,7 @@ import {searchProducts} from "../../apis/products/ProductsApi";
 import {useElementSize} from "use-element-size";
 import {getWindowHeight, getWindowWidth} from "../../utils/Utils";
 import "./MainLayout.css"
+import {config} from "@fortawesome/fontawesome-svg-core";
 
 const {Header, Footer, Sider, Content} = Layout;
 
@@ -30,13 +31,16 @@ const MainLayout = () => {
   const [searchListResult,setSearchListResult]=useState([]);
   const debounceValue = useDebounce(searchValue, 500);
   const [scrollY, setScrollY] = useState(0);
+  const [loading,isLoading]=useState(false);
   useEffect(() => {
     const getListCategory = () => {
       dispatch(turnOnLoading())
       getListCategories()
         .then(res => {
+          console.log(res);
           if (res.data.status === 'success') {
-            setCategories(res.data.data)
+            setCategories(res.data.data);
+            isLoading(true)
           }
         })
         .catch(err => {
@@ -98,12 +102,12 @@ const MainLayout = () => {
       location.pathname.includes(ERROR_ROUTE)?
           <RoutesPage/>
         :
-          <Spin  size="large"  direction="horizon" spinning={loadingRedux.isLoading} indicator={<LoadingComponent/>}>
+          <Spin size="large"  direction="horizon" spinning={loadingRedux.isLoading} indicator={<LoadingComponent/>}>
             <body className="">
             <div id="wrapper">
               <div id="menu__mobi">
                 <a href="" className="close__menu"><span className="icon-meunu-close"></span></a>
-                <a href="https://www.glab.vn" className="menu__logo"><img src="/themes/v1/icons/logo.svg" alt=""/></a>
+                <a  className="menu__logo"><img src="/themes/v1/icons/logo.svg" alt=""/></a>
                 <div className="menu__items">
                   <div className="menu__items--inner">
                     <ul className="menu-mobile">
@@ -114,7 +118,7 @@ const MainLayout = () => {
                         <a>Sales</a>
                       </li>
                       <li>
-                        <a href="https://www.glab.vn/product/footwear">Products<span
+                        <a >Products<span
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
                           {categories.map((value) => (
@@ -124,10 +128,10 @@ const MainLayout = () => {
                         </ul>
                       </li>
                       <li>
-                        <a href="https://www.glab.vn/product/type/used">Used</a>
+                        <a >Used</a>
                       </li>
                       <li>
-                        <a href="https://www.glab.vn/product/type/used">Help</a>
+                        <a >Help</a>
                       </li>
                     </ul>
                   </div>
@@ -137,10 +141,10 @@ const MainLayout = () => {
                 <div className="text-right mgB-20 mgT-10"><a id="closeSearch" onClick={() => setSearchButton(false)}><span
                   className="icon-uniF335"></span></a>
                 </div>
-                <form className="search" id="search">
+                <div className="search" id="search">
                   <div className="frm-icon">
                     <input name="word" type="text" placeholder="Search" aria-autocomplete="none"  onChange={searchValueChange}/>
-                    <button type="submit" className="icon-frm">
+                    <button  className="icon-frm">
                       <span className="icon-enter-arrow"></span>
                     </button>
                     <div className="suggestSearch">
@@ -155,9 +159,9 @@ const MainLayout = () => {
                       }
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
-              <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)}/>
+              <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)} loading={loading}/>
               <Content style={{minHeight: "100px"}}>
                 <RoutesPage/>
                 <BackTop visible={scrollY>=400?true:false}>
