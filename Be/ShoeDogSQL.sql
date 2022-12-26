@@ -53,7 +53,8 @@ create table Orders
     InventoryOrder varchar(10) null,
     OrderDate TIMESTAMP default CURRENT_TIMESTAMP not null,
     StatusOrder int default 0 not null,
-    MethodPay int not null
+    MethodPay int not null,
+    TotalCost int not null
 );
 
 
