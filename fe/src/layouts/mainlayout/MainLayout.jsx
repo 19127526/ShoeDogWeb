@@ -32,6 +32,8 @@ const MainLayout = () => {
   const debounceValue = useDebounce(searchValue, 500);
   const [scrollY, setScrollY] = useState(0);
   const [loading,isLoading]=useState(false);
+
+
   useEffect(() => {
     const getListCategory = () => {
       dispatch(turnOnLoading())
@@ -96,6 +98,8 @@ const MainLayout = () => {
       window.removeEventListener("scroll", logit);
     };
   },[window.pageYOffset]);
+
+  const [changeSide,setChangeSide]=useState(false);
   return (
     <>
     {
@@ -103,36 +107,42 @@ const MainLayout = () => {
           <RoutesPage/>
         :
           <Spin size="large"  direction="horizon" spinning={loadingRedux.isLoading} indicator={<LoadingComponent/>}>
-            <body className="">
+            <body className={changeSide==false?"":"activeMenu"}>
             <div id="wrapper">
               <div id="menu__mobi">
-                <a href="" className="close__menu"><span className="icon-meunu-close"></span></a>
+                <a  className="close__menu" onClick={()=>setChangeSide(false)}><span className="icon-meunu-close"></span></a>
                 <a  className="menu__logo"><img src="/themes/v1/icons/logo.svg" alt=""/></a>
                 <div className="menu__items">
                   <div className="menu__items--inner">
                     <ul className="menu-mobile">
-                      <li>
-                        <a>Features</a>
+                      <li onClick={()=>{
+                        navigate("/");
+                        setChangeSide(false)
+                      }}>
+                        <a>Trang chủ</a>
                       </li>
-                      <li>
+                     {/* <li>
                         <a>Sales</a>
-                      </li>
+                      </li>*/}
                       <li>
                         <a >Products<span
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
                           {categories.map((value) => (
                             <li key={value.CatId}>
-                              <a onClick={() => navigate(`/product/${value.CatId}`)}>{value.CatName}</a>
+                              <a onClick={() => {
+                                navigate(`/product/${value.CatId}`);
+                                setChangeSide(false)}
+                              }>{value.CatName}</a>
                             </li>))}
                         </ul>
                       </li>
-                      <li>
+                     {/* <li>
                         <a >Used</a>
                       </li>
                       <li>
                         <a >Help</a>
-                      </li>
+                      </li>*/}
                     </ul>
                   </div>
                 </div>
@@ -161,7 +171,7 @@ const MainLayout = () => {
                   </div>
                 </div>
               </div>
-              <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)} loading={loading}/>
+              <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)} loading={loading} setChangeSide={setChangeSide}/>
               <Content style={{minHeight: "100px"}}>
                 <RoutesPage/>
                 <BackTop visible={scrollY>=400?true:false}>

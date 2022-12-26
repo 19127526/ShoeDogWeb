@@ -3,9 +3,12 @@ import {getListCategories} from "../../apis/categories/CategoriesApi";
 import Notification from "../notification/Notification";
 import * as constraintNotification from "../notification/Notification.constraints"
 import {useNavigate} from "react-router-dom";
-import {LIST_PRODUCT_BY_CATEGORY_ID, ORDER_PRODUCT, ORDER_SUCCESS_PRODUCT} from "../../configs/url";
+import {DASHBOARD, LIST_PRODUCT_BY_CATEGORY_ID, ORDER_PRODUCT, ORDER_SUCCESS_PRODUCT} from "../../configs/url";
+import {useDispatch} from "react-redux";
+import {logoutAccount} from "../../pages/login/LoginPages.actions";
 const AsideComponent = ({onClose}) => {
   const [categories,setCategories]=useState([]);
+  const dispatch=useDispatch();
   const navigate=useNavigate()
   useEffect(()=>{
     const getCategory=async ()=>{
@@ -14,7 +17,10 @@ const AsideComponent = ({onClose}) => {
         .catch(err=>{  Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_WARN)})
     }
     getCategory()
-  },[])
+  },[]);
+  const handleLogout=()=>{
+    dispatch(logoutAccount());
+  }
   return (
     <>
       <header className="header">
@@ -48,7 +54,7 @@ const AsideComponent = ({onClose}) => {
                 <a className="dropdown-item" >
                   <i className="fa fa-gear icon"></i> Settings </a>*/}
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" onClick={()=>navigate("/login")}>
+                <a className="dropdown-item" onClick={handleLogout}>
                   <i className="fa fa-power-off icon"></i> Logout </a>
               </div>
             </li>
@@ -73,7 +79,7 @@ const AsideComponent = ({onClose}) => {
           <nav className="menu">
             <ul className="sidebar-menu metismenu" id="sidebar-menu">
               <li id="dashboard">
-                <a onClick={()=>navigate("/")}>
+                <a onClick={()=>navigate('/admin')}>
                   <i className="fa fa-home"></i> Thống kê </a>
               </li>
               <li id="managementProduct">

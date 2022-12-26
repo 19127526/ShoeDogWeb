@@ -23,4 +23,4 @@ export const ADD_NEW_PRODUCT="/admin/product/add"
 export const EDIT_PRODUCT="/admin/product/edit/"
 export const ORDER_PRODUCT="/admin/order/process"
 export const ORDER_SUCCESS_PRODUCT="/admin/order/success"
-
+export const DASHBOARD="/admin"
