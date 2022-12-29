@@ -16,6 +16,18 @@ export const REMOVE_ORDER_URI="order/delete"
 export const COMPLETE_ORDER_URI="order/complete"
 export const POST_LOGIN_URI="auth/login"
 
+export const GET_STATISTIC_YEAR_URI="product/statistic/year";
+export const GET_STATISTIC_DAY_URI="product/statistic/day";
+export const GET_STATISTIC_MONTH_URI="product/statistic/month";
+
+export const GET_MAX_ITEM_BUY_DAY_URI="product/statistic/maxquantitypurchaseday?limit="
+export const GET_MAX_ITEM_BUY_MONTH_URI="product/statistic/maxquantitypurchasemonth?limit="
+export const GET_MAX_ITEM_BUY_YEAR_URI="product/statistic/maxquantitypurchaseyear?limit="
+
+export const GET_MIN_ITEM_BUY_DAY_URI="product/statistic/minquantitypurchaseday?limit="
+export const GET_MIN_ITEM_BUY_MONTH_URI="product/statistic/minquantitypurchasemonth?limit="
+export const GET_MIN_ITEM_BUY_YEAR_URI="product/statistic/minquantitypurchaseyear?limit="
+export const GET_PRODUCTS_SOLD_OUT_URI="product/statistic/soldout";
 //Client
 export const LIST_PRODUCT_BY_CATEGORY_ID="admin/category/"
 export const DETAIL_PRODUCT="/admin/category/"
