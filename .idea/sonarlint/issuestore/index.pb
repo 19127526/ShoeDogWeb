@@ -51,9 +51,6 @@ V
 &admin/src/apis/products/ProductsApi.js,7\c\7c3588e1ec463d1c0f22a1f741be584678eb02bc
 \
 ,admin/src/pages/category/EditProductPage.jsx,a\d\ad97db648fb9eb88a8b99395aa149eeb6c9fa806
-:
-
-Be/bin/www,b\b\bb752858c9ff21c696a88a31ed5d41979ae3d9eb
 9
 	Be/app.js,0\8\08733a60a3352b4082300ab56b0ec3f6cfdc4073
 Q
@@ -67,10 +64,10 @@ F
 F
 Be/middlewares/user.js,b\6\b65af6d89160aeb5e66a51ebbab97a2b4b0e3744
 B
-Be/routes/users.js,b\3\b38f61c631b57c7462f21146af739e6a0658cb10
-B
 Be/models/order.js,1\3\13924397c7ae90bf8d3d803c5f28baa9574384a7
 C
 Be/routes/orders.js,6\3\63c6b2d280695810fdbfd8cca90dd8598994bfc2
 A
 Be/ShoeDogSQL.sql,8\f\8f023b8e98f2a85e52e646fc97e890c4d164db12
+F
+Be/controllers/auth.js,8\8\8809ff67d2436e6b06586716bc6a63e44232ea75

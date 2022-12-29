@@ -321,3 +321,36 @@ exports.getMinQuantityPurchaseYear = async (req, res) => {
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }
+
+exports.getQuantityInDay = async (req, res) => {
+    try {
+        const phonenumber= req.query.phone;
+        const statistic = await product.getQuantityOrderinDay(phonenumber)
+        const data = statistic[0][0]?statistic[0][0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.getQuantityInMonth = async (req, res) => {
+    try {
+        const phonenumber= req.query.phone;
+        const statistic = await product.getQuantityOrderinMonth(phonenumber)
+        const data = statistic[0][0]?statistic[0][0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.getQuantityInYear = async (req, res) => {
+    try {
+        const phonenumber= req.query.phone;
+        const statistic = await product.getQuantityOrderinYear(phonenumber)
+        const data = statistic[0][0]?statistic[0][0]:null
+        return res.status(200).json({"status": "success", "data": data});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}

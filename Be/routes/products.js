@@ -2,7 +2,8 @@ const express = require('express');
 const {addProduct, getAllProducts,getProductsById, deleteProduct, updateProduct,getDetailProductByProId, searchProduct,
   getAllBrandsInProducts,relatedProduct,searchProductByCatId, getStatisticDay, getStatisticMonth, getStatisticYear,
   getMaxQuantityPurchase, getMaxQuantityPurchaseDay, getMaxQuantityPurchaseMonth, getMaxQuantityPurchaseYear,
-  getMinQuantityPurchaseDay, getMinQuantityPurchaseMonth, getMinQuantityPurchaseYear
+  getMinQuantityPurchaseDay, getMinQuantityPurchaseMonth, getMinQuantityPurchaseYear, getQuantityInDay,
+  getQuantityInMonth, getQuantityInYear
 } = require("../controllers/product");
 const router = express.Router();
 router.get('/', getAllProducts);
@@ -24,4 +25,8 @@ router.get('/statistic/maxquantitypurchasemonth',getMaxQuantityPurchaseYear);
 router.get('/statistic/minquantitypurchaseday',getMinQuantityPurchaseDay);
 router.get('/statistic/minquantitypurchaseyear',getMinQuantityPurchaseMonth);
 router.get('/statistic/minquantitypurchasemonth',getMinQuantityPurchaseYear);
+router.get('/statistic/quantityinday',getQuantityInDay);
+router.get('/statistic/quantityinmonth',getQuantityInMonth);
+router.get('/statistic/quantityinyear',getQuantityInYear);
+
 module.exports = router;

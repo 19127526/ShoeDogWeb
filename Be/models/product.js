@@ -183,3 +183,24 @@ exports.getMinQuantityPurchaseYear = (limit) => {
         'order by Amount asc\n' +
         `limit ${limit}\n`)
 }
+
+exports.getQuantityOrderinDay = (phonenumber) => {
+    return db.raw('select count(*) as quantity\n' +
+        'from orders o\n' +
+        `where o.PhoneNumber like '${phonenumber}' and DAY(o.orderDate) = DAY(NOW())\n` +
+        '\n')
+}
+
+exports.getQuantityOrderinMonth = (phonenumber) => {
+    return db.raw('select count(*) as quantity\n' +
+        'from orders o\n' +
+        `where o.PhoneNumber like '${phonenumber}' and MONTH(o.orderDate) = MONTH(NOW())\n` +
+        '\n')
+}
+
+exports.getQuantityOrderinYear = (phonenumber) => {
+    return db.raw('select count(*) as quantity\n' +
+        'from orders o\n' +
+        `where o.PhoneNumber like '${phonenumber}' and YEAR(o.orderDate) = YEAR(NOW())\n` +
+        '\n')
+}
