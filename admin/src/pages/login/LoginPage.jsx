@@ -1,18 +1,43 @@
-import {postLoginApi} from "../../apis/auth/AuthApi";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import { encrypt, decrypt, compare } from 'n-krypta';
 import Notification from "../../components/notification/Notification";
 import * as constraintNotification from "../../components/notification/Notification.constraints";
+import {loginNormal} from "./LoginPage.thunk";
+import * as constraints from "./LoginPage.constraints"
+import {removeUrlGuard} from "../../guards/AuthenticateRoutes.actions";
+import {connect, useDispatch, useSelector} from "react-redux";
 
+const secret = 'my-secret';
 
-const LoginPage = () => {
+const mapStateToProps = state => ({
+
+})
+const mapDispatchToProps = {
+  loginNormal:loginNormal
+}
+
+const connector = connect(mapStateToProps,mapDispatchToProps)
+
+const LoginPage = (props) => {
+  const {loginNormal}=props
   const [userName,setUserName]=useState("");
   const [password,setPassWord]=useState("");
   const navigate=useNavigate();
-  const handleLogin = (event) => {
-    event.preventDefault();
+  const dispatch=useDispatch();
+  const dataUrl=useSelector((state)=>state.authenticateReducer);
 
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const temp=await loginNormal({userName:userName,password:password});
+    if(temp.type===constraints.LOGIN_NORMAL_SUCCESS){
+      Notification("Thông báo đăng nhập", "Đăng nhập thành công",constraintNotification.NOTIFICATION_SUCCESS)
+      dispatch(removeUrlGuard());
+      navigate(dataUrl?.url);
+    }
+    else{
+      Notification("Thông báo đăng nhập", "Đăng nhập thất bại (Tài khoản và mật khẩu không đúng)",constraintNotification.NOTIFICATION_ERROR)
+    }
   }
 
   return (
@@ -70,4 +95,5 @@ const LoginPage = () => {
 )
 }
 
-export default LoginPage
+
+export default connector(LoginPage)

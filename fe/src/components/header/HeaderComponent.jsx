@@ -8,7 +8,7 @@ import {Avatar, Badge, Space} from "antd";
 import LoadingComponent from "../loading/LoadingComponent";
 
 
-const HeaderComponent = ({categoryList, searchButton, loading}) => {
+const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) => {
   const navigate = useNavigate();
   const [cartButton, setCartButton] = useState(false);
   const data = useSelector(state => state.mainReducer);
@@ -48,7 +48,7 @@ const HeaderComponent = ({categoryList, searchButton, loading}) => {
   }
   return (
     <header className="clearfix" ref={ref}>
-      <a id="togger__menu">
+      <a id="togger__menu" onClick={()=>setChangeSide(true)}>
         <span></span>
         <span></span>
       </a>
