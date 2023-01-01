@@ -7,6 +7,7 @@ import {loginNormal} from "./LoginPage.thunk";
 import * as constraints from "./LoginPage.constraints"
 import {removeUrlGuard} from "../../guards/AuthenticateRoutes.actions";
 import {connect, useDispatch, useSelector} from "react-redux";
+import {REGISTER} from "../../configs/url";
 
 const secret = 'my-secret';
 
@@ -54,7 +55,7 @@ const LoginPage = (props) => {
                   <span className="l l4"></span>
                   <span className="l l5"></span>
                 </div>
-                ModularAdmin
+               SHOE DOG ADMIN
               </h1>
             </header>
             <div className="auth-content">
@@ -70,10 +71,9 @@ const LoginPage = (props) => {
                          placeholder="Your password" required onChange={(e)=>setPassWord(e.target.value)}/></div>
                 <div className="form-group">
                   <label htmlFor="remember">
-                    <input className="checkbox" id="remember" type="checkbox"/>
-                      <span>Remember me</span>
+                      <span>Please login to access admin page</span>
                   </label>
-                  <a href="reset.html" className="forgot-btn pull-right">Forgot password?</a>
+                 {/* <a onClick={()=>navigate(REGISTER)} className="forgot-btn pull-right">Register</a>*/}
                 </div>
                 <div className="form-group" >
                   <button type="submit" className="btn btn-block btn-primary" type="submit" value="Submit">Login</button>

@@ -22,11 +22,11 @@ const CardRevenue=({items})=>{
         </div>
         <div className="item-col item-col-sales">
           <div className="item-heading">Đã bán</div>
-          <div> 4958</div>
+          <div> {items?.Amount}</div>
         </div>
         <div className="item-col item-col-stats">
           <div className="item-heading">Doanh thu</div>
-          <div> 21 SEP 10:45</div>
+          <div> {Number(items?.TotalPrice*items?.Amount).toLocaleString('it-IT', {style: 'currency', currency: 'VND'})}</div>
         </div>
         <div className="item-col item-col-date">
           <div className="item-heading">Tình trạng</div>

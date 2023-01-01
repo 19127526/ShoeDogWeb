@@ -46,7 +46,6 @@ const ProductListPage = () => {
     searchProductsByCatId({productName:searchValue,catId:catId})
       .then(res=>{
         if(res.data.status==='success') {
-          console.log(res.data.data)
           setItem(res.data.data)
         }
       })

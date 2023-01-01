@@ -6,6 +6,7 @@ import {useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import {turnOffLoading} from "./MainLayout.actions";
+import {REGISTER} from "../../configs/url";
 
 
 const MainLayout = () => {
@@ -30,7 +31,7 @@ const MainLayout = () => {
       <div className="main-wrapper">
         <Spin size="large" direction="horizon" spinning={loadingRedux?.isLoading} indicator={<LoadingComponent/>}>
           <div className="app" id="app">
-            {location.pathname.includes("login") ?
+            {location.pathname.includes("login") ||location.pathname.includes(REGISTER)?
               <RoutesPage/> :
               <>
                 <AsideComponent/>

@@ -48,7 +48,7 @@ const HomePage = () => {
                       setProductWithCatId(prevState => [...prevState,newElement]);
 
                     } else {
-                      Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
+                     /* Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)*/
                     }
                   })
                   .catch(err => {
@@ -82,13 +82,14 @@ const HomePage = () => {
                   <div className="container">
                     <h2 className="text-center title__type">{index.category.CatName}</h2>
                     <div className="row products">
-                      {index.productList.map(u => (
+                      {index.productList.map((u,index) => (
+                        index<9?
                         <div className="col-lg-4 col-md-6 ">
                           <CardComponent name={u.ProName}
                                          img={u.ImageMain}
                                          proId={u.ProId}
                                          priceDiscount={u.Price} priceNonDiscount={u.Discount === 0 ? null : u.Discount}/>
-                        </div>
+                        </div>:""
                       ))}
                     </div>
                     {index.productList.length > 9 ?

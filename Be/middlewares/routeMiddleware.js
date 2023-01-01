@@ -5,16 +5,19 @@ const productRouter = require("../routes/products");
 const orderRouter=require("../routes/orders")
 const authRouter=require("../routes/auth")
 const multer = require('multer');
+const sharp = require('sharp')
+
 const storage = multer.diskStorage({})
+
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype ==='image/webp') {
         cb(null, true);
 
     } else {
         cb(null, false);
     }
 }
-const uploads = multer({storage, fileFilter}).array('image', 5);
+const uploads = multer({storage, fileFilter}).array('image', 50);
 const activateRouteMiddleware = (app) => {
     app.use('/', indexRouter);
     app.use('/users', usersRouter);

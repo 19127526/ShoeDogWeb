@@ -1,4 +1,5 @@
 import {useNavigate} from "react-router-dom";
+import {DASHBOARD} from "../../configs/url";
 
 const ErrorPage=()=>{
   const navigate=useNavigate();
@@ -12,7 +13,7 @@ const ErrorPage=()=>{
         <div className="error-container visible">
           <p>You better try our awesome search:</p>
           <br/>
-            <a className="btn btn-primary" onClick={()=>navigate("/")}>
+            <a className="btn btn-primary" onClick={()=>navigate(DASHBOARD)}>
               <i className="fa fa-angle-left"></i> Back to Dashboard </a>
         </div>
       </div>

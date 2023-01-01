@@ -21,10 +21,8 @@ const CardComponent = ({index,setLoading}) => {
   });
   const quantity=tempValue.map(index=>index.quantity).reduce((previousScore, currentScore, index) => Number(previousScore) + Number(currentScore))
   const removeProduct= async ()=>{
-    console.log(index.proId);
     await removeProductByProId({proId:index?.ProId})
       .then(res => {
-        console.log(res)
         if (res.data.status === 'success') {
           Notification("Thông báo dữ liệu", `Xóa sản phẩm ${index?.ProName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
         } else {

@@ -42,10 +42,11 @@ export const addProduct=async (payload)=>{
      color:payload.color,*/
   return await request.post(ADD_NEW_PRODUCT_URI,payload,{
     headers:{
-      "Content-Type": "multipart/form-data"
+      'content-type': 'multipart/form-data'
     }
   })
 }
+
 
 export const editProduct=async (payload)=>{
   return await request.post(EDIT_PRODUCT_URI,payload,{

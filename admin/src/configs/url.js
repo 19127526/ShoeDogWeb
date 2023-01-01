@@ -28,6 +28,11 @@ export const GET_MIN_ITEM_BUY_DAY_URI="product/statistic/minquantitypurchaseday?
 export const GET_MIN_ITEM_BUY_MONTH_URI="product/statistic/minquantitypurchasemonth?limit="
 export const GET_MIN_ITEM_BUY_YEAR_URI="product/statistic/minquantitypurchaseyear?limit="
 export const GET_PRODUCTS_SOLD_OUT_URI="product/statistic/soldout";
+
+export const POST_LOGIN_JWT="users/signin";
+export const POST_REGISTER_JWT="users/create";
+export const POST_LOGOUT_JWT="users/signout";
+
 //Client
 export const LIST_PRODUCT_BY_CATEGORY_ID="admin/category/"
 export const DETAIL_PRODUCT="/admin/category/"
@@ -36,3 +41,5 @@ export const EDIT_PRODUCT="/admin/product/edit/"
 export const ORDER_PRODUCT="/admin/order/process"
 export const ORDER_SUCCESS_PRODUCT="/admin/order/success"
 export const DASHBOARD="/admin"
+export const REGISTER="/admin/register"
+export const LOGIN="/login"

@@ -180,7 +180,7 @@ exports.addOrder = async (req, res) => {
          );
      } else if (orderInformationBody.methodPay === 1) {
        emailjs
-         .send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_CREDIT_ID, templateCash, {
+         .send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_CASH_ID, templateCash, {
            publicKey: process.env.EMAILJS_PUBLIC_KEY,
            privateKey: process.env.EMAILJS_PRIVATE_KEY, // optional, highly recommended for security reasons
          })
@@ -234,8 +234,9 @@ exports.deleteOrderByOrderId = async (req, res) => {
 exports.completeOrderByOrderId = async (req, res) => {
     try {
         const orderId = req.body.orderId;
-        const result = await order.acceptOrder(orderId)
-        return res.status(200).json({"status": "success", "data": result});
+        const result = await order.acceptOrder(orderId);
+        const orderList= await order.getAllDetailOrdersByStatusOrder(0);
+        return res.status(200).json({"status": "success", "data": orderList});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }

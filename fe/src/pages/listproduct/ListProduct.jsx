@@ -87,7 +87,7 @@ const ListProduct = () => {
 
   const [turnOnSliderPrice, setTurnOnSliderPrice] = useState(false);
   const [chooseAnotherFilter, setChooseAnotherFilter] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     setPage(1);
     setStateFilter([
@@ -125,7 +125,17 @@ const ListProduct = () => {
             const total = res.data.data.map(index => index.TotalPrice);
             setListPrice({min: minValue(...total), max: maxValue(...total)});
             setListPriceTemp({min: minValue(...total), max: maxValue(...total)});
-            setListBrand(res.data.data.map(index => index.Brand).filter(onlyUnique));
+           /* setListBrand(res.data.data.map(index => index.Brand).filter(onlyUnique));*/
+
+
+            let tempBrand = new Set()
+            for (let i=0;i<res.data.data.length;i++){
+              const temp=convertArrayToOptions(res.data.data[i].Brand,",");
+              for(let i=0;i<temp.length;i++){
+                tempBrand.add(temp[i]);
+              }
+            }
+            setListBrand(Array.from(tempBrand));
             setItemInCategory(res.data.data);
             setItemTempInCategory(res.data.data);
             setLoading(true)
@@ -147,10 +157,10 @@ const ListProduct = () => {
               }
               setListSize(Array.from(mySet))
             }
-          } else {
+          }/* else {
             setLoading(false);
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
-          }
+          }*/
         })
         .catch(err => {
           Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
@@ -242,7 +252,7 @@ const ListProduct = () => {
 
 
     let isChooseAnother = false;
-    let tempBrand = itemTempInCategory.filter(index => index.Brand === brandName);
+    let tempBrand = itemTempInCategory.filter(index => index.Brand.includes(brandName));
     for (let i = 0; i < stateFilter.length; i++) {
       if (stateFilter[i].name !== "Brand") {
         if (stateFilter[i].state === true) {
@@ -264,7 +274,7 @@ const ListProduct = () => {
       }
     }
 
-    const tempBrandSet = itemTempInCategory.filter(index => index.Brand === brandName);
+    const tempBrandSet = itemTempInCategory.filter(index => index.Brand.includes(brandName));
     if (isChooseAnother === true) {
       setItemInCategory(tempBrand)
 

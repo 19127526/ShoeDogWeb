@@ -240,7 +240,7 @@ const DetailPage = () => {
                     </div>
                   </div>
 
-                  <div className="shareWrap">
+                {/*  <div className="shareWrap">
                     <button className="btn btn-share">&nbsp; &nbsp;<ShareAltOutlined/><span>&nbsp; Share</span></button>
                     <div className="w-100"></div>
                     <div className="col-xs-12">
@@ -262,16 +262,16 @@ const DetailPage = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>*/}
                   <div className="detail__desc--intro">
                     <p className="title__detailproduct">Chi tiết sản phẩm</p>
                     <div className="color-7c7c7c mgB-5">
-                      <div className="alert alert-danger alert-dismissable alert-used hide">
-                        <button type="button" className="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i className="icon fa fa-ban"></i> Alert!</h4>
-                        Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my
-                        entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
-                      </div>
+                      <p>
+                        <label>Màu sắc: </label>
+                        &nbsp;{detailProduct?.Color}
+                      </p>
+                        <div className="textDescription" dangerouslySetInnerHTML={{__html: detailProduct?.Des.replace(/(<? *script)/gi, 'illegalscript')}}>
+                        </div>
                     </div>
                   </div>
                 </div>

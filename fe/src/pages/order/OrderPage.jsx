@@ -197,7 +197,7 @@ const OrderPage = () => {
             <div className="checkout__infor__shipping step-checkout">
               <form onSubmit={orderButton}>
                 <div className="checkout__infor__user__shipping">
-                  <p className="font-700 mgB-20 fs-24 mgT-20">SHIPPING INFOMATION</p>
+                  <p className="font-700 mgB-20 fs-24 mgT-20">Thông tin đặt hàng</p>
 
 
                   <div className="frm-item">

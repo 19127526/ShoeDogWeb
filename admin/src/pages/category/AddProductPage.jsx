@@ -56,7 +56,7 @@ const AddProductPage = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-
+  const [isNonSize,setIsNoneSize]=useState(false)
 
   const editor = useRef(null);
 
@@ -69,9 +69,9 @@ const AddProductPage = () => {
   const [brand, setBrand] = useState("");
   const [optionsBrand, setOptionBrand] = useState([]);
 
-  const [valueEditorMain, setValueEditorMain] = useState(null);
+  const [valueEditorMain, setValueEditorMain] = useState("");
   const [sizeList, setSizeList] = useState([{size: "", quantity: 0}]);
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("No Size Just Color");
   const [price, setPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -128,6 +128,14 @@ const AddProductPage = () => {
   }
 
   const handleChangeCategory = (value) => {
+    if(value.includes("Phụ Kiện Chính Hãng")
+      ||value.includes("Túi Chính Hãng")
+      ||value.includes("Nón Chính Hãng")){
+      setIsNoneSize(true);
+    }
+    else{
+      setIsNoneSize(false);
+    }
     setCategory(value)
   };
 
@@ -156,6 +164,7 @@ const AddProductPage = () => {
   };
 
   const handleChangeSub = ({fileList: newFileList}) => {
+    console.log(newFileList)
     setFileImageSubList(newFileList)
   };
 
@@ -172,8 +181,12 @@ const AddProductPage = () => {
   const handleCancel = () => setPreviewOpen(false);
 
   const addProductClick = () => {
+    let status=0;
     const tempSize = sizeList.map((value, index) => {
       const temp = value.size + ": " + value.quantity
+      if(value.quantity!=0){
+        status=1;
+      }
       if (index === 0) {
         return temp
       } else {
@@ -190,7 +203,7 @@ const AddProductPage = () => {
     formData.append('name',proName);
     formData.append('des',valueEditorMain);
     formData.append('shortDes',"empty");
-    formData.append('status',1);
+    formData.append('status',status);
     formData.append('brand',brand);
     formData.append('price',Math.round(price));
     formData.append('discount',1.0-discount);
@@ -205,26 +218,12 @@ const AddProductPage = () => {
     for (const value of formData.values()) {
       console.log(value);
     }
-
-
-    console.log(1.0-discount)
-    const payload = {
-      catName: category,
-      proName: proName,
-      brand:brand,
-      des: valueEditorMain,
-      price: price,
-      discount: (1-discount),
-      totalPrice: totalPrice,
-      formData,
-      size: size,
-      color: color
-    }
     const callApiAddProduct = async () => {
       dispatch(turnOnLoading());
       await addProduct(formData)
         .then(res => {
-          console.log(res?.response?.data.message)
+          console.log(res?.response?.data);
+          console.log(res);
           if(res.data.status==="success"){
             navigate(-1)
             Notification("Thông báo thêm sản phẩm", `Thêm sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
@@ -308,8 +307,9 @@ const AddProductPage = () => {
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên thương hiệu </label>
           <div className="col-sm-9">
-            <AutoComplete
-              options={optionsBrand}
+            <Select
+              mode={"multiple"}
+              allowClear
               style={{
                 width: 300,
               }}
@@ -318,20 +318,22 @@ const AddProductPage = () => {
               filterOption={(inputValue, option) =>
                 option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
               }
+              options={optionsBrand}
             />
+
 
           </div>
         </div>
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả </label>
           <div className="col-sm-9">
-            <JoditEditor className="form-control boxed" ref={editor} onChange={handleChangeDescription}/>
+            <JoditEditor className="form-control boxed" ref={editor} onChange={handleChangeDescription} value={`<p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Địa chỉ:</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="📍" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Chi nhánh 1: 86/118 Trường Chinh, phường 12, quận Tân Bình</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="📍" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Chi nhánh 2: 666/4 Ba tháng hai, phường 14, quận 10</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Mọi thông tin chi tiết xin vui lòng liên hệ: 0865414134</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Facebook: https://www.facebook.com/giay2handschatluong</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Instagram: https://www.instagram.com/shoedog.vn_/</strong></p>`}/>
 
           </div>
         </div>
 
         <div className="form-group row">
-          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Size - Số lượng </label>
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> {isNonSize==true?"Màu - Số lượng":"Size - Số lượng"} </label>
           <div className="col-sm-9">
             &#9; &#9;
             {sizeList.map((x, i) => {
@@ -370,14 +372,17 @@ const AddProductPage = () => {
             })}
           </div>
         </div>
-        <div className="form-group row">
-          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
-          <div className="col-sm-9">
-            <input type="text" className="form-control boxed" id="title" placeholder="Hãy điền màu sắc"
-                   onChange={handleChangeColor}
-            />
+        {isNonSize == true
+          ? "" :
+          <div className="form-group row">
+            <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
+            <div className="col-sm-9">
+              <input type="text" className="form-control boxed" id="title" placeholder="Hãy điền màu sắc"
+                     onChange={handleChangeColor}
+              />
+            </div>
           </div>
-        </div>
+        }
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Giá tiền gốc </label>
           <div className="col-sm-9">
@@ -429,7 +434,7 @@ const AddProductPage = () => {
                 onPreview={handlePreview}
                 onChange={handleChangeMain}
                 beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml';
+                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml'|| file.type==='image/webp';
                   if (!isPNG) {
                     message.error(`${file.name} is not a png, svg and jpeg file`);
                   }
@@ -461,7 +466,7 @@ const AddProductPage = () => {
                 onChange={handleChangeSub}
                 multiple={true}
                 beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml';
+                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type==='image/webp';
                   if (!isPNG) {
                     message.error(`${file.name} is not a png, svg and jpeg file`);
                   }

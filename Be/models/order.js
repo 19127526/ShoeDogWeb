@@ -54,3 +54,9 @@ exports.acceptOrder=async (id)=>{
 }
 
 
+exports.getAllDetailOrdersByStatusOrder=(status)=>{
+  return db('orders')
+    .where('orders.StatusOrder', status);
+}
+
+

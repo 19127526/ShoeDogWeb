@@ -33,4 +33,12 @@
     text-align: center;
 }
 
+@media (min-width: 768px) {
+    .textDescription{
+        overflow: auto;
+        overflow-x: hidden;
+        height: 400px
+    }
+}
+
 

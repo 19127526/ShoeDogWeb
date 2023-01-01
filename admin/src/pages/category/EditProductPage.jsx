@@ -243,8 +243,12 @@ const EditProductPage = () => {
   const handleCancel = () => setPreviewOpen(false);
 
   const editProductClick = async () => {
+    let status=0;
     const tempSize = sizeList.map((value, index) => {
-      const temp = value.size + ": " + value.quantity
+      const temp = value.size + ": " + value.quantity;
+      if(value.quantity!=0){
+        status=1;
+      }
       if (index === 0) {
         return temp
       } else {
@@ -280,6 +284,8 @@ const EditProductPage = () => {
         })
     }
 
+
+
     const tempImageTotal = tempImageMain.concat(tempImageSub);
 
 
@@ -290,7 +296,7 @@ const EditProductPage = () => {
     formData.append('name', proName);
     formData.append('des', valueEditorMain);
     formData.append('shortDes', "empty");
-    formData.append('status', 1);
+    formData.append('status', status);
     formData.append('brand', brand);
     formData.append('price', Math.round(price));
     formData.append('discount', (1.0 - discount));
@@ -412,7 +418,9 @@ const EditProductPage = () => {
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên thương hiệu </label>
           <div className="col-sm-9">
-            <AutoComplete
+            <Select
+              mode={"multiple"}
+              allowClear
               options={optionsBrand}
               style={{
                 width: 300,
@@ -539,7 +547,7 @@ const EditProductPage = () => {
                 onPreview={handlePreview}
                 onChange={handleChangeMain}
                 beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml';
+                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml'|| file.type==='image/webp';
                   if (!isPNG) {
                     message.error(`${file.name} is not a png, svg and jpeg file`);
                   }
@@ -572,7 +580,7 @@ const EditProductPage = () => {
                 onChange={handleChangeSub}
                 multiple={true}
                 beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml';
+                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml'|| file.type==='image/webp';
                   if (!isPNG) {
                     message.error(`${file.name} is not a png, svg and jpeg file`);
                   }

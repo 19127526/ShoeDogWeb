@@ -142,21 +142,19 @@ const OrderProcessPage = () => {
         .then(res=>{
           if(res.data.status==="success"){
             let temp=[];
-
             res.data.data.map(index=>{
-
               const items = [
-                {
-                  key: index.OrderId+".1",
-                  label: 'Xóa order',
-                },
-                {
+              /*  {
                   key: index.OrderId+".2",
                   label: 'Chỉnh sửa order',
-                },
+                },*/
                 {
                   key: index.OrderId+".3",
                   label: 'Hoàn thành đơn hàng',
+                },
+                {
+                  key: index.OrderId+".1",
+                  label: 'Xóa order',
                 },
               ];
 
@@ -193,7 +191,6 @@ const OrderProcessPage = () => {
               }
 
             })
-
             setValueOrder(temp);
           }
         })
@@ -247,11 +244,11 @@ const OrderProcessPage = () => {
 
   const handleConfirmOrderChoose=async ()=>{
     dispatch(turnOnLoading());
-    for(let i=0;i<selectedRowKeys.length;i++){
-      await completeOrdersByOrderId(selectedRowKeys[i])
+    for (const index of selectedRowKeys) {
+      await completeOrdersByOrderId(index)
         .then(res => {
           if (res.data.status === "success") {
-            setIsLoading(!isLoading)
+            setIsLoading(prevState => !prevState)
             Notification("Thông báo đơn đặt hàng", "Đã cập nhật đơn hàng thành công", constraintNotification.NOTIFICATION_SUCCESS)
           } else {
             Notification("Thông báo đơn đặt hàng", "Cập nhật đơn hàng thất bại", constraintNotification.NOTIFICATION_ERROR)

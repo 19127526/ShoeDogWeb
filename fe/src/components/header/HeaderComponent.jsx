@@ -112,10 +112,10 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
                   <li key={index.CatId} onClick={() => navigate(`/product/${index.CatId}`)}>
                     <a><span>{index.CatName}</span></a></li>
                 ))}
-                <li>
+               {/* <li>
                   <a ><span>Liên hệ</span></a>
 
-                </li>
+                </li>*/}
 
               </ul>
             </div>

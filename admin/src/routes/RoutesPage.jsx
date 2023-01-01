@@ -1,13 +1,14 @@
 import {Route,Routes} from "react-router-dom";
 import React from "react";
 import Loading from "../components/loading/LoadingComponent";
-import {DASHBOARD, DASHBOASH, ORDER_PRODUCT, ORDER_SUCCESS_PRODUCT} from "../configs/url";
+import {DASHBOARD, DASHBOASH, ORDER_PRODUCT, ORDER_SUCCESS_PRODUCT, REGISTER} from "../configs/url";
 import Authenticate from "../guards/AuthenticateRoutes";
 
 
 const HomePageLazy=React.lazy(()=>import("../pages/home/HomePage"))
 const ChartPageLazy=React.lazy(()=>import("../pages/chart/ChartPage"))
 const LoginPageLazy=React.lazy(()=>import("../pages/login/LoginPage"))
+const RegisterPageLazy=React.lazy(()=>import("../pages/register/RegisterPage"))
 const ProDuctListItemPageLazy=React.lazy(()=>import("../pages/category/ProductListPage"))
 const ProductItemDetailPageLazy=React.lazy(()=>import("../pages/category/ProductDetailPage"))
 const AddItemProductPageLazy=React.lazy(()=>import("../pages/category/AddProductPage"))
@@ -19,12 +20,14 @@ const RoutesPage=()=>{
   return (
     <Routes>
      {/* <Route path="/home"  element={<React.Suspense fallback={<Loading/>} >  <DetailPageLazy/> </React.Suspense>}/>*/}
-      <Route path={DASHBOARD}  element={<React.Suspense fallback={<Loading/>} > <Authenticate>
+      <Route path={DASHBOARD}   element={<React.Suspense fallback={<Loading/>} > <Authenticate>
         <HomePageLazy/>
       </Authenticate>
       </React.Suspense>}
       />
       <Route path="/login"  element={<React.Suspense fallback={<Loading/>} >  <LoginPageLazy/> </React.Suspense>}/>
+
+      <Route path={REGISTER}  element={<React.Suspense fallback={<Loading/>} >  <RegisterPageLazy/> </React.Suspense>}/>
       <Route path="/chart"  element={<React.Suspense fallback={<Loading/>} >
         <Authenticate>
           <ChartPageLazy/>

@@ -16,8 +16,11 @@ exports.addProduct = (product) => {
 
 //s
 exports.deleteProduct = async (id) => {
-    const check = db('products').where('ProId', id).del();
-    return check;
+   /* await db('ordersdetails')
+      .where('ordersdetails.ProId', id).del();*/
+    const check2 = await db('products')
+      .where('products.ProId', id).del();
+    return check2;
 }
 
 exports.updateProduct = (id, product) => {
@@ -109,19 +112,19 @@ exports.changeStatusProDuctByProId = async (proId, statusPro) => {
 exports.getStatisticDay = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
       'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
-      'where DATE(o.OrderDate) = DATE(NOW())\n')
+      'where DATE(o.OrderDate) = DATE(NOW()) and o.StatusOrder = 1 \n')
 }
 
 exports.getStatisticMonth = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
       'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
-      'where MONTH(o.OrderDate) = MONTH(NOW())\n')
+      'where MONTH(o.OrderDate) = MONTH(NOW()) and o.StatusOrder = 1\n')
 }
 
 exports.getStatisticYear = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
       'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
-      'where YEAR(o.OrderDate) = YEAR(NOW())\n')
+      'where YEAR(o.OrderDate) = YEAR(NOW()) and o.StatusOrder = 1\n')
 }
 
 exports.getMaxQuantityPurchase = (limit) => {

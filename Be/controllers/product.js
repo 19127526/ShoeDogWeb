@@ -2,6 +2,16 @@ const product = require('../models/product');
 
 
 const category = require('../models/category');
+
+
+const convertArrayToOptions=(arr,splitIndex)=>{
+    if(arr===null){
+        return null
+    }
+    else{
+        return arr.split(splitIndex)
+    }
+}
 exports.getAllProducts = async (req, res) => {
     try {
         const products = await product.getProducts();
@@ -87,20 +97,23 @@ exports.addProduct = async (req, res) => {
             TotalPrice: productBody.total,
             CatId: catId.CatId
         }
+        console.log(productAdd)
 
         const productId = await product.addProduct(productAdd);
         const productFinding = await product.getDetailProductsByProId(productId);
         const arrayFile = req.files;
         const arrayImage = [];
         const imageId = [];
+        console.log(arrayFile)
         for (let i = 0; i < arrayFile.length; i++) {
             const rs = await cloudinary.uploader.upload(arrayFile[i].path, {
                 folder: `shoedog/${catName}`,
-                public_id: `${arrayFile[i].originalname}_${arrayFile[i].filename}`,
+                public_id: `${arrayFile[i].filename}`,
                 width: 500,
                 height: 500,
                 crop: "fill"
             })
+            console.log(rs)
             arrayImage.push(rs.secure_url)
             imageId.push(rs.public_id)
         }
@@ -136,6 +149,7 @@ exports.updateProduct = async (req, res) => {
         const products = req.body
         const ProductId = products.ProId;
         const cateName = req.body.category;
+
         const catId = await category.getCategoryById(cateName);
         const initProduct = {
             ProName: products.name,
@@ -148,7 +162,7 @@ exports.updateProduct = async (req, res) => {
             TotalPrice: products.total,
             Price: products.price,
             Brand: products.brand,
-            CatId: catId.CatId
+            CatId: catId.CatId,
         }
         const updateProduct = await product.updateProduct(ProductId, initProduct)
         const productAfterUpdate = await product.getDetailProductsByProId(ProductId)

@@ -3,7 +3,7 @@ const {addProduct, getAllProducts,getProductsById, deleteProduct, updateProduct,
   getAllBrandsInProducts,relatedProduct,searchProductByCatId, getStatisticDay, getStatisticMonth, getStatisticYear,
   getMaxQuantityPurchase, getMaxQuantityPurchaseDay, getMaxQuantityPurchaseMonth, getMaxQuantityPurchaseYear,
   getMinQuantityPurchaseDay, getMinQuantityPurchaseMonth, getMinQuantityPurchaseYear, getQuantityInDay,
-  getQuantityInMonth, getQuantityInYear
+  getQuantityInMonth, getQuantityInYear,getTotalItemSold
 } = require("../controllers/product");
 const router = express.Router();
 router.get('/', getAllProducts);
@@ -28,4 +28,5 @@ router.get('/statistic/minquantitypurchasemonth',getMinQuantityPurchaseYear);
 router.get('/statistic/quantityinday',getQuantityInDay);
 router.get('/statistic/quantityinmonth',getQuantityInMonth);
 router.get('/statistic/quantityinyear',getQuantityInYear);
+router.get('/statistic/soldout',getTotalItemSold);
 module.exports = router;
