@@ -136,6 +136,12 @@ exports.addProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
     try {
         const id = req.body.id;
+        const productFinding = await product.getProductById(id);
+        if (productFinding.length <= 0) return res.status(200).json({"status": "empty", "message": "Product not found"});
+        const imageId = productFinding[0].ImageId.split(", ");
+        for (let i = 0; i < imageId.length; i++) {
+            await cloudinary.uploader.destroy(imageId[i]);
+        }
         const result = await product.deleteProduct(id);
         return res.status(200).json({"status": "success", "data": result});
     } catch (e) {

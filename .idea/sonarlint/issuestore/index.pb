@@ -18,8 +18,6 @@ G.idea/sonarlint/issuestore/0/2/02315048f104921d7b967de8c7573f93fce7cd6a,d\a\da
 w
 G.idea/sonarlint/issuestore/c/6/c68e1988479c29ab465bee61a2dd3107c71a5d3d,6\9\696dab3f9cf15853c46db08d68954ecc1d037052
 w
-G.idea/sonarlint/issuestore/b/b/bb752858c9ff21c696a88a31ed5d41979ae3d9eb,3\b\3b1813fadd5d24c743ec1c4899ca1864a2f2fed3
-w
 G.idea/sonarlint/issuestore/2/2/22973f11b91b443766d3a789699dcc4844f9e321,5\a\5ab79e416306700ae7398da5d90d8c23cb691b40
 S
 #.idea/runConfigurations/bin_www.xml,1\4\140e4eb5c9a9663fa1c54fe51930e6d28f95de63
@@ -71,3 +69,11 @@ A
 Be/ShoeDogSQL.sql,8\f\8f023b8e98f2a85e52e646fc97e890c4d164db12
 F
 Be/controllers/auth.js,8\8\8809ff67d2436e6b06586716bc6a63e44232ea75
+7
+Be/.env,7\a\7ae71e78a3404ea42cf6fee529f1575eb965baea
+F
+Be/controllers/user.js,b\8\b859faf85714a9b2d8d875ca312568d6d22d4a37
+A
+Be/routes/auth.js,7\e\7e2ffb0e6ee18ce69092ec024c29639f03dce09a
+A
+Be/models/user.js,6\3\630a9e9696c48807cc2a155edd267f225f0eefe7
