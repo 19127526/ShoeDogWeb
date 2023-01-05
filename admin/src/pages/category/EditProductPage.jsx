@@ -137,12 +137,20 @@ const EditProductPage = () => {
           if (res.data.status === "success") {
             setProductDetail(res.data.data[0])
             setPrice(res.data.data[0]?.Price);
+            if(res.data.data[0]?.Discount==0){
+              setTempDiscount(res.data.data[0]?.Discount);
+            }
+            else{
+              setTempDiscount(res.data.data[0]?.Discount*100);
+            }
             setDiscount(1-res.data.data[0]?.Discount);
-            setTempDiscount(res.data.data[0]?.Discount*100);
+
+
             setCategory(res.data.data[0]?.CatName);
             setProName(res.data.data[0].ProName);
 
-            setBrand(convertArrayToOptions(res.data.data[0].Brand,",").map(index=>{return{value:index}}));
+            const tempBrand=convertArrayToOptions(res.data.data[0].Brand,",");
+            setBrand(tempBrand);
             setColor(res.data.data[0].Color);
             setValueEditorMain(res.data.data[0].Des)
             setIsLoading(true);
@@ -439,7 +447,7 @@ const EditProductPage = () => {
               }}
               onChange={handleChangeBrand}
               placeholder="Nhập tên thương hiệu"
-              defaultValue={productDetail?.Brand}
+              defaultValue={brand}
               filterOption={(inputValue, option) =>
                 option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
               }

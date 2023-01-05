@@ -217,7 +217,12 @@ const AddProductPage = () => {
     formData.append('status',status);
     formData.append('brand',brand);
     formData.append('price',Math.round(price));
-    formData.append('discount',1.0-discount);
+    if(discount==0){
+      formData.append('discount',discount);
+    }
+    else{
+      formData.append('discount',1.0-discount);
+    }
     formData.append('total',Math.round(totalPrice));
     for(let i=0;i<image.length;i++){
       formData.append('image',image[i]);

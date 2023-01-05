@@ -74,7 +74,7 @@ const ProductDetailPage = (prop) => {
   const [category, setCategory] = useState();
   const [optionCategories, setOptionCategories] = useState([]);
 
-  const [brand, setBrand] = useState("");
+  const [brand, setBrand] = useState([]);
   const [optionsBrand, setOptionBrand] = useState([]);
   const [imageList,setImageList]=useState([]);
   const [valueEditorMain, setValueEditorMain] = useState(null);
@@ -135,7 +135,8 @@ const ProductDetailPage = (prop) => {
             setTempDiscount(res.data.data[0]?.Discount*100);
             setCategory(res.data.data[0]?.CatName);
             setProName(res.data.data[0].ProName);
-            setBrand(res.data.data[0].Brand);
+            const tempBrand=convertArrayToOptions(res.data.data[0].Brand,",");
+            setBrand(tempBrand);
             setColor(res.data.data[0].Color);
             setValueEditorMain(res.data.data[0].Des)
             setIsLoading(true);
@@ -336,13 +337,13 @@ const ProductDetailPage = (prop) => {
             <Select
               mode={"multiple"}
               allowClear
-              value={productDetail?.Brand}
+              value={brand}
               options={optionsBrand}
               style={{
                 width: 300,
               }}
               placeholder="Nhập tên thương hiệu"
-              defaultValue={productDetail?.Brand}
+              defaultValue={brand}
               filterOption={(inputValue, option) =>
                 option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
               }

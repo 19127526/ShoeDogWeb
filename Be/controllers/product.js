@@ -107,8 +107,6 @@ exports.addProduct = async (req, res) => {
             const rs = await cloudinary.uploader.upload(arrayFile[i].path, {
                 folder: `shoedog/${catName}`,
                 public_id: `${arrayFile[i].filename}`,
-                width: 500,
-                height: 500,
                 crop: "fill"
             })
             console.log(rs)
@@ -185,8 +183,6 @@ exports.updateProduct = async (req, res) => {
                 const rs = await cloudinary.uploader.upload(arrayFile[i].path, {
                     folder: `shoedog/${catName}`,
                     public_id: `${arrayFile[i].originalname}_${arrayFile[i].filename}`,
-                    width: 500,
-                    height: 500,
                     crop: "fill"
                 })
                 arrayImage.push(rs.secure_url)

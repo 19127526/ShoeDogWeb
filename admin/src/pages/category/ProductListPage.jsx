@@ -151,7 +151,7 @@ const ProductListPage = () => {
     </div>
     <nav className="text-right" style={{display:"flex",justifyContent:"center",marginTop:"3%"}}>
       <ul className="pagination">
-      <Pagination total={item.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>{setPage(pageindex);navigate(`/admin/category/${catId}/${pageindex}`)}} />
+      <Pagination total={item.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>{setPage(pageindex);navigate(`/admin/category/${catId}/?page=${pageindex}`)}} />
       </ul>
     </nav>
 

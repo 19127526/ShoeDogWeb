@@ -5,19 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_29_2022_9_12_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_29_2022_9_12_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/unnamed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/unnamed.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/components/card/CardComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/card/CardComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/AddProductPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/EditProductPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/pages/category/ProductListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/category/ProductListPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/routes/RoutesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/routes/RoutesPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/configs/url.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/routes/RoutesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/routes/RoutesPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +79,7 @@
       <workItem from="1672368567280" duration="4111000" />
       <workItem from="1672382382311" duration="4470000" />
       <workItem from="1672490845965" duration="15913000" />
-      <workItem from="1672911638799" duration="2609000" />
+      <workItem from="1672911638799" duration="3987000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>
