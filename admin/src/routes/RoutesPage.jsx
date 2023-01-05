@@ -47,6 +47,12 @@ const RoutesPage=()=>{
       </React.Suspense>
       }
       />
+      <Route path="/admin/category/:catId/:pageindex"  element={<React.Suspense fallback={<Loading/>} ><Authenticate>
+        <ProDuctListItemPageLazy/>
+      </Authenticate>
+      </React.Suspense>
+      }
+      />
       <Route path="/admin/category/:catId/:proId"  element={<React.Suspense fallback={<Loading/>} >  <Authenticate>
         <ProductItemDetailPageLazy/>
       </Authenticate>

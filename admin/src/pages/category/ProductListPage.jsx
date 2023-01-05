@@ -15,7 +15,7 @@ const pageIndex = 6;
 
 
 const ProductListPage = () => {
-  const {catId} = useParams();
+  const {catId,pageindex} = useParams();
   const [item, setItem] = useState([]);
   const [loading,setLoading]=useState(false);
   const [page, setPage] = useState(1);
@@ -40,6 +40,15 @@ const ProductListPage = () => {
     }
     getListItemByCatId();
   }, [catId,loading]);
+
+  useEffect(()=>{
+    if(pageindex==undefined){
+      setPage(1);
+    }
+    else{
+      setPage(pageindex);
+    }
+  },[pageindex])
 
   const searchProductBtn=()=>{
     dispatch(turnOnLoading())
@@ -142,7 +151,7 @@ const ProductListPage = () => {
     </div>
     <nav className="text-right" style={{display:"flex",justifyContent:"center",marginTop:"3%"}}>
       <ul className="pagination">
-      <Pagination total={item.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>setPage(pageindex)} />
+      <Pagination total={item.length} current={page} defaultCurrent={1}  pageSize={pageIndex}  showSizeChanger={false} onChange={(pageindex)=>{setPage(pageindex);navigate(`/admin/category/${catId}/${pageindex}`)}} />
       </ul>
     </nav>
 

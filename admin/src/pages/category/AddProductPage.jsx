@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import JoditEditor from 'jodit-react'
 import {PlusOutlined} from '@ant-design/icons';
 import {AutoComplete, Input, InputNumber, message, Modal, Radio, Select, Upload} from 'antd';
-import {getBase64} from "../../utils/Utils";
+import {convertArrayToOptions, getBase64} from "../../utils/Utils";
 import {useNavigate} from "react-router-dom";
 import {addProduct, getAllBrands} from "../../apis/products/ProductsApi";
 import Notification from "../../components/notification/Notification";
@@ -84,9 +84,20 @@ const AddProductPage = () => {
       getAllBrands()
         .then((res) => {
           if (res.data.status === 'success') {
-            setOptionBrand(res.data.data.map(index => {
-              return {value: index.Brand}
-            }).filter(index => (index.value !== "" && index.value !== null)));
+            let tempBrand = new Set()
+            for (let i = 0; i < res.data.data.length; i++) {
+              const temp = convertArrayToOptions(res.data.data[i].Brand, ",");
+              console.log(temp);
+              for (let i = 0; i < temp.length; i++) {
+                tempBrand.add(temp[i]);
+              }
+            }
+            const temp=Array.from(tempBrand).map(index=>{
+              return {
+                value:index
+              }
+            })
+            setOptionBrand(temp);
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
           }
@@ -315,9 +326,9 @@ const AddProductPage = () => {
               }}
               onChange={handleChangeBrand}
               placeholder="Nhập tên thương hiệu"
-              filterOption={(inputValue, option) =>
-                option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-              }
+              filterOption={(inputValue, option) =>{
+                return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+              }}
               options={optionsBrand}
             />
 

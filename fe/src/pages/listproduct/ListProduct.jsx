@@ -39,7 +39,7 @@ const ListProduct = () => {
   const [sizeButton, setSizeButton] = useState(false);
   const [priceButton, setPriceButton] = useState(false);
 
-  const {product} = useParams();
+  const {product,pageindex} = useParams();
   const [loading, setLoading] = useState(false)
   const [itemInCategory, setItemInCategory] = useState([]);
   const [itemTempInCategory, setItemTempInCategory] = useState([]);
@@ -89,7 +89,6 @@ const ListProduct = () => {
   const [chooseAnotherFilter, setChooseAnotherFilter] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    setPage(1);
     setStateFilter([
       {
         name: "Brand",
@@ -117,45 +116,50 @@ const ListProduct = () => {
       },
     ])
     const getListProductByCatId2 = async () => {
+      console.log(product)
       dispatch(turnOnLoading())
       await getListProductsByCatId(product)
         .then(res => {
           if (res.data.status === 'success') {
+            if (res.data.data.length != 0) {
+              const total = res.data.data.map(index => index.TotalPrice);
+              setListPrice({min: minValue(...total), max: maxValue(...total)});
+              setListPriceTemp({min: minValue(...total), max: maxValue(...total)});
+              /* setListBrand(res.data.data.map(index => index.Brand).filter(onlyUnique));*/
 
-            const total = res.data.data.map(index => index.TotalPrice);
-            setListPrice({min: minValue(...total), max: maxValue(...total)});
-            setListPriceTemp({min: minValue(...total), max: maxValue(...total)});
-           /* setListBrand(res.data.data.map(index => index.Brand).filter(onlyUnique));*/
 
-
-            let tempBrand = new Set()
-            for (let i=0;i<res.data.data.length;i++){
-              const temp=convertArrayToOptions(res.data.data[i].Brand,",");
-              for(let i=0;i<temp.length;i++){
-                tempBrand.add(temp[i]);
-              }
-            }
-            setListBrand(Array.from(tempBrand));
-            setItemInCategory(res.data.data);
-            setItemTempInCategory(res.data.data);
-            setLoading(true)
-
-            if (res.data.Size !== null) {
-              const a = res.data.data.map(index => {
-                const temp = convertArrayToOptions(index.Size, ", ");
-                const tempResult = temp.map(index => {
-                  const Size = convertArrayToOptions(index, ": ");
-                  return Size[0];
-                })
-                return tempResult;
-              })
-              const mySet = new Set()
-              for (let i = 0; i < a.length; i++) {
-                for (let j = 0; j < a[i].length; j++) {
-                  mySet.add(a[i][j])
+              let tempBrand = new Set()
+              for (let i = 0; i < res.data.data.length; i++) {
+                const temp = convertArrayToOptions(res.data.data[i].Brand, ",");
+                for (let i = 0; i < temp.length; i++) {
+                  tempBrand.add(temp[i]);
                 }
               }
-              setListSize(Array.from(mySet))
+              setListBrand(Array.from(tempBrand));
+              setItemInCategory(res.data.data);
+              setItemTempInCategory(res.data.data);
+              setLoading(true)
+
+              if (res.data.Size !== null) {
+                const a = res.data.data.map(index => {
+                  const temp = convertArrayToOptions(index.Size, ", ");
+                  const tempResult = temp.map(index => {
+                    const Size = convertArrayToOptions(index, ": ");
+                    return Size[0];
+                  })
+                  return tempResult;
+                })
+                const mySet = new Set()
+                for (let i = 0; i < a.length; i++) {
+                  for (let j = 0; j < a[i].length; j++) {
+                    mySet.add(a[i][j])
+                  }
+                }
+                setListSize(Array.from(mySet))
+              }
+            }
+            else{
+              setLoading(false);
             }
           }/* else {
             setLoading(false);
@@ -170,7 +174,15 @@ const ListProduct = () => {
         })
     }
     getListProductByCatId2()
-  }, [product])
+  }, [product]);
+  useEffect(()=>{
+    if(pageindex==undefined){
+      setPage(1);
+    }
+    else{
+      setPage(pageindex);
+    }
+  },[pageindex])
   useEffect(() => {
     if (filterButton === true) {
       document.body.classList.add("filterActive")
@@ -454,7 +466,6 @@ const ListProduct = () => {
 
   }
 
-
   if (loading === false) {
     return <ErrorPage/>
   }
@@ -581,10 +592,10 @@ const ListProduct = () => {
                   </div>
                   <div style={{display: "flex", justifyContent: "space-between"}}>
                     <input type="text" id="amount" readOnly=""
-                           value={listPrice.min.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}
+                           value={listPrice.min?.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}
                            style={{border: 0, color: "#65a89a", fontWeight: "bold", width: "100%"}}/>
                     <input type="text" id="amount" readOnly=""
-                           value={listPrice.max.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}
+                           value={listPrice.max?.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}
                            style={{
                              border: 0,
                              color: "#65a89a",
@@ -609,7 +620,7 @@ const ListProduct = () => {
                              proId={value?.ProId}
                              statusPro={value?.StatusPro}
                              priceDiscount={value?.TotalPrice}
-                             priceNonDiscount={value.Discount === 0 ? null : value?.Price}/>
+                             priceNonDiscount={value?.Discount === 0 ? null : value?.Price}/>
             </div>) : ""
         })}
 
@@ -618,7 +629,10 @@ const ListProduct = () => {
       {itemInCategory.length > pageIndex ?
         <div className="text-center" style={{padding: "10px 0 0 0"}}>
           <Pagination total={itemInCategory.length} current={page} defaultCurrent={1} pageSize={pageIndex}
-                      showSizeChanger={false} onChange={(pageindex) => setPage(pageindex)}/>
+                      showSizeChanger={false} onChange={(pageindex) => {
+                        setPage(pageindex);
+                        navigate(`/product/${product}/${pageindex}`)
+                      }}/>
         </div>
         : ""
       }

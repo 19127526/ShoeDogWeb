@@ -28,8 +28,8 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro})=
                 </p>
                 :
                 <p className="product-price">
-                  {priceNonDiscount===null?"":<><span className="price-decoration">{priceNonDiscount.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</span><br/></>}
-                  <span>{priceDiscount.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</span>
+                  {priceNonDiscount===null?"":<><span className="price-decoration">{priceNonDiscount?.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</span><br/></>}
+                  <span>{priceDiscount?.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</span>
                 </p>
 
             }

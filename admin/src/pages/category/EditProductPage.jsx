@@ -69,7 +69,7 @@ const EditProductPage = () => {
   const [category, setCategory] = useState();
   const [optionCategories, setOptionCategories] = useState([]);
 
-  const [brand, setBrand] = useState("");
+  const [brand, setBrand] = useState([]);
   const [optionsBrand, setOptionBrand] = useState([]);
   const [imageList,setImageList]=useState([]);
   const [valueEditorMain, setValueEditorMain] = useState(null);
@@ -87,9 +87,20 @@ const EditProductPage = () => {
       getAllBrands()
         .then((res) => {
           if (res.data.status === 'success') {
-            setOptionBrand(res.data.data.map(index => {
-              return {value: index.Brand}
-            }).filter(index => (index.value !== "" && index.value !== null)));
+            let tempBrand = new Set()
+            for (let i = 0; i < res.data.data.length; i++) {
+              const temp = convertArrayToOptions(res.data.data[i].Brand, ",");
+              console.log(temp);
+              for (let i = 0; i < temp.length; i++) {
+                tempBrand.add(temp[i]);
+              }
+            }
+            const temp=Array.from(tempBrand).map(index=>{
+              return {
+                value:index
+              }
+            })
+            setOptionBrand(temp);
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
           }
@@ -130,7 +141,8 @@ const EditProductPage = () => {
             setTempDiscount(res.data.data[0]?.Discount*100);
             setCategory(res.data.data[0]?.CatName);
             setProName(res.data.data[0].ProName);
-            setBrand(res.data.data[0].Brand);
+
+            setBrand(convertArrayToOptions(res.data.data[0].Brand,",").map(index=>{return{value:index}}));
             setColor(res.data.data[0].Color);
             setValueEditorMain(res.data.data[0].Des)
             setIsLoading(true);

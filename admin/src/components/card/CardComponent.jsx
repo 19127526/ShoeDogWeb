@@ -6,6 +6,8 @@ import Notification from "../notification/Notification";
 import * as constraintNotification from "../notification/Notification.constraints";
 import {convertArrayToOptions} from "../../utils/Utils";
 import dateFormat from "dateformat";
+import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
+import {useDispatch} from "react-redux";
 
 
 
@@ -13,6 +15,7 @@ const CardComponent = ({index,setLoading}) => {
   const navigate = useNavigate();
   const [openSetting,setOpenSetting]=useState(false);
   const a = convertArrayToOptions(index.Size, ", ");
+  const dispatch=useDispatch();
   const tempValue = a.map(index => {
     const temp = convertArrayToOptions(index, ": ");
     return {
@@ -21,6 +24,7 @@ const CardComponent = ({index,setLoading}) => {
   });
   const quantity=tempValue.map(index=>index.quantity).reduce((previousScore, currentScore, index) => Number(previousScore) + Number(currentScore))
   const removeProduct= async ()=>{
+    dispatch(turnOnLoading())
     await removeProductByProId({proId:index?.ProId})
       .then(res => {
         if (res.data.status === 'success') {
@@ -32,7 +36,7 @@ const CardComponent = ({index,setLoading}) => {
       .catch(err => {
         Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
       })
-      .finally(()=> {setLoading()})
+      .finally(()=> {setLoading();  dispatch(turnOffLoading())})
   }
   return (
     <li className="item">
