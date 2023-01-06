@@ -8,8 +8,8 @@ const SlideComponent = () => {
 
   return (
     <div className="main-slide" >
-      <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay showThumbs={false}
-                autoFocus={true} emulateTouch={true} width="100%"
+      <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows  showThumbs={false}
+                autoFocus={true} emulateTouch={true} width="100%" autoPlay interval={5000}
 
       >
         <div className="carousel-image">

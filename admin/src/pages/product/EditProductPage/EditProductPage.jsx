@@ -1,16 +1,16 @@
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {convertArrayToOptions, getBase64, onImageEdit} from "../../utils/Utils";
+import {convertArrayToOptions, getBase64, onImageEdit} from "../../../utils/Utils";
 import {AutoComplete, Image, Input, InputNumber, message, Modal, Radio, Select, Upload} from "antd";
 import {useEffect, useRef, useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
 import JoditEditor from "jodit-react";
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct, editProduct, getAllBrands, getDetailProductByProId} from "../../apis/products/ProductsApi";
-import Notification from "../../components/notification/Notification";
-import * as constraintNotification from "../../components/notification/Notification.constraints";
-import {getListCategories} from "../../apis/categories/CategoriesApi";
-import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
-import LoadingComponent from "../../components/loading/LoadingComponent";
+import {addProduct, editProduct, getAllBrands, getDetailProductByProId} from "../../../apis/products/ProductsApi";
+import Notification from "../../../components/notification/Notification";
+import * as constraintNotification from "../../../components/notification/Notification.constraints";
+import {getListCategories} from "../../../apis/categories/CategoriesApi";
+import {turnOffLoading, turnOnLoading} from "../../../layouts/mainlayout/MainLayout.actions";
+import LoadingComponent from "../../../components/loading/LoadingComponent";
 
 const uploadButton = (
   <div>

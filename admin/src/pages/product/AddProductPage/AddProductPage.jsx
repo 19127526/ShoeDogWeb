@@ -2,15 +2,15 @@ import {useEffect, useRef, useState} from "react";
 import JoditEditor from 'jodit-react'
 import {PlusOutlined} from '@ant-design/icons';
 import {AutoComplete, Input, InputNumber, message, Modal, Radio, Select, Upload} from 'antd';
-import {convertArrayToOptions, getBase64} from "../../utils/Utils";
+import {convertArrayToOptions, getBase64} from "../../../utils/Utils";
 import {useNavigate} from "react-router-dom";
-import {addProduct, getAllBrands} from "../../apis/products/ProductsApi";
-import Notification from "../../components/notification/Notification";
-import * as constraintNotification from "../../components/notification/Notification.constraints";
-import {getListCategories} from "../../apis/categories/CategoriesApi";
+import {addProduct, getAllBrands} from "../../../apis/products/ProductsApi";
+import Notification from "../../../components/notification/Notification";
+import * as constraintNotification from "../../../components/notification/Notification.constraints";
+import {getListCategories} from "../../../apis/categories/CategoriesApi";
 import "./AddProductPage.css"
 import {useDispatch, useSelector} from "react-redux";
-import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
+import {turnOffLoading, turnOnLoading} from "../../../layouts/mainlayout/MainLayout.actions";
 
 const uploadButton = (
   <div>

@@ -93,7 +93,7 @@ const HomePage = () => {
                       ))}
                     </div>
                     {index.productList.length > 9 ?
-                      <div className="text-center" onClick={() => navigate(`/product/${index.category.CatName}`)}>
+                      <div className="text-center" onClick={() => navigate(`/product/${index.category.CatId}`)}>
                         <a className="btn-see-more text-uper">see more</a>
                       </div>
                       : ""

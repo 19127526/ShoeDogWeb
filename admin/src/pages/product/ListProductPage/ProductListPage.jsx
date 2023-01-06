@@ -1,14 +1,14 @@
-import CardComponent from "../../components/card/CardComponent";
+import CardComponent from "../../../components/card/CardComponent";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getListProductsByCatId, searchProducts, searchProductsByCatId} from "../../apis/products/ProductsApi";
-import Notification from "../../components/notification/Notification";
-import * as constraintNotification from "../../components/notification/Notification.constraints";
-import {ADD_NEW_PRODUCT} from "../../configs/url";
+import {getListProductsByCatId, searchProducts, searchProductsByCatId} from "../../../apis/products/ProductsApi";
+import Notification from "../../../components/notification/Notification";
+import * as constraintNotification from "../../../components/notification/Notification.constraints";
+import {ADD_NEW_PRODUCT} from "../../../configs/url";
 import {Pagination} from "antd";
-import useDebounce from "../../customhooks/useDebounce";
+import useDebounce from "../../../customhooks/useDebounce";
 import {useDispatch} from "react-redux";
-import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
+import {turnOffLoading, turnOnLoading} from "../../../layouts/mainlayout/MainLayout.actions";
 
 
 const pageIndex = 6;

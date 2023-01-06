@@ -2,15 +2,15 @@ import {Image, Input, InputNumber, message, Modal, Radio, Select, Upload} from "
 import {useNavigate, useParams} from "react-router-dom";
 import {Markup} from 'interweave';
 import {useEffect, useRef, useState} from "react";
-import {convertArrayToOptions, getBase64, onImageEdit} from "../../utils/Utils";
-import {editProduct, getAllBrands, getDetailProductByProId} from "../../apis/products/ProductsApi";
+import {convertArrayToOptions, getBase64, onImageEdit} from "../../../utils/Utils";
+import {editProduct, getAllBrands, getDetailProductByProId} from "../../../apis/products/ProductsApi";
 import dateFormat from 'dateformat';
 import {useDispatch, useSelector} from "react-redux";
-import Notification from "../../components/notification/Notification";
-import * as constraintNotification from "../../components/notification/Notification.constraints";
-import {getListCategories} from "../../apis/categories/CategoriesApi";
-import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
-import LoadingComponent from "../../components/loading/LoadingComponent";
+import Notification from "../../../components/notification/Notification";
+import * as constraintNotification from "../../../components/notification/Notification.constraints";
+import {getListCategories} from "../../../apis/categories/CategoriesApi";
+import {turnOffLoading, turnOnLoading} from "../../../layouts/mainlayout/MainLayout.actions";
+import LoadingComponent from "../../../components/loading/LoadingComponent";
 import JoditEditor from "jodit-react";
 import {PlusOutlined} from "@ant-design/icons";
 
