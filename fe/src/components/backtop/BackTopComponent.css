@@ -100,5 +100,6 @@ span:nth-child(2) {
 @media (max-width: 420px) {
     .button-backtop{
         padding: 0.5em 0.8em;
+        margin-left: -12px;
     }
 }

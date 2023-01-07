@@ -82,18 +82,19 @@ exports.addProduct = async (req, res) => {
         const random = generateString(6);
         const productAdd = {
             Inventory: random,
+            CatId: catId.CatId,
             ProName: productBody.name,
-            Price: productBody.price,
-            Brand: productBody.brand,
             Des: productBody.des,
             ShortDes: productBody.shortDes,
             StatusPro: productBody.status,
+            Brand: productBody.brand,
             Size: productBody.size,
-            Color: productBody.color,
+            Quantity: productBody.quantity,
+            Price: productBody.price,
             Discount: productBody.discount,
-            DateStart: new Date(),
             TotalPrice: productBody.total,
-            CatId: catId.CatId
+            Color: productBody.color,
+            DateStart: new Date(),
         }
         console.log(productAdd)
 

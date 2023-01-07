@@ -108,9 +108,26 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
           <div className="inner-menu">
             <div>
               <ul>
-                {categoryList.map(index => (
-                  <li key={index.CatId} onClick={() => navigate(`/product/${index.CatId}`)}>
-                    <a><span>{index.CatName}</span></a></li>
+                <li>
+                  <a onClick={() => navigate(`/product/6`)}><span>Giày chính hãng</span></a>
+                  <div className="menu__sub">
+                    <ul>
+                      <li onClick={() => navigate(`/product/6`)}>
+                        <a>Giày Mới</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/7`)}>
+                        <a >Giày Secondhand</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/8`) }>
+                        <a >Giày trẻ em</a>
+                      </li>
+                    </ul>
+                  </div>
+
+                </li>
+                {categoryList.map((value,index) => (
+                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}`)}>
+                    <a><span>{value.CatName}</span></a></li>:""
                 ))}
                {/* <li>
                   <a ><span>Liên hệ</span></a>

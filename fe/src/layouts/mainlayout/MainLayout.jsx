@@ -125,18 +125,30 @@ const MainLayout = () => {
                         <a>Sales</a>
                       </li>*/}
                       <li>
-                        <a >Products<span
+                        <a onClick={() => {navigate(`/product/6`); setChangeSide(false)}}>Giày chính hãng<span
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
-                          {categories.map((value) => (
-                            <li key={value.CatId}>
-                              <a onClick={() => {
-                                navigate(`/product/${value.CatId}`);
-                                setChangeSide(false)}
-                              }>{value.CatName}</a>
-                            </li>))}
+                          <li onClick={() => {navigate(`/product/6`); setChangeSide(false)}}>
+                            <a>Giày Mới</a>
+                          </li>
+                          <li onClick={() =>{navigate(`/product/7`); setChangeSide(false)}}>
+                            <a >Giày Secondhand</a>
+                          </li>
+                          <li onClick={() => {navigate(`/product/8`); setChangeSide(false)}}>
+                            <a >Giày trẻ em</a>
+                          </li>
                         </ul>
                       </li>
+                      {categories.map((value) => (
+                        (value?.CatId!=6&&value?.CatId!=7&&value?.CatId!=8)?
+                        <li key={value.CatId}>
+                          <a onClick={() => {
+                            navigate(`/product/${value.CatId}`);
+                            setChangeSide(false)}
+                          }>{value.CatName}<span
+                            className="icon-navigate_next"></span></a>
+                        </li>:""))}
+
                      {/* <li>
                         <a >Used</a>
                       </li>

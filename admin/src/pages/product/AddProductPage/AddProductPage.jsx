@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import JoditEditor from 'jodit-react'
 import {PlusOutlined} from '@ant-design/icons';
-import {AutoComplete, Input, InputNumber, message, Modal, Radio, Select, Upload} from 'antd';
+import {Input, InputNumber, message, Modal, Radio, Select, Space, Upload} from 'antd';
 import {convertArrayToOptions, getBase64} from "../../../utils/Utils";
 import {useNavigate} from "react-router-dom";
 import {addProduct, getAllBrands} from "../../../apis/products/ProductsApi";
@@ -56,7 +56,7 @@ const AddProductPage = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [isNonSize,setIsNoneSize]=useState(false)
+  const [isNonSize, setIsNoneSize] = useState(false)
 
   const editor = useRef(null);
 
@@ -70,11 +70,8 @@ const AddProductPage = () => {
   const [optionsBrand, setOptionBrand] = useState([]);
 
   const [valueEditorMain, setValueEditorMain] = useState("");
-  const [sizeList, setSizeList] = useState([{size: "", quantity: 0}]);
+  const [size2Quantity2PriceList, setSize2Quantity2PriceList] = useState([{size: "", quantity: 0, price: 0, discount: 0, totalPrice: 0}]);
   const [color, setColor] = useState("No Size Just Color");
-  const [price, setPrice] = useState(0);
-  const [discount, setDiscount] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
   const [fileImageMainList, setFileImageMainList] = useState([]);
   const [fileImageSubList, setFileImageSubList] = useState([]);
 
@@ -87,14 +84,13 @@ const AddProductPage = () => {
             let tempBrand = new Set()
             for (let i = 0; i < res.data.data.length; i++) {
               const temp = convertArrayToOptions(res.data.data[i].Brand, ",");
-              console.log(temp);
               for (let i = 0; i < temp.length; i++) {
                 tempBrand.add(temp[i]);
               }
             }
-            const temp=Array.from(tempBrand).map(index=>{
+            const temp = Array.from(tempBrand).map(index => {
               return {
-                value:index
+                value: index
               }
             })
             setOptionBrand(temp);
@@ -124,14 +120,6 @@ const AddProductPage = () => {
     getAllBrandss();
     getAllCategoriess();
   }, [])
-  useEffect(() => {
-    if (discount === 0) {
-      setTotalPrice(price * 1)
-    } else {
-      setTotalPrice(discount * price)
-    }
-
-  }, [discount, price])
 
 
   const handleChangeProName = (e) => {
@@ -139,12 +127,11 @@ const AddProductPage = () => {
   }
 
   const handleChangeCategory = (value) => {
-    if(value.includes("Phụ Kiện Chính Hãng")
-      ||value.includes("Túi Chính Hãng")
-      ||value.includes("Nón Chính Hãng")){
+    if (value.includes("Phụ Kiện Chính Hãng")
+      || value.includes("Túi Chính Hãng")
+      || value.includes("Nón Chính Hãng")) {
       setIsNoneSize(true);
-    }
-    else{
+    } else {
       setIsNoneSize(false);
     }
     setCategory(value)
@@ -162,20 +149,13 @@ const AddProductPage = () => {
     setColor(e.target.value)
   }
 
-  const handleChangePrice = (e) => {
-    setPrice(e.target.value)
-  }
 
-  const handleChangeDiscount = (e) => {
-    setDiscount((100 - e) / 100);
-  }
 
   const handleChangeMain = ({fileList: newFileList}) => {
     setFileImageMainList(newFileList)
   };
 
   const handleChangeSub = ({fileList: newFileList}) => {
-    console.log(newFileList)
     setFileImageSubList(newFileList)
   };
 
@@ -192,11 +172,11 @@ const AddProductPage = () => {
   const handleCancel = () => setPreviewOpen(false);
 
   const addProductClick = () => {
-    let status=0;
-    const tempSize = sizeList.map((value, index) => {
+    let status = 0;
+   /* const tempSize = size2Quantity2PriceList.map((value, index) => {
       const temp = value.size + ": " + value.quantity
-      if(value.quantity!=0){
-        status=1;
+      if (value.quantity != 0) {
+        status = 1;
       }
       if (index === 0) {
         return temp
@@ -204,32 +184,85 @@ const AddProductPage = () => {
         return ", " + temp
       }
     })
-    const size = tempSize.reduce((prev, next) => prev + next);
+    const size = tempSize.reduce((prev, next) => prev + next);*/
+    const tempSize2Quantity2PriceList=size2Quantity2PriceList.filter(index=>{
+      return (index.totalPrice!=0&&index.price!=0&&index.size!=""
+        &&index.quantity!=0&&index.discount!=0)
+    });
 
-    const tempSubImg=fileImageSubList.map(index=>(index.originFileObj));
-    const image = [fileImageMainList[0].originFileObj,...tempSubImg];
+
+
+
+    if(category==""||proName==""||brand==""||tempSize2Quantity2PriceList.length==0||color==""){
+      Notification("Thông báo thêm sản phẩm","Vui lòng điền đầy đủ thông tin",constraintNotification.NOTIFICATION_ERROR);
+      return;
+    }
+
+
+    const tempSize= tempSize2Quantity2PriceList.map((value, index) => {
+      const temp = index + ": " + value.size
+      if (index === 0) {
+        return temp
+      } else {
+        return " " + temp
+      }
+    })
+
+    const tempQuantity= tempSize2Quantity2PriceList.map((value, index) => {
+      const temp = index + ": " + value.quantity
+      if (value.quantity != 0) {
+        status = 1;
+      }
+      if (index === 0) {
+        return temp
+      } else {
+        return " " + temp
+      }
+    })
+
+    const tempPrice= tempSize2Quantity2PriceList.map((value, index) => {
+      const temp = index + ": " + value.price
+      if (index === 0) {
+        return temp
+      } else {
+        return " " + temp
+      }
+    });
+    const tempDiscount= tempSize2Quantity2PriceList.map((value, index) => {
+      const temp = index + ": " + value.discount/100;
+      if (index === 0) {
+        return temp
+      } else {
+        return " " + temp
+      }
+    });
+    const tempTotalPrice= tempSize2Quantity2PriceList.map((value, index) => {
+      const temp = index + ": " + value.totalPrice
+      if (index === 0) {
+        return temp
+      } else {
+        return " " + temp
+      }
+    });
+    const tempSubImg = fileImageSubList.map(index => (index?.originFileObj));
+    const image = [fileImageMainList[0]?.originFileObj, ...tempSubImg];
     const formData = new FormData();
 
-    formData.append('category',category);
-    formData.append('name',proName);
-    formData.append('des',valueEditorMain);
-    formData.append('shortDes',"empty");
-    formData.append('status',status);
-    formData.append('brand',brand);
-    formData.append('price',Math.round(price));
-    if(discount==0){
-      formData.append('discount',discount);
+    formData.append('category', category);
+    formData.append('name', proName);
+    formData.append('des', valueEditorMain);
+    formData.append('shortDes', "empty");
+    formData.append('status', status);
+    formData.append('brand', brand.toString().replaceAll(",",", "));
+    formData.append('size',tempSize.toString());
+    formData.append('quantity',tempQuantity.toString());
+    formData.append('price',tempPrice.toString());
+    formData.append('discount',tempDiscount.toString());
+    formData.append('totalPrice',tempTotalPrice.toString());
+    formData.append('color', color);
+    for (let i = 0; i < image.length; i++) {
+      formData.append('image', image[i]);
     }
-    else{
-      formData.append('discount',1.0-discount);
-    }
-    formData.append('total',Math.round(totalPrice));
-    for(let i=0;i<image.length;i++){
-      formData.append('image',image[i]);
-    }
-
-    formData.append('size',size);
-    formData.append('color',color);
 
     for (const value of formData.values()) {
       console.log(value);
@@ -240,7 +273,7 @@ const AddProductPage = () => {
         .then(res => {
           console.log(res?.response?.data);
           console.log(res);
-          if(res.data.status==="success"){
+          if (res.data.status === "success") {
             navigate(-1)
             Notification("Thông báo thêm sản phẩm", `Thêm sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
           }
@@ -249,35 +282,52 @@ const AddProductPage = () => {
         .catch(err => {
           console.log(err)
         })
-        .finally(()=>{
+        .finally(() => {
           dispatch(turnOffLoading());
         })
     }
-    callApiAddProduct();
+   /* callApiAddProduct();*/
   }
 
 
   //Size
 
   // handle input change
-  const handleInputChange = (e, index) => {
+  const handleSize2Quantity = (e, index) => {
     const {name, value} = e.target;
-    const list = [...sizeList];
+    const list = [...size2Quantity2PriceList];
     list[index][name] = value;
-    setSizeList(list);
+    list[index].price = Number(list[index].price);
+    if (list[index].discount == 0) {
+      list[index].totalPrice = Number(list[index].price);
+    } else {
+      list[index].totalPrice = Number(list[index].price) * ((100 - Number(list[index].discount)) / 100);
+    }
+    list[index].totalPrice = Number(list[index].totalPrice);
+    setSize2Quantity2PriceList(list);
   };
+
+
+  const handleChangeDiscount = (e, index) => {
+    const a = ((100 - e) / 100);
+    const list = [...size2Quantity2PriceList];
+    list[index].discount = e;
+    let tempPrice = (list[index].price);
+    list[index].totalPrice = tempPrice * a;
+    setSize2Quantity2PriceList(list);
+  }
 
 
   // handle click event of the Remove button
   const handleRemoveClick = index => {
-    const list = [...sizeList];
+    const list = [...size2Quantity2PriceList];
     list.splice(index, 1);
-    setSizeList(list);
+    setSize2Quantity2PriceList(list);
   };
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    setSizeList([...sizeList, {size: "", quantity: ""}]);
+    setSize2Quantity2PriceList([...size2Quantity2PriceList, {size: "", quantity: 0, price: 0, discount: 0, totalPrice: 0}]);
   };
 
 
@@ -331,7 +381,7 @@ const AddProductPage = () => {
               }}
               onChange={handleChangeBrand}
               placeholder="Nhập tên thương hiệu"
-              filterOption={(inputValue, option) =>{
+              filterOption={(inputValue, option) => {
                 return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
               }}
               options={optionsBrand}
@@ -343,49 +393,92 @@ const AddProductPage = () => {
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả </label>
           <div className="col-sm-9">
-            <JoditEditor className="form-control boxed" ref={editor} onChange={handleChangeDescription} value={`<p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Địa chỉ:</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="📍" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Chi nhánh 1: 86/118 Trường Chinh, phường 12, quận Tân Bình</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="📍" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Chi nhánh 2: 666/4 Ba tháng hai, phường 14, quận 10</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Mọi thông tin chi tiết xin vui lòng liên hệ: 0865414134</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Facebook: https://www.facebook.com/giay2handschatluong</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Instagram: https://www.instagram.com/shoedog.vn_/</strong></p>`}/>
+            <JoditEditor className="form-control boxed" ref={editor} onChange={handleChangeDescription}
+                         value={`<p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/2705.svg" alt="✅" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Cam kết trọn đời mọi sản phẩm bên Shoe Dog là hàng chính hãng</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Địa chỉ:</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="📍" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Chi nhánh 1: 86/118 Trường Chinh, phường 12, quận Tân Bình</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;"><img class="emoji" role="img" draggable="false" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f4cd.svg" alt="📍" style="box-sizing: border-box; border: none !important; max-width: 100%; height: 1em !important; display: inline !important; vertical-align: -0.1em !important; transition: opacity 1s ease 0s; opacity: 1; box-shadow: none !important; width: 1em !important; margin: 0px 0.07em !important; background: none !important; padding: 0px !important;">Chi nhánh 2: 666/4 Ba tháng hai, phường 14, quận 10</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Mọi thông tin chi tiết xin vui lòng liên hệ: 0865414134</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Facebook: https://www.facebook.com/giay2handschatluong</strong></p><p style="box-sizing: border-box; overflow-wrap: break-word; margin-bottom: 1.3em; margin-top: 0px; color: rgb(0, 0, 0); font-family: Roboto, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: medium;"><strong style="box-sizing: border-box; font-weight: bolder; font-family: &quot;Times New Roman&quot;, Times, serif;">Instagram: https://www.instagram.com/shoedog.vn_/</strong></p>`}/>
 
           </div>
         </div>
 
         <div className="form-group row">
-          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> {isNonSize==true?"Màu - Số lượng":"Size - Số lượng"} </label>
+          <label className="col-sm-3 form-control-label text-xs-right"
+                 htmlFor="title"> {isNonSize == true ? "Màu - Số lượng" : "Size - Số lượng"} </label>
           <div className="col-sm-9">
             &#9; &#9;
-            {sizeList.map((x, i) => {
-              return (
-                <div className="row" style={{marginBottom: "10px"}}>
-                  <Input
-                    name="size"
-                    style={{width: "20%", marginLeft: "10px", marginRight: "5px"}}
-                    placeholder="Hãy nhập size"
-                    value={x.size}
-                    onChange={e => handleInputChange(e, i)}
-                  />
-                  <Input
-                    className="ml10 discountInput"
-                    style={{width: "40%"}}
-                    name="quantity"
-                    placeholder="Hãy nhập số lượng"
-                    value={x.quantity}
-                    onChange={e => handleInputChange(e, i)}
-                    onKeyPress={(event) => {
-                      if (!/[0-9]/.test(event.key)) {
-                        event.preventDefault();
-                      }
-                    }}
-                  />
-                  <div style={{width: "30%"}}>
-                    {sizeList.length > 1 ?
-                      <Radio.Button style={{marginRight: "5px", marginBottom: "5px"}} value="large"
-                                    onClick={() => handleRemoveClick(i)}>Remove</Radio.Button> : ""
-                    }
-                    {sizeList.length - 1 === i &&
-                      <Radio.Button value="large" onClick={handleAddClick}>Add</Radio.Button>}
+            <div className="row">
+              {size2Quantity2PriceList.map((x, i) => {
+                return (
+                  <div className="col-lg-6" style={{marginBottom: "10px"}}>
+                    <Space
+                      direction="vertical"
+                      size="small"
+                      style={{
+                        display: 'flex',
+                      }}
+                    >
+                      <Input
+                        name="size"
+                        placeholder="Hãy nhập size"
+                        value={x.size}
+                        onChange={e => handleSize2Quantity(e, i)}
+                      />
+                      <Input
+                        className="ml10 discountInput"
+
+                        name="quantity"
+                        placeholder="Hãy nhập số lượng"
+                        value={x.quantity}
+                        onChange={e => handleSize2Quantity(e, i)}
+                        onKeyPress={(event) => {
+                          if (!/[0-9]/.test(event.key)) {
+                            event.preventDefault();
+                          }
+                        }}
+                      />
+
+                      <input className=" form-control boxed " placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
+                        if (!/[0-9]/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                      }} name="price" onBlur={onBlur} onFocus={onFocus} onChange={e => handleSize2Quantity(e, i)}
+                             value={x.price}/>
+
+                      <InputNumber
+                        className="form-control boxed discountInput"
+                        min={0}
+                        max={100}
+                        name="discount"
+                        placeholder="Hãy nhập khuyến mãi"
+                        formatter={(value) => `${value}%`}
+                        defaultValue={x.discount}
+                        parser={(value) => value.replace('%', '')}
+                        onChange={e => handleChangeDiscount(e, i)}
+                        onKeyPress={(event) => {
+                          if (!/[0-9]/.test(event.key)) {
+                            event.preventDefault();
+                          }
+                        }}
+                        value={x.discount}
+                      />
+
+                      <input type="text" className="form-control boxed" id="title" style={{width: "40%"}}
+                             name="totalPrice"
+                             value={x.totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
+
+
+                      <div style={{width: "30%"}}>
+                        {size2Quantity2PriceList.length > 1 ?
+                          <Radio.Button style={{marginRight: "5px", marginBottom: "5px"}} value="large"
+                                        onClick={() => handleRemoveClick(i)}>Xóa</Radio.Button> : ""
+                        }
+                        {size2Quantity2PriceList.length - 1 === i &&
+                          <Radio.Button value="large" onClick={handleAddClick}>Thêm mới</Radio.Button>}
+                      </div>
+                    </Space>
                   </div>
-                </div>
-              );
-            })}
+
+                );
+              })}
+            </div>
           </div>
         </div>
         {isNonSize == true
@@ -399,7 +492,7 @@ const AddProductPage = () => {
             </div>
           </div>
         }
-        <div className="form-group row">
+       {/* <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Giá tiền gốc </label>
           <div className="col-sm-9">
 
@@ -439,7 +532,7 @@ const AddProductPage = () => {
             <input type="text" className="form-control boxed" id="title" placeholder="Điền số tiền"
                    value={totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
           </div>
-        </div>
+        </div>*/}
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right"> Hình ảnh chính: </label>
           <div className="col-sm-9">
@@ -450,14 +543,14 @@ const AddProductPage = () => {
                 onPreview={handlePreview}
                 onChange={handleChangeMain}
                 beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml'|| file.type==='image/webp';
+                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type === 'image/webp';
                   if (!isPNG) {
                     message.error(`${file.name} is not a png, svg and jpeg file`);
                   }
                   return false;
                 }}
               >
-                {fileImageMainList.length===0?uploadButton:""}
+                {fileImageMainList.length === 0 ? uploadButton : ""}
               </Upload>
               <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
@@ -482,7 +575,7 @@ const AddProductPage = () => {
                 onChange={handleChangeSub}
                 multiple={true}
                 beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type==='image/webp';
+                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type === 'image/webp';
                   if (!isPNG) {
                     message.error(`${file.name} is not a png, svg and jpeg file`);
                   }

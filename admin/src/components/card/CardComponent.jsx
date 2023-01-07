@@ -60,7 +60,7 @@ const CardComponent = ({index,setLoading}) => {
         <div className="item-col item-col-sales">
           <div className="item-heading">Giá tiền</div>
           <div className="no-overflow">
-            <div> {index.TotalPrice.toLocaleString('it-IT', {style: 'currency', currency: 'VND'})}</div>
+            <div> {Number(index?.TotalPrice).toLocaleString('it-IT', {style: 'currency', currency: 'VND'})}</div>
           </div>
         </div>
         <div className="item-col item-col-stats no-overflow">

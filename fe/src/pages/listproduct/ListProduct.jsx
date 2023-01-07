@@ -130,7 +130,7 @@ const ListProduct = () => {
 
               let tempBrand = new Set()
               for (let i = 0; i < res.data.data.length; i++) {
-                const temp = convertArrayToOptions(res.data.data[i].Brand, ",");
+                const temp = convertArrayToOptions(res.data.data[i].Brand, ", ");
                 for (let i = 0; i < temp.length; i++) {
                   tempBrand.add(temp[i]);
                 }
