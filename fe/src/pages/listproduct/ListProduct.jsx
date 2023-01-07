@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import {getListProductsByCatId} from "../../apis/products/ProductsApi";
 import Notification from "../../components/notification/Notification";
 import * as constraintNotification from "../../components/notification/Notification.constraints";
@@ -9,7 +9,7 @@ import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout
 import "./ListProduct.css"
 import {Pagination, Slider, Tag} from "antd";
 import ErrorPage from "../error/ErrorPage";
-import {convertArrayToOptions} from "../../utils/Utils";
+import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize2Price} from "../../utils/Utils";
 
 const pageIndex = 6;
 
@@ -123,9 +123,15 @@ const ListProduct = () => {
           if (res.data.status === 'success') {
             if (res.data.data.length != 0) {
               const total = res.data.data.map(index => index.TotalPrice);
-              setListPrice({min: minValue(...total), max: maxValue(...total)});
-              setListPriceTemp({min: minValue(...total), max: maxValue(...total)});
-              /* setListBrand(res.data.data.map(index => index.Brand).filter(onlyUnique));*/
+
+              let temp=[]
+              for(let i=0;i<total.length;i++){
+                convertArrayToQuantity(total[i]).forEach(index=>{
+                  temp.push(Number(index));
+                })
+              }
+              setListPrice({min: minValue(...temp), max: maxValue(...temp)});
+              setListPriceTemp({min: minValue(...temp), max: maxValue(...temp)});
 
 
               let tempBrand = new Set()
@@ -135,27 +141,28 @@ const ListProduct = () => {
                   tempBrand.add(temp[i]);
                 }
               }
+
+              const itemResult = res.data.data.map(index => {
+                return{
+                  ...index,
+                  TotalPrice: convertArrayToSize2Price(index?.TotalPrice).toString()
+                }
+              });
+
               setListBrand(Array.from(tempBrand));
-              setItemInCategory(res.data.data);
-              setItemTempInCategory(res.data.data);
+              setItemInCategory(itemResult);
+              setItemTempInCategory(itemResult);
               setLoading(true)
 
               if (res.data.Size !== null) {
-                const a = res.data.data.map(index => {
-                  const temp = convertArrayToOptions(index.Size, ", ");
-                  const tempResult = temp.map(index => {
-                    const Size = convertArrayToOptions(index, ": ");
-                    return Size[0];
-                  })
-                  return tempResult;
-                })
-                const mySet = new Set()
-                for (let i = 0; i < a.length; i++) {
-                  for (let j = 0; j < a[i].length; j++) {
-                    mySet.add(a[i][j])
+                let sizeArr=new Set();
+                res.data.data.map(index=>{
+                  const temp=convertArrayToSize2Price(index?.Size);
+                  for(let i=0;i<temp.length;i++){
+                    sizeArr.add(temp[i]);
                   }
-                }
-                setListSize(Array.from(mySet))
+                })
+                setListSize(new Array(...sizeArr))
               }
             }
             else{
@@ -190,14 +197,30 @@ const ListProduct = () => {
       document.body.classList.remove("filterActive")
     }
   }, [filterButton]);
+
+
   useEffect(() => {
     if (turnOnSliderPrice === false) {
       return;
     } else {
       dispatch(turnOnLoading());
       let isChooseAnother = false;
-      const tempPriceSet = itemTempInCategory?.filter(index => (index?.TotalPrice <= listPrice.max && index?.TotalPrice >= listPrice.min));
-      let tempPrice = itemTempInCategory?.filter(index => (index?.TotalPrice <= listPrice.max && index?.TotalPrice >= listPrice.min));
+      const tempPriceSet = itemTempInCategory?.filter((value,index) => {
+        const temp=convertArrayToOptions(value?.TotalPrice,",");
+        for(let i=0;i<temp.length;i++){
+          if(Number(temp[i]) <= Number(listPrice.max) && Number(temp[i]) >= Number(listPrice.min)){
+            return( temp[i] <= listPrice.max && temp[i] >= listPrice.min)
+          }
+        }
+      });
+      let tempPrice = itemTempInCategory?.filter(value => {
+        const temp=convertArrayToOptions(value?.TotalPrice,",");
+        for(let i=0;i<temp.length;i++){
+          if(Number(temp[i]) <= Number(listPrice.max) && Number(temp[i]) >= Number(listPrice.min)){
+            return( temp[i] <= listPrice.max && temp[i] >= listPrice.min)
+          }
+        }
+      });
       for (let i = 0; i < stateFilter.length; i++) {
         if (stateFilter[i].name !== "Price") {
           if (stateFilter[i].state === true) {
@@ -220,6 +243,7 @@ const ListProduct = () => {
       }
 
       if (isChooseAnother === true) {
+        setPage(1);
         setItemInCategory(tempPrice)
         const tempBrand2 = stateFilter.map(index => {
           if (index.name === "Price") {
@@ -235,6 +259,7 @@ const ListProduct = () => {
         })
         setStateFilter(tempBrand2)
       } else if (isChooseAnother === false) {
+        setPage(1);
         setItemInCategory(tempPrice)
         const tempBrand2 = stateFilter.map(index => {
           if (index.name === "Price") {
@@ -248,10 +273,8 @@ const ListProduct = () => {
             return index
           }
         })
-
         setStateFilter(tempBrand2)
       }
-
       dispatch(turnOffLoading())
     }
 
@@ -289,8 +312,7 @@ const ListProduct = () => {
     const tempBrandSet = itemTempInCategory.filter(index => index.Brand.includes(brandName));
     if (isChooseAnother === true) {
       setItemInCategory(tempBrand)
-
-
+      setPage(1);
       const tempBrand2 = stateFilter.map(index => {
         if (index.name === "Brand") {
           return {
@@ -306,6 +328,7 @@ const ListProduct = () => {
       setStateFilter(tempBrand2)
     } else if (isChooseAnother === false) {
       setItemInCategory(tempBrand)
+      setPage(1);
       const tempBrand2 = stateFilter.map(index => {
         if (index.name === "Brand") {
           return {
@@ -332,7 +355,7 @@ const ListProduct = () => {
       const a = convertArrayToOptions(index.Size, ", ");
       const tempResult = a.map(index => {
         const temp = convertArrayToOptions(index, ": ");
-        return temp[0]
+        return temp[1]
       })
       return {value:index, size: tempResult};
     })
@@ -372,7 +395,7 @@ const ListProduct = () => {
     }).map(index=>index.value);
     if (isChooseAnother === true) {
       setItemInCategory(tempSize)
-
+      setPage(1);
       const tempBrand2 = stateFilter.map(index => {
         if (index.name === "Size") {
           return {
@@ -387,6 +410,7 @@ const ListProduct = () => {
       })
       setStateFilter(tempBrand2)
     } else if (isChooseAnother === false) {
+      setPage(1);
       setItemInCategory(tempSize)
       const tempBrand2 = stateFilter.map(index => {
         if (index.name === "Size") {
@@ -470,7 +494,7 @@ const ListProduct = () => {
     return <ErrorPage/>
   }
 
-  const onChange = (value) => {
+  const onChangePrice = (value) => {
     if (value[0] === listPrice.min && value[1] === listPrice.max) {
       setTurnOnSliderPrice(false);
     } else {
@@ -587,7 +611,7 @@ const ListProduct = () => {
               <ul className="clearfix" style={{display: "flex", justifyContent: "center", overflowX: "hidden"}}>
                 <li style={{width: "100%"}}>
                   <div>
-                    <Slider range defaultValue={[listPrice.min, listPrice.max]} vertical={false} onChange={onChange}
+                    <Slider range defaultValue={[listPrice.min, listPrice.max]} vertical={false} onChange={onChangePrice}
                             onAfterChange={onAfterChange} min={listPriceTemp.min} max={listPriceTemp.max}/>
                   </div>
                   <div style={{display: "flex", justifyContent: "space-between"}}>
@@ -620,7 +644,8 @@ const ListProduct = () => {
                              proId={value?.ProId}
                              statusPro={value?.StatusPro}
                              priceDiscount={value?.TotalPrice}
-                             priceNonDiscount={value?.Discount === 0 ? null : value?.Price}/>
+                             discount={value?.Discount}
+                             priceNonDiscount={value?.Price}/>
             </div>) : ""
         })}
 
@@ -631,7 +656,7 @@ const ListProduct = () => {
           <Pagination total={itemInCategory.length} current={page} defaultCurrent={1} pageSize={pageIndex}
                       showSizeChanger={false} onChange={(pageindex) => {
                         setPage(pageindex);
-                        navigate(`/product/${product}/${pageindex}`)
+                        navigate(`/product/${product}/page=${pageindex}`)
                       }}/>
         </div>
         : ""

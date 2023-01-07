@@ -92,7 +92,7 @@ exports.addProduct = async (req, res) => {
             Quantity: productBody.quantity,
             Price: productBody.price,
             Discount: productBody.discount,
-            TotalPrice: productBody.total,
+            TotalPrice: productBody.totalPrice,
             Color: productBody.color,
             DateStart: new Date(),
         }

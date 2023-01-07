@@ -10,6 +10,7 @@ import {getListProductsByCatId} from "../../apis/products/ProductsApi";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
+import {convertArrayToSize2Price} from "../../utils/Utils";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -36,14 +37,19 @@ const HomePage = () => {
                 return index
               }
             })
-            console.log("dsdsd",a)
             a.forEach(async index => {
                 await getListProductsByCatId(index.CatId)
                   .then(res => {
                     if (res.data.status === 'success') {
+                      const itemResult = res.data.data.map(index => {
+                        return{
+                          ...index,
+                          TotalPrice: convertArrayToSize2Price(index?.TotalPrice).toString()
+                        }
+                      });
                       const newElement={
                         category: {...index},
-                        productList: [...res.data.data]
+                        productList: [...itemResult]
                       }
                       setProductWithCatId(prevState => [...prevState,newElement]);
 
@@ -82,18 +88,22 @@ const HomePage = () => {
                   <div className="container">
                     <h2 className="text-center title__type">{index.category.CatName}</h2>
                     <div className="row products">
-                      {index.productList.map((u,index) => (
+                      {index.productList.map((value,index) => (
                         index<9?
+
                         <div className="col-lg-4 col-md-6 ">
-                          <CardComponent name={u.ProName}
-                                         img={u.ImageMain}
-                                         proId={u.ProId}
-                                         priceDiscount={u.Price} priceNonDiscount={u.Discount === 0 ? null : u.Discount}/>
+                          <CardComponent name={value?.ProName}
+                                         img={value?.ImageMain}
+                                         proId={value?.ProId}
+                                         statusPro={value?.StatusPro}
+                                         priceDiscount={value?.TotalPrice}
+                                         discount={value?.Discount}
+                                         priceNonDiscount={value?.Price}/>
                         </div>:""
                       ))}
                     </div>
                     {index.productList.length > 9 ?
-                      <div className="text-center" onClick={() => navigate(`/product/${index.category.CatId}`)}>
+                      <div className="text-center" onClick={() => navigate(`/product/${index.category.CatId}/page=1`)}>
                         <a className="btn-see-more text-uper">see more</a>
                       </div>
                       : ""

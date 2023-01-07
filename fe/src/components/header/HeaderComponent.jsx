@@ -6,7 +6,7 @@ import {useComponentSize} from "react-use-size";
 import {useSelector} from "react-redux";
 import {Avatar, Badge, Space} from "antd";
 import LoadingComponent from "../loading/LoadingComponent";
-
+import "./Header.css"
 
 const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) => {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
                     {cartItem.map(index => (
                       <CartComponent img={index?.detailProduct?.ImageMain} productName={index?.detailProduct?.ProName}
                                      quantity={index?.quantity}
-                                     price={index?.totalPrice}  size={index?.aboutSize?.size} index={index} />
+                                     price={index?.totalPrice}  size={index?.aboutSize?.size} index={index} setCartButton={setCartButton} />
                     ))}
                     <hr/>
                     <div className="clearfix mgB-20">
@@ -109,16 +109,16 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
             <div>
               <ul>
                 <li>
-                  <a onClick={() => navigate(`/product/6`)}><span>Giày chính hãng</span></a>
+                  <a onClick={() => navigate(`/product/6/page=1`)}><span>Giày chính hãng</span></a>
                   <div className="menu__sub">
                     <ul>
-                      <li onClick={() => navigate(`/product/6`)}>
+                      <li onClick={() => navigate(`/product/6/page=1`)}>
                         <a>Giày Mới</a>
                       </li>
-                      <li onClick={() => navigate(`/product/7`)}>
+                      <li onClick={() => navigate(`/product/7/page=1`)}>
                         <a >Giày Secondhand</a>
                       </li>
-                      <li onClick={() => navigate(`/product/8`) }>
+                      <li onClick={() => navigate(`/product/8/page=1`) }>
                         <a >Giày trẻ em</a>
                       </li>
                     </ul>
@@ -126,7 +126,7 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
 
                 </li>
                 {categoryList.map((value,index) => (
-                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}`)}>
+                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}/page=1`)}>
                     <a><span>{value.CatName}</span></a></li>:""
                 ))}
                {/* <li>

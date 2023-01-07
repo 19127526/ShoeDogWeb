@@ -15,6 +15,7 @@ const CardComponent = ({index,setLoading}) => {
   const navigate = useNavigate();
   const [openSetting,setOpenSetting]=useState(false);
   const a = convertArrayToOptions(index.Size, ", ");
+
   const dispatch=useDispatch();
   const tempValue = a.map(index => {
     const temp = convertArrayToOptions(index, ": ");

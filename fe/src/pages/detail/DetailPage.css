@@ -41,4 +41,12 @@
     }
 }
 
+@media (min-width: 770px) and (max-width: 1100px) {
+    .textDescription{
+        overflow: auto;
+        overflow-x: hidden;
+        height: 200px
+    }
+}
+
 

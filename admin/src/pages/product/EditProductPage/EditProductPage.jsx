@@ -439,7 +439,7 @@ const EditProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên thương hiệu </label>
           <div className="col-sm-9">
             <Select
-              mode={"multiple"}
+              mode={"tags"}
               allowClear
               options={optionsBrand}
               style={{

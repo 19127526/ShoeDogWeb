@@ -17,12 +17,12 @@ import * as constraintNotification from "../../components/notification/Notificat
 
 const OrderProcessPage = () => {
   const dispatch=useDispatch()
+  const [valueOrder,setValueOrder]=useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableLayout, setTableLayout] = useState(undefined);
   const [yScroll, setYScroll] = useState(false);
   const [xScroll, setXScroll] = useState(undefined);
   const [sort, setSort] = useState('ascend');
-  const [valueOrder,setValueOrder]=useState([]);
   const scroll = {};
   const [isLoading,setIsLoading]=useState(false);
   const columns = [
@@ -174,7 +174,6 @@ const OrderProcessPage = () => {
                 description: <DescriptionComponent index={index}/>,
                 action: <Dropdown
                   menu={menuProps}
-
                 >
                   <Typography.Link>
                     <Space size={"middle"}>

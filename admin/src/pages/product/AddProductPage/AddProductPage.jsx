@@ -187,13 +187,14 @@ const AddProductPage = () => {
     const size = tempSize.reduce((prev, next) => prev + next);*/
     const tempSize2Quantity2PriceList=size2Quantity2PriceList.filter(index=>{
       return (index.totalPrice!=0&&index.price!=0&&index.size!=""
-        &&index.quantity!=0&&index.discount!=0)
+        &&index.quantity!=0)
     });
 
 
 
 
     if(category==""||proName==""||brand==""||tempSize2Quantity2PriceList.length==0||color==""){
+      console.log(tempSize2Quantity2PriceList,size2Quantity2PriceList)
       Notification("Thông báo thêm sản phẩm","Vui lòng điền đầy đủ thông tin",constraintNotification.NOTIFICATION_ERROR);
       return;
     }
@@ -286,7 +287,7 @@ const AddProductPage = () => {
           dispatch(turnOffLoading());
         })
     }
-   /* callApiAddProduct();*/
+    callApiAddProduct();
   }
 
 
@@ -374,7 +375,7 @@ const AddProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên thương hiệu </label>
           <div className="col-sm-9">
             <Select
-              mode={"multiple"}
+              mode={"tags"}
               allowClear
               style={{
                 width: 300,
@@ -417,7 +418,7 @@ const AddProductPage = () => {
                     >
                       <Input
                         name="size"
-                        placeholder="Hãy nhập size"
+                        placeholder={isNonSize==true?"Hãy nhập Màu":"Hãy nhập size"}
                         value={x.size}
                         onChange={e => handleSize2Quantity(e, i)}
                       />

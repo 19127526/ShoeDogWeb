@@ -14,7 +14,9 @@ INSERT INTO categories (CatId, CatName) VALUES (2, 'Nón Chính Hãng');
 INSERT INTO categories (CatId, CatName) VALUES (3, 'Túi Chính Hãng');
 INSERT INTO categories (CatId, CatName) VALUES (4, 'Phụ Kiện Chính Hãng');
 INSERT INTO categories (CatId, CatName) VALUES (5, 'Dép Chính Hãng');
-INSERT INTO categories (CatId, CatName) VALUES (6, 'Giày mới 100%');
+INSERT INTO categories (CatId, CatName) VALUES (6, 'Giày Mới');
+INSERT INTO categories (CatId, CatName) VALUES (7, 'Giày Cũ');
+INSERT INTO categories (CatId, CatName) VALUES (8, 'Giày Trẻ Em');
 
 
 DROP TABLE IF EXISTS `Products`;

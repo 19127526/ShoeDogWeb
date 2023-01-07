@@ -143,7 +143,7 @@ const MainLayout = () => {
                         (value?.CatId!=6&&value?.CatId!=7&&value?.CatId!=8)?
                         <li key={value.CatId}>
                           <a onClick={() => {
-                            navigate(`/product/${value.CatId}`);
+                            navigate(`/product/${value.CatId}/page=1`);
                             setChangeSide(false)}
                           }>{value.CatName}<span
                             className="icon-navigate_next"></span></a>

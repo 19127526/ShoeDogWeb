@@ -1,5 +1,10 @@
 import {ShareAltOutlined} from '@ant-design/icons';
-import {convertArrayToOptions, getWindowWidth} from "../../utils/Utils";
+import {
+  convertArrayToOptions,
+  convertArrayToQuantity,
+  convertArrayToSize2Price,
+  getWindowWidth
+} from "../../utils/Utils";
 import {Carousel} from "react-responsive-carousel";
 import "./DetailPage.css"
 import {useEffect, useRef, useState} from "react";
@@ -26,6 +31,7 @@ const DetailPage = () => {
   const [sizeList, setSizeList] = useState([{
     size: null,
     quantity: null,
+    totalPrice:null,
   }]);
   const [color, setColor] = useState();
   const [empty, setEmpty] = useState(false);
@@ -45,14 +51,18 @@ const DetailPage = () => {
         .then(res => {
           if (res.data.status === 'success') {
             setDetailProduct(res.data.data[0]);
-            setSizeList(convertArrayToOptions(res.data.data[0].Size, ", ")
-              .map(index => {
-                const temp = convertArrayToOptions(index, ": ");
-                return {
-                  size: temp[0],
-                  quantity: temp[1]
-                }
-              }));
+            const tempSize=convertArrayToQuantity(res.data.data[0].Size);
+            const tempQuantity=convertArrayToQuantity(res.data.data[0].Quantity);
+            const tempTotalPrice=convertArrayToQuantity(res.data.data[0].TotalPrice);
+            const temp=[];
+            for(let i=0;i<tempSize.length;i++){
+              temp.push({
+                size:tempSize[i],
+                quantity:tempQuantity[i],
+                totalPrice:Number(tempTotalPrice[i])
+              })
+            }
+            setSizeList(temp);
             setColor(res.data.data[0].Color);
             if (res.data.data[0].ImageArray === null || res.data.data[0].ImageArray === undefined || res.data.data[0].ImageArray === "") {
               setImageSubArray([])
@@ -66,7 +76,13 @@ const DetailPage = () => {
               await relatedProduct(res.data.data[0].CatId, res.data.data[0].ProId)
                 .then(res => {
                   if (res.data.status === 'success') {
-                    setRelatedProductList(res.data.data);
+                    const itemResult = res.data.data.map(index => {
+                      return{
+                        ...index,
+                        TotalPrice: convertArrayToSize2Price(index?.TotalPrice).toString()
+                      }
+                    });
+                    setRelatedProductList(itemResult);
                   }
                 })
                 .catch(err => {
@@ -153,8 +169,7 @@ const DetailPage = () => {
             <div className="detail__img" ref={ref}>
               <div className="main-slide-detail">
                 <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
-                          autoFocus={true}>
-
+                          autoFocus={true}  interval={5000}>
                   {imageSubArray.length === 0 || imageSubArray === undefined || imageSubArray[0] === "" ?
                     <div>
                       <img src={detailProduct?.ImageMain}/>
@@ -187,7 +202,7 @@ const DetailPage = () => {
                   <div className="mgB-20">
                     <div className="dropdownChooseSize">
                       <a onClick={() => setChooseSizeBtn(!chooseSizeBtn)}
-                         className={chooseSizeBtn === true ? "val-selected clearfix active" : "val-selected clearfix"}>
+                         className={chooseSizeBtn === true ? "val-selected clearfix active" : "val-selected clearfix"} style={{height:"100%"}}>
                         <span className="icon-uniF140"></span>
                         <div className="get-val clearfix">
 
@@ -196,11 +211,16 @@ const DetailPage = () => {
                                 <span className="icon-uniF335" onClick={() => {
                                   setChooseSizeSuccess({size: null, price: null})
                                 }}></span>
-                              <span className="txtPrice">{chooseSizeSuccess.price.toLocaleString('it-IT', {
+                              <span className="txtPrice" style={{fontSize:"13px"}}>{chooseSizeSuccess.price.toLocaleString('it-IT', {
                                 style: 'currency',
                                 currency: "VND"
                               })}</span>
-                              <span className="txtSize">Size {chooseSizeSuccess.size}</span>
+                              {detailProduct?.Color.includes("No Size Just Color") ?
+                              <span className="txtSize" style={{fontSize:"13px"}}>{chooseSizeSuccess.size}</span>
+                                :
+                                <span className="txtSize">Size {chooseSizeSuccess.size}</span>
+                              }
+
                             </div>
                           }
                         </div>
@@ -211,17 +231,22 @@ const DetailPage = () => {
                         <div className="chooseSizeInner">
                           <ul>
                             {sizeList.map(index => (
-                              <li onClick={() => setChooseSize(index.size, detailProduct?.TotalPrice)}>
+                              <li onClick={() =>{setChooseSize(index.size, index?.totalPrice);setChooseSizeBtn(false)}}>
                                 <a>
-                                  <span className="pull-right detail__price">
-                                    {detailProduct?.TotalPrice.toLocaleString('it-IT', {
+                                  <span className="pull-right detail__price">{Number(index?.totalPrice).toLocaleString('it-IT', {
                                       style: 'currency',
                                       currency: "VND"
-                                    })}
-                                  </span>
-                                  <span className="detail__size">
-                                      {index.size} - Số lượng {index.quantity}
-                                  </span>
+                                    })}</span>
+                                  {detailProduct?.Color.includes("No Size Just Color") ?
+                                    <>
+                                    <p className="detail__size">{index?.size}</p>
+                                    </>
+                                    :
+                                    <>
+                                    <p className="detail__size">Size {index?.size}</p>
+                                    <p className="detail__size">Số lượng {index?.quantity}</p>
+                                    </>
+                                  }
                                 </a>
                               </li>
                             ))}
@@ -267,8 +292,12 @@ const DetailPage = () => {
                     <p className="title__detailproduct">Chi tiết sản phẩm</p>
                     <div className="color-7c7c7c mgB-5">
                       <p>
-                        <label>Màu sắc: </label>
-                        &nbsp;{detailProduct?.Color}
+                        {detailProduct?.Color.includes("No Size Just Color")?
+                          "":
+                          <>
+                          <label>Màu sắc: </label>
+                          &nbsp; {detailProduct?.Color}
+                          </>}
                       </p>
                         <div className="textDescription" dangerouslySetInnerHTML={{__html: detailProduct?.Des.replace(/(<? *script)/gi, 'illegalscript')}}>
                         </div>
@@ -289,8 +318,10 @@ const DetailPage = () => {
                     <CardComponent name={value?.ProName}
                                    img={value?.ImageMain}
                                    proId={value?.ProId}
+                                   statusPro={value?.StatusPro}
                                    priceDiscount={value?.TotalPrice}
-                                   priceNonDiscount={value.Discount === 0 ? null : value?.Price}/>
+                                   discount={value?.Discount}
+                                   priceNonDiscount={value?.Price}/>
                   </div>
                 ))
               }
