@@ -3,6 +3,7 @@ import {DETAIL_PRODUCT} from "../../configs/url";
 
 
 const CardRevenue=({items})=>{
+  console.log(items)
   const navigate=useNavigate();
   return (
     <li className="item" onClick={()=>navigate(DETAIL_PRODUCT+items?.CatId+"/"+items?.ProId)}>
@@ -26,7 +27,7 @@ const CardRevenue=({items})=>{
         </div>
         <div className="item-col item-col-stats">
           <div className="item-heading">Doanh thu</div>
-          <div> {Number(items?.TotalPrice*items?.Amount).toLocaleString('it-IT', {style: 'currency', currency: 'VND'})}</div>
+          <div> {Number(items?.PriceRevenue).toLocaleString('it-IT', {style: 'currency', currency: 'VND'})}</div>
         </div>
         <div className="item-col item-col-date">
           <div className="item-heading">Tình trạng</div>

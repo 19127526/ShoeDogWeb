@@ -237,6 +237,7 @@ exports.searchProductByCatId = async (req, res) => {
 exports.getStatisticDay = async (req, res) => {
     try {
         const statistic = await product.getStatisticDay();
+        console.log(statistic)
         const data = statistic[0][0].total_cost?statistic[0][0].total_cost:null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {

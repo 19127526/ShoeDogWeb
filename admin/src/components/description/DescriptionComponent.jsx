@@ -7,6 +7,7 @@ import {LIST_PRODUCT_BY_CATEGORY_ID} from "../../configs/url";
 
 
 const DescriptionComponent = ({index}) => {
+  console.log(index)
   const navigate=useNavigate();
   const columns = [
     {
@@ -52,7 +53,7 @@ const DescriptionComponent = ({index}) => {
         proName: value.ProName,
         amount: value.Amount,
         size: value.Size,
-        totalPrice: (value?.TotalPrice * value?.Amount).toLocaleString('it-IT', {
+        totalPrice: (value?.Price).toLocaleString('it-IT', {
           style: 'currency',
           currency: 'VND'
         }),
@@ -75,7 +76,7 @@ const DescriptionComponent = ({index}) => {
       <Descriptions.Item label="Email" span={3}>{index.Email}</Descriptions.Item>
       <Descriptions.Item label="Địa chỉ giao hàng" span={3}>{index.Address}</Descriptions.Item>
       <Descriptions.Item label="Ghi chú của khách hàng" span={3}>{index.Note}</Descriptions.Item>
-      <Descriptions.Item label="Tổng đơn hàng" span={3}>{totalPrice.toLocaleString('it-IT', {
+      <Descriptions.Item label="Tổng đơn hàng" span={3}>{index?.TotalCost.toLocaleString('it-IT', {
         style: 'currency',
         currency: 'VND'
       })}</Descriptions.Item>

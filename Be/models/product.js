@@ -111,24 +111,26 @@ exports.changeStatusProDuctByProId = async (proId, statusPro) => {
 
 exports.getStatisticDay = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
-      'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
+      'from  orders o \n' +
       'where DATE(o.OrderDate) = DATE(NOW()) and o.StatusOrder = 1 \n')
 }
 
+
+
 exports.getStatisticMonth = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
-      'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
+      'from orders o \n' +
       'where MONTH(o.OrderDate) = MONTH(NOW()) and o.StatusOrder = 1\n')
 }
 
 exports.getStatisticYear = () => {
     return db.raw('select sum(o.TotalCost) as total_cost\n' +
-      'from ordersdetails od join orders o on (od.OrderId=o.OrderId)\n' +
+      'from join orders o\n' +
       'where YEAR(o.OrderDate) = YEAR(NOW()) and o.StatusOrder = 1\n')
 }
 
 exports.getMaxQuantityPurchase = (limit) => {
-    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+    return db.raw('select p.*,sum(o.Price) as PriceRevenue , count(*) as \'Amount\'\n' +
       'from products p join ordersdetails o on p.ProId = o.ProId\n' +
       'join orders o2 on o2.OrderId = o.OrderId\n' +
       'where DAY(o2.OrderDate) = DAY(NOW())\n' +
@@ -138,7 +140,7 @@ exports.getMaxQuantityPurchase = (limit) => {
 }
 
 exports.getMaxQuantityPurchaseMonth = (limit) => {
-    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+    return db.raw('select p.*,sum(o.Price) as PriceRevenue  ,count(*) as \'Amount\'\n' +
       'from products p join ordersdetails o on p.ProId = o.ProId\n' +
       'join orders o2 on o2.OrderId = o.OrderId\n' +
       'where MONTH(o2.OrderDate) = MONTH(NOW())\n' +
@@ -148,7 +150,7 @@ exports.getMaxQuantityPurchaseMonth = (limit) => {
 }
 
 exports.getMaxQuantityPurchaseYear = (limit) => {
-    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+    return db.raw('select p.*,sum(o.Price) as PriceRevenue , count(*) as \'Amount\'\n' +
       'from products p join ordersdetails o on p.ProId = o.ProId\n' +
       'join orders o2 on o2.OrderId = o.OrderId\n' +
       'where YEAR(o2.OrderDate) = YEAR(NOW())\n' +
@@ -158,7 +160,7 @@ exports.getMaxQuantityPurchaseYear = (limit) => {
 }
 
 exports.getMinQuantityPurchaseDay = (limit) => {
-    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+    return db.raw('select p.*,sum(o.Price) as PriceRevenue , count(*) as \'Amount\'\n' +
       'from products p join ordersdetails o on p.ProId = o.ProId\n' +
       'join orders o2 on o2.OrderId = o.OrderId\n' +
       'where DAY(o2.OrderDate) = DAY(NOW())\n' +
@@ -168,7 +170,7 @@ exports.getMinQuantityPurchaseDay = (limit) => {
 }
 
 exports.getMinQuantityPurchaseMonth = (limit) => {
-    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+    return db.raw('select p.*,sum(o.Price) as PriceRevenue , count(*) as \'Amount\'\n' +
       'from products p join ordersdetails o on p.ProId = o.ProId\n' +
       'join orders o2 on o2.OrderId = o.OrderId\n' +
       'where MONTH(o2.OrderDate) = MONTH(NOW())\n' +
@@ -178,7 +180,7 @@ exports.getMinQuantityPurchaseMonth = (limit) => {
 }
 
 exports.getMinQuantityPurchaseYear = (limit) => {
-    return db.raw('select p.*, count(*) as \'Amount\'\n' +
+    return db.raw('select p.*, sum(o.Price) as PriceRevenue ,count(*) as \'Amount\'\n' +
       'from products p join ordersdetails o on p.ProId = o.ProId\n' +
       'join orders o2 on o2.OrderId = o.OrderId\n' +
       'where YEAR(o2.OrderDate) = YEAR(NOW())\n' +

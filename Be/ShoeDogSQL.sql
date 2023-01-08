@@ -25,7 +25,7 @@ create table Products
     ProId int auto_increment primary key,
     Inventory varchar(7) unique not null,
     ProName varchar(150) charset utf8  not null,
-    Price double not null,
+    Price longtext not null,
     Des longtext  null,
     ShortDes longtext  null,
     StatusPro int default 1 not null,
@@ -69,6 +69,7 @@ create table OrdersDetails
     Amount bigint not null ,
     Size longtext not null ,
     OrderId int not null,
+    Price double not null,
 
     constraint `orderDetail-product`
         foreign key(ProId) references Products (ProId),

@@ -24,6 +24,8 @@ const HomePage = () => {
   const [filterRevenue,setFilterRevenue]=useState(1);
   const [filterMaxItem,setFilterMaxItem]=useState(1);
   const [filterMinItem,setFilterMinItem]=useState(1);
+
+
   useEffect(()=>{
     const getListProductSold=async ()=>{
       await getListProductSoldOut()

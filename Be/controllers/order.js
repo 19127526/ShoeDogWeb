@@ -46,20 +46,14 @@ exports.addOrder = async (req, res) => {
         Amount: orderItem[i].amount,
         Size: orderItem[i].size,
         OrderId: orderId[0],
-      }
-
-      const orderDetailAddAfterAdd = {
-        ProId: orderItem[i].proId,
-        Amount: orderItem[i].amount,
-        Size: orderItem[i].size,
-        OrderId: orderId[0],
         Price:orderItem[i].price,
       }
+
 
       await order.addDetailOrder(orderDetailAdd);
       //Lấy chi tiết sản phẩm theo pro id
       const tempProduct = await product.getProductById(orderItem[i].proId);
-      listProductAfterAdd.push({detailProduct:tempProduct[0],order:orderDetailAddAfterAdd})
+      listProductAfterAdd.push({detailProduct:tempProduct[0],order:orderDetailAdd})
       const tempSize=convertArrayToQuantity(tempProduct[0]?.Size);
       const tempQuantity=convertArrayToQuantity(tempProduct[0]?.Quantity);
       let isProductSoldOutArr=[];
