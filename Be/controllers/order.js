@@ -1,6 +1,7 @@
 const order = require("../models/order");
 const product = require("../models/product");
 const emailjs = require('@emailjs/nodejs');
+const {convertArrayToQuantity} = require("../service/service");
 
 // declare all characters
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -44,106 +45,79 @@ exports.addOrder = async (req, res) => {
         ProId: orderItem[i].proId,
         Amount: orderItem[i].amount,
         Size: orderItem[i].size,
-        OrderId: orderId[0]
+        OrderId: orderId[0],
       }
+
+      const orderDetailAddAfterAdd = {
+        ProId: orderItem[i].proId,
+        Amount: orderItem[i].amount,
+        Size: orderItem[i].size,
+        OrderId: orderId[0],
+        Price:orderItem[i].price,
+      }
+
       await order.addDetailOrder(orderDetailAdd);
+      //Lấy chi tiết sản phẩm theo pro id
       const tempProduct = await product.getProductById(orderItem[i].proId);
-
-      let isSame = false;
-
-      for (let k = 0; k < listProductAfterAdd.length; k++) {
-        if (listProductAfterAdd[k].ProId === tempProduct[0].ProId) {
-          isSame = true;
+      listProductAfterAdd.push({detailProduct:tempProduct[0],order:orderDetailAddAfterAdd})
+      const tempSize=convertArrayToQuantity(tempProduct[0]?.Size);
+      const tempQuantity=convertArrayToQuantity(tempProduct[0]?.Quantity);
+      let isProductSoldOutArr=[];
+      let tempQuantityArr="";
+      for(let i=0;i<tempSize.length;i++){
+        const temp=`${i}: ${tempQuantity[i]}`
+        if(i==0){
+          if(tempSize[i]==orderDetailAdd.Size){
+            const tempQuantityAfterOrder=`${i}: ${Number(tempQuantity[i])-Number(orderDetailAdd.Amount)}`;
+            tempQuantityArr+=tempQuantityAfterOrder;
+            isProductSoldOutArr.push(Number(tempQuantity[i])-Number(orderDetailAdd.Amount))
+          }
+          else{
+            tempQuantityArr+=temp;
+            isProductSoldOutArr.push(tempQuantity[i]);
+          }
         }
-      }
-      if (isSame === true) {
-
-      } else {
-        listProductAfterAdd.push(tempProduct[0])
-      }
-    }
-    const orderFinding = await order.getDetailOrderByOrderId(orderId[0]);
-    const getSizeAndQuantityProduct = [];
-    for (let i = 0; i < listProductAfterAdd.length; i++) {
-      const temp = convertArrayToOptions(listProductAfterAdd[i].Size, ", ");
-      const itemSize = []
-      for (let j = 0; j < temp.length; j++) {
-        const tempProDuct = convertArrayToOptions(temp[j], ": ");
-        itemSize.push({
-          size: tempProDuct[0],
-          quantity: tempProDuct[1]
-        })
-      }
-      getSizeAndQuantityProduct.push({proId: listProductAfterAdd[i].ProId, item: itemSize});
-    }
-
-    for (let i = 0; i < getSizeAndQuantityProduct.length; i++) {
-      for (let j = 0; j < orderItem.length; j++) {
-        if (orderItem[j].proId === getSizeAndQuantityProduct[i].proId) {
-          const sizeQuantityBefore = getSizeAndQuantityProduct[i].item;
-          const sizeQuantityEdit = orderItem[j];
-          for (let k = 0; k < sizeQuantityBefore.length; k++) {
-            if (sizeQuantityBefore[k].size === sizeQuantityEdit.size) {
-              sizeQuantityBefore[k].quantity = Number(sizeQuantityBefore[k].quantity) - Number(sizeQuantityEdit.amount);
-            }
+        else{
+          if(tempSize[i]==orderDetailAdd.Size){
+              const tempQuantityAfterOrder=`${i}: ${Number(tempQuantity[i])-Number(orderDetailAdd.Amount)}`;
+            tempQuantityArr+=`, ${tempQuantityAfterOrder}`;
+            isProductSoldOutArr.push(Number(tempQuantity[i])-Number(orderDetailAdd.Amount));
+          }
+          else{
+            tempQuantityArr+=`, ${temp}`
+            isProductSoldOutArr.push(tempQuantity[i]);
           }
         }
       }
-    }
-
-
-    const resultProductAfterOrder = [];
-    for (let i = 0; i < getSizeAndQuantityProduct.length; i++) {
-
-      const items = getSizeAndQuantityProduct[i].item;
-      let str = "";
-      let isHasQuantity = false;
-      for (let j = 0; j < items.length; j++) {
-        if (j === 0) {
-          str += `${items[j].size}: ${items[j].quantity}`
-        } else {
-          str += `, ${items[j].size}: ${items[j].quantity}`
-        }
-        if (items[j].quantity != 0) {
-          isHasQuantity = true;
+      await product.updateProduct(orderDetailAdd.ProId,{Quantity:tempQuantityArr})
+      let flag=false;
+      for(let i=0;i<isProductSoldOutArr.length;i++){
+        if(isProductSoldOutArr[i]!=0){
+          flag=true;
         }
       }
-
-      if (isHasQuantity == false) {
-        await product.changeStatusProDuctByProId(getSizeAndQuantityProduct[i].proId, 0);
+      if(flag==false){
+        await product.updateProduct(orderDetailAdd.ProId,{StatusPro:0})
       }
-      resultProductAfterOrder.push({
-        proId: getSizeAndQuantityProduct[i].proId,
-        size: str,
-      })
     }
 
 
-    for (let i = 0; i < resultProductAfterOrder.length; i++) {
-      console.log(resultProductAfterOrder[i])
-      await product.updateSizeAndQuantityByProId({
-        proId: resultProductAfterOrder[i].proId,
-        size: resultProductAfterOrder[i].size
-      })
-    }
-
-    const listProductEmail=orderItem.map(index=>{
-      for(let i=0;i<listProductAfterAdd.length;i++) {
-        if (index.proId == listProductAfterAdd[i].ProId) {
-          return {
-            detail: listProductAfterAdd[i],
-            size2Quantity: {
-              size: index.size,
-              amount: index.amount,
-              total: (listProductAfterAdd[i].TotalPrice * index.amount).toLocaleString('it-IT', {
-                style: 'currency',
-                currency: "VND"
-              }),
-              urlClient: urlClient + listProductAfterAdd[i].ProId,
-            }
-          }
+    const listProductEmail=listProductAfterAdd.map(index=>{
+      return{
+        detail: index.detailProduct,
+        size2Quantity: {
+          size: index.order.Size,
+          amount: index.order.Amount,
+          total: (Number(index.order.Price) * Number(index.order.Amount))
+            .toLocaleString('it-IT', {
+            style: 'currency',
+            currency: "VND"
+          }),
+          urlClient: urlClient +  index.order.ProId,
         }
-      }});
+      }
+    })
+
     const templateCredit = {
       name: orderAdd.FullName,
       notes: 'Check this out!',
@@ -193,7 +167,7 @@ exports.addOrder = async (req, res) => {
            },
          );
      }
-    return res.status(200).json({"status": "success", "data": orderFinding});
+    return res.status(200).json({"status": "success", "data": listProductEmail});
   } catch (e) {
     return res.status(500).json({"status": "error", "message": e.message});
   }

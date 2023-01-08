@@ -10,7 +10,7 @@ import {getListProductsByCatId} from "../../apis/products/ProductsApi";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
-import {convertArrayToSize2Price} from "../../utils/Utils";
+import {convertArrayToSize} from "../../utils/Utils";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const HomePage = () => {
                       const itemResult = res.data.data.map(index => {
                         return{
                           ...index,
-                          TotalPrice: convertArrayToSize2Price(index?.TotalPrice).toString()
+                          TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
                         }
                       });
                       const newElement={

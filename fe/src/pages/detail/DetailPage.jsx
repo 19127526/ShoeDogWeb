@@ -2,7 +2,7 @@ import {ShareAltOutlined} from '@ant-design/icons';
 import {
   convertArrayToOptions,
   convertArrayToQuantity,
-  convertArrayToSize2Price,
+  convertArrayToSize,
   getWindowWidth
 } from "../../utils/Utils";
 import {Carousel} from "react-responsive-carousel";
@@ -32,12 +32,14 @@ const DetailPage = () => {
     size: null,
     quantity: null,
     totalPrice:null,
+    discount:null
   }]);
   const [color, setColor] = useState();
   const [empty, setEmpty] = useState(false);
   const [chooseSizeSuccess, setChooseSizeSuccess] = useState({
     size: null,
-    price: null
+    price: null,
+    discount:null,
   });
   const [relatedProductList, setRelatedProductList] = useState([]);
   const {ref, height, width} = useComponentSize();
@@ -54,12 +56,14 @@ const DetailPage = () => {
             const tempSize=convertArrayToQuantity(res.data.data[0].Size);
             const tempQuantity=convertArrayToQuantity(res.data.data[0].Quantity);
             const tempTotalPrice=convertArrayToQuantity(res.data.data[0].TotalPrice);
+            const tempDiscount=convertArrayToQuantity(res.data.data[0].Discount);
             const temp=[];
             for(let i=0;i<tempSize.length;i++){
               temp.push({
                 size:tempSize[i],
                 quantity:tempQuantity[i],
-                totalPrice:Number(tempTotalPrice[i])
+                totalPrice:Number(tempTotalPrice[i]),
+                discount:Number(tempDiscount[i])
               })
             }
             setSizeList(temp);
@@ -79,7 +83,7 @@ const DetailPage = () => {
                     const itemResult = res.data.data.map(index => {
                       return{
                         ...index,
-                        TotalPrice: convertArrayToSize2Price(index?.TotalPrice).toString()
+                        TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
                       }
                     });
                     setRelatedProductList(itemResult);
@@ -113,10 +117,11 @@ const DetailPage = () => {
     getWindowWidth().innerWidth > 784 ? setHeight2(height) : ""
   },)
 
-  const setChooseSize = (index, price) => {
+  const setChooseSize = (index, price,discount) => {
     setChooseSizeSuccess({
       size: index,
-      price: price
+      price: price,
+      discount: discount
     })
   }
 
@@ -142,8 +147,6 @@ const DetailPage = () => {
             if(next<=prev){
               isAddItem=true;
             }
-            console.log(next);
-            console.log(prev)
           }
         }
       }
@@ -231,7 +234,7 @@ const DetailPage = () => {
                         <div className="chooseSizeInner">
                           <ul>
                             {sizeList.map(index => (
-                              <li onClick={() =>{setChooseSize(index.size, index?.totalPrice);setChooseSizeBtn(false)}}>
+                              <li onClick={() =>{setChooseSize(index?.size, index?.totalPrice,index?.discount);setChooseSizeBtn(false)}}>
                                 <a>
                                   <span className="pull-right detail__price">{Number(index?.totalPrice).toLocaleString('it-IT', {
                                       style: 'currency',
@@ -240,6 +243,7 @@ const DetailPage = () => {
                                   {detailProduct?.Color.includes("No Size Just Color") ?
                                     <>
                                     <p className="detail__size">{index?.size}</p>
+                                      <p className="detail__size">Số lượng {index?.quantity}</p>
                                     </>
                                     :
                                     <>

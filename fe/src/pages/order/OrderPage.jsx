@@ -12,9 +12,9 @@ import * as containts from "../../components/notification/Notification.constrain
 const OrderPage = () => {
   const navigate = useNavigate();
   const dispatch=useDispatch();
-  const location =useLocation();
   const dataProduct = useSelector(state => state.cartReducer);
   const cartItem = dataProduct.cartItem;
+  console.log(cartItem)
   const [totalPrice, setTotalPrice] = useState(0);
   const [listProvinces, setListProvinces] = useState([{
     name: null,
@@ -31,7 +31,6 @@ const OrderPage = () => {
     districtCode: null
   }]);
 
-  console.log(location)
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [province, setProvince] = useState('Tỉnh/Thành phố');
@@ -167,7 +166,8 @@ const OrderPage = () => {
         return {
           proId: index.detailProduct.ProId,
           size: index.aboutSize.size,
-          amount: index.quantity
+          amount: index.quantity,
+          price: Number(index.aboutSize.price)*Number(index.quantity),
         }
       });
 
@@ -175,6 +175,7 @@ const OrderPage = () => {
       console.log(totalPayload);
       await addOrderApi(totalPayload)
         .then(res => {
+          console.log(res.response)
           if (res.data.status === "success") {
             Notification("Thông báo đặt hàng","Bạn đã đặt hàng thành công",containts.NOTIFICATION_SUCCESS)
             navigate(ORDER_SUCCESS_ROUTE,{state:res.data.data[0]})
@@ -267,8 +268,8 @@ const OrderPage = () => {
             {cartItem.map(index =>
               (
                 <OrderProductComponent size={index.aboutSize.size} name={index.detailProduct.ProName}
-                                       totalPrice={index.detailProduct.TotalPrice} quantity={index.quantity}
-                                       sku={index.detailProduct.Inventory} discount={index.detailProduct.Discount}
+                                       totalPrice={Number(index.aboutSize.price)*Number(index.quantity)} quantity={index.quantity}
+                                       sku={index.detailProduct.Inventory} discount={index.aboutSize.discount}
                                        index={index}/>
               )
             )}

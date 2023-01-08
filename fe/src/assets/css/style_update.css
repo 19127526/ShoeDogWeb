@@ -949,7 +949,7 @@ footer .copyright {
 .detail__desc .dropdownChooseSize .chooseSizeInner a {
     display: block;
     border-bottom: 2px solid #f0f0f0;
-    padding: 20px 15px;
+    padding: 20px 10px;
 }
 .detail__desc .dropdownChooseSize .chooseSizeInner a:hover {
     background-color: transparent;

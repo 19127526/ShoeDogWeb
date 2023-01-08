@@ -9,27 +9,11 @@ import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout
 import "./ListProduct.css"
 import {Pagination, Slider, Tag} from "antd";
 import ErrorPage from "../error/ErrorPage";
-import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize2Price} from "../../utils/Utils";
+import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxValue, minValue} from "../../utils/Utils";
 
 const pageIndex = 6;
 
-const onlyUnique = (value, index, self) => {
-  return self.indexOf(value) === index;
-}
 
-const minValue = (...args) => {
-  const min = args.reduce((acc, val) => {
-    return acc < val ? acc : val;
-  });
-  return min;
-}
-
-const maxValue = (...args) => {
-  const max = args.reduce((acc, val) => {
-    return acc > val ? acc : val;
-  });
-  return max;
-}
 
 const ListProduct = () => {
   const dispatch = useDispatch();
@@ -145,7 +129,7 @@ const ListProduct = () => {
               const itemResult = res.data.data.map(index => {
                 return{
                   ...index,
-                  TotalPrice: convertArrayToSize2Price(index?.TotalPrice).toString()
+                  TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
                 }
               });
 
@@ -157,7 +141,7 @@ const ListProduct = () => {
               if (res.data.Size !== null) {
                 let sizeArr=new Set();
                 res.data.data.map(index=>{
-                  const temp=convertArrayToSize2Price(index?.Size);
+                  const temp=convertArrayToSize(index?.Size);
                   for(let i=0;i<temp.length;i++){
                     sizeArr.add(temp[i]);
                   }

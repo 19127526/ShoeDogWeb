@@ -96,21 +96,18 @@ exports.addProduct = async (req, res) => {
             Color: productBody.color,
             DateStart: new Date(),
         }
-        console.log(productAdd)
 
         const productId = await product.addProduct(productAdd);
         const productFinding = await product.getDetailProductsByProId(productId);
         const arrayFile = req.files;
         const arrayImage = [];
         const imageId = [];
-        console.log(arrayFile)
         for (let i = 0; i < arrayFile.length; i++) {
             const rs = await cloudinary.uploader.upload(arrayFile[i].path, {
                 folder: `shoedog/${catName}`,
                 public_id: `${arrayFile[i].filename}`,
                 crop: "fill"
             })
-            console.log(rs)
             arrayImage.push(rs.secure_url)
             imageId.push(rs.public_id)
         }
@@ -119,13 +116,11 @@ exports.addProduct = async (req, res) => {
             const productStr = arrayImage.join(", ");
             await product.updateArrayImage(productId, productStr);
             const imageIdStr = imageId.join(", ");
-            console.log(imageIdStr)
             await product.updateImageId(productId, imageIdStr);
         }
 
         return res.status(200).json({"status": "success", "data": productFinding});
     } catch (e) {
-        console.log(e.message)
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }
@@ -148,7 +143,6 @@ exports.deleteProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        console.log(req.body, req.files)
         const products = req.body
         const ProductId = products.ProId;
         const cateName = req.body.category;
@@ -199,7 +193,6 @@ exports.updateProduct = async (req, res) => {
             return res.status(200).json({"status": "success", "data": updateProduct});
         }else return res.status(500).json({"status": "error", "message": "Can not find user"});
     } catch (e) {
-        console.log(e.message)
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }
@@ -217,7 +210,6 @@ exports.relatedProduct = async (req, res) => {
     try {
         const catId = req.body.catId;
         const proId = req.body.proId;
-        console.log("dsd",catId)
         const tempProducts=await product.relatedProductByCatId(catId);
 
         const products=tempProducts.filter(index=>index.ProId!==proId)
@@ -235,7 +227,6 @@ exports.searchProductByCatId = async (req, res) => {
             proName: productBody.productName,
             catId: productBody.catId
         }
-        console.log(searchProduct)
         const listProduct = await product.searchProductsByCatId(searchProduct)
         return res.status(200).json({"status": "success", "data": listProduct});
     } catch (e) {

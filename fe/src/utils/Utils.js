@@ -47,7 +47,7 @@ export const convertArrayToQuantity=(arr)=>{
   return quantityArr;
 }
 
-export const convertArrayToSize2Price=(arr)=>{
+export const convertArrayToSize=(arr)=>{
   let totalPriceSet=new Set();
   const totalPrice=convertArrayToOptions(arr,", ");
   totalPrice.map(index=>{
@@ -55,6 +55,24 @@ export const convertArrayToSize2Price=(arr)=>{
     totalPriceSet.add(temp[1])
   })
   return new Array(...totalPriceSet);
+}
+
+export const onlyUnique = (value, index, self) => {
+  return self.indexOf(value) === index;
+}
+
+export const minValue = (...args) => {
+  const min = args.reduce((acc, val) => {
+    return acc < val ? acc : val;
+  });
+  return min;
+}
+
+export const maxValue = (...args) => {
+  const max = args.reduce((acc, val) => {
+    return acc > val ? acc : val;
+  });
+  return max;
 }
 
 

@@ -1,6 +1,6 @@
 import image from "../../assets/img/62dfdb668b98a.jpg"
 import { useNavigate } from "react-router-dom";
-import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize2Price} from "../../utils/Utils";
+import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxValue, minValue} from "../../utils/Utils";
 import {useEffect, useState} from "react";
 const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,discount})=>{
   const navigate=useNavigate();
@@ -9,25 +9,23 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
   const [totalPrice,setTotalPrice]=useState("");
   useEffect(()=>{
     let resultTotalPrice="";
-    const totalPriceArr=convertArrayToOptions(priceDiscount,",")
-    for(let i=0;i<totalPriceArr.length;i++){
-      if(i==0){
-        resultTotalPrice+=Number(totalPriceArr[i]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
-      }
-      else{
-        resultTotalPrice=resultTotalPrice+" - "+Number(totalPriceArr[i]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
-      }
+    const totalPriceArr=convertArrayToOptions(priceDiscount,",");
+    if(totalPriceArr.length==1){
+      resultTotalPrice= Number(totalPriceArr[0]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
+    }
+    else{
+      resultTotalPrice=Number(minValue(...totalPriceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()+" - "+
+        Number(maxValue(...totalPriceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
     }
 
     let resultPrice="";
-    const priceArr=convertArrayToSize2Price(priceNonDiscount)
-    for(let i=0;i<priceArr.length;i++){
-      if(i==0){
-        resultPrice+=Number(priceArr[i]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
-      }
-      else{
-        resultPrice=resultPrice+" - "+Number(priceArr[i]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
-      }
+    const priceArr=convertArrayToSize(priceNonDiscount)
+    if(priceArr.length==1){
+      resultPrice= Number(priceArr[0]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
+    }
+    else{
+      resultPrice=Number(minValue(...priceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()+" - "+
+        Number(maxValue(...priceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
     }
 
     let isFlag=false
@@ -36,7 +34,6 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
         isFlag=true;
       }
     })
-
 
     setIsDiscount(isFlag);
     setTotalPrice(resultTotalPrice);

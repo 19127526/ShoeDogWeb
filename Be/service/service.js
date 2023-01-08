@@ -1,4 +1,4 @@
-export const convertArrayToOptions=(arr,splitIndex)=>{
+const convertArrayToOptions=(arr,splitIndex)=>{
   if(arr===null){
     return null
   }
@@ -7,7 +7,7 @@ export const convertArrayToOptions=(arr,splitIndex)=>{
   }
 }
 
-export const convertArrayToQuantity=(arr)=>{
+ const convertArrayToQuantity=(arr)=>{
   let quantityArr=[];
   const quantity=convertArrayToOptions(arr,", ");
   quantity.map(index=>{
@@ -17,7 +17,7 @@ export const convertArrayToQuantity=(arr)=>{
   return quantityArr;
 }
 
-export const convertArrayToSize2Price=(arr)=>{
+const convertArrayToSize2Price=(arr)=>{
   let totalPriceSet=new Set();
   const totalPrice=convertArrayToOptions(arr,", ");
   totalPrice.map(index=>{
@@ -26,3 +26,9 @@ export const convertArrayToSize2Price=(arr)=>{
   })
   return new Array(...totalPriceSet);
 }
+
+module.exports = {
+  convertArrayToSize2Price,
+  convertArrayToQuantity,
+  convertArrayToOptions
+};
