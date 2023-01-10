@@ -129,10 +129,13 @@ exports.deleteProduct = async (req, res) => {
     try {
         const id = req.body.id;
         const productFinding = await product.getProductById(id);
+
         if (productFinding.length <= 0) return res.status(200).json({"status": "empty", "message": "Product not found"});
-        const imageId = productFinding[0].ImageId.split(", ");
-        for (let i = 0; i < imageId.length; i++) {
-            await cloudinary.uploader.destroy(imageId[i]);
+        if(productFinding[0].ImageId!=null) {
+            const imageId = productFinding[0].ImageId.split(", ");
+            for (let i = 0; i < imageId.length; i++) {
+                await cloudinary.uploader.destroy(imageId[i]);
+            }
         }
         const result = await product.deleteProduct(id);
         return res.status(200).json({"status": "success", "data": result});
@@ -146,20 +149,20 @@ exports.updateProduct = async (req, res) => {
         const products = req.body
         const ProductId = products.ProId;
         const cateName = req.body.category;
-
         const catId = await category.getCategoryById(cateName);
         const initProduct = {
+            CatId: catId.CatId,
             ProName: products.name,
             Des: products.des,
             ShortDes: products.shortDes,
             StatusPro: products.status,
-            Size: products.size,
-            Color: products.color,
-            Discount: products.discount,
-            TotalPrice: products.total,
-            Price: products.price,
             Brand: products.brand,
-            CatId: catId.CatId,
+            Size: products.size,
+            Quantity: products.quantity,
+            Price: products.price,
+            Discount: products.discount,
+            TotalPrice: products.totalPrice,
+            Color: products.color,
         }
         const updateProduct = await product.updateProduct(ProductId, initProduct)
         const productAfterUpdate = await product.getDetailProductsByProId(ProductId)
@@ -237,7 +240,6 @@ exports.searchProductByCatId = async (req, res) => {
 exports.getStatisticDay = async (req, res) => {
     try {
         const statistic = await product.getStatisticDay();
-        console.log(statistic)
         const data = statistic[0][0].total_cost?statistic[0][0].total_cost:null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {

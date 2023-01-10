@@ -1510,7 +1510,8 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
         margin-right: 1px;
     }
     .products.row {
-        display: block;
+        /*display: block;*/
+
     }
     .products.row > div {
         float: left;

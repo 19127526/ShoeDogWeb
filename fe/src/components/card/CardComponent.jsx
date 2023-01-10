@@ -27,7 +27,6 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
       resultPrice=Number(minValue(...priceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()+" - "+
         Number(maxValue(...priceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
     }
-
     let isFlag=false
     convertArrayToQuantity(discount).map(index=>{
       if(index!=0){
@@ -38,7 +37,7 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
     setIsDiscount(isFlag);
     setTotalPrice(resultTotalPrice);
     setPrice(resultPrice)
-  },[])
+  },[proId])
   return (
     <div className="product__item">
       <div className="product__item--pic">
@@ -51,8 +50,6 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
           </div>
         </a>
         <div className="product__item--infor">
-
-
           <div className="clearfix">
             <p className="product-name text-uper " style={{whiteSpace:"initial"}}><a
               onClick={()=>navigate(`/detail/${proId}`)} style={{whiteSpace:"initial"}}>{name}</a>
@@ -69,9 +66,7 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
                       <br/></>}
                   <span>{totalPrice}</span>
                 </p>
-
             }
-
           </div>
         </div>
       </div>

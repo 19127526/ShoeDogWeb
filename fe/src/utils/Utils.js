@@ -63,14 +63,14 @@ export const onlyUnique = (value, index, self) => {
 
 export const minValue = (...args) => {
   const min = args.reduce((acc, val) => {
-    return acc < val ? acc : val;
+    return Number(acc) < Number(val) ? acc : val;
   });
   return min;
 }
 
 export const maxValue = (...args) => {
   const max = args.reduce((acc, val) => {
-    return acc > val ? acc : val;
+    return Number(acc) > Number(val) ? acc : val;
   });
   return max;
 }

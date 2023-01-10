@@ -128,13 +128,13 @@ const MainLayout = () => {
                         <a onClick={() => {navigate(`/product/6`); setChangeSide(false)}}>Giày chính hãng<span
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
-                          <li onClick={() => {navigate(`/product/6`); setChangeSide(false)}}>
+                          <li onClick={() => {navigate(`/product/6/page=1`); setChangeSide(false)}}>
                             <a>Giày Mới</a>
                           </li>
-                          <li onClick={() =>{navigate(`/product/7`); setChangeSide(false)}}>
+                          <li onClick={() =>{navigate(`/product/7/page=1`); setChangeSide(false)}}>
                             <a >Giày Secondhand</a>
                           </li>
-                          <li onClick={() => {navigate(`/product/8`); setChangeSide(false)}}>
+                          <li onClick={() => {navigate(`/product/8/page=1`); setChangeSide(false)}}>
                             <a >Giày trẻ em</a>
                           </li>
                         </ul>

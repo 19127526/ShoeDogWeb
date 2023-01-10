@@ -102,3 +102,17 @@ export const convertArrayToSize2Price=(arr)=>{
   return new Array(...totalPriceSet);
 }
 
+export const minValue = (...args) => {
+  const min = args.reduce((acc, val) => {
+    return Number(acc) < Number(val) ? acc : val;
+  });
+  return min;
+}
+
+export const maxValue = (...args) => {
+  const max = args.reduce((acc, val) => {
+    return Number(acc) > Number(val) ? acc : val;
+  });
+  return max;
+}
+

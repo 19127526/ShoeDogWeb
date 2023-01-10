@@ -127,7 +127,7 @@ const DetailPage = () => {
 
   const addProductToCart = () => {
     if (chooseSizeSuccess.size === null && chooseSizeSuccess.price === null) {
-      message.info('Vui lòng chọn size trước khi thêm vào giỏ hàng');
+      message.info({content:'Vui lòng chọn size trước khi thêm vào giỏ hàng',});
     } else {
       let isAddItem=false;
       const data=dataProduct?.cartItem;

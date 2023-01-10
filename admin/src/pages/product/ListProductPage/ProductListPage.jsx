@@ -17,7 +17,13 @@ import {turnOffLoading, turnOnLoading} from "../../../layouts/mainlayout/MainLay
 import dateFormat from "dateformat";
 import DescriptionComponent from "../../../components/description/DescriptionComponent";
 import {DownOutlined} from "@ant-design/icons";
-import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize2Price} from "../../../utils/Utils";
+import {
+  convertArrayToOptions,
+  convertArrayToQuantity,
+  convertArrayToSize2Price,
+  maxValue,
+  minValue
+} from "../../../utils/Utils";
 
 
 const pageIndex = 6;
@@ -180,18 +186,15 @@ const ProductListPage = () => {
               })
 
 
-              let resultTotalPrice=""
+              let resultTotalPrice="";
               let totalPriceArr=new Array(...totalPriceSet);
-              for(let i=0;i<totalPriceArr.length;i++){
-                if(i==0){
-                  resultTotalPrice+=Number(totalPriceArr[i]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
-                }
-                else{
-                  resultTotalPrice=resultTotalPrice+" - "+Number(totalPriceArr[i]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
-                }
+              if(totalPriceArr.length==1){
+                resultTotalPrice= Number(totalPriceArr[0]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
               }
-
-
+              else{
+                resultTotalPrice=Number(minValue(...totalPriceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()+" - "+
+                  Number(maxValue(...totalPriceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
+              }
               //quantity
               let quantityArr=[];
               const quantity=convertArrayToOptions(index?.Quantity,", ");
@@ -319,23 +322,28 @@ const ProductListPage = () => {
 
   const handleRemoveProduct=async () => {
     console.log(selectedRowKeys.length)
+    let isFlag=false;
     for (const index of selectedRowKeys) {
       dispatch(turnOnLoading())
       await removeProductByProId({proId: index})
         .then(res => {
           if (res.data.status === 'success') {
           } else {
+            isFlag=true;
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
           }
         })
         .catch(err => {
+          isFlag=true
           Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
         })
         .finally(() => {
-          Notification("Thông báo dữ liệu", `Xóa sản phẩm thành công`, constraintNotification.NOTIFICATION_SUCCESS)
-          setLoading(prevState => !prevState);
+           setLoading(prevState => !prevState);
           dispatch(turnOffLoading())
         })
+    }
+    if(isFlag==false){
+      Notification("Thông báo dữ liệu", `Xóa sản phẩm thành công`, constraintNotification.NOTIFICATION_SUCCESS)
     }
   }
 

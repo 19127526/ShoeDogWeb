@@ -18,7 +18,7 @@ const FooterComponent=()=>{
               </div>
             </div>
             <div className="col-sm-6 col-xs-6">
-              <div className="items__footer">
+              <div className="items__footer items_footer_word_break">
                 <p className="item__title">Kết nối fanpage</p>
                 <p style={{color:"whitesmoke"}}>Email: Shoedogsneakers@gmail.com</p>
                 <p style={{color:"whitesmoke"}}>Website: www.shoedog.vn</p>
