@@ -4,6 +4,7 @@ exports.getAllCategories = async (req, res) => {
         const categories = await categoryModel.getCategory()
         return res.status(200).json({"status": "success", "data": categories});
     }catch (e) {
+        console.log(e)
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }

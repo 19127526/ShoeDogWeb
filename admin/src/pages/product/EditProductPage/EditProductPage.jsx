@@ -362,7 +362,13 @@ const EditProductPage = () => {
     formData.append('price',tempPrice.toString());
     formData.append('discount',tempDiscount.toString());
     formData.append('totalPrice',tempTotalPrice.toString());
-    formData.append('color', color);
+    if(isNonSize==true){
+      formData.append('color', "No Size Just Color");
+    }
+    else {
+      formData.append('color', color);
+    }
+
 
     for (let i = 0; i < tempImageTotal.length; i++) {
       console.log(tempImageTotal[i])
@@ -562,7 +568,7 @@ const EditProductPage = () => {
                     />
                   </Form.Item>
                   <Form.Item className={"label-input"} label="Giá tiền">
-                  <input className=" form-control boxed " style={{width:"97%",marginLeft:"10px"}} placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
+                  <input className=" form-control boxed " style={{width:"99%",marginLeft:"5px"}} placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
                       if (!/[0-9]/.test(event.key)) {
                         event.preventDefault();
                       }

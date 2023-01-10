@@ -1,4 +1,4 @@
-import {Image, Input, InputNumber, message, Modal, Radio, Select, Space, Form} from "antd";
+import {Image, Input, InputNumber, message, Modal, Radio, Select, Space, Form, Upload} from "antd";
 import {useNavigate, useParams} from "react-router-dom";
 import {Markup} from 'interweave';
 import {useEffect, useRef, useState} from "react";
@@ -53,7 +53,7 @@ function onBlur(e) {
 }
 
 
-const ProductDetailPage = () => {
+const ProductDetailPage =  () => {
   const navigate = useNavigate();
   const {proId} = useParams();
   const loadingRedux = useSelector(state => state.mainReducer);
@@ -64,8 +64,9 @@ const ProductDetailPage = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [isNonSize, setIsNoneSize] = useState(false)
+  const [isNonSize, setIsNoneSize] = useState(false);
 
+  const [statusProduct,setStatusProduct]=useState(1);
   const editor = useRef(null);
 
 
@@ -79,7 +80,7 @@ const ProductDetailPage = () => {
   const [imageList,setImageList]=useState([]);
   const [valueEditorMain, setValueEditorMain] = useState(null);
 
-  const [size2Quantity2PriceList, setSize2Quantity2PriceList] = useState([{size: "", quantity: 0, price: 0, discount: 0, totalPrice: 0,tempDiscount:0}]);
+  const [size2Quantity2PriceList, setSize2Quantity2PriceList] = useState([{size: "", price: 0, discount: 0, totalPrice: 0,tempDiscount:0}]);
   const [color, setColor] = useState("No Size Just Color");
   const [fileImageMainList, setFileImageMainList] = useState([]);
   const [fileImageSubList, setFileImageSubList] = useState([]);
@@ -152,6 +153,7 @@ const ProductDetailPage = () => {
 
             setCategory(res.data.data[0]?.CatName);
             setProName(res.data.data[0].ProName);
+            setStatusProduct(res.data.data[0].StatusPro)
 
             const tempBrand=convertArrayToOptions(res.data.data[0].Brand,",");
             setBrand(tempBrand);
@@ -181,7 +183,6 @@ const ProductDetailPage = () => {
             }
             if(res.data.data[0].Size!=null) {
               const tempSize=convertArrayToQuantity(res.data.data[0].Size);
-              const tempQuantity=convertArrayToQuantity(res.data.data[0].Quantity);
               const tempPrice=convertArrayToQuantity(res.data.data[0].Price);
               const tempDiscount=convertArrayToQuantity(res.data.data[0].Discount);
               const tempTotalPrice=convertArrayToQuantity(res.data.data[0].TotalPrice);
@@ -189,7 +190,6 @@ const ProductDetailPage = () => {
               for(let i=0;i<tempSize.length;i++){
                 tempValueArr.push({
                   size:tempSize[i],
-                  quantity:tempQuantity[i],
                   price:Number(tempPrice[i]),
                   discount:Number(tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]*100),
                   totalPrice:Number(tempTotalPrice[i]),
@@ -274,8 +274,6 @@ const ProductDetailPage = () => {
   const handleCancel = () => setPreviewOpen(false);
 
   const editProductClick = async () => {
-    let status=0;
-
     const tempSize2Quantity2PriceList=size2Quantity2PriceList.filter(index=>{
       return (index.totalPrice!=0&&index.price!=0&&index.size!=""
         &&index.quantity!=0)
@@ -299,17 +297,6 @@ const ProductDetailPage = () => {
       }
     })
 
-    const tempQuantity= tempSize2Quantity2PriceList.map((value, index) => {
-      const temp = index + ": " + value.quantity
-      if (value.quantity != 0) {
-        status = 1;
-      }
-      if (index === 0) {
-        return temp
-      } else {
-        return " " + temp
-      }
-    })
 
     const tempPrice= tempSize2Quantity2PriceList.map((value, index) => {
       const temp = index + ": " + value.price
@@ -374,10 +361,9 @@ const ProductDetailPage = () => {
     formData.append('name', proName);
     formData.append('des', valueEditorMain);
     formData.append('shortDes', "empty");
-    formData.append('status', status);
+    formData.append('status', statusProduct);
     formData.append('brand', brand.toString().replaceAll(",",", "));
     formData.append('size',tempSize.toString());
-    formData.append('quantity',tempQuantity.toString());
     formData.append('price',tempPrice.toString());
     formData.append('discount',tempDiscount.toString());
     formData.append('totalPrice',tempTotalPrice.toString());
@@ -439,9 +425,12 @@ const ProductDetailPage = () => {
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    setSize2Quantity2PriceList([...size2Quantity2PriceList, {size: "", quantity: 0, price: 0, discount: 0, totalPrice: 0,tempDiscount:0}]);
+    setSize2Quantity2PriceList([...size2Quantity2PriceList, {size: "",  price: 0, discount: 0, totalPrice: 0,tempDiscount:0}]);
   };
 
+  const handleChangeStatusProduct=(e)=>{
+    setStatusProduct(e)
+  }
 
 
   if(isLoading===false){
@@ -452,7 +441,7 @@ const ProductDetailPage = () => {
   return (<>
     <article className="content item-editor-page" id="ajax">
       <div className="title-block">
-        <h3 className="title"> Chỉnh sửa sản phẩm
+        <h3 className="title"> Chi tiết sản phẩm
           <span className="sparkline bar" data-type="bar"></span>
         </h3>
       </div>
@@ -481,6 +470,7 @@ const ProductDetailPage = () => {
             />
           </div>
         </div>
+
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên danh mục </label>
           <div className="col-sm-9">
@@ -489,7 +479,6 @@ const ProductDetailPage = () => {
               style={{
                 width: 300,
               }}
-              options={optionCategories}
               value={category}
               defaultValue={productDetail?.CatName}
             />
@@ -502,13 +491,33 @@ const ProductDetailPage = () => {
             <Select
               mode={"tags"}
               allowClear
-              /*options={optionsBrand}
-              onChange={handleChangeBrand}*/
               style={{
                 width: 300,
               }}
               placeholder="Nhập tên thương hiệu"
               value={brand}
+            />
+
+          </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Trạng thái sản phẩm </label>
+          <div className="col-sm-9">
+            <Select
+              value={statusProduct==1?"Còn hàng":"Hết hàng"}
+              style={{
+                width: 300,
+              }}
+              options={[
+                {
+                  value: '1',
+                  label: 'Còn hàng',
+                },
+                {
+                  value: '0',
+                  label: 'Hết hàng',
+                },
+              ]}
             />
           </div>
         </div>
@@ -517,7 +526,6 @@ const ProductDetailPage = () => {
           <div className="col-sm-9">
             <div className="textDescription form-control boxed" dangerouslySetInnerHTML={{__html: productDetail?.Des.replace(/(<? *script)/gi, 'illegalscript')}}>
             </div>
-
           </div>
         </div>
 
@@ -529,7 +537,7 @@ const ProductDetailPage = () => {
             <div className="row">
               {size2Quantity2PriceList.map((x, i) => {
                 return (
-                  <div className="col-lg-6" style={{marginBottom: "20px"}}>
+                  <div className="col-lg-6" style={{marginBottom: "10px"}}>
                     <Space
                       direction="vertical"
                       size="small"
@@ -538,55 +546,38 @@ const ProductDetailPage = () => {
                       }}
                     >
                       <Form.Item className={"label-input"} label={isNonSize == true ? "Màu sắc" : "Size"}>
-                      <Input
-                        name="size"
-                        placeholder={isNonSize==true?"Hãy nhập Màu":"Hãy nhập size"}
-                        value={x.size}
-                      />
+                        <Input
+                          name="size"
+                          placeholder={isNonSize==true?"Hãy nhập Màu":"Hãy nhập size"}
+                          value={x.size}
+                        />
                       </Form.Item>
-                      <Form.Item className={"label-input"} label="Số lượng">
-                      <Input
-                        className="ml10 discountInput"
-                        name="quantity"
-                        placeholder="Hãy nhập số lượng"
-                        value={x.quantity}
-                        onKeyPress={(event) => {
+                      <Form.Item className={"label-input"} label="Giá tiền">
+                        <input className=" form-control boxed " style={{width:"99%",marginLeft:"5px"}} placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
                           if (!/[0-9]/.test(event.key)) {
                             event.preventDefault();
                           }
-                        }}
-                      />
+                        }} name="price"
+                               value={x.price.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
                       </Form.Item>
-                      <Form.Item className={"label-input"} label="Giá tiền" style={{width:"97%",marginLeft:"10px"}}>
-                      <Input  placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
-                        if (!/[0-9]/.test(event.key)) {
-                          event.preventDefault();
-                        }
-                      }} name="price" onBlur={onBlur} onFocus={onFocus}
-                             value={x.price.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
-                      </Form.Item>
-                      <Form.Item className={"label-input"} label="Khuyến mãi" style={{width:"98%",marginLeft:"10px"}}>
-                      <Input
-                        min={0}
-                        max={100}
-                        name="discount"
-                        placeholder="Hãy nhập khuyến mãi"
-                        formatter={(value) => `${value}%`}
-                        value={x.tempDiscount+"%"}
-                        parser={(value) => value.replace('%', '')}
-                        onKeyPress={(event) => {
-                          if (!/[0-9]/.test(event.key)) {
-                            event.preventDefault();
-                          }
-                        }}
-                      />
+                      <Form.Item className={"label-input"} label="Khuyến mãi"  style={{width:"98%",marginLeft:"10px"}}>
+                        <InputNumber
+                          className="form-control boxed discountInput"
+                          min={0}
+                          max={100}
+                          name="discount"
+                          placeholder="Hãy nhập khuyến mãi"
+                          value={x.tempDiscount+"%"}
+                          defaultValue={x.tempDiscount+"%"}
+                          disabled={true}
+                        />
                       </Form.Item>
                       <Form.Item className={"label-input"} label="Tổng giá tiền">
-                      <Input type="text" id="title"
-                             name="totalPrice"
-                             value={x.totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
+                        <input type="text" className="form-control boxed" id="title"
+                               name="totalPrice"
+                               value={x.totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
                       </Form.Item>
-                      </Space>
+                    </Space>
                   </div>
 
                 );
@@ -600,7 +591,7 @@ const ProductDetailPage = () => {
             <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
             <div className="col-sm-9">
               <input type="text" className="form-control boxed" id="title" placeholder="Hãy điền màu sắc"
-                     onChange={handleChangeColor} defaultValue={productDetail?.Color}
+                     value={productDetail?.Color}
               />
             </div>
           </div>

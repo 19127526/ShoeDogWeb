@@ -5,15 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.expo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.expo/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/shoedog.cT4wew.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ShoeDogSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ShoeDogSQL.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/category.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/DetailProductPage/ProductDetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/DetailProductPage/ProductDetailPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +34,14 @@
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../../Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -34,7 +53,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql&#10;mariadb" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -89,6 +109,8 @@
       <workItem from="1673279288036" duration="2714000" />
       <workItem from="1673295423549" duration="6861000" />
       <workItem from="1673349066024" duration="2782000" />
+      <workItem from="1673356151092" duration="5751000" />
+      <workItem from="1673378118949" duration="3109000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>
