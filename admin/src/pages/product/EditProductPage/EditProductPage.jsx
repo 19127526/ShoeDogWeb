@@ -59,8 +59,9 @@ const EditProductPage = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [isNonSize, setIsNoneSize] = useState(false)
+  const [isNonSize, setIsNoneSize] = useState(false);
 
+  const [statusProduct,setStatusProduct]=useState(1);
   const editor = useRef(null);
 
 
@@ -74,7 +75,7 @@ const EditProductPage = () => {
   const [imageList,setImageList]=useState([]);
   const [valueEditorMain, setValueEditorMain] = useState(null);
 
-  const [size2Quantity2PriceList, setSize2Quantity2PriceList] = useState([{size: "", quantity: 0, price: 0, discount: 0, totalPrice: 0,tempDiscount:0}]);
+  const [size2Quantity2PriceList, setSize2Quantity2PriceList] = useState([{size: "", price: 0, discount: 0, totalPrice: 0,tempDiscount:0}]);
   const [color, setColor] = useState("No Size Just Color");
   const [fileImageMainList, setFileImageMainList] = useState([]);
   const [fileImageSubList, setFileImageSubList] = useState([]);
@@ -147,6 +148,7 @@ const EditProductPage = () => {
 
             setCategory(res.data.data[0]?.CatName);
             setProName(res.data.data[0].ProName);
+            setStatusProduct(res.data.data[0].StatusPro)
 
             const tempBrand=convertArrayToOptions(res.data.data[0].Brand,",");
             setBrand(tempBrand);
@@ -176,7 +178,6 @@ const EditProductPage = () => {
             }
             if(res.data.data[0].Size!=null) {
               const tempSize=convertArrayToQuantity(res.data.data[0].Size);
-              const tempQuantity=convertArrayToQuantity(res.data.data[0].Quantity);
               const tempPrice=convertArrayToQuantity(res.data.data[0].Price);
               const tempDiscount=convertArrayToQuantity(res.data.data[0].Discount);
               const tempTotalPrice=convertArrayToQuantity(res.data.data[0].TotalPrice);
@@ -184,7 +185,6 @@ const EditProductPage = () => {
               for(let i=0;i<tempSize.length;i++){
                 tempValueArr.push({
                   size:tempSize[i],
-                  quantity:tempQuantity[i],
                   price:Number(tempPrice[i]),
                   discount:Number(tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]*100),
                   totalPrice:Number(tempTotalPrice[i]),
@@ -269,8 +269,6 @@ const EditProductPage = () => {
   const handleCancel = () => setPreviewOpen(false);
 
   const editProductClick = async () => {
-    let status=0;
-
     const tempSize2Quantity2PriceList=size2Quantity2PriceList.filter(index=>{
       return (index.totalPrice!=0&&index.price!=0&&index.size!=""
         &&index.quantity!=0)
@@ -294,17 +292,6 @@ const EditProductPage = () => {
       }
     })
 
-    const tempQuantity= tempSize2Quantity2PriceList.map((value, index) => {
-      const temp = index + ": " + value.quantity
-      if (value.quantity != 0) {
-        status = 1;
-      }
-      if (index === 0) {
-        return temp
-      } else {
-        return " " + temp
-      }
-    })
 
     const tempPrice= tempSize2Quantity2PriceList.map((value, index) => {
       const temp = index + ": " + value.price
@@ -369,10 +356,9 @@ const EditProductPage = () => {
     formData.append('name', proName);
     formData.append('des', valueEditorMain);
     formData.append('shortDes', "empty");
-    formData.append('status', status);
+    formData.append('status', statusProduct);
     formData.append('brand', brand.toString().replaceAll(",",", "));
     formData.append('size',tempSize.toString());
-    formData.append('quantity',tempQuantity.toString());
     formData.append('price',tempPrice.toString());
     formData.append('discount',tempDiscount.toString());
     formData.append('totalPrice',tempTotalPrice.toString());
@@ -434,9 +420,12 @@ const EditProductPage = () => {
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    setSize2Quantity2PriceList([...size2Quantity2PriceList, {size: "", quantity: 0, price: 0, discount: 0, totalPrice: 0,tempDiscount:0}]);
+    setSize2Quantity2PriceList([...size2Quantity2PriceList, {size: "",  price: 0, discount: 0, totalPrice: 0,tempDiscount:0}]);
   };
 
+  const handleChangeStatusProduct=(e)=>{
+    setStatusProduct(e)
+  }
 
 
   if(isLoading===false){
@@ -476,6 +465,7 @@ const EditProductPage = () => {
             />
           </div>
         </div>
+
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên danh mục </label>
           <div className="col-sm-9">
@@ -516,6 +506,28 @@ const EditProductPage = () => {
           </div>
         </div>
         <div className="form-group row">
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Trạng thái sản phẩm </label>
+          <div className="col-sm-9">
+            <Select
+              defaultValue={statusProduct==1?"Còn hàng":"Hết hàng"}
+              style={{
+                width: 300,
+              }}
+              onChange={handleChangeStatusProduct}
+              options={[
+                {
+                  value: '1',
+                  label: 'Còn hàng',
+                },
+                {
+                  value: '0',
+                  label: 'Hết hàng',
+                },
+              ]}
+            />
+          </div>
+        </div>
+        <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả </label>
           <div className="col-sm-9">
             <JoditEditor className="form-control boxed" ref={editor} onChange={handleChangeDescription}
@@ -547,21 +559,6 @@ const EditProductPage = () => {
                       placeholder={isNonSize==true?"Hãy nhập Màu":"Hãy nhập size"}
                       value={x.size}
                       onChange={e => handleSize2Quantity(e, i)}
-                    />
-                  </Form.Item>
-                  <Form.Item className={"label-input"} label="Số lượng">
-                  <Input
-                      className="ml10 discountInput"
-
-                      name="quantity"
-                      placeholder="Hãy nhập số lượng"
-                      value={x.quantity}
-                      onChange={e => handleSize2Quantity(e, i)}
-                      onKeyPress={(event) => {
-                        if (!/[0-9]/.test(event.key)) {
-                          event.preventDefault();
-                        }
-                      }}
                     />
                   </Form.Item>
                   <Form.Item className={"label-input"} label="Giá tiền">

@@ -84,20 +84,6 @@ const ProductListPage = () => {
       onFilter: (value, record) => record?.status.indexOf(value) === 0,
     },
     {
-      title: 'Số lượng',
-      dataIndex: 'quantity',
-      responsive: ['md'],
-
-      sorter: (a, b,sortOrder) =>{
-        if(sortOrder.includes("ascend")){
-          return a.quantity<b.quantity
-        }
-        else{
-          return a.quantity>=b.quantity
-        }
-      },
-    },
-    {
       title: 'Ngày đăng',
       dataIndex: 'date',
       responsive: ['md'],
@@ -195,19 +181,7 @@ const ProductListPage = () => {
                 resultTotalPrice=Number(minValue(...totalPriceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()+" - "+
                   Number(maxValue(...totalPriceArr)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
               }
-              //quantity
-              let quantityArr=[];
-              const quantity=convertArrayToOptions(index?.Quantity,", ");
-              quantity.map(index=>{
-                const temp=convertArrayToOptions(index,": ");
-                quantityArr.push(temp[1]);
-              })
 
-
-              let resultQuantity=0;
-              for(let i=0;i<quantityArr.length;i++){
-                  resultQuantity+=Number(quantityArr[i]);
-              }
 
               const tempIndex={
                 key: index?.ProId,
@@ -218,7 +192,6 @@ const ProductListPage = () => {
                 proName:index?.ProName,
                 totalPrice:resultTotalPrice,
                 status:index?.StatusPro==1?"Còn hàng":"Hết hàng",
-                quantity:resultQuantity,
                 date:dateFormat(index?.DateStart, "dd/mm/yyyy hh:mm:ss"),
                 action:  <Space
                   direction="vertical"
@@ -279,11 +252,6 @@ const ProductListPage = () => {
 
 
             //quantity
-            let quantityArr=convertArrayToQuantity(index?.Quantity)
-            let resultQuantity=0;
-            for(let i=0;i<quantityArr.length;i++){
-              resultQuantity+=Number(quantityArr[i]);
-            }
 
             const tempIndex={
               key: index?.ProId,
@@ -294,7 +262,6 @@ const ProductListPage = () => {
               proName:index?.ProName,
               totalPrice:resultTotalPrice,
               status:index?.StatusPro==1?"Còn hàng":"Hết hàng",
-              quantity:resultQuantity,
               date:dateFormat(index?.DateStart, "dd/mm/yyyy hh:mm:ss"),
               action:  <Space
                 direction="vertical"

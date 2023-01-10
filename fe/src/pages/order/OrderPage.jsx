@@ -161,6 +161,7 @@ const OrderPage = () => {
         note: note,
         methodPay: methodPay,
         total:totalPrice,
+        url:window.location.origin
       }
       const item = cartItem.map(index => {
         return {
@@ -172,10 +173,8 @@ const OrderPage = () => {
       });
 
       const totalPayload = {information, item}
-      console.log(totalPayload);
       await addOrderApi(totalPayload)
         .then(res => {
-          console.log(res.response)
           if (res.data.status === "success") {
             Notification("Thông báo đặt hàng","Bạn đã đặt hàng thành công",containts.NOTIFICATION_SUCCESS)
             navigate(ORDER_SUCCESS_ROUTE,{state:res.data.data[0]})

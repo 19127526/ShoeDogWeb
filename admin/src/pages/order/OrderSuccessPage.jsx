@@ -215,21 +215,26 @@ const OrderProcessPage = () => {
 
   const handleClickRemoveOrderChoose=async ()=>{
     dispatch(turnOnLoading());
+    let isFlag=false
     for(let i=0;i<selectedRowKeys.length;i++){
       await removeOrdersByOrderId(selectedRowKeys[i])
         .then(res => {
           if (res.data.status === "success") {
             setIsLoading(!isLoading)
-            Notification("Thông báo đơn đặt hàng", "Đã xóa thành công", constraintNotification.NOTIFICATION_SUCCESS)
           } else {
+            isFlag=true
             Notification("Thông báo đơn đặt hàng", "Xóa thất bại", constraintNotification.NOTIFICATION_ERROR)
           }
         })
         .catch(err => {
+          isFlag=true
           Notification("Thông báo đơn đặt hàng", err.toString(), constraintNotification.NOTIFICATION_ERROR)
         })
     }
     dispatch(turnOffLoading())
+    if(isFlag==false){
+      Notification("Thông báo đơn đặt hàng", "Đã xóa thành công", constraintNotification.NOTIFICATION_SUCCESS)
+    }
   }
 
 

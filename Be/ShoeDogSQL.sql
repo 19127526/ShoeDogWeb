@@ -32,7 +32,6 @@ create table Products
     DateStart TIMESTAMP default CURRENT_TIMESTAMP not null,
     CatId int not null,
     ImageArray longtext null,
-    Quantity longtext not null,
     Brand varchar(150) charset utf8 not null ,
     Discount longtext not null,
     TotalPrice longtext not null,

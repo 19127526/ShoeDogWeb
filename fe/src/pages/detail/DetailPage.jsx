@@ -30,7 +30,6 @@ const DetailPage = () => {
   const [imageSubArray, setImageSubArray] = useState([]);
   const [sizeList, setSizeList] = useState([{
     size: null,
-    quantity: null,
     totalPrice:null,
     discount:null
   }]);
@@ -54,14 +53,12 @@ const DetailPage = () => {
           if (res.data.status === 'success') {
             setDetailProduct(res.data.data[0]);
             const tempSize=convertArrayToQuantity(res.data.data[0].Size);
-            const tempQuantity=convertArrayToQuantity(res.data.data[0].Quantity);
             const tempTotalPrice=convertArrayToQuantity(res.data.data[0].TotalPrice);
             const tempDiscount=convertArrayToQuantity(res.data.data[0].Discount);
             const temp=[];
             for(let i=0;i<tempSize.length;i++){
               temp.push({
                 size:tempSize[i],
-                quantity:tempQuantity[i],
                 totalPrice:Number(tempTotalPrice[i]),
                 discount:Number(tempDiscount[i])
               })
@@ -126,7 +123,8 @@ const DetailPage = () => {
   }
 
   const addProductToCart = () => {
-    if (chooseSizeSuccess.size === null && chooseSizeSuccess.price === null) {
+    dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
+    /*if (chooseSizeSuccess.size === null && chooseSizeSuccess.price === null) {
       message.info({content:'Vui lòng chọn size trước khi thêm vào giỏ hàng',});
     } else {
       let isAddItem=false;
@@ -156,7 +154,7 @@ const DetailPage = () => {
       else{
         message.info('Số lượng size của sản phẩm này đã hết, vui lòng chọn size khác');
       }
-    }
+    }*/
   }
 
 
@@ -243,12 +241,10 @@ const DetailPage = () => {
                                   {detailProduct?.Color.includes("No Size Just Color") ?
                                     <>
                                     <p className="detail__size">{index?.size}</p>
-                                      <p className="detail__size">Số lượng {index?.quantity}</p>
                                     </>
                                     :
                                     <>
                                     <p className="detail__size">Size {index?.size}</p>
-                                    <p className="detail__size">Số lượng {index?.quantity}</p>
                                     </>
                                   }
                                 </a>

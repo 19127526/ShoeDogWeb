@@ -26,6 +26,7 @@ const urlClient="http://localhost:3000/detail/"
 exports.addOrder = async (req, res) => {
   try {
     const orderInformationBody = req.body.information;
+    const urlDetailProduct=orderInformationBody.url+"/detail/"
     const orderItem = req.body.item;
     const orderAdd = {
       FullName: orderInformationBody.fullName,
@@ -49,12 +50,11 @@ exports.addOrder = async (req, res) => {
         Price:orderItem[i].price,
       }
 
-
       await order.addDetailOrder(orderDetailAdd);
       //Lấy chi tiết sản phẩm theo pro id
       const tempProduct = await product.getProductById(orderItem[i].proId);
       listProductAfterAdd.push({detailProduct:tempProduct[0],order:orderDetailAdd})
-      const tempSize=convertArrayToQuantity(tempProduct[0]?.Size);
+     /* const tempSize=convertArrayToQuantity(tempProduct[0]?.Size);
       const tempQuantity=convertArrayToQuantity(tempProduct[0]?.Quantity);
       let isProductSoldOutArr=[];
       let tempQuantityArr="";
@@ -92,7 +92,7 @@ exports.addOrder = async (req, res) => {
       }
       if(flag==false){
         await product.updateProduct(orderDetailAdd.ProId,{StatusPro:0})
-      }
+      }*/
     }
 
 
@@ -107,7 +107,7 @@ exports.addOrder = async (req, res) => {
             style: 'currency',
             currency: "VND"
           }),
-          urlClient: urlClient +  index.order.ProId,
+          urlClient: urlDetailProduct +  index.order.ProId,
         }
       }
     })
