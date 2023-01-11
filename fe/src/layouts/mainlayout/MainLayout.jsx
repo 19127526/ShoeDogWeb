@@ -39,7 +39,6 @@ const MainLayout = () => {
       dispatch(turnOnLoading())
       getListCategories()
         .then(res => {
-          console.log(res);
           if (res.data.status === 'success') {
             setCategories(res.data.data);
             isLoading(true)
@@ -67,11 +66,10 @@ const MainLayout = () => {
         searchProducts(searchValue)
           .then(res=>{
             if(res.data.status==='success') {
-              console.log(res.data.data)
               setSearchListResult(res.data.data)
             }
           })
-          .catch(err=>{console.log(err)})
+          .catch(err=>{})
           .finally(()=>{
             dispatch(turnOffLoading())
           })

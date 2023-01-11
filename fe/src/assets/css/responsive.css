@@ -56,7 +56,7 @@
         padding: 0;
     }
     .products.row > div {
-        width: 50%;
+        width: 50%!important;
     }
     .container {
         padding-left: 15px;
@@ -551,7 +551,7 @@
         margin: 0;
     }
     .product__item--infor div.clearfix .product-price {
-        font-weight: normal;
+      /*  font-weight: normal;*/
         font-size: 13px;
     }
     .products.row > div {

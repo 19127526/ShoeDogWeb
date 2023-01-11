@@ -1,4 +1,4 @@
-export const SERVER_URL="https://shoedogadmin.click/"
+export const SERVER_URL="http://localhost:3001/"
 /*https://shoedogadmin.click/*/
 export const CLIENT_URL="http://localhost:3000/"
 

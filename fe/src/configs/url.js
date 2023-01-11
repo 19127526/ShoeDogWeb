@@ -1,5 +1,6 @@
 export const SERVER_URL="http://localhost:3001/"
-
+/*http://localhost:3001/*/
+/*https://shoedogadmin.click/*/
 //api server
 export const GET_CATEGORIES_URI="category"
 export const GET_PRODUCTS_URI="product"

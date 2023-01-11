@@ -5,26 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.expo/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.expo/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/shoedog.cT4wew.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eee0cfc2-7784-4a3d-972a-ad1a989c7c2e/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/19513b8a-3945-46ee-891e-bc23657848e2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/19513b8a-3945-46ee-891e-bc23657848e2/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9bfe05a9-dcb5-4fef-b78f-2b8cbc0b06c3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9bfe05a9-dcb5-4fef-b78f-2b8cbc0b06c3/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShoeDogSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ShoeDogSQL.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/category.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/DetailProductPage/ProductDetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/DetailProductPage/ProductDetailPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/configs/url.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +52,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.data.extractors.current.export.id" value="SQL Inserts" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../fe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../admin" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
@@ -110,7 +103,8 @@
       <workItem from="1673295423549" duration="6861000" />
       <workItem from="1673349066024" duration="2782000" />
       <workItem from="1673356151092" duration="5751000" />
-      <workItem from="1673378118949" duration="3109000" />
+      <workItem from="1673378118949" duration="4884000" />
+      <workItem from="1673434115287" duration="657000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>

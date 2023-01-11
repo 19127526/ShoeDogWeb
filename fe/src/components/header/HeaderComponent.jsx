@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {Avatar, Badge, Space} from "antd";
 import LoadingComponent from "../loading/LoadingComponent";
 import "./Header.css"
+import {turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 
 const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) => {
   const navigate = useNavigate();
@@ -18,12 +19,10 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
   const [totalPriceCart,setTotalPriceCart]=useState(0);
   useEffect(
     () => {
-      if(loading==true) {
-        if (data.isLoading === false) {
-          ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
-        }
+      if(data.isLoading==false) {
+        ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
       }
-    }, []);
+    }, [data.isLoading]);
 
 
   useEffect(() => {
@@ -41,10 +40,6 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
   const checkOutButton=()=>{
     setCartButton(false)
     navigate("/order");
-  }
-
-  if(loading==false){
-    return <LoadingComponent/>
   }
   return (
     <header className="clearfix" ref={ref}>
