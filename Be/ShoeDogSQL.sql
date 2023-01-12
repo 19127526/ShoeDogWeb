@@ -36,7 +36,7 @@ create table products
     Discount longtext not null,
     TotalPrice longtext not null,
     ImageMain longtext  null,
-    Size longtext not null,
+    Size longtext charset utf8 not null,
     Color varchar(30) charset utf8,
     ImageId longtext null,
     constraint `product-category`

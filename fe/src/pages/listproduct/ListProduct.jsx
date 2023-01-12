@@ -10,6 +10,8 @@ import "./ListProduct.css"
 import {Pagination, Slider, Tag} from "antd";
 import ErrorPage from "../error/ErrorPage";
 import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxValue, minValue} from "../../utils/Utils";
+import {Helmet} from "react-helmet";
+import {CLIENT_URL} from "../../configs/url";
 
 const pageIndex = 6;
 
@@ -503,6 +505,19 @@ const ListProduct = () => {
   };
   return (
     <div className="container container-list-product">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`DANH SÁCH DANH MỤC - ${itemInCategory[0]?.CatName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <link
+          rel="canonical"
+          href={CLIENT_URL+`/product/${product}/page=${pageindex}`}
+          title={`Danh sách danh mục - ${itemInCategory[0]?.CatName} - Shop giày uy tín nhất TP.HCM »`}
+        />
+        <meta
+          name="description"
+          content={`Danh sách danh mục ${itemInCategory[0]?.CatName}. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+        />
+      </Helmet>
       <div className="text-center">
         <div className="typeProducts">
           <div className="row text-title" style={{width: "100%"}}>

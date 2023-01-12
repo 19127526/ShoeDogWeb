@@ -1,7 +1,23 @@
+import {Helmet} from "react-helmet";
+import {CLIENT_URL} from "../../configs/url";
+
 const AsideComponent=({onClose})=>{
 
   return (
     <div id="menu__mobi">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`DANH MỤC SẢN PHẨM - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <link
+          rel="canonical"
+          href={CLIENT_URL}
+          title={`danh mục sản phẩm - Shop giày uy tín nhất TP.HCM »`}
+        />
+        <meta
+          name="description"
+          content={`Danh mục sản phẩm. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+        />
+      </Helmet>
       <a href="" className="close__menu" onClick={()=>onClose()}><span className="icon-meunu-close" ></span></a>
       <a href="https://www.glab.vn" className="menu__logo"><img src="/themes/v1/icons/logo.svg" alt=""/></a>
       <div className="menu__items">

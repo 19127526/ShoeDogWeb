@@ -49,4 +49,14 @@
     }
 }
 
+.font__detailproduct{
+    font-size: 15px;
+}
+
+@media (max-width: 768px) {
+    .font__detailproduct{
+        font-size: 14px!important;
+    }
+}
+
 

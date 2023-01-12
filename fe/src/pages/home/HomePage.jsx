@@ -11,6 +11,8 @@ import LoadingComponent from "../../components/loading/LoadingComponent";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import {convertArrayToSize} from "../../utils/Utils";
+import {Helmet} from "react-helmet";
+import {CLIENT_URL} from "../../configs/url";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -76,44 +78,66 @@ const HomePage = () => {
   }, [])
   return (
     <>
+
       <div className="container" ref={resultsRef}>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>TRANG CHỦ - SHOEDOG - Shop giày uy tín nhất TP.HCM</title>
+          <link
+            rel="canonical"
+            href={CLIENT_URL}
+            title="Dòng thông tin SHOEDOG - Shop giày uy tín nhất TP.HCM »"
+          />
+          <meta
+            name="description"
+            content="Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1."
+          />
+        </Helmet>
+
         {productWithCatId.map(index =>
           <>
+            {index.category.CatId == 6 || index.category.CatId == 11 || index.category.CatId == 4?
+            <>
             {index.productList.length>0?
               (
-                <>
-                  <div className="swiper-container slidehomepage slidehomepage-1 swiper-container-horizontal">
-                    <SlideComponent/>
-                  </div>
-                  <div className="container">
-                    <h2 className="text-center title__type">{index.category.CatName}</h2>
-                    <div className="row products">
-                      {index.productList.map((value,index) => (
-                        index<9?
+              <>
+              <div className="swiper-container slidehomepage slidehomepage-1 swiper-container-horizontal">
+              <SlideComponent/>
+              </div>
+              <div className="container">
+              <h2 className="text-center title__type">{index.category.CatName}</h2>
+              <div className="row products">
+            {index.productList.map((value,index) => (
+              index<9?
 
-                        <div className="col-lg-4 col-md-6 ">
-                          <CardComponent name={value?.ProName}
-                                         img={value?.ImageMain}
-                                         proId={value?.ProId}
-                                         statusPro={value?.StatusPro}
-                                         priceDiscount={value?.TotalPrice}
-                                         discount={value?.Discount}
-                                         priceNonDiscount={value?.Price}/>
-                        </div>:""
-                      ))}
-                    </div>
-                    {index.productList.length > 9 ?
-                      <div className="text-center" onClick={() => navigate(`/product/${index.category.CatId}/page=1`)}>
-                        <a className="btn-see-more text-uper">see more</a>
-                      </div>
-                      : ""
-                    }
-                  </div>
-                </>
+              <div className="col-lg-4 col-md-6 ">
+              <CardComponent name={value?.ProName}
+              img={value?.ImageMain}
+              proId={value?.ProId}
+              statusPro={value?.StatusPro}
+              priceDiscount={value?.TotalPrice}
+              discount={value?.Discount}
+              priceNonDiscount={value?.Price}/>
+              </div>:""
+              ))}
+              </div>
+            {index.productList.length > 9 ?
+              <div className="text-center" onClick={() => navigate(`/product/${index.category.CatId}/page=1`)}>
+              <a className="btn-see-more text-uper">see more</a>
+              </div>
+              : ""
+            }
+              </div>
+              </>
               ):""}
+              </>
+              :""
+            }
           </>
         )}
+
       </div>
+
     </>
   )
 }

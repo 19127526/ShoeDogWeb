@@ -2,16 +2,24 @@ import OrderProductComponent from "../../components/order/OrderProductComponent"
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {GET_ALL_DISTRICTS_URL, GET_ALL_PROVINCES_URL, GET_ALL_WARDS_URL, ORDER_SUCCESS_ROUTE} from "../../configs/url";
-import {useLocation, useNavigate} from "react-router-dom";
+import {
+  CLIENT_URL,
+  GET_ALL_DISTRICTS_URL,
+  GET_ALL_PROVINCES_URL,
+  GET_ALL_WARDS_URL,
+  ORDER_SUCCESS_ROUTE
+} from "../../configs/url";
+import {useNavigate} from "react-router-dom";
 import {addOrderApi} from "../../apis/orders/OrderApi";
 import {Input, message, Radio, Space} from "antd";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import Notification from "../../components/notification/Notification"
 import * as containts from "../../components/notification/Notification.constraints"
+import {Helmet} from "react-helmet";
+
 const OrderPage = () => {
   const navigate = useNavigate();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const dataProduct = useSelector(state => state.cartReducer);
   const cartItem = dataProduct.cartItem;
   console.log(cartItem)
@@ -160,15 +168,15 @@ const OrderPage = () => {
         phoneNumber: phoneNumber,
         note: note,
         methodPay: methodPay,
-        total:totalPrice,
-        url:window.location.origin
+        total: totalPrice,
+        url: window.location.origin
       }
       const item = cartItem.map(index => {
         return {
           proId: index.detailProduct.ProId,
           size: index.aboutSize.size,
           amount: index.quantity,
-          price: Number(index.aboutSize.price)*Number(index.quantity),
+          price: Number(index.aboutSize.price) * Number(index.quantity),
         }
       });
 
@@ -176,12 +184,14 @@ const OrderPage = () => {
       await addOrderApi(totalPayload)
         .then(res => {
           if (res.data.status === "success") {
-            Notification("Thông báo đặt hàng","Bạn đã đặt hàng thành công",containts.NOTIFICATION_SUCCESS)
-            navigate(ORDER_SUCCESS_ROUTE,{state:res.data.data[0]})
+            Notification("Thông báo đặt hàng", "Bạn đã đặt hàng thành công", containts.NOTIFICATION_SUCCESS)
+            navigate(ORDER_SUCCESS_ROUTE, {state: res.data.data[0]})
           }
         })
         .catch(err => console.log(err))
-        .finally(()=>{ dispatch(turnOffLoading());})
+        .finally(() => {
+          dispatch(turnOffLoading());
+        })
     }
   }
 
@@ -189,8 +199,25 @@ const OrderPage = () => {
   const onChangeMethodPay = (e) => {
     setMethodPay(e.target.value);
   }
+  const tempTitle = cartItem.map(index => {
+      return index.detailProduct?.ProName;
+    }
+  )
   return (
     <div id="container">
+      <Helmet>
+        <meta charSet="utf-8"/>
+        <title>{`ORDER SẢN PHẨM - ${tempTitle.toString()} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <link
+          rel="canonical"
+          href={CLIENT_URL + `/order`}
+          title={`order sản phẩm - ${tempTitle.toString()} - Shop giày uy tín nhất TP.HCM »`}
+        />
+        <meta
+          name="description"
+          content={`order sản phẩm ${tempTitle.toString()}. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+        />
+      </Helmet>
       <div className="container detail wrap-checkout">
         <div className="checkout__inner clearfix">
           <div className="checkout__infor">
@@ -255,7 +282,7 @@ const OrderPage = () => {
                   </div>
 
                 </div>
-                <div className="text-center mgT-30" >
+                <div className="text-center mgT-30">
                   <button className="btn__conti--pay" type="submit" value="Submit">ĐẶT HÀNG</button>
                 </div>
 
@@ -267,13 +294,17 @@ const OrderPage = () => {
             {cartItem.map(index =>
               (
                 <OrderProductComponent size={index.aboutSize.size} name={index.detailProduct.ProName}
-                                       totalPrice={Number(index.aboutSize.price)*Number(index.quantity)} quantity={index.quantity}
+                                       totalPrice={Number(index.aboutSize.price) * Number(index.quantity)}
+                                       quantity={index.quantity}
                                        sku={index.detailProduct.Inventory} discount={index.aboutSize.discount}
                                        index={index}/>
               )
             )}
             <div className="clearfix mgB-15 checkout__inforpro-detail">
-              <p className="pull-right font-700 fs-17">{totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</p>
+              <p className="pull-right font-700 fs-17">{totalPrice.toLocaleString('it-IT', {
+                style: 'currency',
+                currency: "VND"
+              })}</p>
               <p className="font-700 fs-17">Tổng Số Tiền</p>
             </div>
 

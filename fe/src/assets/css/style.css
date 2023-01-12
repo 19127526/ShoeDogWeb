@@ -1693,6 +1693,7 @@ button.close {
 .detail__desc--fix .fs-24.mgB-20 {
     margin-bottom: 10px;
     line-height: 30px;
+    margin-left: 10px
 }
 .detail__desc--intro {
     font-size: 13px;

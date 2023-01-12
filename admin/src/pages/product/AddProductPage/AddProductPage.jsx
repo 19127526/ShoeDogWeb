@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import JoditEditor from 'jodit-react'
 import {PlusOutlined} from '@ant-design/icons';
-import {Form, Input, InputNumber, message, Modal, Radio, Select, Space, Upload} from 'antd';
+import {Form, InputNumber, message, Modal, Radio, Select, Space, Upload} from 'antd';
 import {convertArrayToOptions, getBase64} from "../../../utils/Utils";
 import {useNavigate} from "react-router-dom";
 import {addProduct, getAllBrands} from "../../../apis/products/ProductsApi";
@@ -68,7 +68,7 @@ const AddProductPage = () => {
 
   const [brand, setBrand] = useState("");
   const [optionsBrand, setOptionBrand] = useState([]);
-  const [statusProduct,setStatusProduct]=useState(1);
+  const [statusProduct, setStatusProduct] = useState(1);
   const [valueEditorMain, setValueEditorMain] = useState("");
   const [size2Quantity2PriceList, setSize2Quantity2PriceList] = useState([{
     size: "",
@@ -76,7 +76,7 @@ const AddProductPage = () => {
     discount: 0,
     totalPrice: 0
   }]);
-  const [color, setColor] = useState("No Size Just Color");
+  const [color, setColor] = useState("");
   const [fileImageMainList, setFileImageMainList] = useState([]);
   const [fileImageSubList, setFileImageSubList] = useState([]);
 
@@ -88,7 +88,7 @@ const AddProductPage = () => {
           if (res.data.status === 'success') {
             let tempBrand = new Set()
             for (let i = 0; i < res.data.data.length; i++) {
-              const temp = convertArrayToOptions(res.data.data[i].Brand, ",");
+              const temp = convertArrayToOptions(res.data.data[i].Brand, ", ");
               for (let i = 0; i < temp.length; i++) {
                 tempBrand.add(temp[i]);
               }
@@ -189,51 +189,86 @@ const AddProductPage = () => {
      })
      const size = tempSize.reduce((prev, next) => prev + next);*/
     const tempSize2Quantity2PriceList = size2Quantity2PriceList.filter(index => {
-      return (index.totalPrice != 0 && index.price != 0 && index.size != ""
+      return (index.totalPrice != 0 && index.price != 0 && index.size.length != 0
         && index.quantity != 0)
     });
 
 
-    if (category == "" || proName == "" || brand == "" || tempSize2Quantity2PriceList.length == 0 || color == "") {
+    if (category == "" || proName == "" || brand == "" || tempSize2Quantity2PriceList.length == 0 /*|| color == ""*/) {
       Notification("Thông báo thêm sản phẩm", "Vui lòng điền đầy đủ thông tin", constraintNotification.NOTIFICATION_ERROR);
       return;
     }
 
+    let tempSize = [];
+    let tempSizeCount = 0;
+    tempSize2Quantity2PriceList.map((value, index) => {
 
-    const tempSize = tempSize2Quantity2PriceList.map((value, index) => {
-      const temp = index + ": " + value.size
-      if (index === 0) {
-        return temp
-      } else {
-        return " " + temp
-      }
+      const temp = value.size.map((value, index) => {
+        const temp = tempSizeCount + ": " + value
+        if (tempSizeCount === 0) {
+          tempSizeCount++;
+          return temp
+        } else {
+          tempSizeCount++;
+          return " " + temp
+        }
+      })
+      tempSize.push(temp.toString());
     })
 
+    let tempPrice = [];
+    let tempPriceCount = 0;
+    tempSize2Quantity2PriceList.map((value, index) => {
+      let tempPriceValue = value.price
+      const temp = value.size.map((value, index) => {
+        const temp = tempPriceCount + ": " + tempPriceValue
+        if (tempPriceCount === 0) {
+          tempPriceCount++;
+          return temp
+        } else {
+          tempPriceCount++;
+          return " " + temp
+        }
+      })
+      tempPrice.push(temp.toString());
+    });
 
-    const tempPrice = tempSize2Quantity2PriceList.map((value, index) => {
-      const temp = index + ": " + value.price
-      if (index === 0) {
-        return temp
-      } else {
-        return " " + temp
-      }
+
+    let tempDiscount = [];
+    let tempDiscountCount = 0;
+    tempSize2Quantity2PriceList.map((value, index) => {
+      let tempDiscountValue = value.discount
+      const temp = value.size.map((value, index) => {
+        const temp = tempDiscountCount + ": " + tempDiscountValue
+        if (tempDiscountCount === 0) {
+          tempDiscountCount++;
+          return temp
+        } else {
+          tempDiscountCount++;
+          return " " + temp
+        }
+      })
+      tempDiscount.push(temp.toString());
     });
-    const tempDiscount = tempSize2Quantity2PriceList.map((value, index) => {
-      const temp = index + ": " + value.discount / 100;
-      if (index === 0) {
-        return temp
-      } else {
-        return " " + temp
-      }
+
+    let tempTotalPrice = []
+    let tempTotalPriceCount = 0;
+    tempSize2Quantity2PriceList.map((value, index) => {
+      let tempTotalPriceValue = value.totalPrice
+      const temp = value.size.map((value, index) => {
+        const temp = tempTotalPriceCount + ": " + tempTotalPriceValue
+        if (tempTotalPriceCount === 0) {
+          tempTotalPriceCount++;
+          return temp
+        } else {
+          tempTotalPriceCount++;
+          return " " + temp
+        }
+      })
+      tempTotalPrice.push(temp.toString());
     });
-    const tempTotalPrice = tempSize2Quantity2PriceList.map((value, index) => {
-      const temp = index + ": " + value.totalPrice
-      if (index === 0) {
-        return temp
-      } else {
-        return " " + temp
-      }
-    });
+
+
     const tempSubImg = fileImageSubList.map(index => (index?.originFileObj));
     const image = [fileImageMainList[0]?.originFileObj, ...tempSubImg];
     const formData = new FormData();
@@ -248,7 +283,11 @@ const AddProductPage = () => {
     formData.append('price', tempPrice.toString());
     formData.append('discount', tempDiscount.toString());
     formData.append('totalPrice', tempTotalPrice.toString());
-    formData.append('color', color);
+    if (isNonSize == true) {
+      formData.append('color', "No Size Just Color");
+    } else {
+      formData.append('color', color);
+    }
     for (let i = 0; i < image.length; i++) {
       formData.append('image', image[i]);
     }
@@ -272,14 +311,14 @@ const AddProductPage = () => {
           dispatch(turnOffLoading());
         })
     }
-    callApiAddProduct();
+      callApiAddProduct();
   }
 
 
   //Size
 
   // handle input change
-  const handleSize2Quantity = (e, index) => {
+  const handlePrice = (e, index) => {
     const {name, value} = e.target;
     const list = [...size2Quantity2PriceList];
     list[index][name] = value;
@@ -291,6 +330,12 @@ const AddProductPage = () => {
     }
     list[index].totalPrice = Number(list[index].totalPrice);
     setSize2Quantity2PriceList(list);
+  };
+
+
+  const handleSize = (e, index) => {
+    const list = [...size2Quantity2PriceList];
+    list[index].size = e
   };
 
 
@@ -321,7 +366,7 @@ const AddProductPage = () => {
     }]);
   };
 
-  const handleChangeStatusProduct=(e)=>{
+  const handleChangeStatusProduct = (e) => {
     setStatusProduct(e)
   }
 
@@ -433,22 +478,27 @@ const AddProductPage = () => {
                       }}
                     >
                       <Form.Item className={"label-input"} label={isNonSize == true ? "Màu sắc" : "Size"}>
-                        <Input
-                          name="size"
+                        <Select
+                          mode={"tags"}
+                          allowClear
+                          onChange={e => handleSize(e, i)}
                           placeholder={isNonSize == true ? "Hãy nhập Màu" : "Hãy nhập size"}
-                          value={x.size}
-                          onChange={e => handleSize2Quantity(e, i)}
+                          filterOption={(inputValue, option) => {
+                            return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                          }}
                         />
                       </Form.Item>
                       <Form.Item className={"label-input"} label="Giá tiền">
-                        <input className=" form-control boxed" style={{width:"97%",marginLeft:"10px"}} placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
+                        <input className=" form-control boxed" style={{width: "97%", marginLeft: "10px"}}
+                               placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
                           if (!/[0-9]/.test(event.key)) {
                             event.preventDefault();
                           }
-                        }} name="price" onBlur={onBlur} onFocus={onFocus} onChange={e => handleSize2Quantity(e, i)}
+                        }} name="price" onBlur={onBlur} onFocus={onFocus} onChange={e => handlePrice(e, i)}
                                value={x.price}/>
                       </Form.Item>
-                      <Form.Item className={"label-input"} label="Khuyến mãi" style={{width:"98%",marginLeft:"10px"}}>
+                      <Form.Item className={"label-input"} label="Khuyến mãi"
+                                 style={{width: "98%", marginLeft: "10px"}}>
                         <InputNumber
                           className="form-control boxed discountInput"
                           min={0}
@@ -473,11 +523,12 @@ const AddProductPage = () => {
                                value={x.totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
                       </Form.Item>
 
-                      <div >
+                      <div>
                         {size2Quantity2PriceList.length - 1 === i &&
-                          <Radio.Button value="large" style={{float:"right"}} onClick={handleAddClick}>Thêm mới</Radio.Button>}
+                          <Radio.Button value="large" style={{float: "right"}} onClick={handleAddClick}>Thêm
+                            mới</Radio.Button>}
                         {size2Quantity2PriceList.length > 1 ?
-                          <Radio.Button style={{float:"right",marginRight: "5px", marginBottom: "5px"}} value="large"
+                          <Radio.Button style={{float: "right", marginRight: "5px", marginBottom: "5px"}} value="large"
                                         onClick={() => handleRemoveClick(i)}>Xóa</Radio.Button> : ""
                         }
                       </div>

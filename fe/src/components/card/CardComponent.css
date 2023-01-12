@@ -1,0 +1,30 @@
+.lazy{
+    height:400px
+}
+
+@media (max-width: 910px) {
+    .lazy{
+        height:380px!important;
+    }
+}
+@media (min-width: 750px) and (max-width: 850px ){
+    .lazy{
+        height:300px!important;
+    }
+}
+@media (min-width: 451px) and (max-width: 749px ){
+    .lazy{
+        height:210px!important;
+    }
+}
+@media (min-width: 300px) and (max-width: 450px ){
+    .lazy{
+        height:170px!important;
+    }
+}
+
+@media (max-width: 299px ) {
+    .lazy{
+        height:auto!important;
+    }
+}

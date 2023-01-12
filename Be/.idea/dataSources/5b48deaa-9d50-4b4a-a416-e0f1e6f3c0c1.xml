@@ -1250,6 +1250,7 @@ sho62786\\_shoesdogdatabase|schema||sho62786_shoedog||UPDATE|G</Grants>
       <Position>14</Position>
     </column>
     <column id="372" parent="330" name="Size">
+      <Collation>utf8mb3_general_ci</Collation>
       <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
       <Position>15</Position>

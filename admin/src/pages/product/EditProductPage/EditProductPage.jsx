@@ -276,8 +276,7 @@ const EditProductPage = () => {
 
 
     if(category==""||proName==""||brand.length==0||
-      tempSize2Quantity2PriceList.length==0||color==""){
-      console.log(tempSize2Quantity2PriceList,size2Quantity2PriceList)
+      tempSize2Quantity2PriceList.length==0/*||color==""*/){
       Notification("Thông báo thêm sản phẩm","Vui lòng điền đầy đủ thông tin",constraintNotification.NOTIFICATION_ERROR);
       return;
     }

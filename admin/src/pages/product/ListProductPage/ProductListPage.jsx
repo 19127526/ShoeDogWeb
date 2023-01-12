@@ -294,6 +294,7 @@ const ProductListPage = () => {
       dispatch(turnOnLoading())
       await removeProductByProId({proId: index})
         .then(res => {
+
           if (res.data.status === 'success') {
           } else {
             isFlag=true;
@@ -302,7 +303,7 @@ const ProductListPage = () => {
         })
         .catch(err => {
           isFlag=true
-          Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+          Notification("Thông báo dữ liệu", "Có 1 đơn hàng đang order sản phẩm này", constraintNotification.NOTIFICATION_ERROR)
         })
         .finally(() => {
            setLoading(prevState => !prevState);

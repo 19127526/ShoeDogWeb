@@ -1,10 +1,4 @@
-import {ShareAltOutlined} from '@ant-design/icons';
-import {
-  convertArrayToOptions,
-  convertArrayToQuantity,
-  convertArrayToSize,
-  getWindowWidth
-} from "../../utils/Utils";
+import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, getWindowWidth} from "../../utils/Utils";
 import {Carousel} from "react-responsive-carousel";
 import "./DetailPage.css"
 import {useEffect, useRef, useState} from "react";
@@ -14,10 +8,10 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import ErrorPage from "../error/ErrorPage";
-import {message} from "antd";
 import {useComponentSize} from "react-use-size";
 import {addItemSuccess} from "./DetailPage.actions";
-import listProduct from "../listproduct/ListProduct";
+import {Helmet} from "react-helmet";
+import {CLIENT_URL} from "../../configs/url";
 
 
 const DetailPage = () => {
@@ -30,15 +24,15 @@ const DetailPage = () => {
   const [imageSubArray, setImageSubArray] = useState([]);
   const [sizeList, setSizeList] = useState([{
     size: null,
-    totalPrice:null,
-    discount:null
+    totalPrice: null,
+    discount: null
   }]);
   const [color, setColor] = useState();
   const [empty, setEmpty] = useState(false);
   const [chooseSizeSuccess, setChooseSizeSuccess] = useState({
     size: null,
     price: null,
-    discount:null,
+    discount: null,
   });
   const [relatedProductList, setRelatedProductList] = useState([]);
   const {ref, height, width} = useComponentSize();
@@ -52,15 +46,15 @@ const DetailPage = () => {
         .then(res => {
           if (res.data.status === 'success') {
             setDetailProduct(res.data.data[0]);
-            const tempSize=convertArrayToQuantity(res.data.data[0].Size);
-            const tempTotalPrice=convertArrayToQuantity(res.data.data[0].TotalPrice);
-            const tempDiscount=convertArrayToQuantity(res.data.data[0].Discount);
-            const temp=[];
-            for(let i=0;i<tempSize.length;i++){
+            const tempSize = convertArrayToQuantity(res.data.data[0].Size);
+            const tempTotalPrice = convertArrayToQuantity(res.data.data[0].TotalPrice);
+            const tempDiscount = convertArrayToQuantity(res.data.data[0].Discount);
+            const temp = [];
+            for (let i = 0; i < tempSize.length; i++) {
               temp.push({
-                size:tempSize[i],
-                totalPrice:Number(tempTotalPrice[i]),
-                discount:Number(tempDiscount[i])
+                size: tempSize[i],
+                totalPrice: Number(tempTotalPrice[i]),
+                discount: Number(tempDiscount[i])
               })
             }
             setSizeList(temp);
@@ -78,7 +72,7 @@ const DetailPage = () => {
                 .then(res => {
                   if (res.data.status === 'success') {
                     const itemResult = res.data.data.map(index => {
-                      return{
+                      return {
                         ...index,
                         TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
                       }
@@ -114,7 +108,7 @@ const DetailPage = () => {
     getWindowWidth().innerWidth > 784 ? setHeight2(height) : ""
   },)
 
-  const setChooseSize = (index, price,discount) => {
+  const setChooseSize = (index, price, discount) => {
     setChooseSizeSuccess({
       size: index,
       price: price,
@@ -163,14 +157,26 @@ const DetailPage = () => {
   }
   return (
     <>
-
+      <Helmet>
+        <meta charSet="utf-8"/>
+        <title>{`CHI TIẾT SẢN PHẨM - ${detailProduct?.ProName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <link
+          rel="canonical"
+          href={CLIENT_URL + `/detail/${detailProduct?.ProId}`}
+          title={`Chi tiết sản phẩm - ${detailProduct?.ProName}  - Shop giày uy tín nhất TP.HCM »`}
+        />
+        <meta
+          name="description"
+          content={`Chi tiết sản phẩm ${detailProduct?.ProName}. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+        />
+      </Helmet>
       <div id="container">
         <div className="container detail">
           <div className="detailInner clearfix" data-sticky_parent="">
             <div className="detail__img" ref={ref}>
               <div className="main-slide-detail">
                 <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
-                          autoFocus={true}  interval={5000}>
+                          autoFocus={true} interval={5000}>
                   {imageSubArray.length === 0 || imageSubArray === undefined || imageSubArray[0] === "" ?
                     <div>
                       <img src={detailProduct?.ImageMain}/>
@@ -199,11 +205,13 @@ const DetailPage = () => {
                   <p className="color7c7c7c font-700 fs-14"><a>Mã sản
                     phẩm: {detailProduct?.Inventory}</a>
                   </p>
+
                   <p className="text-uper font-500  fs-24 mgB-0 lh-40 mgB-20">{detailProduct?.ProName}</p>
                   <div className="mgB-20">
                     <div className="dropdownChooseSize">
                       <a onClick={() => setChooseSizeBtn(!chooseSizeBtn)}
-                         className={chooseSizeBtn === true ? "val-selected clearfix active" : "val-selected clearfix"} style={{height:"100%"}}>
+                         className={chooseSizeBtn === true ? "val-selected clearfix active" : "val-selected clearfix"}
+                         style={{height: "100%"}}>
                         <span className="icon-uniF140"></span>
                         <div className="get-val clearfix">
 
@@ -212,14 +220,15 @@ const DetailPage = () => {
                                 <span className="icon-uniF335" onClick={() => {
                                   setChooseSizeSuccess({size: null, price: null})
                                 }}></span>
-                              <span className="txtPrice" style={{fontSize:"13px"}}>{chooseSizeSuccess.price.toLocaleString('it-IT', {
+                              <span className="txtPrice"
+                                    style={{fontSize: "13px"}}>{chooseSizeSuccess.price.toLocaleString('it-IT', {
                                 style: 'currency',
                                 currency: "VND"
                               })}</span>
                               {detailProduct?.Color.includes("No Size Just Color") ?
-                              <span className="txtSize" style={{fontSize:"13px"}}>{chooseSizeSuccess.size}</span>
+                                <span className="txtSize" style={{fontSize: "13px"}}>{chooseSizeSuccess?.size}</span>
                                 :
-                                <span className="txtSize">Size {chooseSizeSuccess.size}</span>
+                                <span className="txtSize">Size {chooseSizeSuccess?.size}</span>
                               }
 
                             </div>
@@ -232,19 +241,23 @@ const DetailPage = () => {
                         <div className="chooseSizeInner">
                           <ul>
                             {sizeList.map(index => (
-                              <li onClick={() =>{setChooseSize(index?.size, index?.totalPrice,index?.discount);setChooseSizeBtn(false)}}>
+                              <li onClick={() => {
+                                setChooseSize(index?.size, index?.totalPrice, index?.discount);
+                                setChooseSizeBtn(false)
+                              }}>
                                 <a>
-                                  <span className="pull-right detail__price">{Number(index?.totalPrice).toLocaleString('it-IT', {
-                                      style: 'currency',
-                                      currency: "VND"
-                                    })}</span>
+                                  <span
+                                    className="pull-right detail__price">{Number(index?.totalPrice).toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: "VND"
+                                  })}</span>
                                   {detailProduct?.Color.includes("No Size Just Color") ?
                                     <>
-                                    <p className="detail__size">{index?.size}</p>
+                                      <p className="detail__size">{index?.size}</p>
                                     </>
                                     :
                                     <>
-                                    <p className="detail__size">Size {index?.size}</p>
+                                      <p className="detail__size">Size {index?.size}</p>
                                     </>
                                   }
                                 </a>
@@ -265,7 +278,7 @@ const DetailPage = () => {
                     </div>
                   </div>
 
-                {/*  <div className="shareWrap">
+                  {/*  <div className="shareWrap">
                     <button className="btn btn-share">&nbsp; &nbsp;<ShareAltOutlined/><span>&nbsp; Share</span></button>
                     <div className="w-100"></div>
                     <div className="col-xs-12">
@@ -291,16 +304,22 @@ const DetailPage = () => {
                   <div className="detail__desc--intro">
                     <p className="title__detailproduct">Chi tiết sản phẩm</p>
                     <div className="color-7c7c7c mgB-5">
-                      <p>
-                        {detailProduct?.Color.includes("No Size Just Color")?
-                          "":
+                      <p className={"font__detailproduct"}>
+                        {detailProduct?.Color.includes("No Size Just Color") || detailProduct?.Color.includes("") ?
+                          "" :
                           <>
-                          <label>Màu sắc: </label>
-                          &nbsp; {detailProduct?.Color}
+                            <label>Màu sắc: </label>
+                            &nbsp; {detailProduct?.Color}
                           </>}
                       </p>
-                        <div className="textDescription" dangerouslySetInnerHTML={{__html: detailProduct?.Des.replace(/(<? *script)/gi, 'illegalscript')}}>
-                        </div>
+                      <p className={"font__detailproduct"}>
+                        <label>Thương hiệu: </label>
+                        &nbsp; {detailProduct?.Brand}
+                      </p>
+                      <label className={"font__detailproduct"}>Mô tả </label>
+                      <div className="textDescription"
+                           dangerouslySetInnerHTML={{__html: detailProduct?.Des.replace(/(<? *script)/gi, 'illegalscript')}}>
+                      </div>
                     </div>
                   </div>
                 </div>

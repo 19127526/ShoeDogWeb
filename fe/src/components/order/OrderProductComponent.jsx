@@ -1,6 +1,8 @@
 import {Tooltip} from "antd";
 import {removeItem} from "../../pages/detail/DetailPage.actions";
 import {useDispatch, useSelector} from "react-redux";
+import {Helmet} from "react-helmet";
+import {CLIENT_URL} from "../../configs/url";
 
 const OrderProductComponent=({name,sku,size,quantity,totalPrice,discount,index})=>{
   const dispatch=useDispatch();
@@ -12,6 +14,19 @@ const OrderProductComponent=({name,sku,size,quantity,totalPrice,discount,index})
   }
 return (
   <div className="clearfix checkout__inforpro-detail">
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>{`SẢN PHẨM TRONG GIỎ HÀNG - ${name} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+      <link
+        rel="canonical"
+        href={CLIENT_URL}
+        title={`Sản phẩm trong giỏ hàng ${name} - Shop giày uy tín nhất TP.HCM »`}
+      />
+      <meta
+        name="description"
+        content={`Sản phẩm trong giỏ hàng ${name}. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+      />
+    </Helmet>
     <Tooltip title="Nhấn để xóa" color={"blue"}>
       <a className="pro-remove removeCart" onClick={removeItemIntoCart}><span className="icon-uniF335"></span></a>
     </Tooltip>

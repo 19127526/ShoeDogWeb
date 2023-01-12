@@ -2,6 +2,10 @@ import image from "../../assets/img/62dfdb668b98a.jpg"
 import { useNavigate } from "react-router-dom";
 import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxValue, minValue} from "../../utils/Utils";
 import {useEffect, useState} from "react";
+import {Helmet} from "react-helmet";
+import {CLIENT_URL} from "../../configs/url";
+import "./CardComponent.css"
+import Resizer from "react-image-file-resizer"
 const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,discount})=>{
   const navigate=useNavigate();
   const [isDiscount,setIsDiscount]=useState(false);
@@ -40,12 +44,25 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
   },[proId])
   return (
     <div className="product__item">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Sản phẩm ${name} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <link
+          rel="canonical"
+          href={CLIENT_URL + `/detail/${proId}`}
+          title={`Sản phẩm ${name} - Shop giày uy tín nhất TP.HCM »`}
+        />
+        <meta
+          name="description"
+          content={`Sản phẩm ${name}. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+        />
+      </Helmet>
       <div className="product__item--pic">
         <a onClick={()=>navigate(`/detail/${proId}`)}>
           <div className="product__img">
             <img className="lazy" src={img}
                  alt={name} title={name}
-                 style={{display:"inline-block",height:"auto",width:"480px"}}
+                 style={{display:"inline-block",width:"auto"}}
                 />
           </div>
         </a>

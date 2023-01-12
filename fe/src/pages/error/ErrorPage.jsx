@@ -1,10 +1,24 @@
 import "./ErrorPage.css"
 import {useNavigate} from "react-router-dom";
+import {CLIENT_URL} from "../../configs/url";
+import {Helmet} from "react-helmet";
 const ErrorPage=()=>{
   const navigate=useNavigate()
   return(
       <section className="wrapper-error" style={{overflowY:"hidden"}}>
-
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{`VUI LÒNG VỀ TRANG CHỦ - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+          <link
+            rel="canonical"
+            href={CLIENT_URL+`/error`}
+            title={`Vui lòng về trang chủ - Shop giày uy tín nhất TP.HCM »`}
+          />
+          <meta
+            name="description"
+            content={`Vui lòng về trang chủ. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+          />
+        </Helmet>
         <div className="container-error">
 
           <div id="scene" className="scene" data-hover-only="false">

@@ -8,6 +8,8 @@ import {Avatar, Badge, Space} from "antd";
 import LoadingComponent from "../loading/LoadingComponent";
 import "./Header.css"
 import {turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
+import {Helmet} from "react-helmet";
+import {CLIENT_URL} from "../../configs/url";
 
 const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) => {
   const navigate = useNavigate();
@@ -43,6 +45,19 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
   }
   return (
     <header className="clearfix" ref={ref}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`DANH MỤC SẢN PHẨM - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <link
+          rel="canonical"
+          href={CLIENT_URL}
+          title={`danh mục sản phẩm - Shop giày uy tín nhất TP.HCM »`}
+        />
+        <meta
+          name="description"
+          content={`Danh mục sản phẩm. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+        />
+      </Helmet>
       <a id="togger__menu" onClick={()=>setChangeSide(true)}>
         <span></span>
         <span></span>
@@ -120,8 +135,28 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
                   </div>
 
                 </li>
+                <li>
+                  <a onClick={() => navigate(`/product/11/page=1`)}><span>Áo chính hãng</span></a>
+                  <div className="menu__sub">
+                    <ul>
+                      <li onClick={() => navigate(`/product/11/page=1`) }>
+                        <a >Tee</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/12/page=1`)}>
+                        <a>Jacket</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/9/page=1`)}>
+                        <a>Hoodie</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/10/page=1`)}>
+                        <a>Sweater</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+
                 {categoryList.map((value,index) => (
-                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}/page=1`)}>
+                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10&&value?.CatId!=12)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}/page=1`)}>
                     <a><span>{value.CatName}</span></a></li>:""
                 ))}
                {/* <li>

@@ -3,6 +3,8 @@ import {Button, Tooltip} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {removeItem} from "../../pages/detail/DetailPage.actions";
 import "./CartComponent.css"
+import {CLIENT_URL} from "../../configs/url";
+import {Helmet} from "react-helmet";
 
 const CartComponent = ({productName, price, size, quantity, img, index, setCartButton}) => {
 
@@ -16,10 +18,23 @@ const CartComponent = ({productName, price, size, quantity, img, index, setCartB
   return (
 
     <div className="header__cart--items">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Sản phẩm trong giỏ hàng - ${productName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <link
+          rel="canonical"
+          href={CLIENT_URL}
+          title={`Sản phẩm trong giỏ hàng ${productName} - Shop giày uy tín nhất TP.HCM »`}
+        />
+        <meta
+          name="description"
+          content={`Sản phẩm trong giỏ hàng ${productName}. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
+        />
+      </Helmet>
       <div className="header__cart--item clearfix">
         <a onClick={() =>{ navigate(`/detail/${index?.detailProduct?.ProId}`);setCartButton(false)}}>
           <div className="pull-left wrap-img">
-            <img src={img} alt=""/>
+            <img src={img} alt={productName}/>
           </div>
         </a>
 

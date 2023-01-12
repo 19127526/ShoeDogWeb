@@ -10,14 +10,14 @@ import {ThemeContext} from "../../context/ContextProvider";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import {useDispatch, useSelector} from "react-redux";
 import {changeStateLoading, turnOffLoading, turnOnLoading} from "./MainLayout.actions";
-import {ERROR_ROUTE} from "../../configs/url";
+import {CLIENT_URL, ERROR_ROUTE} from "../../configs/url";
 import useDebounce from "../../customhooks/useDebounce";
 import {searchProducts} from "../../apis/products/ProductsApi";
 import {useElementSize} from "use-element-size";
 import {getWindowHeight, getWindowWidth} from "../../utils/Utils";
 import "./MainLayout.css"
 import {config} from "@fortawesome/fontawesome-svg-core";
-
+import { Helmet } from "react-helmet";
 const {Header, Footer, Sider, Content} = Layout;
 
 const MainLayout = () => {
@@ -100,6 +100,19 @@ const MainLayout = () => {
   const [changeSide,setChangeSide]=useState(false);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>TRANG CHỦ - SHOEDOG - Shop giày uy tín nhất TP.HCM</title>
+        <link
+          rel="alternate"
+          href={CLIENT_URL}
+          title="Dòng thông tin SHOEDOG - Shop giày uy tín nhất TP.HCM »"
+        />
+        <meta
+          name="description"
+          content="Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1."
+        />
+      </Helmet>
     {
       location.pathname.includes(ERROR_ROUTE)?
           <RoutesPage/>
@@ -123,7 +136,7 @@ const MainLayout = () => {
                         <a>Sales</a>
                       </li>*/}
                       <li>
-                        <a onClick={() => {navigate(`/product/6`); setChangeSide(false)}}>Giày chính hãng<span
+                        <a onClick={() => {navigate(`/product/6/page=1`); setChangeSide(false)}}>Giày chính hãng<span
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
                           <li onClick={() => {navigate(`/product/6/page=1`); setChangeSide(false)}}>
@@ -137,8 +150,27 @@ const MainLayout = () => {
                           </li>
                         </ul>
                       </li>
+                      <li>
+                        <a onClick={() => {navigate(`/product/11/page=1`); setChangeSide(false)}}>Áo chính hãng<span
+                          className="icon-navigate_next"></span></a>
+                        <ul style={{marginBottom: "0px"}}>
+                          <li onClick={() => {navigate(`/product/11/page=1`); setChangeSide(false)}}>
+                            <a>Tee</a>
+                          </li>
+                          <li onClick={() => {navigate(`/product/12/page=1`); setChangeSide(false)}}>
+                            <a>Jacket</a>
+                          </li>
+                          <li onClick={() => {navigate(`/product/9/page=1`); setChangeSide(false)}}>
+                            <a>Hoodie</a>
+                          </li>
+                          <li onClick={() =>{navigate(`/product/10/page=1`); setChangeSide(false)}}>
+                            <a>Sweater</a>
+                          </li>
+
+                        </ul>
+                      </li>
                       {categories.map((value) => (
-                        (value?.CatId!=6&&value?.CatId!=7&&value?.CatId!=8)?
+                        (value?.CatId!=6&&value?.CatId!=7&&value?.CatId!=12&&value?.CatId!=8&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10)?
                         <li key={value.CatId}>
                           <a onClick={() => {
                             navigate(`/product/${value.CatId}/page=1`);
