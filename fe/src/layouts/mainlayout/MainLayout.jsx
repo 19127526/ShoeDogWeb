@@ -174,16 +174,16 @@ const MainLayout = () => {
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
                           <li onClick={() => {navigate(`/product/11/page=1`); setChangeSide(false)}}>
-                            <a>T-Shirt</a>
+                            <a >Áo Thun</a>
                           </li>
                           <li onClick={() => {navigate(`/product/12/page=1`); setChangeSide(false)}}>
-                            <a>Jacket</a>
+                            <a>Áo Khoác</a>
                           </li>
                           <li onClick={() => {navigate(`/product/9/page=1`); setChangeSide(false)}}>
-                            <a>Hoodie</a>
+                            <a>Áo Hoodie</a>
                           </li>
                           <li onClick={() =>{navigate(`/product/10/page=1`); setChangeSide(false)}}>
-                            <a>Sweater</a>
+                            <a>Áo Sweater</a>
                           </li>
 
                         </ul>

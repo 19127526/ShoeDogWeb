@@ -7,7 +7,7 @@ import CardComponent from "../../components/card/CardComponent";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import "./ListProduct.css"
-import {Pagination, Slider, Tag} from "antd";
+import {Pagination, Slider, Tag,Badge} from "antd";
 import ErrorPage from "../error/ErrorPage";
 import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxValue, minValue} from "../../utils/Utils";
 import {Helmet} from "react-helmet";
@@ -39,9 +39,9 @@ const ListProduct = () => {
     min: null,
     max: null
   })
-  const [page, setPage] = useState(1);
-  const currentIndexPage = pageIndex * page;
-  const prevIndexPage = pageIndex * (page - 1);
+  const [pageCurrent, setPageCurrent] = useState(1);
+  const currentIndexPage = pageIndex * pageCurrent;
+  const prevIndexPage = pageIndex * (pageCurrent - 1);
 
   const [stateFilter, setStateFilter] = useState([
     {
@@ -171,10 +171,10 @@ const ListProduct = () => {
     dispatch(turnOnLoading())
     console.log("Dsd")
     if(pageindex==undefined){
-      setPage(1);
+      setPageCurrent(1);
     }
     else{
-      setPage(pageindex);
+      setPageCurrent(pageindex);
     }
     dispatch(turnOffLoading())
   },[pageindex])
@@ -231,7 +231,7 @@ const ListProduct = () => {
       }
 
       if (isChooseAnother === true) {
-        setPage(1);
+        setPageCurrent(1);
         setItemInCategory(tempPrice)
         const tempBrand2 = stateFilter.map(index => {
           if (index.name === "Price") {
@@ -247,7 +247,7 @@ const ListProduct = () => {
         })
         setStateFilter(tempBrand2)
       } else if (isChooseAnother === false) {
-        setPage(1);
+        setPageCurrent(1);
         setItemInCategory(tempPrice)
         const tempBrand2 = stateFilter.map(index => {
           if (index.name === "Price") {
@@ -300,7 +300,7 @@ const ListProduct = () => {
     const tempBrandSet = itemTempInCategory.filter(index => index.Brand.includes(brandName));
     if (isChooseAnother === true) {
       setItemInCategory(tempBrand)
-      setPage(1);
+      setPageCurrent(1);
       const tempBrand2 = stateFilter.map(index => {
         if (index.name === "Brand") {
           return {
@@ -316,7 +316,7 @@ const ListProduct = () => {
       setStateFilter(tempBrand2)
     } else if (isChooseAnother === false) {
       setItemInCategory(tempBrand)
-      setPage(1);
+      setPageCurrent(1);
       const tempBrand2 = stateFilter.map(index => {
         if (index.name === "Brand") {
           return {
@@ -383,7 +383,7 @@ const ListProduct = () => {
     }).map(index=>index.value);
     if (isChooseAnother === true) {
       setItemInCategory(tempSize)
-      setPage(1);
+      setPageCurrent(1);
       const tempBrand2 = stateFilter.map(index => {
         if (index.name === "Size") {
           return {
@@ -398,7 +398,7 @@ const ListProduct = () => {
       })
       setStateFilter(tempBrand2)
     } else if (isChooseAnother === false) {
-      setPage(1);
+      setPageCurrent(1);
       setItemInCategory(tempSize)
       const tempBrand2 = stateFilter.map(index => {
         if (index.name === "Size") {
@@ -590,7 +590,7 @@ const ListProduct = () => {
 
 
             <div className={brandButton === true ? "filterItem active" : "filterItem"} onClick={handleChangeBrand}>
-              <a>Brand <span className="toggleSub icon-add-2"></span></a>
+              <a>Thương hiệu <span className="toggleSub icon-add-2"></span></a>
               <ul className="clearfix">
                 {listBrand.map(index => index === null ? "" : (
                   <li onClick={() => filterBrand(index)}><a>{index}</a></li>))}
@@ -608,7 +608,7 @@ const ListProduct = () => {
 
 
             <div className={priceButton === true ? "filterItem active" : "filterItem"}>
-              <a onClick={handleChangePrice}>Price <span className="toggleSub icon-add-2"></span></a>
+              <a onClick={handleChangePrice}>Giá tiền <span className="toggleSub icon-add-2"></span></a>
               <ul className="clearfix" style={{display: "flex", justifyContent: "center", overflowX: "hidden"}}>
                 <li style={{width: "100%"}}>
                   <div>
@@ -654,10 +654,10 @@ const ListProduct = () => {
       </div>
       {itemInCategory.length > pageIndex ?
         <div className="text-center" style={{padding: "10px 0 0 0"}}>
-          <Pagination total={itemInCategory.length} current={page} defaultCurrent={1} pageSize={pageIndex}
-                      showSizeChanger={false} onChange={(pageindex) => {
-                        setPage(pageindex);
-                        navigate(`/product/${product}/page=${pageindex}`)
+          <Pagination total={itemInCategory.length} current={Number(pageCurrent)} defaultCurrent={Number(pageCurrent)} pageSize={pageIndex}
+                      showSizeChanger={false} onChange={(pageIndexTemp) => {
+                         setPageCurrent(pageIndexTemp);
+                        navigate(`/product/${product}/page=${pageIndexTemp}`)
                       }}/>
         </div>
         : ""

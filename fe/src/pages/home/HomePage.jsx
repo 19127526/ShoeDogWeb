@@ -35,7 +35,7 @@ const HomePage = () => {
           if (res.data.status === 'success') {
 
             const a=res.data.data.filter(index=>{
-              if(index?.CatId ===1 || index?.CatId===4 ||index?.CatId===6){
+              if(index?.CatId ===11 || index?.CatId===4 ||index?.CatId===6){
                 return index
               }
             })
@@ -75,7 +75,7 @@ const HomePage = () => {
         })
     }
     getListCategory()
-  }, [])
+  }, []);
   return (
     <>
 
@@ -123,7 +123,7 @@ const HomePage = () => {
               </div>
             {index.productList.length > 9 ?
               <div className="text-center" onClick={() => navigate(`/product/${index.category.CatId}/page=1`)}>
-              <a className="btn-see-more text-uper">see more</a>
+              <a className="btn-see-more text-uper">Xem thêm</a>
               </div>
               : ""
             }

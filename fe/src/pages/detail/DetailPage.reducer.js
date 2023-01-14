@@ -2,7 +2,8 @@ import * as types from "./DetailPage.constraints"
 import produce from "immer"
 
 const initialState= {
-  cartItem:[]
+  cartItem:[],
+  addNewItem:false,
 }
 export const DetailPageReducer=(state=initialState, action)=>
   produce(state, draft => {
@@ -31,9 +32,11 @@ export const DetailPageReducer=(state=initialState, action)=>
             draft.cartItem.push({...action.payload,quantity:1});
           }
         }
+        draft.addNewItem=!draft.addNewItem
         break;
       case types.REMOVE_ITEM_INTO_CART:
         draft.cartItem=action.payload;
+        draft.addNewItem=!draft.addNewItem
         break;
       case types.REMOVE_ALL_ITEM_INTO_CART:
         draft.cartItem=[];

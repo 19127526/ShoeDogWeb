@@ -12,6 +12,7 @@ import {useComponentSize} from "react-use-size";
 import {addItemSuccess} from "./DetailPage.actions";
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
+import {message} from "antd"
 
 
 const DetailPage = () => {
@@ -122,20 +123,12 @@ const DetailPage = () => {
   }
 
   const addProductToCart = () => {
-    dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
-    /*if (chooseSizeSuccess.size === null && chooseSizeSuccess.price === null) {
-      message.info({content:'Vui lòng chọn size trước khi thêm vào giỏ hàng',});
+    if (chooseSizeSuccess.size === null && chooseSizeSuccess.price === null) {
+      message.info('Vui lòng chọn size trước khi thêm vào giỏ hàng');
     } else {
-      let isAddItem=false;
-      const data=dataProduct?.cartItem;
-      for (let i=0;i<sizeList.length;i++){
-        if(sizeList[i].size===chooseSizeSuccess.size){
-          if(sizeList[i].quantity==0){
-            message.info('Số lượng size của sản phẩm này đã hết, vui lòng chọn size khác');
-            return;
-          }
-        }
+        dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
       }
+      /*
       for (let i = 0; i < data.length; i++) {
         if (data[i].detailProduct.ProId == proId) {
           if (data[i].aboutSize.size == chooseSizeSuccess.size) {
@@ -181,7 +174,7 @@ const DetailPage = () => {
             <div className="detail__img" ref={ref}>
               <div className="main-slide-detail">
                 <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
-                          autoFocus={true} interval={5000}>
+                          autoFocus={true} interval={5000} showStatus={false}>
                   {imageSubArray.length === 0 || imageSubArray === undefined || imageSubArray[0] === "" ?
                     <div>
                       <img src={detailProduct?.ImageMain}/>
@@ -207,10 +200,6 @@ const DetailPage = () => {
             <div className="detail__desc" style={{height: height2}}>
               <div className="detail__desc--inner">
                 <div className="detail__desc--fix">
-                  <p className="color7c7c7c font-700 fs-14"><a>Mã sản
-                    phẩm: {detailProduct?.Inventory}</a>
-                  </p>
-
                   <p className="text-uper font-500  fs-24 mgB-0 lh-40 mgB-20">{detailProduct?.ProName}</p>
                   <div className="mgB-20">
                     <div className="dropdownChooseSize">
@@ -318,8 +307,11 @@ const DetailPage = () => {
                           </>}
                       </p>
                       <p className={"font__detailproduct"}>
+                        <label>Mã sản phẩm: </label> &nbsp;<span style={{color:"black",fontWeight:"bold"}} >{detailProduct?.Inventory}</span>
+                      </p>
+                      <p className={"font__detailproduct"}>
                         <label>Thương hiệu: </label>
-                        &nbsp; {detailProduct?.Brand}
+                        &nbsp; <span style={{color:"black",fontWeight:"bold"}} >{detailProduct?.Brand}</span>
                       </p>
                       <label className={"font__detailproduct"}>Mô tả </label>
                       <div className="textDescription"

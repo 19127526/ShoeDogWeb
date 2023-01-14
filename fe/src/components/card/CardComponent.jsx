@@ -4,6 +4,7 @@ import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxVa
 import {useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
+import {Badge} from "antd"
 import "./CardComponent.css"
 import Resizer from "react-image-file-resizer"
 const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,discount})=>{
@@ -11,6 +12,7 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
   const [isDiscount,setIsDiscount]=useState(false);
   const [price,setPrice]=useState("");
   const [totalPrice,setTotalPrice]=useState("");
+  const [discountTemp,setDiscountTemp]=useState(-1);
   useEffect(()=>{
     let resultTotalPrice="";
     const totalPriceArr=convertArrayToOptions(priceDiscount,",");
@@ -33,6 +35,7 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
     }
     let isFlag=false
     convertArrayToQuantity(discount).map(index=>{
+      setDiscountTemp(index)
       if(index!=0){
         isFlag=true;
       }
@@ -57,36 +60,72 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
           content={`Sản phẩm ${name}. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
         />
       </Helmet>
-      <div className="product__item--pic">
-        <a onClick={()=>navigate(`/detail/${proId}`)}>
-          <div className="product__img">
-            <img className="lazy" src={img}
-                 alt={name} title={name}
-                 style={{display:"inline-block",width:"auto"}}
+      {isDiscount==true?
+        <Badge.Ribbon text={discountTemp+"%"} color={"red"}>
+          <div className="product__item--pic">
+            <a onClick={()=>navigate(`/detail/${proId}`)}>
+              <div className="product__img">
+                <img className="lazy" src={img}
+                     alt={name} title={name}
+                     style={{display:"inline-block",width:"auto"}}
                 />
+              </div>
+            </a>
+            <div className="product__item--infor">
+              <div className="clearfix">
+                <p className="product-name text-uper " style={{whiteSpace:"initial"}}><a
+                  onClick={()=>navigate(`/detail/${proId}`)} style={{whiteSpace:"initial"}}>{name}</a>
+                </p>
+                {
+                  statusPro===0?
+                    <p className="product-price">
+                      <span>Hết hàng</span>
+                    </p>
+                    :
+                    <p className="product-price">
+                      {isDiscount===false?"":
+                        <><span className="price-decoration">{price}</span>
+                          <br/></>}
+                      <span>{totalPrice}</span>
+                    </p>
+                }
+              </div>
+            </div>
           </div>
-        </a>
-        <div className="product__item--infor">
-          <div className="clearfix">
-            <p className="product-name text-uper " style={{whiteSpace:"initial"}}><a
-              onClick={()=>navigate(`/detail/${proId}`)} style={{whiteSpace:"initial"}}>{name}</a>
-            </p>
-            {
-              statusPro===0?
-                <p className="product-price">
-                  <span>Hết hàng</span>
-                </p>
-                :
-                <p className="product-price">
-                  {isDiscount===false?"":
-                    <><span className="price-decoration">{price}</span>
-                      <br/></>}
-                  <span>{totalPrice}</span>
-                </p>
-            }
+        </Badge.Ribbon>
+        : <div className="product__item--pic">
+          <a onClick={()=>navigate(`/detail/${proId}`)}>
+            <div className="product__img">
+              <img className="lazy" src={img}
+                   alt={name} title={name}
+                   style={{display:"inline-block",width:"auto"}}
+              />
+            </div>
+          </a>
+          <div className="product__item--infor">
+            <div className="clearfix">
+              <p className="product-name text-uper " style={{whiteSpace:"initial"}}><a
+                onClick={()=>navigate(`/detail/${proId}`)} style={{whiteSpace:"initial"}}>{name}</a>
+              </p>
+              {
+                statusPro===0?
+                  <p className="product-price">
+                    <span>Hết hàng</span>
+                  </p>
+                  :
+                  <p className="product-price">
+                    {isDiscount===false?"":
+                      <><span className="price-decoration">{price}</span>
+                        <br/></>}
+                    <span>{totalPrice}</span>
+                  </p>
+              }
+            </div>
           </div>
         </div>
-      </div>
+
+      }
+
     </div>
   )
 }

@@ -17,9 +17,6 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
   const dataProduct = useSelector(state => state.cartReducer);
   const [cartItem, setCartItem] = useState([dataProduct?.cartItem]);
   const [totalPriceCart,setTotalPriceCart]=useState(0);
-
-
-
   useEffect(() => {
     setCartItem(dataProduct?.cartItem.map(index=>{
       const totalPrice=index?.aboutSize.price*index?.quantity;
@@ -28,7 +25,6 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
     const temp=dataProduct?.cartItem.map(index=>{
       return index?.aboutSize.price*index?.quantity
     })
-
     setTotalPriceCart(temp.reduce((previousScore, currentScore)=>previousScore+currentScore,0))
   }, [dataProduct?.cartItem]);
 
@@ -67,7 +63,7 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
           <div className="header__cart dropdown" >
             <a className={cartButton === true ? "val-selected active" : "val-selected"} onClick={() => setCartButton(!cartButton)}>
 
-              <Badge size={"small"} count={cartItem?.length} offset={[8, 1]}>
+              <Badge size={"small"} count={cartItem?.length} offset={[8, 1]} >
               <span className="icon-slice8"></span>
               </Badge>
             <span className={cartItem?.length===0?"header__cart--num hide":"header__cart--num"}></span></a>
@@ -133,16 +129,16 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
                   <div className="menu__sub">
                     <ul>
                       <li onClick={() => navigate(`/product/11/page=1`) }>
-                        <a >T-Shirt</a>
+                        <a >Áo Thun</a>
                       </li>
                       <li onClick={() => navigate(`/product/12/page=1`)}>
-                        <a>Jacket</a>
+                        <a>Áo Khoác</a>
                       </li>
                       <li onClick={() => navigate(`/product/9/page=1`)}>
-                        <a>Hoodie</a>
+                        <a>Áo Hoodie</a>
                       </li>
                       <li onClick={() => navigate(`/product/10/page=1`)}>
-                        <a>Sweater</a>
+                        <a>Áo Sweater</a>
                       </li>
                     </ul>
                   </div>
