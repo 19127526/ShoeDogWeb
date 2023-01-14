@@ -13,13 +13,14 @@ import {addItemSuccess} from "./DetailPage.actions";
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
 import {message} from "antd"
-
+import {CaretLeftOutlined, CaretRightOutlined} from "@ant-design/icons";
+import { getImageSize } from 'react-image-size';
 
 const DetailPage = () => {
   const [detailProduct, setDetailProduct] = useState();
-  const useRefDetailImg = useRef(null);
   const [chooseSizeBtn, setChooseSizeBtn] = useState(false);
-  const [height2, setHeight2] = useState();
+  const [heightDescription, setHeightDescription] = useState();
+  const [heightImage,setHeightImage]=useState();
   const {proId} = useParams();
   const dispatch = useDispatch();
   const [imageSubArray, setImageSubArray] = useState([]);
@@ -49,7 +50,7 @@ const DetailPage = () => {
         discount: null,
       })
       getDetailProductByProId(proId || 0)
-        .then(res => {
+        .then(async res => {
           if (res.data.status === 'success') {
             setDetailProduct(res.data.data[0]);
             const tempSize = convertArrayToQuantity(res.data.data[0].Size);
@@ -65,10 +66,30 @@ const DetailPage = () => {
             }
             setSizeList(temp);
             setColor(res.data.data[0].Color);
+
             if (res.data.data[0].ImageArray === null || res.data.data[0].ImageArray === undefined || res.data.data[0].ImageArray === "") {
               setImageSubArray([])
             } else {
-              setImageSubArray(convertArrayToOptions(res.data.data[0].ImageArray, ", "));
+              const tempImageArr = convertArrayToOptions(res.data.data[0].ImageArray, ", ");
+              let tempHeightMin=0;
+              for(let i=0;i<tempImageArr.length;i++){
+                if(i==0){
+                 await getImageSize(tempImageArr[i])
+                    .then(({width,height})=>{
+                      tempHeightMin=height
+                    })
+                }
+                else{
+                 await getImageSize(tempImageArr[i])
+                    .then(({width,height})=>{
+                     if(tempHeightMin>=height){
+                       tempHeightMin=height
+                     }
+                    })
+                }
+              }
+              setHeightImage(tempHeightMin)
+              setImageSubArray(tempImageArr);
             }
             setEmpty(false);
 
@@ -111,7 +132,7 @@ const DetailPage = () => {
 
   useEffect(() => {
     /*setHeight2(339)*/
-    getWindowWidth().innerWidth > 784 ? setHeight2(height) : ""
+    getWindowWidth().innerWidth > 784 ? setHeightDescription(height) : ""
   },)
 
   const setChooseSize = (index, price, discount) => {
@@ -126,27 +147,27 @@ const DetailPage = () => {
     if (chooseSizeSuccess.size === null && chooseSizeSuccess.price === null) {
       message.info('Vui lòng chọn size trước khi thêm vào giỏ hàng');
     } else {
-        dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
-      }
-      /*
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].detailProduct.ProId == proId) {
-          if (data[i].aboutSize.size == chooseSizeSuccess.size) {
-            const prev=data[i].quantity;
-            const next= sizeList.filter(index=>index.size===chooseSizeSuccess.size).map(index=>index.quantity)[0];
-            if(next<=prev){
-              isAddItem=true;
-            }
+      dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
+    }
+    /*
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].detailProduct.ProId == proId) {
+        if (data[i].aboutSize.size == chooseSizeSuccess.size) {
+          const prev=data[i].quantity;
+          const next= sizeList.filter(index=>index.size===chooseSizeSuccess.size).map(index=>index.quantity)[0];
+          if(next<=prev){
+            isAddItem=true;
           }
         }
       }
-      if(isAddItem===false) {
-        dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
-      }
-      else{
-        message.info('Số lượng size của sản phẩm này đã hết, vui lòng chọn size khác');
-      }
-    }*/
+    }
+    if(isAddItem===false) {
+      dispatch(addItemSuccess({aboutSize: chooseSizeSuccess, detailProduct}))
+    }
+    else{
+      message.info('Số lượng size của sản phẩm này đã hết, vui lòng chọn size khác');
+    }
+  }*/
   }
 
 
@@ -172,17 +193,35 @@ const DetailPage = () => {
         <div className="container detail">
           <div className="detailInner clearfix" data-sticky_parent="">
             <div className="detail__img" ref={ref}>
-              <div className="main-slide-detail">
+              <div className="main-slide-detail" >
                 <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
-                          autoFocus={true} interval={5000} showStatus={false}>
+                          autoFocus={true} interval={5000} showStatus={false}
+
+                          renderArrowPrev={(onClickHandler, hasPrev, label) =>
+                            hasPrev && (
+                              <button className="arrow-image-left" type="button" title={label} style={{
+
+                              }} onClick={onClickHandler}>
+                                <CaretLeftOutlined className={"icon-arrow"}/>
+                              </button>
+                            )}
+                          renderArrowNext={(onClickHandler, hasNext, label) =>
+                            hasNext && (
+                              <button className="arrow-image-right" type="button" title={label} style={{
+
+                              }} onClick={onClickHandler}>
+                                <CaretRightOutlined className={"icon-arrow"} />
+                              </button>
+                            )}
+                >
                   {imageSubArray.length === 0 || imageSubArray === undefined || imageSubArray[0] === "" ?
                     <div>
-                      <img src={detailProduct?.ImageMain}/>
+                      <img src={detailProduct?.ImageMain} style={{objectFit:"contain"}} />
                     </div>
                     :
                     imageSubArray?.map(index => (
-                      <div>
-                        <img src={index}/>
+                      <div >
+                        <img src={index} style={{objectFit:"contain"}}/>
                       </div>
                     ))
                   }
@@ -197,7 +236,7 @@ const DetailPage = () => {
                 </ul>
               </div>
             </div>
-            <div className="detail__desc" style={{height: height2}}>
+            <div className="detail__desc" style={{height: heightDescription}}>
               <div className="detail__desc--inner">
                 <div className="detail__desc--fix">
                   <p className="text-uper font-500  fs-24 mgB-0 lh-40 mgB-20">{detailProduct?.ProName}</p>
@@ -307,14 +346,15 @@ const DetailPage = () => {
                           </>}
                       </p>
                       <p className={"font__detailproduct"}>
-                        <label>Mã sản phẩm: </label> &nbsp;<span style={{color:"black",fontWeight:"bold"}} >{detailProduct?.Inventory}</span>
+                        <label>Mã sản phẩm: </label> &nbsp;<span
+                        style={{color: "black", fontWeight: "bold"}}>{detailProduct?.Inventory}</span>
                       </p>
                       <p className={"font__detailproduct"}>
                         <label>Thương hiệu: </label>
-                        &nbsp; <span style={{color:"black",fontWeight:"bold"}} >{detailProduct?.Brand}</span>
+                        &nbsp; <span style={{color: "black", fontWeight: "bold"}}>{detailProduct?.Brand}</span>
                       </p>
                       <label className={"font__detailproduct"}>Mô tả </label>
-                      <div className="textDescription"
+                      <div
                            dangerouslySetInnerHTML={{__html: detailProduct?.Des.replace(/(<? *script)/gi, 'illegalscript')}}>
                       </div>
                     </div>
