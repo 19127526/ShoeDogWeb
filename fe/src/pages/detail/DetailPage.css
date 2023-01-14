@@ -89,13 +89,13 @@
     }
 
     .main-slide-detail>.carousel-root>.carousel>.slider-wrapper {
-        
+
      /*   height:400px*/
     }
 
-    .main-slide-detail>.carousel-root>.carousel>.slider-wrapper>ul>li>div{
+ /*   .main-slide-detail>.carousel-root>.carousel>.slider-wrapper>ul>li>div{
         height:400px
-    }
+    }*/
     .main-slide{
         padding-top: 30px;
         padding-right: 0;
