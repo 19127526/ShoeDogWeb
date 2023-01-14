@@ -67,7 +67,3 @@ F
 Be/controllers/auth.js,8\8\8809ff67d2436e6b06586716bc6a63e44232ea75
 F
 Be/controllers/user.js,b\8\b859faf85714a9b2d8d875ca312568d6d22d4a37
-A
-Be/routes/auth.js,7\e\7e2ffb0e6ee18ce69092ec024c29639f03dce09a
-A
-Be/models/user.js,6\3\630a9e9696c48807cc2a155edd267f225f0eefe7

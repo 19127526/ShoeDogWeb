@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 var cors = require('cors')
+console.log(process.env.FRONTEND_URL)
 app.use(cors({
     origin: process.env.FRONTEND_URL,
 }))

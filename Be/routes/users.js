@@ -7,8 +7,7 @@ const {isAuth} = require("../middlewares/auth");
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-router.post('/create', validateUserSignUp, userValidationResult, createUser);
+/*router.post('/create', validateUserSignUp, userValidationResult, createUser);
 router.post('/signin', validateUserSignIn, userValidationResult, userSignIn);
-router.get('/signout', isAuth, signOut);
-// router.get('/signout', isAuth, signOut);
+router.get('/signout', isAuth, signOut);*/
 module.exports = router;
