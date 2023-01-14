@@ -170,10 +170,10 @@ const DetailPage = () => {
   }*/
   }
 
-
   if (empty === true) {
     return (<ErrorPage/>)
   }
+  console.log(heightImage)
   return (
     <>
       <Helmet>
@@ -196,7 +196,7 @@ const DetailPage = () => {
               <div className="main-slide-detail" >
                 <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
                           autoFocus={true} interval={5000} showStatus={false}
-
+                          dynamicHeight={true}
                           renderArrowPrev={(onClickHandler, hasPrev, label) =>
                             hasPrev && (
                               <button className="arrow-image-left" type="button" title={label} style={{
@@ -220,7 +220,7 @@ const DetailPage = () => {
                     </div>
                     :
                     imageSubArray?.map(index => (
-                      <div >
+                      <div  >
                         <img src={index} style={{objectFit:"contain"}}/>
                       </div>
                     ))
