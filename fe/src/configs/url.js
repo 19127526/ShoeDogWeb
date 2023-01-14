@@ -1,6 +1,6 @@
-export const SERVER_URL="http://localhost:3001/"
+export const SERVER_URL="https://feshoedog.click/"
 
-export const CLIENT_URL="https://feshoedog.click/"
+export const CLIENT_URL="https://shoedogadmin.click/"
 /*http://localhost:3001/*/
 /*https://shoedogadmin.click/*/
 //api server
