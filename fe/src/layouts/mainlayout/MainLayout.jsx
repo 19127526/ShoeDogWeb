@@ -32,7 +32,9 @@ const MainLayout = () => {
   const debounceValue = useDebounce(searchValue, 500);
   const [scrollY, setScrollY] = useState(0);
   const [loading,isLoading]=useState(false);
-
+  const [changeSide,setChangeSide]=useState(false);
+  const data = useSelector(state => state.mainReducer);
+  const ref = useRef(null);
 
   useEffect(() => {
     const getListCategory = () => {
@@ -97,9 +99,26 @@ const MainLayout = () => {
     };
   },[window.pageYOffset]);
 
-  const [changeSide,setChangeSide]=useState(false);
+
+
+  useEffect(
+    () => {
+      if(data.isLoading==false) {
+        ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+      }
+    }, [data]);
+
+  useEffect(
+    () => {
+      if(data.isLoading==false) {
+        ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+      }
+    }, []);
+
+
   return (
     <>
+      <div ref={ref}></div>
       <Helmet>
         <meta charSet="utf-8" />
         <title>TRANG CHỦ - SHOEDOG - Shop giày uy tín nhất TP.HCM</title>
@@ -155,7 +174,7 @@ const MainLayout = () => {
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
                           <li onClick={() => {navigate(`/product/11/page=1`); setChangeSide(false)}}>
-                            <a>Tee</a>
+                            <a>T-Shirt</a>
                           </li>
                           <li onClick={() => {navigate(`/product/12/page=1`); setChangeSide(false)}}>
                             <a>Jacket</a>
@@ -170,7 +189,7 @@ const MainLayout = () => {
                         </ul>
                       </li>
                       {categories.map((value) => (
-                        (value?.CatId!=6&&value?.CatId!=7&&value?.CatId!=12&&value?.CatId!=8&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10)?
+                        (value?.CatId!=6&&value?.CatId!=7&&value?.CatId!=12&&value?.CatId!=8&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10 &&value?.CatId!=11)?
                         <li key={value.CatId}>
                           <a onClick={() => {
                             navigate(`/product/${value.CatId}/page=1`);

@@ -41,7 +41,12 @@ const DetailPage = () => {
   useEffect(() => {
     const getDetailProduct = () => {
       dispatch(turnOnLoading())
-      setImageSubArray([])
+      setImageSubArray([]);
+      setChooseSizeSuccess({
+        size: null,
+        price: null,
+        discount: null,
+      })
       getDetailProductByProId(proId || 0)
         .then(res => {
           if (res.data.status === 'success') {

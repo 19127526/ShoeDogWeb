@@ -13,7 +13,7 @@ import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxVa
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
 
-const pageIndex = 6;
+const pageIndex = 9;
 
 
 
@@ -102,7 +102,6 @@ const ListProduct = () => {
       },
     ])
     const getListProductByCatId2 = async () => {
-      console.log(product)
       dispatch(turnOnLoading())
       await getListProductsByCatId(product)
         .then(res => {
@@ -169,12 +168,15 @@ const ListProduct = () => {
     getListProductByCatId2()
   }, [product]);
   useEffect(()=>{
+    dispatch(turnOnLoading())
+    console.log("Dsd")
     if(pageindex==undefined){
       setPage(1);
     }
     else{
       setPage(pageindex);
     }
+    dispatch(turnOffLoading())
   },[pageindex])
   useEffect(() => {
     if (filterButton === true) {

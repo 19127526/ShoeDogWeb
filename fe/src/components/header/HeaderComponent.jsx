@@ -1,5 +1,5 @@
 import logo from '../../assets/themes/icons/favicon.svg';
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import CartComponent from "../cart/CartComponent";
 import {useComponentSize} from "react-use-size";
@@ -14,17 +14,10 @@ import {CLIENT_URL} from "../../configs/url";
 const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) => {
   const navigate = useNavigate();
   const [cartButton, setCartButton] = useState(false);
-  const data = useSelector(state => state.mainReducer);
-  const {ref, height, width} = useComponentSize();
   const dataProduct = useSelector(state => state.cartReducer);
   const [cartItem, setCartItem] = useState([dataProduct?.cartItem]);
   const [totalPriceCart,setTotalPriceCart]=useState(0);
-  useEffect(
-    () => {
-      if(data.isLoading==false) {
-        ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
-      }
-    }, [data.isLoading]);
+
 
 
   useEffect(() => {
@@ -44,7 +37,7 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
     navigate("/order");
   }
   return (
-    <header className="clearfix" ref={ref}>
+    <header className="clearfix">
       <Helmet>
         <meta charSet="utf-8" />
         <title>{`DANH MỤC SẢN PHẨM - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
@@ -140,7 +133,7 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
                   <div className="menu__sub">
                     <ul>
                       <li onClick={() => navigate(`/product/11/page=1`) }>
-                        <a >Tee</a>
+                        <a >T-Shirt</a>
                       </li>
                       <li onClick={() => navigate(`/product/12/page=1`)}>
                         <a>Jacket</a>
@@ -156,7 +149,7 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
                 </li>
 
                 {categoryList.map((value,index) => (
-                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10&&value?.CatId!=12)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}/page=1`)}>
+                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8&&value?.CatId!=11&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10&&value?.CatId!=12)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}/page=1`)}>
                     <a><span>{value.CatName}</span></a></li>:""
                 ))}
                {/* <li>

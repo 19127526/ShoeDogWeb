@@ -5,35 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShoeDogSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ShoeDogSQL.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/build.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/build.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/aside/AsideComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/aside/AsideComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/order/OrderProductComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/order/OrderProductComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/configs/url.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/error/ErrorPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/error/ErrorPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/order/OrderSuccessPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/order/OrderSuccessPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +93,7 @@
       <workItem from="1673349066024" duration="2782000" />
       <workItem from="1673356151092" duration="5751000" />
       <workItem from="1673378118949" duration="4884000" />
-      <workItem from="1673434115287" duration="14147000" />
+      <workItem from="1673434115287" duration="14304000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>
