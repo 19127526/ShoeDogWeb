@@ -777,6 +777,7 @@ footer {
 }
 
 .product__item--pic {
+    color: #000!important;
 }
 
 .product__item--pic a {
@@ -784,7 +785,7 @@ footer {
     height: 100%;
     text-align: center;
     position: relative;
-    color: #000;
+    color: #000!important;
 }
 
 .product__item--pic a .product__img {

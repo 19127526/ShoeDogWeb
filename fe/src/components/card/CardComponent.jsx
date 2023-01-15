@@ -62,7 +62,7 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
       </Helmet>
       {isDiscount==true?
         <Badge.Ribbon text={discountTemp+"%"} color={"red"}>
-          <div className="product__item--pic" style={{color:"black"}}>
+          <div className="product__item--pic" >
             <a onClick={()=>navigate(`/detail/${proId}`)}>
               <div className="product__img">
                 <img className="lazy" src={img}
