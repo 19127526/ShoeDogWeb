@@ -235,8 +235,8 @@ const OrderPage = () => {
                     <Input name="email" placeholder="Email" className="form-control" type="email"
                            onChange={handleChangeEmail}/>
                   </div>
-                  <div className="frm-item same-city">
-                    <select className="select-city" data-child="district" name="shipping_city_id"
+                  <div className="frm-item">
+                    <select  name="shipping_city"
                             onChange={handleChangeListProvinces}>
                       <option value="0">Tỉnh/Thành phố</option>
                       {
@@ -246,8 +246,8 @@ const OrderPage = () => {
                       }
                     </select>
                   </div>
-                  <div className="frm-item same-district">
-                    <select className="select-district" name="shipping_district_id"
+                  <div className="frm-item ">
+                    <select  name="shipping_district"
                             onChange={handleChangeListDistricts}>
                       <option value="0">Quận/Huyện</option>
                       {
@@ -257,8 +257,8 @@ const OrderPage = () => {
                       }
                     </select>
                   </div>
-                  <div className="frm-item same-ward">
-                    <select className="select-ward" name="shipping_ward_id" onChange={handleChangeListWards}>
+                  <div className="frm-item">
+                    <select  name="shipping_ward" onChange={handleChangeListWards}>
                       <option value="0">Phường/Xã</option>
                       {
                         listWards.map(index =>
