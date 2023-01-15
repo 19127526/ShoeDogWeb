@@ -41,16 +41,12 @@ G
 admin/src/App.js,a\2\a22ea86ff47cb49b97708e5bd1c1bc8b8d298cf0
 J
 Be/controllers/category.js,0\1\017ddf29fff7ba82fe5d2456aaf2476752583ca1
-^
-.fe/src/assets/css/bootstrap-3.3.6/Gruntfile.js,7\d\7d422a80c7f3b404da17888481cc0df74fcac24c
 G
 Be/utils/imageUpload.js,0\5\05eef8dc5db87798d2aed2e34272232e7c6ba1dc
 V
 &admin/src/apis/products/ProductsApi.js,7\c\7c3588e1ec463d1c0f22a1f741be584678eb02bc
 \
 ,admin/src/pages/category/EditProductPage.jsx,a\d\ad97db648fb9eb88a8b99395aa149eeb6c9fa806
-9
-	Be/app.js,0\8\08733a60a3352b4082300ab56b0ec3f6cfdc4073
 Q
 !Be/middlewares/routeMiddleware.js,6\4\649a6c5dbd5c05ac9123238d75bf0a8be9c3105c
 ?
@@ -69,11 +65,5 @@ A
 Be/ShoeDogSQL.sql,8\f\8f023b8e98f2a85e52e646fc97e890c4d164db12
 F
 Be/controllers/auth.js,8\8\8809ff67d2436e6b06586716bc6a63e44232ea75
-7
-Be/.env,7\a\7ae71e78a3404ea42cf6fee529f1575eb965baea
 F
 Be/controllers/user.js,b\8\b859faf85714a9b2d8d875ca312568d6d22d4a37
-A
-Be/routes/auth.js,7\e\7e2ffb0e6ee18ce69092ec024c29639f03dce09a
-A
-Be/models/user.js,6\3\630a9e9696c48807cc2a155edd267f225f0eefe7
