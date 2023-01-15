@@ -29,6 +29,12 @@
     color: #0c0c0c;
     font-size: 40px;
 }
+.main-slide-detail{
+
+}
+.main-slide-detail>.carousel-root>.carousel>.slider-wrapper{
+    width:100%;
+}
 @media (min-width:769px) and (max-width: 990px) {
     .arrow-image-right{
         position: absolute;

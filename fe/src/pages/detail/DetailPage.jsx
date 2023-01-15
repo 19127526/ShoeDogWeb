@@ -196,6 +196,7 @@ const DetailPage = () => {
               <div className="main-slide-detail" >
                 <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows autoPlay
                           autoFocus={true} interval={5000} showStatus={false}
+                          axis={"horizontal"}
                           dynamicHeight={true}
                           renderArrowPrev={(onClickHandler, hasPrev, label) =>
                             hasPrev && (
