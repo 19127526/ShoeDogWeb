@@ -12,6 +12,7 @@ import ErrorPage from "../error/ErrorPage";
 import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxValue, minValue} from "../../utils/Utils";
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
+import NothingProduct from "../nothingproduct/NothingProduct";
 
 const pageIndex = 9;
 
@@ -479,7 +480,7 @@ const ListProduct = () => {
   }
 
   if (loading === false) {
-    return <ErrorPage/>
+    return <NothingProduct/>
   }
 
   const onChangePrice = (value) => {

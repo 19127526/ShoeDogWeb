@@ -50,15 +50,19 @@ const ErrorPage=()=>{
               </div>
             </div>
 
-            <p className="p404" data-depth="0.50">404</p>
-            <p className="p404" data-depth="0.10">404</p>
+            <p className="p404" data-depth="0.50">OOPS</p>
+            <p className="p404" data-depth="0.10">OOPS</p>
 
           </div>
 
           <div className="text">
             <article>
-              <p>Uh oh! Looks like you got lost. <br/>Please go back to the homepage !!</p>
-              <button className="button-error" onClick={()=>navigate("/")}>Go home</button>
+              <p>Đường link này không tồn tại <br/>Vui lòng quay trở lại trang chủ !!</p>
+              <div className="row" style={{display:"flex",justifyContent:"center"}}>
+                <div className="col-md-12" style={{width:"fit-content"}}>
+                  <a  onClick={()=>navigate("/")} className="btn btn-glab btn-block btn-success">Quay lại trang chủ</a>
+                </div>
+              </div>
             </article>
           </div>
         </div>
