@@ -1559,14 +1559,11 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
         margin-top: 20px;
     }
     footer .row {
-
-        display: flex;
-        justify-content: space-between;
     }
 
-   /* footer .items__footer {
+    footer .items__footer {
         display: block;
-    }*/
+    }
     .load__more a {
         display: block;
         text-align: center;

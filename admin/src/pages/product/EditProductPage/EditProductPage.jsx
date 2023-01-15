@@ -188,7 +188,7 @@ const EditProductPage = () => {
                   price:Number(tempPrice[i]),
                   discount:Number(tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]*100),
                   totalPrice:Number(tempTotalPrice[i]),
-                  tempDiscount:tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]*100
+                  tempDiscount:tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]
                 })
               }
 
@@ -301,7 +301,7 @@ const EditProductPage = () => {
       }
     });
     const tempDiscount= tempSize2Quantity2PriceList.map((value, index) => {
-      const temp = index + ": " + value.discount/100;
+      const temp = index + ": " + value.discount;
       if (index === 0) {
         return temp
       } else {

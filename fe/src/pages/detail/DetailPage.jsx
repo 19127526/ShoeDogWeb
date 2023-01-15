@@ -173,7 +173,6 @@ const DetailPage = () => {
   if (empty === true) {
     return (<ErrorPage/>)
   }
-  console.log(heightImage)
   return (
     <>
       <Helmet>

@@ -19,8 +19,7 @@ exports.userSignIn = async (req, res) => {
     const token = jwt.sign({userId: user.UserId}, process.env.JWT_SECRET,
         {expiresIn: '1d'})
     await User.findByIdAndUpdateToken(user.UserId, token);
-
-    return res.json({success: true, user, token})
+    return res.json({"status": "success", user, token})
 }
 exports.signOut = async (req, res) => {
     if (req.headers && req.headers.authorization) {
@@ -28,11 +27,11 @@ exports.signOut = async (req, res) => {
         if (!token) {
             return res
                 .status(401)
-                .json({success: false, message: 'Authorization fail!'});
+                .json({"status": "fail", message: 'Authorization fail!'});
         }
 
 
         await User.findByIdAndUpdateToken(req.user.UserId, null);
-        res.json({success: true, message: 'Sign out successfully!'});
+        res.json({"status": "success", message: 'Sign out successfully!'});
     }
 };

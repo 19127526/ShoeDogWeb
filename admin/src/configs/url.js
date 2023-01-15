@@ -1,4 +1,4 @@
-export const SERVER_URL="https://feshoedog.click/"
+export const SERVER_URL="http://localhost:3001/"
 /*https://shoedogadmin.click/*/
 export const CLIENT_URL="http://localhost:3000/"
 
@@ -15,7 +15,7 @@ export const DETAIL_PRODUCT_URI="product/detail/"
 export const GET_ALL_ORDER_URI="order"
 export const REMOVE_ORDER_URI="order/delete"
 export const COMPLETE_ORDER_URI="order/complete"
-export const POST_LOGIN_URI="auth/login"
+export const POST_LOGIN_URI="users/signin"
 
 export const GET_STATISTIC_YEAR_URI="product/statistic/year";
 export const GET_STATISTIC_DAY_URI="product/statistic/day";

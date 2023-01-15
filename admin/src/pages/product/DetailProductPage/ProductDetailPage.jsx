@@ -191,9 +191,9 @@ const ProductDetailPage =  () => {
                 tempValueArr.push({
                   size:tempSize[i],
                   price:Number(tempPrice[i]),
-                  discount:Number(tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]*100),
+                  discount:Number(tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]),
                   totalPrice:Number(tempTotalPrice[i]),
-                  tempDiscount:tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]*100
+                  tempDiscount:tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]
                 })
               }
 

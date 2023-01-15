@@ -1,8 +1,10 @@
 
-
+.img-footer{
+    width: 400px;
+}
 @media (max-width: 768px) {
     .img-footer{
-        width: 1000vw;
+        width: 500px!important;
     }
      p{
         padding-right: 1%;
@@ -15,3 +17,4 @@
 
     }
 }
+
