@@ -13,10 +13,9 @@ import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout
 import {convertArrayToSize} from "../../utils/Utils";
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
-
+let pageIndex=6
 const HomePage = () => {
   const navigate = useNavigate();
-  let resultsRef = useRef();
   const [productWithCatId, setProductWithCatId] = useState([{
     category: {
       CatId: null,
@@ -25,6 +24,15 @@ const HomePage = () => {
     productList: []
   }]);
   const dispatch=useDispatch();
+  const ref = useRef(null);
+
+  useLayoutEffect(
+    () => {
+      if(productWithCatId.filter(index=>index.category.CatId!=null).length>0) {
+        ref.current.scrollIntoView({behavior: 'auto', block: 'start'})
+      }
+    }, [productWithCatId]);
+
 
 
   useEffect(() => {
@@ -33,7 +41,6 @@ const HomePage = () => {
       await getListCategories()
         .then(res => {
           if (res.data.status === 'success') {
-
             const a=res.data.data.filter(index=>{
               if(index?.CatId ===11 || index?.CatId===4 ||index?.CatId===6){
                 return index
@@ -76,10 +83,11 @@ const HomePage = () => {
     }
     getListCategory()
   }, []);
+
   return (
     <>
 
-      <div className="container" ref={resultsRef}>
+      <div className="container" ref={ref}>
         <Helmet>
           <meta charSet="utf-8" />
           <title>TRANG CHỦ - SHOEDOG - Shop giày uy tín nhất TP.HCM</title>
@@ -94,9 +102,8 @@ const HomePage = () => {
           />
         </Helmet>
 
-        {productWithCatId.map(index =>
+        {productWithCatId.filter((index=>index.category.CatId!=null)).sort((a,b)=>a?.category?.CatId-b?.category?.CatId).map(index =>
           <>
-            {index.category.CatId == 6 || index.category.CatId == 11 || index.category.CatId == 4?
             <>
             {index.productList.length>0?
               (
@@ -108,8 +115,7 @@ const HomePage = () => {
               <h2 className="text-center title__type">{index.category.CatName}</h2>
               <div className="row products">
             {index.productList.map((value,index) => (
-              index<9?
-
+              index<pageIndex?
               <div className="col-lg-4 col-md-6 ">
               <CardComponent name={value?.ProName}
               img={value?.ImageMain}
@@ -121,7 +127,7 @@ const HomePage = () => {
               </div>:""
               ))}
               </div>
-            {index.productList.length > 9 ?
+            {index.productList.length > pageIndex ?
               <div className="text-center" onClick={() => navigate(`/product/${index.category.CatId}/page=1`)}>
               <a className="btn-see-more text-uper">Xem thêm</a>
               </div>
@@ -131,8 +137,6 @@ const HomePage = () => {
               </>
               ):""}
               </>
-              :""
-            }
           </>
         )}
 

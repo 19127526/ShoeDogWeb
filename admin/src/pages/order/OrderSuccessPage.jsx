@@ -254,18 +254,6 @@ const OrderProcessPage = () => {
             </div>
           </div>
         </div>
-        <div className="items-search">
-          <form className="form-inline">
-            <div className="input-group">
-              <input type="text" className="form-control boxed rounded-s" placeholder="Nhập vào để tìm kiếm..."/>
-              <span className="input-group-btn">
-                  <button className="btn btn-secondary rounded-s" type="button" style={{height: "100%"}}>
-                      <i className="fa fa-search"></i>
-                  </button>
-              </span>
-            </div>
-          </form>
-        </div>
       </div>
       <div className="card items">
         <ul className="item-list striped">

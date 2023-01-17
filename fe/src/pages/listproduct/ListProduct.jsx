@@ -14,7 +14,7 @@ import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
 import NothingProduct from "../nothingproduct/NothingProduct";
 
-const pageIndex = 9;
+const pageIndex = 12;
 
 
 

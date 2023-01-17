@@ -1,6 +1,6 @@
 import {BackTop, Layout, Spin} from 'antd';
 import HeaderComponent from "../../components/header/HeaderComponent";
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
 import FooterComponent from "../../components/footer/FooterComponent";
 import RoutesPage from "../../routes/RoutesPage";
 import {getListCategories} from "../../apis/categories/CategoriesApi";
@@ -101,14 +101,14 @@ const MainLayout = () => {
 
 
 
-  useEffect(
+  useLayoutEffect(
     () => {
       if(data.isLoading==false) {
         ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
       }
     }, [data]);
 
-  useEffect(
+  useLayoutEffect(
     () => {
       if(data.isLoading==false) {
         ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
