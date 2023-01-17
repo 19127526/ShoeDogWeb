@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mariadb://s88d91.cloudnetwork.vn:3306/sho62786_shoesdogdatabase</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="sho27414_shoedogdatabase@s88d91.cloudnetwork.vn" uuid="6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://s88d91.cloudnetwork.vn:3306/sho27414_shoedogdatabase</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

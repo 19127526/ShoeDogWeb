@@ -1,4 +1,4 @@
-import {Tooltip} from "antd";
+import {Button, Tooltip} from "antd";
 import {removeItem} from "../../pages/detail/DetailPage.actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Helmet} from "react-helmet";
@@ -9,7 +9,6 @@ const OrderProductComponent=({name,sku,size,quantity,totalPrice,discount,index})
   const data = useSelector(state => state.cartReducer);
   const removeItemIntoCart=()=>{
     const dataCart=data.cartItem.filter(index2=>(index2?.detailProduct?.ProId !==index?.detailProduct?.ProId||index2?.aboutSize.size !==size))
-    console.log(dataCart)
     dispatch(removeItem(dataCart));
   }
 return (
@@ -27,9 +26,7 @@ return (
         content={`Sản phẩm trong giỏ hàng ${name}. Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1.`}
       />
     </Helmet>
-    <Tooltip title="Nhấn để xóa" color={"blue"}>
-      <a className="pro-remove removeCart" onClick={removeItemIntoCart}><span className="icon-uniF335"></span></a>
-    </Tooltip>
+
     <div className="font-600 fs-14 mgB-10">
       <a href="https://www.glab.vn/product/detail/5234-off-white-x-wmns-air-jordan-4-sp-sail">
         {name}
@@ -51,6 +48,11 @@ return (
     </div>
     <div className="font-600 fs-11 justifyAround mgB-5"><em>Thành Tiền:</em>
       <div>{totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</div>
+    </div>
+    <div className="font-600 fs-11 justifyAround mgB-5">
+      <Tooltip title="Nhấn để xóa" color={"blue"}>
+        <Button size={"small"} style={{padding:"10px,3px,3px,3px",background:"#404040",color:"white"}} onClick={removeItemIntoCart}>Xóa sản phẩm</Button>
+      </Tooltip>
     </div>
   </div>
 )

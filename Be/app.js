@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var cors = require('cors')
 console.log(process.env.FRONTEND_URL)
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+  origin: ["https://shoedog.vn","https://be.shoedog.vn"],
 }))
 activeRouteMiddleware(app);
 

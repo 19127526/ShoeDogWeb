@@ -22,7 +22,6 @@ const OrderPage = () => {
   const dispatch = useDispatch();
   const dataProduct = useSelector(state => state.cartReducer);
   const cartItem = dataProduct.cartItem;
-  console.log(cartItem)
   const [totalPrice, setTotalPrice] = useState(0);
   const [listProvinces, setListProvinces] = useState([{
     name: null,

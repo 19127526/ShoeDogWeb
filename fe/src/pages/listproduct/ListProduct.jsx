@@ -170,7 +170,6 @@ const ListProduct = () => {
   }, [product]);
   useEffect(()=>{
     dispatch(turnOnLoading())
-    console.log("Dsd")
     if(pageindex==undefined){
       setPageCurrent(1);
     }

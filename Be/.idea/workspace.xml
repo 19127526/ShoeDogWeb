@@ -5,9 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Be.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../Be.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShoeDogSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ShoeDogSQL.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/card/CardRevenue.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/card/CardRevenue.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/description/DescriptionComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/description/DescriptionComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/DetailProductPage/ProductDetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/DetailProductPage/ProductDetailPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/build.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/build.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/order/OrderProductComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/order/OrderProductComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +59,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.data.extractors.current.export.id" value="SQL Inserts" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="import_schema_mapping" value="&lt;schema-mapping&gt;&lt;databases&gt;&lt;list&gt;&lt;schema-mapping-item&gt;&lt;source-data-source-id&gt;5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1&lt;/source-data-source-id&gt;&lt;source-path&gt;schema/&quot;sho62786_shoesdogdatabase&quot;&lt;/source-path&gt;&lt;target-data-source-id&gt;6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0&lt;/target-data-source-id&gt;&lt;target-path&gt;schema/&quot;sho27414_shoedogdatabase&quot;&lt;/target-path&gt;&lt;/schema-mapping-item&gt;&lt;/list&gt;&lt;/databases&gt;&lt;/schema-mapping&gt;" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../admin" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
@@ -100,7 +118,18 @@
       <workItem from="1673767746381" duration="3419000" />
       <workItem from="1673775348333" duration="1045000" />
       <workItem from="1673961151943" duration="1078000" />
-      <workItem from="1673963543527" duration="4294000" />
+      <workItem from="1673963543527" duration="4508000" />
+      <workItem from="1673974450580" duration="1185000" />
+      <workItem from="1673976090654" duration="1705000" />
+      <workItem from="1673978005208" duration="1659000" />
+      <workItem from="1673980380488" duration="323000" />
+      <workItem from="1673980785005" duration="57000" />
+      <workItem from="1673980914991" duration="65000" />
+      <workItem from="1673981007566" duration="691000" />
+      <workItem from="1673982086054" duration="237000" />
+      <workItem from="1673982438302" duration="851000" />
+      <workItem from="1673984110187" duration="63000" />
+      <workItem from="1673984230583" duration="969000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>

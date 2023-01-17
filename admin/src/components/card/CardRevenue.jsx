@@ -3,7 +3,6 @@ import {DETAIL_PRODUCT} from "../../configs/url";
 
 
 const CardRevenue=({items})=>{
-  console.log(items)
   const navigate=useNavigate();
   return (
     <li className="item" onClick={()=>navigate(DETAIL_PRODUCT+items?.CatId+"/"+items?.ProId)}>

@@ -7,7 +7,7 @@ import {LIST_PRODUCT_BY_CATEGORY_ID} from "../../configs/url";
 
 
 const DescriptionComponent = ({index}) => {
-  console.log(index)
+
   const navigate=useNavigate();
   const columns = [
     {

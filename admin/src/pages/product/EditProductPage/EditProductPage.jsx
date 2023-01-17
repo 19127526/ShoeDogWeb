@@ -370,7 +370,6 @@ const EditProductPage = () => {
 
 
     for (let i = 0; i < tempImageTotal.length; i++) {
-      console.log(tempImageTotal[i])
       formData.append('image', tempImageTotal[i]);
     }
 

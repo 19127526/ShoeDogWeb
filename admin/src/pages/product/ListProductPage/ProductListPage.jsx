@@ -240,7 +240,6 @@ const ProductListPage = () => {
             //totalPrice
             let resultTotalPrice=""
             let totalPriceArr=convertArrayToSize2Price(index?.TotalPrice);
-            console.log(totalPriceArr)
             for(let i=0;i<totalPriceArr.length;i++){
               if(i==0){
                 resultTotalPrice+=Number(totalPriceArr[i]).toLocaleString('it-IT', {style: 'currency', currency: 'VND'}).toString()
@@ -288,13 +287,11 @@ const ProductListPage = () => {
   }
 
   const handleRemoveProduct=async () => {
-    console.log(selectedRowKeys.length)
     let isFlag=false;
     for (const index of selectedRowKeys) {
       dispatch(turnOnLoading())
       await removeProductByProId({proId: index})
         .then(res => {
-
           if (res.data.status === 'success') {
           } else {
             isFlag=true;

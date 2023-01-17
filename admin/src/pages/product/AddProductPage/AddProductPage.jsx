@@ -292,9 +292,6 @@ const AddProductPage = () => {
       formData.append('image', image[i]);
     }
 
-    for (const value of formData.values()) {
-      console.log(value);
-    }
     const callApiAddProduct = async () => {
       dispatch(turnOnLoading());
       await addProduct(formData)
@@ -305,7 +302,7 @@ const AddProductPage = () => {
           }
         })
         .catch(err => {
-          console.log(err)
+
         })
         .finally(() => {
           dispatch(turnOffLoading());

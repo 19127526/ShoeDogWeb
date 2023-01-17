@@ -49,7 +49,7 @@ create table orders
     OrderId int auto_increment primary key,
     FullName varchar(100) charset utf8  not null,
     Email varchar(100) charset utf8  null,
-    Address varchar(100)  not null ,
+    Address varchar(100) charset utf8  not null ,
     PhoneNumber varchar(100)  not null ,
     Note varchar(100) null ,
     InventoryOrder varchar(10) null,
@@ -66,7 +66,7 @@ create table ordersdetails
     OrderDetailId int auto_increment primary key,
     ProId int not null,
     Amount bigint not null ,
-    Size longtext not null ,
+    Size longtext charset utf8 not null ,
     OrderId int not null,
     Price double not null,
 
