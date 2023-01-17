@@ -1,6 +1,6 @@
-export const SERVER_URL="http://localhost:3001/"
+export const SERVER_URL="https://sv.shoedog.vn/";
 /*https://shoedogadmin.click/*/
-export const CLIENT_URL="http://localhost:3000/"
+export const CLIENT_URL="https://be.shoedog.vn/"
 
 //Server
 export const GET_CATEGORIES_URI="category"
