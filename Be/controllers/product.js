@@ -96,7 +96,9 @@ exports.addProduct = async (req, res) => {
             DateStart: new Date(),
         }
 
-        const productId = await product.addProduct(productAdd);
+        let productId = await product.addProduct(productAdd);
+        if (productId.length <= 0) return res.status(200).json({"status": "empty", "message": "Product not found"});
+        productId = productId[0];
         const productFinding = await product.getDetailProductsByProId(productId);
         const arrayFile = req.files;
         const arrayImage = [];
@@ -105,7 +107,7 @@ exports.addProduct = async (req, res) => {
             const rs = await cloudinary.uploader.upload(arrayFile[i].path, {
                 folder: `shoedog/${catName}`,
                 public_id: `${arrayFile[i].filename}`,
-                crop: "fill"
+                crop: "fill",
             })
             arrayImage.push(rs.secure_url)
             imageId.push(rs.public_id)
