@@ -373,3 +373,23 @@ exports.getTotalItemSold=async (req,res)=>{
     }
 }
 
+exports.test = async (req, res) => {
+    try {
+        const statistic = await category.addRawCategory("test");
+        return res.status(200).json({"status": "success", "data": statistic});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.test1 = async (req, res) => {
+    try {
+        const Cat = {
+            CatName: "test123",
+        }
+        const statistic = await category.addCategory(Cat);
+        return res.status(200).json({"status": "success", "data": statistic});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}

@@ -4,6 +4,7 @@ const categoryRouter = require("../routes/categories");
 const productRouter = require("../routes/products");
 const orderRouter=require("../routes/orders")
 const authRouter=require("../routes/auth")
+const testRouter = require("../routes/test");
 const multer = require('multer');
 const sharp = require('sharp')
 
@@ -25,6 +26,7 @@ const activateRouteMiddleware = (app) => {
     app.use('/product', uploads, productRouter);
     app.use('/order',orderRouter);
     app.use('/auth',authRouter)
+    app.use('/test',testRouter)
 }
 
 module.exports = activateRouteMiddleware;

@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="sho62786_shoesdogdatabase@s88d91.cloudnetwork.vn" uuid="b413dcd0-935b-40c0-9454-a0fb1a6bde22">
+    <data-source source="LOCAL" name="sho27414_shoedogdatabase@s88d91.cloudnetwork.vn" uuid="77288b01-7120-4877-b01b-2eba1d71d7c9">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://s88d91.cloudnetwork.vn:3306/sho62786_shoesdogdatabase</jdbc-url>
+      <jdbc-url>jdbc:mysql://s88d91.cloudnetwork.vn:3306/sho27414_shoedogdatabase</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

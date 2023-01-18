@@ -21,8 +21,6 @@ w
 G.idea/sonarlint/issuestore/2/2/22973f11b91b443766d3a789699dcc4844f9e321,5\a\5ab79e416306700ae7398da5d90d8c23cb691b40
 S
 #.idea/runConfigurations/bin_www.xml,1\4\140e4eb5c9a9663fa1c54fe51930e6d28f95de63
->
-Be/utils/db.js,4\9\49ed4f36d0a49482d10f8eead72b117016fe1f8b
 B
 Be/routes/index.js,0\c\0c3e128171c13cdec9ffdbd5b1792b78f74338e4
 >
@@ -45,10 +43,6 @@ G
 Be/utils/imageUpload.js,0\5\05eef8dc5db87798d2aed2e34272232e7c6ba1dc
 V
 &admin/src/apis/products/ProductsApi.js,7\c\7c3588e1ec463d1c0f22a1f741be584678eb02bc
-\
-,admin/src/pages/category/EditProductPage.jsx,a\d\ad97db648fb9eb88a8b99395aa149eeb6c9fa806
-Q
-!Be/middlewares/routeMiddleware.js,6\4\649a6c5dbd5c05ac9123238d75bf0a8be9c3105c
 ?
 Be/package.json,7\c\7c85e015ca9221add7d5721d365fb9a6d6acca27
 D
@@ -57,12 +51,8 @@ F
 Be/middlewares/auth.js,0\6\06bcac52a95a1fe80e9676c3e2ee57e6a171a90e
 F
 Be/middlewares/user.js,b\6\b65af6d89160aeb5e66a51ebbab97a2b4b0e3744
-B
-Be/models/order.js,1\3\13924397c7ae90bf8d3d803c5f28baa9574384a7
 C
 Be/routes/orders.js,6\3\63c6b2d280695810fdbfd8cca90dd8598994bfc2
-A
-Be/ShoeDogSQL.sql,8\f\8f023b8e98f2a85e52e646fc97e890c4d164db12
 F
 Be/controllers/auth.js,8\8\8809ff67d2436e6b06586716bc6a63e44232ea75
 F
