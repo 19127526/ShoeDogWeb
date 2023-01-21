@@ -19,7 +19,7 @@ import "./MainLayout.css"
 import {config} from "@fortawesome/fontawesome-svg-core";
 import { Helmet } from "react-helmet";
 const {Header, Footer, Sider, Content} = Layout;
-
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 const MainLayout = () => {
   const [categories, setCategories] = useState([]);
   const [searchButton, setSearchButton] = useState(false);
@@ -101,14 +101,14 @@ const MainLayout = () => {
 
 
 
-  useLayoutEffect(
+  useEffect(
     () => {
       if(data.isLoading==false) {
         ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
       }
     }, [data]);
 
-  useLayoutEffect(
+  useEffect(
     () => {
       if(data.isLoading==false) {
         ref.current.scrollIntoView({behavior: 'smooth', block: 'start'})
@@ -240,6 +240,9 @@ const MainLayout = () => {
                 </BackTop>
               </Content>
               <FooterComponent/>
+              <MessengerCustomerChat
+                pageId="1917037658621790"
+              />
             </div>
             </body>
           </Spin>

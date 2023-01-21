@@ -354,7 +354,7 @@ div.header__cart--item:hover {
 }
 
 .header__cart--items {
-    margin-bottom: 35px;
+   /* margin-bottom: 35px;*/
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -1271,6 +1271,11 @@ footer {
     padding-right: 50px;
     float: left;
     width: calc(100% - 350px);
+}
+@media (max-width: 990px) {
+    .checkout__infor{
+        float: none;
+    }
 }
 
 .checkout__slect--payment {

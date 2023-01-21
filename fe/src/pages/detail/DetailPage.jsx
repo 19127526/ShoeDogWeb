@@ -177,7 +177,7 @@ const DetailPage = () => {
     <>
       <Helmet>
         <meta charSet="utf-8"/>
-        <title>{`CHI TIẾT SẢN PHẨM - ${detailProduct?.ProName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <title>{`${detailProduct?.ProName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
         <link
           rel="canonical"
           href={CLIENT_URL + `/detail/${detailProduct?.ProId}`}

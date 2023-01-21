@@ -49,7 +49,7 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
     <div className="product__item">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sản phẩm ${name} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+
         <link
           rel="canonical"
           href={CLIENT_URL + `/detail/${proId}`}

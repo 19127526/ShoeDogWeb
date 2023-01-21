@@ -5,24 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Be.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../Be.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShoeDogSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ShoeDogSQL.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/components/card/CardRevenue.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/card/CardRevenue.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/components/description/DescriptionComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/description/DescriptionComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/category.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/products.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/build.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/build.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/DetailProductPage/ProductDetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/DetailProductPage/ProductDetailPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/routes/RoutesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/routes/RoutesPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/build.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/build.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style_font.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style_font.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/cart/CartComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/components/order/OrderProductComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/order/OrderProductComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/configs/url.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" afterDir="false" />
     </list>
@@ -60,7 +67,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.data.extractors.current.export.id" value="SQL Inserts" />
     <property name="import_schema_mapping" value="&lt;schema-mapping&gt;&lt;databases&gt;&lt;list&gt;&lt;schema-mapping-item&gt;&lt;source-data-source-id&gt;5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1&lt;/source-data-source-id&gt;&lt;source-path&gt;schema/&quot;sho62786_shoesdogdatabase&quot;&lt;/source-path&gt;&lt;target-data-source-id&gt;6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0&lt;/target-data-source-id&gt;&lt;target-path&gt;schema/&quot;sho27414_shoedogdatabase&quot;&lt;/target-path&gt;&lt;/schema-mapping-item&gt;&lt;/list&gt;&lt;/databases&gt;&lt;/schema-mapping&gt;" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
@@ -130,6 +137,14 @@
       <workItem from="1673982438302" duration="851000" />
       <workItem from="1673984110187" duration="63000" />
       <workItem from="1673984230583" duration="969000" />
+      <workItem from="1674024941409" duration="3059000" />
+      <workItem from="1674028196388" duration="4572000" />
+      <workItem from="1674044488826" duration="5000" />
+      <workItem from="1674048643128" duration="20000" />
+      <workItem from="1674107560899" duration="4585000" />
+      <workItem from="1674144413420" duration="6307000" />
+      <workItem from="1674202504433" duration="1614000" />
+      <workItem from="1674274210958" duration="1189000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>

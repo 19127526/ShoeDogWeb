@@ -39,38 +39,44 @@ const HomePage = () => {
     const getListCategory = async () => {
       dispatch((turnOnLoading()))
       await getListCategories()
-        .then(res => {
+        .then(async res => {
           if (res.data.status === 'success') {
-            const a=res.data.data.filter(index=>{
-              if(index?.CatId ===11 || index?.CatId===4 ||index?.CatId===6){
+            const tempCategory = res.data.data.filter(index => {
+              if (index?.CatId === 11 || index?.CatId === 4 || index?.CatId === 6) {
                 return index
               }
             })
-            a.forEach(async index => {
-                await getListProductsByCatId(index.CatId)
-                  .then(res => {
-                    if (res.data.status === 'success') {
-                      const itemResult = res.data.data.map(index => {
-                        return{
-                          ...index,
-                          TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
-                        }
-                      });
-                      const newElement={
-                        category: {...index},
-                        productList: [...itemResult]
-                      }
-                      setProductWithCatId(prevState => [...prevState,newElement]);
+            const [a1, a2, a3] = tempCategory;
+            const tempCategoryAfterSort = [a2, a3, a1]
 
-                    } else {
-                     /* Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)*/
+            for (let i = 0; i < tempCategoryAfterSort.length; i++) {
+
+              await getListProductsByCatId(tempCategoryAfterSort[i].CatId)
+                .then(res => {
+                  if (res.data.status === 'success') {
+                    const itemResult = res.data.data.map(index => {
+                      return {
+                        ...index,
+                        TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
+                      }
+                    });
+                    const newElement = {
+                      category: {...tempCategoryAfterSort[i]},
+                      productList: [...itemResult]
                     }
-                  })
-                  .catch(err => {
-                    Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
-                  })
-              }
-            )
+                    setProductWithCatId(prevState => [...prevState, newElement]);
+
+                  } else {
+                    /* Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)*/
+                  }
+                })
+                .catch(err => {
+                  Notification("Thông báo dữ liệu", err.toString(), constraintNotification.NOTIFICATION_ERROR)
+                })
+
+            }
+
+
           } else {
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
           }
@@ -83,7 +89,6 @@ const HomePage = () => {
     }
     getListCategory()
   }, []);
-
   return (
     <>
 
@@ -102,7 +107,7 @@ const HomePage = () => {
           />
         </Helmet>
 
-        {productWithCatId.filter((index=>index.category.CatId!=null)).sort((a,b)=>a?.category?.CatId-b?.category?.CatId).map(index =>
+        {productWithCatId.filter((index=>index.category.CatId!=null)).map(index =>
           <>
             <>
             {index.productList.length>0?

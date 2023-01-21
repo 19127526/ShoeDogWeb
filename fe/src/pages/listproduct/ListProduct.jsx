@@ -75,7 +75,21 @@ const ListProduct = () => {
   const [turnOnSliderPrice, setTurnOnSliderPrice] = useState(false);
   const [chooseAnotherFilter, setChooseAnotherFilter] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
+    if(listPriceTemp.max!=null) {
+      setListPriceTemp({
+        min: null,
+        max: null
+      })
+      setListPrice({
+        min: null,
+        max: null
+      })
+    }
+  }, [product])
+  useEffect(() => {
+    setSortButton(false)
     setStateFilter([
       {
         name: "Brand",
@@ -509,7 +523,7 @@ const ListProduct = () => {
     <div className="container container-list-product">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`DANH SÁCH DANH MỤC - ${itemInCategory[0]?.CatName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
+        <title>{`${itemInCategory[0]?.CatName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
         <link
           rel="canonical"
           href={CLIENT_URL+`/product/${product}/page=${pageindex}`}

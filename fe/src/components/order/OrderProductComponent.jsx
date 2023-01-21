@@ -15,7 +15,6 @@ return (
   <div className="clearfix checkout__inforpro-detail">
     <Helmet>
       <meta charSet="utf-8" />
-      <title>{`SẢN PHẨM TRONG GIỎ HÀNG - ${name} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
       <link
         rel="canonical"
         href={CLIENT_URL}
@@ -49,7 +48,7 @@ return (
     <div className="font-600 fs-11 justifyAround mgB-5"><em>Thành Tiền:</em>
       <div>{totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}</div>
     </div>
-    <div className="font-600 fs-11 justifyAround mgB-5">
+    <div className="font-600 fs-11 justifyAround mgB-5" style={{float:"right"}}>
       <Tooltip title="Nhấn để xóa" color={"blue"}>
         <Button size={"small"} style={{padding:"10px,3px,3px,3px",background:"#404040",color:"white"}} onClick={removeItemIntoCart}>Xóa sản phẩm</Button>
       </Tooltip>
