@@ -1,0 +1,20 @@
+
+pjavascript:S3776"TRefactor this function to reduce its Cognitive Complexity from 48 to the 15 allowed.(©³¨Ó
+mjavascript:S4138*"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(Ëğ®şÿÿÿÿ
+hjavascript:S41386"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(¾á–ñ
+1javascript:S108;"Empty block statement.(ùÄ‘‚
+hjavascript:S4138C"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.( €ê‹
+mjavascript:S4138F"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(¹Òüÿÿÿÿÿÿ
+mjavascript:S4138P"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(˜¶Ó–øÿÿÿÿ
+mjavascript:S4138Q"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(¼Šì°ıÿÿÿÿ
+mjavascript:S4138U"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(İÓÚ·ıÿÿÿÿ
+mjavascript:S4138`"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(˜¶Ó–øÿÿÿÿ
+Cjavascript:S1125p"'Remove the unnecessary boolean literal.(ëÔÉ°
+mjavascript:S4138z"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(¸ÔÚùÿÿÿÿ
+ijavascript:S4138ƒ"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.( €ê‹
+\javascript:S1481“"?Remove the declaration of the unused 'templateCredit' variable.(„°Ë
+Yjavascript:S1854“"<Remove this useless assignment to variable "templateCredit".(„°Ë
+njavascript:S4138Î"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(ÅÛê¦øÿÿÿÿ
+ijavascript:S4138Ğ"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(†¹ 
+jjavascript:S1481â"HRemove the declaration of the unused 'resultDeteleOrderDetail' variable.(¥†¸«ûÿÿÿÿ
+gjavascript:S1854â"ERemove this useless assignment to variable "resultDeteleOrderDetail".(¥†¸«ûÿÿÿÿ

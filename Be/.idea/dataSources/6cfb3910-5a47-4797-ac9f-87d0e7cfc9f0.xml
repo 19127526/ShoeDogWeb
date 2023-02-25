@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="sho27414_shoedogdatabase@s88d91.cloudnetwork.vn">
-  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.31">
-    <root id="1">
-      <DefaultCasing>exact</DefaultCasing>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <Grants>sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||ALTER|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||ALTER ROUTINE|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||CREATE|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||CREATE ROUTINE|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||CREATE TEMPORARY TABLES|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||CREATE VIEW|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||DELETE|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||DELETE HISTORY|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||DROP|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||EVENT|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||EXECUTE|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||INDEX|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||INSERT|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||LOCK TABLES|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||REFERENCES|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||SELECT|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||SHOW VIEW|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||TRIGGER|G
-sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
-      <ServerVersion>10.6.11</ServerVersion>
-    </root>
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.43">
+    <root id="1"/>
     <collation id="2" parent="1" name="big5_chinese_ci">
       <Charset>big5</Charset>
       <DefaultForCharset>1</DefaultForCharset>
@@ -1032,11 +1009,11 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Charset>eucjpms</Charset>
     </collation>
     <schema id="324" parent="1" name="sho27414_shoedogdatabase">
-      <Collation>latin1_swedish_ci</Collation>
       <Current>1</Current>
+      <CollationName>latin1_swedish_ci</CollationName>
     </schema>
     <schema id="325" parent="1" name="information_schema">
-      <Collation>utf8mb3_general_ci</Collation>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
     <user id="326" parent="1" name="sho27414_shoedogdatabase"/>
     <table id="327" parent="324" name="categories"/>
@@ -1045,44 +1022,44 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
     <table id="330" parent="324" name="products"/>
     <table id="331" parent="324" name="users"/>
     <column id="332" parent="327" name="CatId">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="333" parent="327" name="CatName">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <key id="334" parent="327" name="PRIMARY">
-      <ColNames>CatId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>CatId</UnderlyingIndexColNames>
     </key>
     <column id="335" parent="328" name="OrderId">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="336" parent="328" name="FullName">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="337" parent="328" name="Email">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(100)|0s</DataType>
       <Position>3</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="338" parent="328" name="Address">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="339" parent="328" name="PhoneNumber">
       <DataType>varchar(100)|0s</DataType>
@@ -1120,15 +1097,15 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Position>11</Position>
     </column>
     <key id="346" parent="328" name="PRIMARY">
-      <ColNames>OrderId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>OrderId</UnderlyingIndexColNames>
     </key>
     <column id="347" parent="329" name="OrderDetailId">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="348" parent="329" name="ProId">
       <DataType>int(11)|0s</DataType>
@@ -1141,10 +1118,10 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Position>3</Position>
     </column>
     <column id="350" parent="329" name="Size">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="351" parent="329" name="OrderId">
       <DataType>int(11)|0s</DataType>
@@ -1175,15 +1152,15 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="357" parent="329" name="PRIMARY">
-      <ColNames>OrderDetailId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>OrderDetailId</UnderlyingIndexColNames>
     </key>
     <column id="358" parent="330" name="ProId">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="359" parent="330" name="Inventory">
       <DataType>varchar(7)|0s</DataType>
@@ -1191,10 +1168,10 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Position>2</Position>
     </column>
     <column id="360" parent="330" name="ProName">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="361" parent="330" name="Price">
       <DataType>longtext|0s</DataType>
@@ -1202,9 +1179,9 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Position>4</Position>
     </column>
     <column id="362" parent="330" name="Des">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>longtext|0s</DataType>
       <Position>5</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="363" parent="330" name="ShortDes">
       <DataType>longtext|0s</DataType>
@@ -1232,10 +1209,10 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Position>10</Position>
     </column>
     <column id="368" parent="330" name="Brand">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>11</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="369" parent="330" name="Discount">
       <DataType>longtext|0s</DataType>
@@ -1252,15 +1229,15 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Position>14</Position>
     </column>
     <column id="372" parent="330" name="Size">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
       <Position>15</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="373" parent="330" name="Color">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(30)|0s</DataType>
       <Position>16</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="374" parent="330" name="ImageId">
       <DataType>longtext|0s</DataType>
@@ -1281,41 +1258,40 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="378" parent="330" name="PRIMARY">
-      <ColNames>ProId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>ProId</UnderlyingIndexColNames>
     </key>
     <key id="379" parent="330" name="Inventory">
-      <ColNames>Inventory</ColNames>
       <UnderlyingIndexName>Inventory</UnderlyingIndexName>
     </key>
     <column id="380" parent="331" name="UserId">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="381" parent="331" name="UserName">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="382" parent="331" name="Password">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="383" parent="331" name="FullName">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(100)|0s</DataType>
       <Position>4</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="384" parent="331" name="Email">
-      <Collation>utf8mb3_general_ci</Collation>
       <DataType>varchar(100)|0s</DataType>
       <Position>5</Position>
+      <CollationName>utf8mb3_general_ci</CollationName>
     </column>
     <column id="385" parent="331" name="Address">
       <DataType>varchar(100)|0s</DataType>
@@ -1342,9 +1318,9 @@ sho27414\\_shoedogdatabase|schema||sho27414_shoedogdatabase||UPDATE|G</Grants>
       <Position>10</Position>
     </column>
     <key id="390" parent="331" name="PRIMARY">
-      <ColNames>UserId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>UserId</UnderlyingIndexColNames>
     </key>
   </database-model>
 </dataSource>

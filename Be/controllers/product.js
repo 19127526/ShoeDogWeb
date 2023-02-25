@@ -1,14 +1,12 @@
 const product = require('../models/product');
-
-
+const fs = require('fs');
 const category = require('../models/category');
+const path = require('path');
 
-
-const convertArrayToOptions=(arr,splitIndex)=>{
-    if(arr===null){
+const convertArrayToOptions = (arr, splitIndex) => {
+    if (arr === null) {
         return null
-    }
-    else{
+    } else {
         return arr.split(splitIndex)
     }
 }
@@ -132,8 +130,11 @@ exports.deleteProduct = async (req, res) => {
         const id = req.body.id;
         const productFinding = await product.getProductById(id);
 
-        if (productFinding.length <= 0) return res.status(200).json({"status": "empty", "message": "Product not found"});
-        if(productFinding[0].ImageId!=null) {
+        if (productFinding.length <= 0) return res.status(200).json({
+            "status": "empty",
+            "message": "Product not found"
+        });
+        if (productFinding[0].ImageId != null) {
             const imageId = productFinding[0].ImageId.split(", ");
             for (let i = 0; i < imageId.length; i++) {
                 await cloudinary.uploader.destroy(imageId[i]);
@@ -167,7 +168,10 @@ exports.updateProduct = async (req, res) => {
         }
         const updateProduct = await product.updateProduct(ProductId, initProduct)
         const productAfterUpdate = await product.getDetailProductsByProId(ProductId)
-        if (productAfterUpdate.length <= 0) return res.status(200).json({"status": "empty", "data": productAfterUpdate});
+        if (productAfterUpdate.length <= 0) return res.status(200).json({
+            "status": "empty",
+            "data": productAfterUpdate
+        });
         const catName = productAfterUpdate[0].CatName;
         const imageId = await product.getImageIdByProId(ProductId)
         if (imageId.length > 0) {
@@ -195,7 +199,7 @@ exports.updateProduct = async (req, res) => {
                 await product.updateImageId(ProductId, imageIdStr);
             }
             return res.status(200).json({"status": "success", "data": updateProduct});
-        }else return res.status(500).json({"status": "error", "message": "Can not find user"});
+        } else return res.status(500).json({"status": "error", "message": "Can not find user"});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }
@@ -214,11 +218,11 @@ exports.relatedProduct = async (req, res) => {
     try {
         const catId = req.body.catId;
         const proId = req.body.proId;
-        const tempProducts=await product.relatedProductByCatId(catId);
+        const tempProducts = await product.relatedProductByCatId(catId);
 
-        const products=tempProducts.filter(index=>index.ProId!==proId)
+        const products = tempProducts.filter(index => index.ProId !== proId)
 
-        return res.status(200).json({"status": "success", "data":products});
+        return res.status(200).json({"status": "success", "data": products});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }
@@ -241,7 +245,7 @@ exports.searchProductByCatId = async (req, res) => {
 exports.getStatisticDay = async (req, res) => {
     try {
         const statistic = await product.getStatisticDay();
-        const data = statistic[0][0].total_cost?statistic[0][0].total_cost:null
+        const data = statistic[0][0].total_cost ? statistic[0][0].total_cost : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -251,7 +255,7 @@ exports.getStatisticDay = async (req, res) => {
 exports.getStatisticMonth = async (req, res) => {
     try {
         const statistic = await product.getStatisticMonth();
-        const data = statistic[0][0].total_cost?statistic[0][0].total_cost:null
+        const data = statistic[0][0].total_cost ? statistic[0][0].total_cost : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -261,7 +265,7 @@ exports.getStatisticMonth = async (req, res) => {
 exports.getStatisticYear = async (req, res) => {
     try {
         const statistic = await product.getStatisticYear();
-        const data = statistic[0][0].total_cost?statistic[0][0].total_cost:null
+        const data = statistic[0][0].total_cost ? statistic[0][0].total_cost : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -270,9 +274,9 @@ exports.getStatisticYear = async (req, res) => {
 
 exports.getMaxQuantityPurchaseDay = async (req, res) => {
     try {
-        const limit= req.query.limit;
+        const limit = req.query.limit;
         const statistic = await product.getMaxQuantityPurchase(limit);
-        const data = statistic[0]?statistic[0]:null
+        const data = statistic[0] ? statistic[0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -281,9 +285,9 @@ exports.getMaxQuantityPurchaseDay = async (req, res) => {
 
 exports.getMaxQuantityPurchaseMonth = async (req, res) => {
     try {
-        const limit= req.query.limit;
+        const limit = req.query.limit;
         const statistic = await product.getMaxQuantityPurchaseMonth(limit);
-        const data = statistic[0]?statistic[0]:null
+        const data = statistic[0] ? statistic[0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -292,9 +296,9 @@ exports.getMaxQuantityPurchaseMonth = async (req, res) => {
 
 exports.getMaxQuantityPurchaseYear = async (req, res) => {
     try {
-        const limit= req.query.limit;
+        const limit = req.query.limit;
         const statistic = await product.getMaxQuantityPurchaseYear(limit);
-        const data = statistic[0]?statistic[0]:null
+        const data = statistic[0] ? statistic[0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -303,9 +307,9 @@ exports.getMaxQuantityPurchaseYear = async (req, res) => {
 
 exports.getMinQuantityPurchaseDay = async (req, res) => {
     try {
-        const limit= req.query.limit;
+        const limit = req.query.limit;
         const statistic = await product.getMinQuantityPurchaseDay(limit);
-        const data = statistic[0]?statistic[0]:null
+        const data = statistic[0] ? statistic[0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -313,9 +317,9 @@ exports.getMinQuantityPurchaseDay = async (req, res) => {
 }
 exports.getMinQuantityPurchaseMonth = async (req, res) => {
     try {
-        const limit= req.query.limit;
+        const limit = req.query.limit;
         const statistic = await product.getMinQuantityPurchaseMonth(limit);
-        const data = statistic[0]?statistic[0]:null
+        const data = statistic[0] ? statistic[0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -323,9 +327,9 @@ exports.getMinQuantityPurchaseMonth = async (req, res) => {
 }
 exports.getMinQuantityPurchaseYear = async (req, res) => {
     try {
-        const limit= req.query.limit;
+        const limit = req.query.limit;
         const statistic = await product.getMinQuantityPurchaseYear(limit);
-        const data = statistic[0]?statistic[0]:null
+        const data = statistic[0] ? statistic[0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -334,9 +338,9 @@ exports.getMinQuantityPurchaseYear = async (req, res) => {
 
 exports.getQuantityInDay = async (req, res) => {
     try {
-        const phonenumber= req.query.phone;
+        const phonenumber = req.query.phone;
         const statistic = await product.getQuantityOrderinDay(phonenumber)
-        const data = statistic[0][0]?statistic[0][0]:null
+        const data = statistic[0][0] ? statistic[0][0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -345,9 +349,9 @@ exports.getQuantityInDay = async (req, res) => {
 
 exports.getQuantityInMonth = async (req, res) => {
     try {
-        const phonenumber= req.query.phone;
+        const phonenumber = req.query.phone;
         const statistic = await product.getQuantityOrderinMonth(phonenumber)
-        const data = statistic[0][0]?statistic[0][0]:null
+        const data = statistic[0][0] ? statistic[0][0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -356,9 +360,9 @@ exports.getQuantityInMonth = async (req, res) => {
 
 exports.getQuantityInYear = async (req, res) => {
     try {
-        const phonenumber= req.query.phone;
+        const phonenumber = req.query.phone;
         const statistic = await product.getQuantityOrderinYear(phonenumber)
-        const data = statistic[0][0]?statistic[0][0]:null
+        const data = statistic[0][0] ? statistic[0][0] : null
         return res.status(200).json({"status": "success", "data": data});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -366,7 +370,7 @@ exports.getQuantityInYear = async (req, res) => {
 }
 
 
-exports.getTotalItemSold=async (req,res)=>{
+exports.getTotalItemSold = async (req, res) => {
     try {
         const statistic = await product.getAllProductSoldout();
         return res.status(200).json({"status": "success", "data": statistic.length});
@@ -391,6 +395,43 @@ exports.test1 = async (req, res) => {
         }
         const statistic = await category.addCategory(Cat);
         return res.status(200).json({"status": "success", "data": statistic});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+async function traverseDirectory(dir) {
+    for (const file of fs.readdirSync(dir)) {
+        const filePathRoot = path.join(dir, file);
+        const statsRoot = fs.statSync(filePathRoot);
+        if (statsRoot.isDirectory()) {
+            for (const subFile of fs.readdirSync(filePathRoot)) {
+                const URL_FILE = filePathRoot + '/' + subFile;
+                const productFind = await product.getProductById(subFile);
+                let allFiles = ""
+                for (const subFile1 of fs.readdirSync(URL_FILE)) {
+                    const URL_FILE1 = URL_FILE + '/' + subFile1;
+                    if (productFind.length <= 0) return;
+                    // allFiles += process.env.BACKEND_URL + "/" + URL_FILE1 + ", ";
+
+                    await product.updateImageMain(productFind[0].ProId, process.env.BACKEND_URL + "/" + URL_FILE1);
+                    break;
+                }
+                // if (allFiles !== "") {
+                //     await product.updateArrayImage(productFind[0].ProId, allFiles)
+                // }
+            }
+
+        }
+    }
+}
+
+exports.updateImage = async (req, res) => {
+    try {
+        const URL = './public/image';
+        if (!fs.existsSync(URL)) return res.status(500).json({"status": "error", "message": "Folder not found"});
+        await traverseDirectory(URL);
+        return res.status(200).json({"status": "success", "data": "done"});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }

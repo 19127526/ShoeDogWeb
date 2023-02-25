@@ -3,9 +3,10 @@ const {addProduct, getAllProducts,getProductsById, deleteProduct, updateProduct,
   getAllBrandsInProducts,relatedProduct,searchProductByCatId, getStatisticDay, getStatisticMonth, getStatisticYear,
   getMaxQuantityPurchase, getMaxQuantityPurchaseDay, getMaxQuantityPurchaseMonth, getMaxQuantityPurchaseYear,
   getMinQuantityPurchaseDay, getMinQuantityPurchaseMonth, getMinQuantityPurchaseYear, getQuantityInDay,
-  getQuantityInMonth, getQuantityInYear,getTotalItemSold
+  getQuantityInMonth, getQuantityInYear,getTotalItemSold, updateImage
 } = require("../controllers/product");
 const router = express.Router();
+//ver1
 router.get('/', getAllProducts);
 router.get('/brand',getAllBrandsInProducts)
 router.post("/related",relatedProduct);
@@ -29,4 +30,6 @@ router.get('/statistic/quantityinday',getQuantityInDay);
 router.get('/statistic/quantityinmonth',getQuantityInMonth);
 router.get('/statistic/quantityinyear',getQuantityInYear);
 router.get('/statistic/soldout',getTotalItemSold);
+//ver2
+router.put('/v2/updateImg', updateImage)
 module.exports = router;

@@ -21,8 +21,6 @@ w
 G.idea/sonarlint/issuestore/2/2/22973f11b91b443766d3a789699dcc4844f9e321,5\a\5ab79e416306700ae7398da5d90d8c23cb691b40
 S
 #.idea/runConfigurations/bin_www.xml,1\4\140e4eb5c9a9663fa1c54fe51930e6d28f95de63
-B
-Be/routes/index.js,0\c\0c3e128171c13cdec9ffdbd5b1792b78f74338e4
 >
 .gitattributes,2\4\24139dae656713ba861751fb2c2ac38839349a7a
 L
@@ -43,8 +41,6 @@ G
 Be/utils/imageUpload.js,0\5\05eef8dc5db87798d2aed2e34272232e7c6ba1dc
 V
 &admin/src/apis/products/ProductsApi.js,7\c\7c3588e1ec463d1c0f22a1f741be584678eb02bc
-?
-Be/package.json,7\c\7c85e015ca9221add7d5721d365fb9a6d6acca27
 D
 Be/package-lock.json,2\b\2b1230e88cacdc23ee854282bd5e0550cb22ee50
 F
