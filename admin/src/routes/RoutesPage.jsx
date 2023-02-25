@@ -1,4 +1,4 @@
-import {Route,Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import React from "react";
 import Loading from "../components/loading/LoadingComponent";
 import {DASHBOARD, DASHBOASH, ORDER_PRODUCT, ORDER_SUCCESS_PRODUCT, REGISTER} from "../configs/url";
@@ -18,6 +18,11 @@ const ErrorPageLazy=React.lazy(()=>import("../pages/error/ErrorPage"))
 const RoutesPage=()=>{
   return (
     <Routes>
+      <Route index path={"/"}   element={<React.Suspense fallback={<Loading/>} > <Authenticate>
+        <Navigate to={DASHBOARD} replace />
+      </Authenticate>
+      </React.Suspense>}
+      />
      {/* <Route path="/home"  element={<React.Suspense fallback={<Loading/>} >  <DetailPageLazy/> </React.Suspense>}/>*/}
       <Route index path={DASHBOARD}   element={<React.Suspense fallback={<Loading/>} > <Authenticate>
         <HomePageLazy/>

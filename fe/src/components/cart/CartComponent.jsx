@@ -20,7 +20,6 @@ const CartComponent = ({productName, price, size, quantity, img, index, setCartB
     <div className="header__cart--items">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Sản phẩm trong giỏ hàng - ${productName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
         <link
           rel="canonical"
           href={CLIENT_URL}
@@ -50,25 +49,30 @@ const CartComponent = ({productName, price, size, quantity, img, index, setCartB
             </a>*/}
           </p>
           <p className="product-type text-uper font-500 fs-13 mgB-5"></p>
-          <p className="pull-right font-700 fs-12">{price?.toLocaleString('it-IT', {
+          <p className="pull-right font-700 fs-12 text-card-padding">{price?.toLocaleString('it-IT', {
             style: 'currency',
             currency: "VND"
           })}</p>
+
           {
-            index?.detailProduct?.Color.includes("No Size Just Color")?
+            (index?.detailProduct?.CatId==2||index?.detailProduct?.CatId==3||index?.detailProduct?.CatId==4)?
               <>
-              <p className="text-uper font-700 fs-12">Loại: {size}</p>
+              <p className="text-uper font-700 fs-12 text-card-padding ">Màu: {size}</p>
                 <p className="product-type text-uper font-500 fs-13 mgB-5"></p>
-              <p className="text-uper font-700 fs-12">
+              <span className="text-uper font-700 fs-12">
                 Số lượng: {quantity}
-              </p>
+              </span>
               </>
               :
               <>
-                <p className="text-uper font-700 fs-12">Size: {size} -   Số lượng: {quantity}</p>
+                <p className="text-uper font-700 fs-12 text-card-padding ">Size: {size}</p>
+                <p className="product-type text-uper font-500 fs-13 mgB-5"></p>
+                <span className="text-uper font-700 fs-12">
+                  Số lượng: {quantity}
+                </span>
               </>
           }
-          <p className="text-uper font-700 " style={{float:"right"}}>
+          <p className="text-uper font-700 button-order" >
             <Tooltip title="Nhấn để xóa" color={"blue"}>
             <Button size={"small"} style={{padding:"10px,3px,3px,3px",background:"#404040",color:"white"}} onClick={removeItemIntoCart}>Xóa sản phẩm</Button>
             </Tooltip>

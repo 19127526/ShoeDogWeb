@@ -72,6 +72,7 @@ function generateString(length) {
     return result;
 }
 
+
 exports.addProduct = async (req, res) => {
     try {
         const productBody = req.body;
@@ -381,7 +382,7 @@ exports.getTotalItemSold = async (req, res) => {
 
 exports.test = async (req, res) => {
     try {
-        const statistic = await category.addRawCategory("test");
+        const statistic = await category.addRawCategory(322,"dsdsdsewqeqweqweqw");
         return res.status(200).json({"status": "success", "data": statistic});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});

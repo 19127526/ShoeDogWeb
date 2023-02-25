@@ -296,6 +296,7 @@ const AddProductPage = () => {
       dispatch(turnOnLoading());
       await addProduct(formData)
         .then(res => {
+          console.log(res)
           if (res.data.status === "success") {
             navigate(-1)
             Notification("Thông báo thêm sản phẩm", `Thêm sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)

@@ -46,13 +46,23 @@ const OrderPage = () => {
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [note, setNote] = useState("");
-
+  const [isEmpty,setIsEmpty]=useState(false)
   useEffect(() => {
     const temp = cartItem.map(index => {
       return index?.aboutSize.price * index?.quantity
     })
     setTotalPrice(temp.reduce((previousScore, currentScore) => previousScore + currentScore, 0))
+    if(cartItem.length==0){
+      setIsEmpty(true)
+    }
   }, [cartItem])
+  useEffect(()=>{
+    dispatch(turnOnLoading())
+    if(cartItem.length==0){
+      setIsEmpty(true)
+    }
+    dispatch(turnOffLoading())
+  },[])
 
   useEffect(() => {
     const getListProvinces = async () => {
@@ -182,6 +192,7 @@ const OrderPage = () => {
       const totalPayload = {information, item}
       await addOrderApi(totalPayload)
         .then(res => {
+          console.log(res)
           if (res.data.status === "success") {
             Notification("Thông báo đặt hàng", "Bạn đã đặt hàng thành công", containts.NOTIFICATION_SUCCESS)
             navigate(ORDER_SUCCESS_ROUTE, {state: res.data.data[0]})
@@ -224,19 +235,19 @@ const OrderPage = () => {
               <form onSubmit={orderButton}>
                 <div className="checkout__infor__user__shipping">
                   <p className="font-700 mgB-20 fs-24 mgT-20">Thông tin đặt hàng</p>
-
-
+                  <p className=" mgB-20 fs-18 mgT-20" hidden={!isEmpty}>Bạn chưa có sản phẩm nào, vui lòng chọn sản phẩm để thanh toán</p>
                   <div className="frm-item">
                     <Input name="shipping_name" placeholder="Họ Tên (*)" className="form-control" type="text"
-                           onChange={handleChangeFullName}/>
+                           onChange={handleChangeFullName} disabled={isEmpty}/>
                   </div>
                   <div className="frm-item">
                     <Input name="email" placeholder="Email" className="form-control" type="email"
-                           onChange={handleChangeEmail}/>
+                           onChange={handleChangeEmail} disabled={isEmpty}/>
                   </div>
                   <div className="frm-item">
+
                     <select  name="shipping_city"
-                            onChange={handleChangeListProvinces}>
+                            onChange={handleChangeListProvinces} disabled={isEmpty}>
                       <option value="0">Tỉnh/Thành phố</option>
                       {
                         listProvinces.map(index =>
@@ -247,7 +258,7 @@ const OrderPage = () => {
                   </div>
                   <div className="frm-item ">
                     <select  name="shipping_district"
-                            onChange={handleChangeListDistricts}>
+                            onChange={handleChangeListDistricts} disabled={isEmpty}>
                       <option value="0">Quận/Huyện</option>
                       {
                         listDistricts.map(index =>
@@ -257,7 +268,7 @@ const OrderPage = () => {
                     </select>
                   </div>
                   <div className="frm-item">
-                    <select  name="shipping_ward" onChange={handleChangeListWards}>
+                    <select  name="shipping_ward" onChange={handleChangeListWards} disabled={isEmpty}>
                       <option value="0">Phường/Xã</option>
                       {
                         listWards.map(index =>
@@ -269,11 +280,11 @@ const OrderPage = () => {
                   <div className="frm-item">
                     <Input name="shipping_address"
                            placeholder="Địa chỉ. Vui lòng điền CHÍNH XÁC 'tầng, số nhà, đường'.  (*)"
-                           className="form-control" type="text" onChange={handleChangeAddress}/>
+                           className="form-control" type="text" onChange={handleChangeAddress} disabled={isEmpty}/>
                   </div>
                   <div className="frm-item">
                     <Input name="shipping_phone" placeholder="Điện thoại  (*)" className="form-control" type="number"
-                           onChange={handleChangePhoneNumber}/>
+                           onChange={handleChangePhoneNumber} disabled={isEmpty}/>
                   </div>
                   <div className="frm-item">
                     <textarea className="form-control" name="comment" placeholder="Lưu ý"
@@ -281,9 +292,9 @@ const OrderPage = () => {
                   </div>
 
                 </div>
-                <div className="text-center mgT-30">
-                  <button className="btn__conti--pay" type="submit" value="Submit">ĐẶT HÀNG</button>
-                </div>
+                <div className="text-center mgT-30" >
+                    <button  className="btn__conti--pay" type="submit" value="Submit" hidden={isEmpty}>ĐẶT HÀNG</button>
+                  </div>
 
               </form>
             </div>

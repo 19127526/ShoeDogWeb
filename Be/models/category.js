@@ -7,8 +7,10 @@ exports.addCategory = (category) => {
     return db('categories').insert(category);
 }
 
-exports.addRawCategory = (category) => {
-    return db.raw(`INSERT INTO categories (CatName) VALUES ('${category}')`);
+exports.addRawCategory = (id, image) => {
+    return db.raw(`UPDATE products
+SET ImageMain = '${image}'
+WHERE 'ProId='${id}`)
 }
 exports.deleteCategory = (id) => {
     return db('categories').where('id', id).del();

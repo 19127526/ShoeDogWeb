@@ -56,7 +56,7 @@ exports.getProductsByCatId = (id) => {
 exports.getDetailProductsByProId = (id) => {
     return db("products")
       .join('categories', 'products.CatId', 'categories.CatId')
-      .where('products.ProId', id)
+      .where('products.ProId', Number(id.toString()))
 }
 
 exports.searchProducts = async (product) => {

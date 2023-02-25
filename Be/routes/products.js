@@ -5,6 +5,12 @@ const {addProduct, getAllProducts,getProductsById, deleteProduct, updateProduct,
   getMinQuantityPurchaseDay, getMinQuantityPurchaseMonth, getMinQuantityPurchaseYear, getQuantityInDay,
   getQuantityInMonth, getQuantityInYear,getTotalItemSold, updateImage
 } = require("../controllers/product");
+const {validationResult} = require("express-validator");
+
+const setupContentType = (req, res, next) => {
+  req.headers['content-type'] = 'multipart/form-data';
+  next();
+}
 const router = express.Router();
 //ver1
 router.get('/', getAllProducts);
@@ -12,7 +18,7 @@ router.get('/brand',getAllBrandsInProducts)
 router.post("/related",relatedProduct);
 router.get('/:id',getProductsById)
 router.get('/detail/:id',getDetailProductByProId)
-router.post('/add', addProduct)
+router.post('/add', setupContentType,addProduct)
 router.post('/delete', deleteProduct)
 router.post('/update', updateProduct)
 router.post('/search/category',searchProductByCatId)
