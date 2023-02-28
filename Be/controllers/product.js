@@ -57,6 +57,7 @@ exports.getDetailProductByProId = async (req, res) => {
 }
 
 const cloudinary = require("../utils/imageUpload");
+const multer = require("multer");
 // program to generate random strings
 
 // declare all characters
@@ -123,6 +124,68 @@ exports.addProduct = async (req, res) => {
     } catch (e) {
         console.log(e.message)
         return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.addProductv2 = async (req, res) => {
+    try {
+        const productBody = req.body;
+        const catName = req.body.category;
+        const catId = await category.getCategoryById(catName);
+        const random = generateString(6);
+        const productAdd = {
+            Inventory: random,
+            CatId: catId.CatId,
+            ProName: productBody.name,
+            Des: productBody.des,
+            ShortDes: productBody.shortDes,
+            StatusPro: productBody.status,
+            Brand: productBody.brand,
+            Size: productBody.size,
+            Price: productBody.price,
+            Discount: productBody.discount,
+            TotalPrice: productBody.totalPrice,
+            Color: productBody.color,
+            DateStart: new Date(),
+        }
+
+        let productId = await product.addProduct(productAdd);
+        if (productId.length <= 0) return res.status(200).json({"status": "empty", "message": "Product not found"});
+        productId = productId[0];
+        const FOLDER = `./public/image/${catId.CatId}/${productId}`;
+        if (!fs.existsSync(FOLDER)) {
+            fs.mkdirSync(FOLDER, {recursive: true});
+        }
+        const FOLDER_IMAGE = `./public/image/temp`;
+        fs.readdir(FOLDER_IMAGE, (err, files) => {
+            if (err) throw err;
+            if (files.length === 0) {
+                return res.status(200).json({"status": "empty", "message": "Can not upload file"});
+            }
+        });
+        fs.readdir(FOLDER_IMAGE, async (err, files) => {
+            if (err) throw err;
+            // Move each file to folder B
+            let i = 0
+            let str = "";
+            const FOLDER_STR = `/public/image/${catId.CatId}/${productId}`;
+            for (const file of files) {
+                if (i == 0) await product.updateImageMain(productId, process.env.BACKEND_URL + FOLDER_STR + "/" + file)
+                str += process.env.BACKEND_URL + FOLDER_STR + "/" + file + ", ";
+                i = i + 1
+                const oldPath = path.join(FOLDER_IMAGE, file);
+                const newPath = path.join(FOLDER, file);
+                fs.rename(oldPath, newPath, err => {
+                    if (err) throw err;
+                    console.log(`${file} moved successfully!`);
+                });
+            }
+            str = str.substring(0, str.length - 2);
+            await product.updateArrayImage(productId, str);
+        });
+        return res.status(200).json({"status": "success", "data": "ok"});
+    } catch (e) {
+
     }
 }
 
@@ -382,7 +445,7 @@ exports.getTotalItemSold = async (req, res) => {
 
 exports.test = async (req, res) => {
     try {
-        const statistic = await category.addRawCategory(322,"dsdsdsewqeqweqweqw");
+        const statistic = await category.addRawCategory(322, "dsdsdsewqeqweqweqw");
         return res.status(200).json({"status": "success", "data": statistic});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});

@@ -18,7 +18,6 @@ const fileFilter = (req, file, cb) => {
         cb(null, false);
     }
 }
-const uploads = multer({storage, fileFilter}).array('image', 50);
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
@@ -37,7 +36,7 @@ const activateRouteMiddleware = (app) => {
     app.use('/',indexRouter);
     app.use('/users', usersRouter);
     app.use('/category', categoryRouter);
-    app.use('/product', uploads, productRouter);
+    app.use('/product', productRouter);
     app.use('/order',orderRouter);
     app.use('/auth',authRouter)
     app.use('/test',testRouter)
