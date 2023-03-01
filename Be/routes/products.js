@@ -4,7 +4,7 @@ const {
     getAllBrandsInProducts, relatedProduct, searchProductByCatId, getStatisticDay, getStatisticMonth, getStatisticYear,
     getMaxQuantityPurchase, getMaxQuantityPurchaseDay, getMaxQuantityPurchaseMonth, getMaxQuantityPurchaseYear,
     getMinQuantityPurchaseDay, getMinQuantityPurchaseMonth, getMinQuantityPurchaseYear, getQuantityInDay,
-    getQuantityInMonth, getQuantityInYear, getTotalItemSold, updateImage, addProductv2
+    getQuantityInMonth, getQuantityInYear, getTotalItemSold, updateImage, addProductv2, deleteProductv2, updateProductv2
 } = require("../controllers/product");
 const {validationResult} = require("express-validator");
 const multer = require("multer");
@@ -30,8 +30,8 @@ router.post("/related", relatedProduct);
 router.get('/:id', getProductsById)
 router.get('/detail/:id', getDetailProductByProId)
 router.post('/add', upload.array('files'), addProductv2)
-router.post('/delete', deleteProduct)
-router.post('/update', updateProduct)
+router.post('/delete', deleteProductv2)
+router.post('/update', upload.array('files'),updateProductv2)
 router.post('/search/category', searchProductByCatId)
 router.post('/search', searchProduct);
 router.get('/statistic/day', getStatisticDay);

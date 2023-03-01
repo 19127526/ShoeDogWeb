@@ -157,12 +157,6 @@ exports.addProductv2 = async (req, res) => {
             fs.mkdirSync(FOLDER, {recursive: true});
         }
         const FOLDER_IMAGE = `./public/image/temp`;
-        fs.readdir(FOLDER_IMAGE, (err, files) => {
-            if (err) throw err;
-            if (files.length === 0) {
-                return res.status(200).json({"status": "empty", "message": "Can not upload file"});
-            }
-        });
         fs.readdir(FOLDER_IMAGE, async (err, files) => {
             if (err) throw err;
             // Move each file to folder B
@@ -206,6 +200,30 @@ exports.deleteProduct = async (req, res) => {
         }
         const result = await product.deleteProduct(id);
         return res.status(200).json({"status": "success", "data": result});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.deleteProductv2 = async (req, res) => {
+    try {
+        const id = req.body.id;
+        const productFinding = await product.getProductById(id);
+
+        const FOLDER = `./public/image/${productFinding[0].CatId}/${id}`;
+
+        if (fs.existsSync(FOLDER)) {
+            fs.rmSync(FOLDER, {recursive: true, force: true});
+            const result = await product.deleteProduct(id);
+            return res.status(200).json({"status": "success", "data": result});
+        } else {
+            const result = await product.deleteProduct(id);
+            return res.status(200).json({
+                "status": "success",
+                "message": "Folder  not found"
+            });
+        }
+
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }
@@ -264,6 +282,75 @@ exports.updateProduct = async (req, res) => {
             }
             return res.status(200).json({"status": "success", "data": updateProduct});
         } else return res.status(500).json({"status": "error", "message": "Can not find user"});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.updateProductv2 = async (req, res) => {
+    try {
+        const products = req.body
+        const ProductId = products.ProId;
+        const cateName = req.body.category;
+        const catid_ = await category.getCategoryById(cateName);
+        const catId=catid_.CatId
+        const initProduct = {
+            CatId: catId.CatId,
+            ProName: products.name,
+            Des: products.des,
+            ShortDes: products.shortDes,
+            StatusPro: products.status,
+            Brand: products.brand,
+            Size: products.size,
+            Price: products.price,
+            Discount: products.discount,
+            TotalPrice: products.totalPrice,
+            Color: products.color,
+        }
+        const updateProduct = await product.updateProduct(ProductId, initProduct)
+        const FOLDER = `./public/image/${catId}/${ProductId}`;
+        console.log(FOLDER)
+        if (fs.existsSync(FOLDER)) {
+            fs.readdir(FOLDER, (err, files) => {
+                if (err) throw err;
+                for (const file of files) {
+                    const filePath = path.join(FOLDER, file);
+                    fs.unlink(filePath, err => {
+                        if (err) throw err;
+                        console.log(`${filePath} was deleted`);
+                    });
+                }
+            })
+            const FOLDER_IMAGE = `./public/image/temp`;
+            fs.readdir(FOLDER_IMAGE, async (err, files) => {
+                if (err) throw err;
+                // Move each file to folder B
+                let i = 0
+                let str = "";
+                const FOLDER_STR = `/public/image/${catId}/${ProductId}`;
+                console.log(files.length)
+                for (const file of files) {
+                    if (i == 0) await product.updateImageMain(ProductId, process.env.BACKEND_URL + FOLDER_STR + "/" + file)
+                    str += process.env.BACKEND_URL + FOLDER_STR + "/" + file + ", ";
+                    i = i + 1
+                    const oldPath = path.join(FOLDER_IMAGE, file);
+                    const newPath = path.join(FOLDER, file);
+                    fs.rename(oldPath, newPath, err => {
+                        if (err) throw err;
+                        console.log(`${file} moved successfully!`);
+                    });
+                }
+                str = str.substring(0, str.length - 2);
+                await product.updateArrayImage(ProductId, str);
+            });
+            return res.status(200).json({"status": "success", "data": updateProduct});
+        } else {
+            return res.status(404).json({
+                "status": "success",
+                "message": "Folder  not found"
+            });
+        }
+        return res.status(200).json({"status": "success", "data": updateProduct});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }
