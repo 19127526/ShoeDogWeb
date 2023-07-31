@@ -1,8 +1,12 @@
 import {useNavigate} from "react-router-dom";
 import {DASHBOARD} from "../../configs/url";
+import {useEffect} from "react";
+import {Image} from "antd";
+import axios from "axios";
 
 const ErrorPage=()=>{
   const navigate=useNavigate();
+
   return (
     <article className="content" style={{background:"#4f5f6f"}}>
       <div className="error-card global">

@@ -62,6 +62,7 @@ const getUrlExtension = (url) => {
     .trim();
 }
 
+
 export const onImageEdit = async (imgUrl) => {
   let imgExt = getUrlExtension(imgUrl);
 
@@ -115,4 +116,5 @@ export const maxValue = (...args) => {
   });
   return max;
 }
+
 

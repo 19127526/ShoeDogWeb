@@ -5,13 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Test.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/image.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/src/routes/SiteMapRoutes.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5b48deaa-9d50-4b4a-a416-e0f1e6f3c0c1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_29_2022_9_12_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_29_2022_9_12_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/unnamed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/unnamed.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middlewares/routeMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/routeMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/12/481/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/12/481/2.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/12/481/3.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/12/481/4.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/products.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/error/ErrorPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/error/ErrorPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/order/OrderProcessPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/order/OrderProcessPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/utils/Utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/utils/Utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,19 +59,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "go.import.settings.migrated": "true",
-    "last_opened_file_path": "E:/thesis/VoucherHub/Mobile/VoucherHub-Mobile",
-    "nodejs_package_manager_path": "npm"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mariadb&#10;mysql" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Desktop\Courses\Shoedog\ShoeDogWeb\Be\routes" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -121,6 +139,32 @@
       <workItem from="1676204695604" duration="16000" />
       <workItem from="1676211637802" duration="1822000" />
       <workItem from="1676522363390" duration="65000" />
+      <workItem from="1677615293067" duration="344000" />
+      <workItem from="1677615657238" duration="2209000" />
+      <workItem from="1677678956175" duration="2865000" />
+      <workItem from="1677682525817" duration="2554000" />
+      <workItem from="1677814064027" duration="1211000" />
+      <workItem from="1677824977592" duration="486000" />
+      <workItem from="1677827232998" duration="2536000" />
+      <workItem from="1677832337348" duration="2927000" />
+      <workItem from="1678118984544" duration="167000" />
+      <workItem from="1678352028954" duration="803000" />
+      <workItem from="1678353770727" duration="620000" />
+      <workItem from="1678799976446" duration="328000" />
+      <workItem from="1678864114960" duration="133000" />
+      <workItem from="1679242292948" duration="905000" />
+      <workItem from="1679244758473" duration="1449000" />
+      <workItem from="1679327509461" duration="630000" />
+      <workItem from="1679412467868" duration="618000" />
+      <workItem from="1679904478655" duration="26000" />
+      <workItem from="1680883909479" duration="3608000" />
+      <workItem from="1680891190524" duration="316000" />
+      <workItem from="1681049077815" duration="27000" />
+      <workItem from="1687732490586" duration="36000" />
+      <workItem from="1687794591594" duration="2196000" />
+      <workItem from="1687862240643" duration="458000" />
+      <workItem from="1687962679482" duration="82000" />
+      <workItem from="1689841579721" duration="942000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>

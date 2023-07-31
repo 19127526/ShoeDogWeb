@@ -42,12 +42,12 @@ const HomePage = () => {
         .then(async res => {
           if (res.data.status === 'success') {
             const tempCategory = res.data.data.filter(index => {
-              if (index?.CatId === 11 || index?.CatId === 4 || index?.CatId === 6) {
+              if (index?.CatId === 11 || index?.CatId === 13 || index?.CatId === 6) {
                 return index
               }
             })
             const [a1, a2, a3] = tempCategory;
-            const tempCategoryAfterSort = [a2, a3, a1]
+            const tempCategoryAfterSort = [a1, a3, a2]
 
             for (let i = 0; i < tempCategoryAfterSort.length; i++) {
 
@@ -62,7 +62,7 @@ const HomePage = () => {
                     });
                     const newElement = {
                       category: {...tempCategoryAfterSort[i]},
-                      productList: [...itemResult]
+                      productList: [...itemResult].reverse()
                     }
                     setProductWithCatId(prevState => [...prevState, newElement]);
 
@@ -123,7 +123,7 @@ const HomePage = () => {
               index<pageIndex?
               <div className="col-lg-4 col-md-6 ">
               <CardComponent name={value?.ProName}
-              img={value?.ImageMain}
+              img={value?.ImageMain?.replace("public","private")}
               proId={value?.ProId}
               statusPro={value?.StatusPro}
               priceDiscount={value?.TotalPrice}

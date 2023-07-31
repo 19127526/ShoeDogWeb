@@ -4,6 +4,9 @@ import {SERVER_URL} from "../configs/url";
 
 const request = axios.create({
   baseURL: SERVER_URL,
+  headers:{
+    
+  }
 });
 
 

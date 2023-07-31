@@ -1,6 +1,3 @@
-import OrderProductComponent from "../../components/order/OrderProductComponent";
-import {ADD_NEW_PRODUCT} from "../../configs/url";
-import CardComponent from "../../components/card/CardComponent";
 import {Dropdown, Pagination} from "antd";
 import {useEffect, useState} from "react"
 import { DownOutlined } from '@ant-design/icons';

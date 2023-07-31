@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useLayoutEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {getListProductsByCatId} from "../../apis/products/ProductsApi";
 import Notification from "../../components/notification/Notification";
 import * as constraintNotification from "../../components/notification/Notification.constraints";
@@ -13,6 +13,7 @@ import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, maxVa
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
 import NothingProduct from "../nothingproduct/NothingProduct";
+import {useOnLoadImages} from "../../customhooks/useOnLoadImages";
 
 const pageIndex = 12;
 
@@ -75,6 +76,8 @@ const ListProduct = () => {
   const [turnOnSliderPrice, setTurnOnSliderPrice] = useState(false);
   const [chooseAnotherFilter, setChooseAnotherFilter] = useState(false);
   const navigate = useNavigate();
+  const wrapperRef = useRef(null);
+  const imagesLoaded = useOnLoadImages(wrapperRef);
 
   useEffect(() => {
     if(listPriceTemp.max!=null) {
@@ -142,7 +145,7 @@ const ListProduct = () => {
                 }
               }
 
-              const itemResult = res.data.data.map(index => {
+              const itemResult = res.data.data.reverse().map(index => {
                 return{
                   ...index,
                   TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
@@ -650,12 +653,12 @@ const ListProduct = () => {
           </div>
         </div>
       </div>
-      <div className="row products">
+      <div className="row products app" ref={wrapperRef}>
         {itemInCategory.map((value, index) => {
           return prevIndexPage <= index && index < currentIndexPage ? (
-            <div className="col-lg-4 col-md-6">
+            <div className="col-lg-4 col-md-6" key={value?.ProId}>
               <CardComponent name={value?.ProName}
-                             img={value?.ImageMain}
+                             img={value?.ImageMain?.replace("public","private")}
                              proId={value?.ProId}
                              statusPro={value?.StatusPro}
                              priceDiscount={value?.TotalPrice}

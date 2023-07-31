@@ -6,7 +6,6 @@ import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
 import {Badge} from "antd"
 import "./CardComponent.css"
-import Resizer from "react-image-file-resizer"
 const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,discount})=>{
   const navigate=useNavigate();
   const [isDiscount,setIsDiscount]=useState(false);

@@ -1,4 +1,10 @@
-import {convertArrayToOptions, convertArrayToQuantity, convertArrayToSize, getWindowWidth} from "../../utils/Utils";
+import {
+  convertArrayToOptions,
+  convertArrayToQuantity,
+  convertArrayToSize,
+  getWindowWidth,
+  removeItemAll
+} from "../../utils/Utils";
 import {Carousel} from "react-responsive-carousel";
 import "./DetailPage.css"
 import {useEffect, useRef, useState} from "react";
@@ -66,30 +72,12 @@ const DetailPage = () => {
             }
             setSizeList(temp);
             setColor(res.data.data[0].Color);
-
             if (res.data.data[0].ImageArray === null || res.data.data[0].ImageArray === undefined || res.data.data[0].ImageArray === "") {
               setImageSubArray([])
             } else {
-              const tempImageArr = convertArrayToOptions(res.data.data[0].ImageArray, ", ");
-              let tempHeightMin=0;
-              for(let i=0;i<tempImageArr.length;i++){
-                if(i==0){
-                 await getImageSize(tempImageArr[i])
-                    .then(({width,height})=>{
-                      tempHeightMin=height
-                    })
-                }
-                else{
-                 await getImageSize(tempImageArr[i])
-                    .then(({width,height})=>{
-                     if(tempHeightMin>=height){
-                       tempHeightMin=height
-                     }
-                    })
-                }
-              }
-              setHeightImage(tempHeightMin)
-              setImageSubArray(tempImageArr);
+              let tempImageArr = convertArrayToOptions(res.data.data[0].ImageArray, ", ");
+              tempImageArr=removeItemAll(tempImageArr,"")
+              setImageSubArray(tempImageArr.map(index=>index.replace("public","private")));
             }
             setEmpty(false);
 
@@ -97,6 +85,7 @@ const DetailPage = () => {
             const getRelatedProductByProduct = async () => {
               await relatedProduct(res.data.data[0].CatId, res.data.data[0].ProId)
                 .then(res => {
+                  console.log(res)
                   if (res.data.status === 'success') {
                     const itemResult = res.data.data.map(index => {
                       return {
@@ -216,12 +205,12 @@ const DetailPage = () => {
                 >
                   {imageSubArray.length === 0 || imageSubArray === undefined || imageSubArray[0] === "" ?
                     <div>
-                      <img src={detailProduct?.ImageMain} style={{objectFit:"contain"}} />
+                      <img className="detail-img" src={detailProduct?.ImageMain} style={{objectFit:"contain"}} alt={detailProduct?.ProName} />
                     </div>
                     :
                     imageSubArray?.map(index => (
                       <div  >
-                        <img src={index} style={{objectFit:"contain"}}/>
+                        <img className="detail-img" src={index} style={{objectFit:"contain"}} alt={detailProduct?.ProName}/>
                       </div>
                     ))
                   }
@@ -372,7 +361,7 @@ const DetailPage = () => {
                 relatedProductList.map(value => (
                   <div className="col-lg-4 col-md-6 ">
                     <CardComponent name={value?.ProName}
-                                   img={value?.ImageMain}
+                                   img={value?.ImageMain?.replace("public","private")}
                                    proId={value?.ProId}
                                    statusPro={value?.StatusPro}
                                    priceDiscount={value?.TotalPrice}

@@ -189,7 +189,7 @@ const MainLayout = () => {
                         </ul>
                       </li>
                       {categories.map((value) => (
-                        (value?.CatId!=6&&value?.CatId!=7&&value?.CatId!=12&&value?.CatId!=8&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10 &&value?.CatId!=11)?
+                        (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8&&value?.CatId!=11&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10&&value?.CatId!=12 &&value?.CatId!=13&&value?.CatId!=14&&value?.CatId!=15&&value?.CatId!=16&&value?.CatId!=17&&value?.CatId!=18)?
                         <li key={value.CatId}>
                           <a onClick={() => {
                             navigate(`/product/${value.CatId}/page=1`);
@@ -197,8 +197,34 @@ const MainLayout = () => {
                           }>{value.CatName}<span
                             className="icon-navigate_next"></span></a>
                         </li>:""))}
+                      <li>
 
-                     {/* <li>
+                        <a onClick={() => {navigate(`/product/13/page=1`); setChangeSide(false)}}>Phụ kiện chính hãng<span
+                          className="icon-navigate_next"></span></a>
+                          <ul>
+                            <li onClick={() =>{ navigate(`/product/13/page=1`); setChangeSide(false)}}>
+                              <a >Ví chính hãng</a>
+                            </li>
+                            <li onClick={() => {navigate(`/product/14/page=1`); setChangeSide(false)}}>
+                              <a>Tất</a>
+                            </li>
+                            <li onClick={() => {navigate(`/product/15/page=1`); setChangeSide(false)}}>
+                              <a>Vệ sinh giày</a>
+                            </li>
+                            <li onClick={() => {navigate(`/product/16/page=1`); setChangeSide(false)}}>
+                              <a>Phụ kiện giày</a>
+                            </li>
+                            <li onClick={() => {navigate(`/product/17/page=1`); setChangeSide(false)}}>
+                              <a>Bóng</a>
+                            </li>
+                            <li onClick={() => {navigate(`/product/18/page=1`); setChangeSide(false)}}>
+                              <a>Vòng tay</a>
+                            </li>
+                          </ul>
+                      </li>
+
+
+                      {/* <li>
                         <a >Used</a>
                       </li>
                       <li>
@@ -235,7 +261,7 @@ const MainLayout = () => {
               <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)} loading={loading} setChangeSide={setChangeSide}/>
               <Content style={{minHeight: "100px"}}>
                 <RoutesPage/>
-                <BackTop visible={scrollY>=400?true:false}>
+                <BackTop visible={scrollY>=400?true:false} >
                   <BackTopComponent/>
                 </BackTop>
               </Content>

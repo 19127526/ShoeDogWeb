@@ -1,5 +1,5 @@
-export const SERVER_URL="https://sv.shoedog.vn/";
-/*https://shoedogadmin.click/*/
+export const SERVER_URL="http://localhost:3008/";
+/*https://sv.shoedog.vn//*/
 export const CLIENT_URL="https://be.shoedog.vn/"
 
 //Server

@@ -3,9 +3,11 @@ import {removeItem} from "../../pages/detail/DetailPage.actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
+import {useNavigate} from "react-router-dom";
 
 const OrderProductComponent=({name,sku,size,quantity,totalPrice,discount,index})=>{
   const dispatch=useDispatch();
+  const navigate=useNavigate();
   const data = useSelector(state => state.cartReducer);
   const removeItemIntoCart=()=>{
     const dataCart=data.cartItem.filter(index2=>(index2?.detailProduct?.ProId !==index?.detailProduct?.ProId||index2?.aboutSize.size !==size))
@@ -27,7 +29,7 @@ return (
     </Helmet>
 
     <div className="font-600 fs-14 mgB-10">
-      <a href="https://www.glab.vn/product/detail/5234-off-white-x-wmns-air-jordan-4-sp-sail">
+      <a onClick={()=>navigate(`/detail/${index?.detailProduct?.ProId}`)}>
         {name}
       </a>
     </div>

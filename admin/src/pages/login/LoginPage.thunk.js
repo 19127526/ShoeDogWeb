@@ -11,7 +11,6 @@ export const loginNormal = (payload) => dispatch => {
   const userName=payload.userName;
   return postLoginApi({username:userName,password:password})
     .then(res=>{
-      console.log(res)
       if(res.data.status=="success"){
         return dispatch(actions.loginNormalSuccess(res.data.user))
       }

@@ -57,7 +57,6 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
           <a style={{display: "none"}}>CONSIGNMENT MANAGER</a>
         </div>
         <div className="header__right">
-
           <a className="header__right--mbsearch" style={{display: "inline-block"}} onClick={() => searchButton()}><span
             className="icon-search"></span></a>
           <div className="header__cart dropdown" >
@@ -107,6 +106,7 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
           <div className="inner-menu">
             <div>
               <ul>
+
                 <li>
                   <a onClick={() => navigate(`/product/6/page=1`)}><span>Giày chính hãng</span></a>
                   <div className="menu__sub">
@@ -144,14 +144,43 @@ const HeaderComponent = ({categoryList, searchButton, loading ,setChangeSide}) =
                   </div>
                 </li>
 
+
+
+
                 {categoryList.map((value,index) => (
-                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8&&value?.CatId!=11&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10&&value?.CatId!=12)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}/page=1`)}>
+                  (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8&&value?.CatId!=11&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10&&value?.CatId!=12 &&value?.CatId!=13&&value?.CatId!=14&&value?.CatId!=15&&value?.CatId!=16&&value?.CatId!=17&&value?.CatId!=18)?<li key={value.CatId} onClick={() => navigate(`/product/${value.CatId}/page=1`)}>
                     <a><span>{value.CatName}</span></a></li>:""
                 ))}
                {/* <li>
                   <a ><span>Liên hệ</span></a>
 
                 </li>*/}
+
+                <li>
+                  <a onClick={() => navigate(`/product/13/page=1`)}><span>Phụ kiện chính hãng</span></a>
+                  <div className="menu__sub">
+                    <ul>
+                      <li onClick={() => navigate(`/product/13/page=1`) }>
+                        <a >Ví chính hãng</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/14/page=1`)}>
+                        <a>Tất</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/15/page=1`)}>
+                        <a>Vệ sinh giày</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/16/page=1`)}>
+                        <a>Phụ kiện giày</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/17/page=1`)}>
+                        <a>Bóng</a>
+                      </li>
+                      <li onClick={() => navigate(`/product/18/page=1`)}>
+                        <a>Vòng tay</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
 
               </ul>
             </div>

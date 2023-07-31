@@ -22,7 +22,7 @@ const SlideComponent = () => {
 
       >
         <div className="carousel-image">
-          <img src={"https://shoedog.vn/wp-content/uploads/2021/06/150895135_2927326524259560_116442797262429480_n-2048x778.jpg"}/>
+          <img src={"https://shoedog.vn/image/ShoeDog_Logo.jpg"}/>
         </div>
 
       </Carousel>

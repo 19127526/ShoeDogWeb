@@ -24,7 +24,6 @@ const MainLayout = () => {
     dispatch(turnOffLoading())
   }, []);
   const location = useLocation();
-
   return (
     <>
 

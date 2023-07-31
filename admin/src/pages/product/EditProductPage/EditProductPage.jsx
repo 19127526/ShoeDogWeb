@@ -1,5 +1,11 @@
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {convertArrayToOptions, convertArrayToQuantity, getBase64, onImageEdit} from "../../../utils/Utils";
+import {
+  convertArrayToOptions,
+  convertArrayToQuantity,
+  convertUrlToImageData,
+  getBase64,
+  onImageEdit
+} from "../../../utils/Utils";
 import {AutoComplete, Image, Input, InputNumber, message, Modal, Radio, Select, Space, Upload,Form} from "antd";
 import {useEffect, useRef, useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
@@ -12,6 +18,7 @@ import {getListCategories} from "../../../apis/categories/CategoriesApi";
 import {turnOffLoading, turnOnLoading} from "../../../layouts/mainlayout/MainLayout.actions";
 import LoadingComponent from "../../../components/loading/LoadingComponent";
 import "./EditProductPage.css"
+import axios from "axios";
 const uploadButton = (
   <div>
     <PlusOutlined/>
@@ -125,8 +132,6 @@ const EditProductPage = () => {
     getAllCategoriess();
   }, [])
 
-
-
   useEffect(() => {
     const getDetailProduct = async () => {
       await getDetailProductByProId(proId)
@@ -150,7 +155,7 @@ const EditProductPage = () => {
             setProName(res.data.data[0].ProName);
             setStatusProduct(res.data.data[0].StatusPro)
 
-            const tempBrand=convertArrayToOptions(res.data.data[0].Brand,",");
+            const tempBrand=convertArrayToOptions(res.data.data[0].Brand,", ");
             setBrand(tempBrand);
             setColor(res.data.data[0].Color);
             setValueEditorMain(res.data.data[0].Des)
@@ -159,7 +164,7 @@ const EditProductPage = () => {
 
 
             setFileImageMainList([{
-              url:res.data.data[0]?.ImageMain
+              url:res.data.data[0]?.ImageMain?.toString().replace("public","private")
             }])
 
             if(res.data.data[0].ImageArray!=null|| res.data.data[0].ImageArray!=undefined){
@@ -170,7 +175,7 @@ const EditProductPage = () => {
                 const tempArrayImg=convertArrayToOptions(res.data.data[0].ImageArray,", ");
                 setFileImageSubList(tempArrayImg.map((value,index)=> {
                   return{
-                    url:value}
+                    url:value?.toString().replace("public","private")}
                 }).filter((value,index)=>{return index!==0})
                 )
               }
@@ -186,7 +191,7 @@ const EditProductPage = () => {
                 tempValueArr.push({
                   size:tempSize[i],
                   price:Number(tempPrice[i]),
-                  discount:Number(tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]*100),
+                  discount:Number(tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]),
                   totalPrice:Number(tempTotalPrice[i]),
                   tempDiscount:tempDiscount[i]==0?tempDiscount[i]:tempDiscount[i]
                 })
@@ -334,8 +339,13 @@ const EditProductPage = () => {
           .then(res => {
             tempImageSub.push(res)
           })
+          .catch(err=>{
+            console.log(err)
+          })
       }
     }
+
+
     if(fileImageMainList[0].url===undefined||fileImageMainList[0].url===null){
       tempImageMain.push(fileImageMainList[0]?.originFileObj)
     }
@@ -344,7 +354,12 @@ const EditProductPage = () => {
         .then(res=>{
           tempImageMain.push(res)
         })
+        .catch(err=>{
+          console.log(err)
+        })
     }
+
+
     const tempImageTotal = tempImageMain.concat(tempImageSub);
 
 
@@ -368,10 +383,11 @@ const EditProductPage = () => {
       formData.append('color', color);
     }
 
-
     for (let i = 0; i < tempImageTotal.length; i++) {
-      formData.append('image', tempImageTotal[i]);
+      console.log(tempImageTotal)
+      formData.append('files', tempImageTotal[i],i+1);
     }
+
 
 
     const callApiEditProduct = async () => {
@@ -435,6 +451,9 @@ const EditProductPage = () => {
   if(isLoading===false){
     return <LoadingComponent/>
   }
+
+
+
 
 
   return (<>
@@ -546,7 +565,7 @@ const EditProductPage = () => {
                  htmlFor="title"> {isNonSize == true ? "Màu - Số lượng" : "Size - Số lượng"} </label>
           <div className="col-sm-9">
             &#9; &#9;
-            <div className="row">
+            <div className="row" style={{maxHeight:"100px"}}>
             {size2Quantity2PriceList.map((x, i) => {
               return (
                 <div className="col-lg-6" style={{marginBottom: "10px"}}>
@@ -692,7 +711,7 @@ const EditProductPage = () => {
             <div className="form-group row">
               <div className="col-sm-10 col-sm-offset-2 "
                    style={{display: "flex", justifyContent: "center", width: "100%", marginLeft: "50px"}}>
-                <button type="submit" id="post" className="btn btn-primary" onClick={editProductClick}> Chỉnh sửa sản phẩm
+                <button type="submit" id="post" className="btn btn-primary" onClick={editProductClick} > Chỉnh sửa sản phẩm
                 </button>
               </div>
             </div>

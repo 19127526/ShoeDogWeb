@@ -205,6 +205,8 @@ exports.deleteProduct = async (req, res) => {
     }
 }
 
+
+
 exports.deleteProductv2 = async (req, res) => {
     try {
         const id = req.body.id;
@@ -213,10 +215,11 @@ exports.deleteProductv2 = async (req, res) => {
         const FOLDER = `./public/image/${productFinding[0].CatId}/${id}`;
 
         if (fs.existsSync(FOLDER)) {
-            fs.rmSync(FOLDER, {recursive: true, force: true});
+            fs.rmSync(FOLDER, { recursive: true, force: true });
             const result = await product.deleteProduct(id);
             return res.status(200).json({"status": "success", "data": result});
-        } else {
+        }
+        else{
             const result = await product.deleteProduct(id);
             return res.status(200).json({
                 "status": "success",

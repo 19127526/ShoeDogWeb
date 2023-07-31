@@ -7,7 +7,6 @@ const FooterComponent=()=>{
     <footer className="clearfix">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Thông tin liên lạc - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
         <link
           rel="canonical"
           href={CLIENT_URL}

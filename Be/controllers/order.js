@@ -20,7 +20,7 @@ const convertArrayToOptions = (arr, splitIndex) => {
   return arr.split(splitIndex)
 }
 
-const emailOwner = "phamtienquan2001@gmail.com"
+const emailOwner = "danghuy1177@gmail.com"
 exports.addOrder = async (req, res) => {
   try {
     const orderInformationBody = req.body.information;
@@ -134,6 +134,9 @@ exports.addOrder = async (req, res) => {
       date: new Date().toISOString().slice(0, 10).split('-').reverse().join('/'),
       productList: listProductEmail,
       totalPrice: orderAdd.TotalCost,
+      phone:orderAdd.PhoneNumber.toString(),
+      methodPay:orderAdd.MethodPay==0?"Thanh toán trực tiếp":"Chuyển khoản",
+
     }
     emailjs
       .send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_CASH_ID, templateCash, {

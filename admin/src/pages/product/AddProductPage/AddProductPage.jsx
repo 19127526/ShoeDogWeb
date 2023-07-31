@@ -134,6 +134,12 @@ const AddProductPage = () => {
   const handleChangeCategory = (value) => {
     if (value.includes("Phụ Kiện Chính Hãng")
       || value.includes("Túi Chính Hãng")
+      ||value.includes("Vệ Sinh Giày")
+      ||value.includes("Bóng")
+      ||value.includes("Vòng Tay")
+      ||value.includes("Phụ Kiện Giày")
+      ||value.includes("Tất")
+      ||value.includes("Ví Chính Hãng")
       || value.includes("Nón Chính Hãng")) {
       setIsNoneSize(true);
     } else {
@@ -289,20 +295,20 @@ const AddProductPage = () => {
       formData.append('color', color);
     }
     for (let i = 0; i < image.length; i++) {
-      formData.append('image', image[i]);
+      formData.append('files', image[i],i+1);
     }
 
     const callApiAddProduct = async () => {
       dispatch(turnOnLoading());
       await addProduct(formData)
         .then(res => {
-          console.log(res)
           if (res.data.status === "success") {
             navigate(-1)
             Notification("Thông báo thêm sản phẩm", `Thêm sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
           }
         })
         .catch(err => {
+          console.log(err)
 
         })
         .finally(() => {
