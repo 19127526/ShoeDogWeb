@@ -22,13 +22,6 @@
       <jdbc-url>jdbc:mysql://localhost:3306/shoedog</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MySQL - testmeo@localhost" uuid="346fd24b-c53e-4156-9943-8750499bddba">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/testmeo</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="MySQL - @localhost" uuid="24b2b035-da43-455e-988a-c131fc395ac5">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>

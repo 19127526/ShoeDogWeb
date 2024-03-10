@@ -6,6 +6,8 @@ const orderRouter=require("../routes/orders")
 const authRouter=require("../routes/auth")
 const testRouter = require("../routes/test");
 const imageRoute=require("../routes/image")
+const productRouterV2 = require("../routes/v2/product")
+const parentCategory = require("../routes/parentcategories")
 const multer = require('multer');
 const sharp = require('sharp')
 
@@ -19,29 +21,18 @@ const fileFilter = (req, file, cb) => {
         cb(null, false);
     }
 }
-const jwt = require('jsonwebtoken');
 
-function verifyToken(req, res, next) {
-    const token = req.headers.authorization;
-    if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
-    try {
-        req.user = jwt.verify(token, 'your-secret-key');
-        next();
-    } catch (error) {
-        return res.status(401).json({ message: 'Invalid token' });
-    }
-}
 const activateRouteMiddleware = (app) => {
     app.use('/',indexRouter);
     app.use('/users', usersRouter);
     app.use('/category', categoryRouter);
     app.use('/product', productRouter);
     app.use('/order',orderRouter);
-    app.use('/auth',authRouter)
-    app.use('/test',testRouter)
-    app.use('public',imageRoute)
+    app.use('/auth',authRouter);
+    app.use('/test',testRouter);
+    app.use('public',imageRoute);
+    app.use('/parent-category', parentCategory)
+    app.use('/v2/product', productRouterV2);
 }
 
 module.exports = activateRouteMiddleware;

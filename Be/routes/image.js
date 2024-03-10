@@ -8,7 +8,6 @@ const storage = multer.diskStorage({
         cb(null, './public/image/temp');
     },
     filename: function (req, file, cb) {
-        console.log(file)
        if(file?.mimetype=='image/jpeg'){
            cb(null, file.originalname+".jpg");
        }

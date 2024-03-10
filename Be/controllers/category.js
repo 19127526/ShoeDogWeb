@@ -12,7 +12,12 @@ exports.getAllCategories = async (req, res) => {
 exports.addCategory = async (req, res) => {
     try{
         const category = req.body;
-        const result = await categoryModel.addCategory(category);
+
+        const data = {
+            ParentId: category?.ParentId,
+            CatName: category?.CatName
+        }
+        const result = await categoryModel.addCategory(data);
         return res.status(200).json({"status": "success", "data": result});
     }catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
@@ -21,7 +26,7 @@ exports.addCategory = async (req, res) => {
 
 exports.deleteCategory = async (req, res) => {
     try{
-        const id = req.body.id;
+        const id = req.params.id;
         const result = await categoryModel.deleteCategory(id);
         return res.status(200).json({"status": "success", "data": result});
     }catch (e) {
@@ -31,11 +36,13 @@ exports.deleteCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
     try{
-        const id = req.body.id;
+        const id = req.params.id;
         const category = req.body;
+        console.log(id, category)
         const result = await categoryModel.updateCategory(id, category);
         return res.status(200).json({"status": "success", "data": result});
     }catch (e) {
+        console.log(e.message)
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }
