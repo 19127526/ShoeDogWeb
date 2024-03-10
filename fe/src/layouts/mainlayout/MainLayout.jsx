@@ -1,5 +1,5 @@
 import {BackTop, Layout, Spin} from 'antd';
-import HeaderComponent from "../../components/header/HeaderComponent";
+import HeaderDefaultComponent from "../../components/header/HeaderDefaultComponent";
 import {useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
 import FooterComponent from "../../components/footer/FooterComponent";
 import RoutesPage from "../../routes/RoutesPage";
@@ -10,18 +10,16 @@ import {ThemeContext} from "../../context/ContextProvider";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import {useDispatch, useSelector} from "react-redux";
 import {changeStateLoading, turnOffLoading, turnOnLoading} from "./MainLayout.actions";
-import {CLIENT_URL, ERROR_ROUTE} from "../../configs/url";
+import {CLIENT_URL, ERROR_ROUTE, LIST_NEW_PRODUCT_ROUTE} from "../../configs/url";
 import useDebounce from "../../customhooks/useDebounce";
 import {searchProducts} from "../../apis/products/ProductsApi";
-import {useElementSize} from "use-element-size";
-import {getWindowHeight, getWindowWidth} from "../../utils/Utils";
 import "./MainLayout.css"
-import {config} from "@fortawesome/fontawesome-svg-core";
 import { Helmet } from "react-helmet";
 const {Header, Footer, Sider, Content} = Layout;
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+import {getParentCategory} from "../../apis/parentcategories/ParentCateApi";
 const MainLayout = () => {
-  const [categories, setCategories] = useState([]);
+  const [parentCategories, setParentCategories] = useState([]);
   const [searchButton, setSearchButton] = useState(false);
   const navigate = useNavigate();
   const loadingRedux=useSelector(state=>state.mainReducer);
@@ -36,28 +34,46 @@ const MainLayout = () => {
   const data = useSelector(state => state.mainReducer);
   const ref = useRef(null);
 
-  useEffect(() => {
-    const getListCategory = () => {
-      dispatch(turnOnLoading())
-      getListCategories()
-        .then(res => {
-          if (res.data.status === 'success') {
-            setCategories(res.data.data);
-            isLoading(true)
-          }
-        })
-        .catch(err => {
-
-        })
-        .finally(()=>{
-          dispatch(turnOffLoading())
-        })
-    }
-    getListCategory()
-  }, []);
+  // useEffect(() => {
+  //   const getListCategory = () => {
+  //     dispatch(turnOnLoading())
+  //     getListCategories()
+  //       .then(res => {
+  //         if (res.data.status === 'success') {
+  //           setCategories(res.data.data);
+  //           isLoading(true)
+  //         }
+  //       })
+  //       .catch(err => {
+  //
+  //       })
+  //       .finally(()=>{
+  //         dispatch(turnOffLoading())
+  //       })
+  //   }
+  //   getListCategory()
+  // }, []);
   const searchValueChange=(e)=>{
     setSearchValue(e.target.value);
   }
+
+  useEffect(() => {
+    const getParentCategoryFnc = async () => {
+      dispatch(turnOnLoading())
+      try {
+        const res = await getParentCategory()
+        if(res?.status === 200) {
+          console.log(res)
+          setParentCategories(res?.data?.data || []);
+          isLoading(true)
+        }
+        dispatch(turnOnLoading())
+      } catch (e) {
+        dispatch(turnOnLoading())
+      }
+    }
+    getParentCategoryFnc()
+  }, [])
 
 
 
@@ -98,6 +114,8 @@ const MainLayout = () => {
       window.removeEventListener("scroll", logit);
     };
   },[window.pageYOffset]);
+
+  console.log('parentCategories', parentCategories)
 
 
 
@@ -151,85 +169,69 @@ const MainLayout = () => {
                       }}>
                         <a>Trang chủ</a>
                       </li>
+
+                      <li onClick={()=>{
+                        navigate(LIST_NEW_PRODUCT_ROUTE);
+                        setChangeSide(false)
+                      }}>
+                        <a>Sản phẩm mới</a>
+                      </li>
                      {/* <li>
                         <a>Sales</a>
                       </li>*/}
                       <li>
-                        <a onClick={() => {navigate(`/product/6/page=1`); setChangeSide(false)}}>Giày chính hãng<span
+                        <a onClick={() => {navigate(`/product/6?page=1`); setChangeSide(false)}}>Giày chính hãng<span
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
-                          <li onClick={() => {navigate(`/product/6/page=1`); setChangeSide(false)}}>
+                          <li onClick={() => {navigate(`/product/6?page=1`); setChangeSide(false)}}>
                             <a>Giày Mới</a>
                           </li>
-                          <li onClick={() =>{navigate(`/product/7/page=1`); setChangeSide(false)}}>
-                            <a >Giày Secondhand</a>
+                          <li onClick={() =>{navigate(`/product/7?page=1`); setChangeSide(false)}}>
+                            <a >Giày Secondhand Nam</a>
                           </li>
-                          <li onClick={() => {navigate(`/product/8/page=1`); setChangeSide(false)}}>
+                          <li onClick={() =>{navigate(`/product/19?page=1`); setChangeSide(false)}}>
+                            <a >Giày Secondhand Nữ</a>
+                          </li>
+                          <li onClick={() => {navigate(`/product/8?page=1`); setChangeSide(false)}}>
                             <a >Giày trẻ em</a>
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <a onClick={() => {navigate(`/product/11/page=1`); setChangeSide(false)}}>Áo chính hãng<span
+                        <a onClick={() => {navigate(`/product/11?page=1`); setChangeSide(false)}}>Áo chính hãng<span
                           className="icon-navigate_next"></span></a>
                         <ul style={{marginBottom: "0px"}}>
-                          <li onClick={() => {navigate(`/product/11/page=1`); setChangeSide(false)}}>
+                          <li onClick={() => {navigate(`/product/11?page=1`); setChangeSide(false)}}>
                             <a >Áo Thun</a>
                           </li>
-                          <li onClick={() => {navigate(`/product/12/page=1`); setChangeSide(false)}}>
+                          <li onClick={() => {navigate(`/product/12?page=1`); setChangeSide(false)}}>
                             <a>Áo Khoác</a>
                           </li>
-                          <li onClick={() => {navigate(`/product/9/page=1`); setChangeSide(false)}}>
+                          <li onClick={() => {navigate(`/product/9?page=1`); setChangeSide(false)}}>
                             <a>Áo Hoodie</a>
                           </li>
-                          <li onClick={() =>{navigate(`/product/10/page=1`); setChangeSide(false)}}>
+                          <li onClick={() =>{navigate(`/product/10?page=1`); setChangeSide(false)}}>
                             <a>Áo Sweater</a>
                           </li>
 
                         </ul>
                       </li>
-                      {categories.map((value) => (
-                        (value?.CatId!=6&& value?.CatId!=7&&value?.CatId!=8&&value?.CatId!=11&& value?.CatId!=1&& value?.CatId!=9&& value?.CatId!=10&&value?.CatId!=12 &&value?.CatId!=13&&value?.CatId!=14&&value?.CatId!=15&&value?.CatId!=16&&value?.CatId!=17&&value?.CatId!=18)?
-                        <li key={value.CatId}>
-                          <a onClick={() => {
-                            navigate(`/product/${value.CatId}/page=1`);
-                            setChangeSide(false)}
-                          }>{value.CatName}<span
-                            className="icon-navigate_next"></span></a>
-                        </li>:""))}
-                      <li>
-
-                        <a onClick={() => {navigate(`/product/13/page=1`); setChangeSide(false)}}>Phụ kiện chính hãng<span
-                          className="icon-navigate_next"></span></a>
-                          <ul>
-                            <li onClick={() =>{ navigate(`/product/13/page=1`); setChangeSide(false)}}>
-                              <a >Ví chính hãng</a>
-                            </li>
-                            <li onClick={() => {navigate(`/product/14/page=1`); setChangeSide(false)}}>
-                              <a>Tất</a>
-                            </li>
-                            <li onClick={() => {navigate(`/product/15/page=1`); setChangeSide(false)}}>
-                              <a>Vệ sinh giày</a>
-                            </li>
-                            <li onClick={() => {navigate(`/product/16/page=1`); setChangeSide(false)}}>
-                              <a>Phụ kiện giày</a>
-                            </li>
-                            <li onClick={() => {navigate(`/product/17/page=1`); setChangeSide(false)}}>
-                              <a>Bóng</a>
-                            </li>
-                            <li onClick={() => {navigate(`/product/18/page=1`); setChangeSide(false)}}>
-                              <a>Vòng tay</a>
-                            </li>
-                          </ul>
-                      </li>
-
-
-                      {/* <li>
-                        <a >Used</a>
-                      </li>
-                      <li>
-                        <a >Help</a>
-                      </li>*/}
+                      {/*{parentCategories?.map((value, index) => (*/}
+                      {/*        <li key={value?.ParentId}>*/}
+                      {/*          <a>{value?.ParentName}<span*/}
+                      {/*              className="icon-navigate_next"></span></a>*/}
+                      {/*          {*/}
+                      {/*            value?.ListCategory?.map((cate, index) => (*/}
+                      {/*                <ul>*/}
+                      {/*                  <li key={`cate-${index}`} onClick={() =>{ navigate(`/product/${cate?.CatId}?page=1`); setChangeSide(false)}}>*/}
+                      {/*                    <a >{cate}</a>*/}
+                      {/*                  </li>*/}
+                      {/*                </ul>*/}
+                      {/*            ))*/}
+                      {/*          }*/}
+                      {/*        </li>*/}
+                      {/*    )*/}
+                      {/*)}*/}
                     </ul>
                   </div>
                 </div>
@@ -258,7 +260,7 @@ const MainLayout = () => {
                   </div>
                 </div>
               </div>
-              <HeaderComponent categoryList={categories} searchButton={() => setSearchButton(!searchButton)} loading={loading} setChangeSide={setChangeSide}/>
+              <HeaderDefaultComponent categoryList={parentCategories} searchButton={() => setSearchButton(!searchButton)} loading={loading} setChangeSide={setChangeSide}/>
               <Content style={{minHeight: "100px"}}>
                 <RoutesPage/>
                 <BackTop visible={scrollY>=400?true:false} >

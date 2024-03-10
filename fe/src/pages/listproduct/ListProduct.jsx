@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {getListProductsByCatId} from "../../apis/products/ProductsApi";
 import Notification from "../../components/notification/Notification";
@@ -27,7 +27,8 @@ const ListProduct = () => {
   const [sizeButton, setSizeButton] = useState(false);
   const [priceButton, setPriceButton] = useState(false);
 
-  const {product,pageindex} = useParams();
+  const {product} = useParams();
+  const location = useLocation();
   const [loading, setLoading] = useState(false)
   const [itemInCategory, setItemInCategory] = useState([]);
   const [itemTempInCategory, setItemTempInCategory] = useState([]);
@@ -187,14 +188,15 @@ const ListProduct = () => {
   }, [product]);
   useEffect(()=>{
     dispatch(turnOnLoading())
-    if(pageindex==undefined){
+    const pageTemp = new URLSearchParams(location.search).get('page')
+    if(pageTemp == undefined){
       setPageCurrent(1);
     }
     else{
-      setPageCurrent(pageindex);
+      setPageCurrent(pageTemp);
     }
     dispatch(turnOffLoading())
-  },[pageindex])
+  },[new URLSearchParams(location.search).get('page')])
   useEffect(() => {
     if (filterButton === true) {
       document.body.classList.add("filterActive")
@@ -202,6 +204,7 @@ const ListProduct = () => {
       document.body.classList.remove("filterActive")
     }
   }, [filterButton]);
+
 
 
   useEffect(() => {
@@ -529,7 +532,7 @@ const ListProduct = () => {
         <title>{`${itemInCategory[0]?.CatName} - SHOEDOG - Shop giày uy tín nhất TP.HCM`}</title>
         <link
           rel="canonical"
-          href={CLIENT_URL+`/product/${product}/page=${pageindex}`}
+          href={CLIENT_URL+`/product/${product}?page=${new URLSearchParams(location.search).get('page')}`}
           title={`Danh sách danh mục - ${itemInCategory[0]?.CatName} - Shop giày uy tín nhất TP.HCM »`}
         />
         <meta
@@ -674,7 +677,7 @@ const ListProduct = () => {
           <Pagination total={itemInCategory.length} current={Number(pageCurrent)} defaultCurrent={Number(pageCurrent)} pageSize={pageIndex}
                       showSizeChanger={false} onChange={(pageIndexTemp) => {
                          setPageCurrent(pageIndexTemp);
-                        navigate(`/product/${product}/page=${pageIndexTemp}`)
+                        navigate(`/product/${product}?page=${pageIndexTemp}`)
                       }}/>
         </div>
         : ""

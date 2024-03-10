@@ -1,4 +1,4 @@
-export const SERVER_URL="https://sv.shoedog.vn";
+export const SERVER_URL="http://localhost:3008";
 
 export const CLIENT_URL="https://shoedog.vn"
 /*http://localhost:3001/*/
@@ -11,6 +11,7 @@ export const GET_DETAIL_PRODUCT_URI="product/detail"
 export const SEARCH_PRODUCT_URI="product/search"
 export const RELATED_PRODUCT_URI="product/related"
 export const ADD_ORDER_URI="order/add"
+export const GET_PARENT_CATEGORIES_URI = "parent-category"
 
 
 
@@ -25,4 +26,5 @@ export const ORDER_SUCCESS_ROUTE="/order/success"
 export const ERROR_ROUTE="/error"
 export const LIST_PRODUCT_CATEGORYID_ROUTE="/product/:product"
 export const LIST_PRODUCT_CATEGORYID_PAGE_ROUTE="/product/:product/page=:pageindex"
+export const LIST_NEW_PRODUCT_ROUTE = "/new-product"
 export const HOME_ROUTE="/"

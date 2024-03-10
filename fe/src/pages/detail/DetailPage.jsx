@@ -47,7 +47,25 @@ const DetailPage = () => {
   const dataProduct = useSelector(state => state.cartReducer);
 
   useEffect(() => {
-    const getDetailProduct = () => {
+    const getRelatedProductByProduct = async (res) => {
+       try {
+         const relatedResult = await relatedProduct(res?.data?.data[0].CatId, res?.data?.data[0].ProId)
+         if(relatedResult?.status === 200) {
+           const itemResult = relatedResult?.data.data.map(index => {
+             return {
+               ...index,
+               TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
+             }
+           });
+           setRelatedProductList(itemResult);
+         }
+         dispatch(turnOffLoading())
+       } catch (e) {
+         dispatch(turnOffLoading())
+         console.log(e)
+       }
+    }
+    const getDetailProduct = async () => {
       dispatch(turnOnLoading())
       setImageSubArray([]);
       setChooseSizeSuccess({
@@ -55,74 +73,51 @@ const DetailPage = () => {
         price: null,
         discount: null,
       })
-      getDetailProductByProId(proId || 0)
-        .then(async res => {
-          if (res.data.status === 'success') {
-            setDetailProduct(res.data.data[0]);
-            const tempSize = convertArrayToQuantity(res.data.data[0].Size);
-            const tempTotalPrice = convertArrayToQuantity(res.data.data[0].TotalPrice);
-            const tempDiscount = convertArrayToQuantity(res.data.data[0].Discount);
-            const temp = [];
-            for (let i = 0; i < tempSize.length; i++) {
-              temp.push({
-                size: tempSize[i],
-                totalPrice: Number(tempTotalPrice[i]),
-                discount: Number(tempDiscount[i])
-              })
-            }
-            setSizeList(temp);
-            setColor(res.data.data[0].Color);
-            if (res.data.data[0].ImageArray === null || res.data.data[0].ImageArray === undefined || res.data.data[0].ImageArray === "") {
-              setImageSubArray([])
-            } else {
-              let tempImageArr = convertArrayToOptions(res.data.data[0].ImageArray, ", ");
-              tempImageArr=removeItemAll(tempImageArr,"")
-              setImageSubArray(tempImageArr.map(index=>index.replace("public","private")));
-            }
-            setEmpty(false);
-
-
-            const getRelatedProductByProduct = async () => {
-              await relatedProduct(res.data.data[0].CatId, res.data.data[0].ProId)
-                .then(res => {
-                  console.log(res)
-                  if (res.data.status === 'success') {
-                    const itemResult = res.data.data.map(index => {
-                      return {
-                        ...index,
-                        TotalPrice: convertArrayToSize(index?.TotalPrice).toString()
-                      }
-                    });
-                    setRelatedProductList(itemResult);
-                  }
+      try {
+        const res = await getDetailProductByProId(proId || 0)
+            if(res?.status === 200) {
+              setDetailProduct(res?.data.data[0]);
+              const tempSize = convertArrayToQuantity(res.data.data[0].Size);
+              const tempTotalPrice = convertArrayToQuantity(res.data.data[0].TotalPrice);
+              const tempDiscount = convertArrayToQuantity(res.data.data[0].Discount);
+              const temp = [];
+              for (let i = 0; i < tempSize.length; i++) {
+                temp.push({
+                  size: tempSize[i],
+                  totalPrice: Number(tempTotalPrice[i]),
+                  discount: Number(tempDiscount[i])
                 })
-                .catch(err => {
-                  console.log(err)
-                })
+              }
+              setSizeList(temp);
+              setColor(res.data.data[0].Color);
+              if (res.data.data[0].ImageArray === null || res.data.data[0].ImageArray === undefined || res.data.data[0].ImageArray === "") {
+                setImageSubArray([])
+              } else {
+                let tempImageArr = convertArrayToOptions(res.data.data[0].ImageArray, ", ");
+                tempImageArr=removeItemAll(tempImageArr,"")
+                setImageSubArray(tempImageArr.map(index=>index.replace("public","private")));
+              }
+              setEmpty(false);
+              getRelatedProductByProduct(res)
+            } else if (res?.data?.status === 'empty') {
+              setEmpty(true);
             }
-            getRelatedProductByProduct()
-
-
-          } else if (res.data.status === 'empty') {
-            setEmpty(true);
-          }
-        })
-        .catch(err => {
-
-          console.log(err);
-        })
-        .finally(() => {
-          dispatch(turnOffLoading())
-        })
+      } catch (e) {
+        dispatch(turnOffLoading())
+      } finally {
+      }
     }
 
     getDetailProduct();
   }, [proId]);
 
   useEffect(() => {
-    /*setHeight2(339)*/
-    getWindowWidth().innerWidth > 784 ? setHeightDescription(height) : ""
-  },)
+    if(getWindowWidth().innerWidth > 784) {
+      console.log('height', height)
+      setHeightDescription(Number(height) + 700)
+    }
+  },[relatedProductList, detailProduct])
+
 
   const setChooseSize = (index, price, discount) => {
     setChooseSizeSuccess({

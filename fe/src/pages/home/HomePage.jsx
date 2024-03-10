@@ -7,13 +7,13 @@ import {getListCategories} from "../../apis/categories/CategoriesApi";
 import * as constraintNotification from "../../components/notification/Notification.constraints";
 import Notification from "../../components/notification/Notification";
 import {getListProductsByCatId} from "../../apis/products/ProductsApi";
-import LoadingComponent from "../../components/loading/LoadingComponent";
 import {useDispatch} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout.actions";
 import {convertArrayToSize} from "../../utils/Utils";
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
-let pageIndex=6
+
+let pageIndex = 12
 const HomePage = () => {
   const navigate = useNavigate();
   const [productWithCatId, setProductWithCatId] = useState([{
@@ -23,16 +23,15 @@ const HomePage = () => {
     },
     productList: []
   }]);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const ref = useRef(null);
 
   useLayoutEffect(
     () => {
-      if(productWithCatId.filter(index=>index.category.CatId!=null).length>0) {
+      if (productWithCatId.filter(index => index.category.CatId != null).length > 0) {
         ref.current.scrollIntoView({behavior: 'auto', block: 'start'})
       }
     }, [productWithCatId]);
-
 
 
   useEffect(() => {
@@ -43,14 +42,12 @@ const HomePage = () => {
           if (res.data.status === 'success') {
             const tempCategory = res.data.data.filter(index => {
               if (index?.CatId === 11 || index?.CatId === 13 || index?.CatId === 6) {
-                return index
+                return index;
               }
             })
             const [a1, a2, a3] = tempCategory;
             const tempCategoryAfterSort = [a1, a3, a2]
-
             for (let i = 0; i < tempCategoryAfterSort.length; i++) {
-
               await getListProductsByCatId(tempCategoryAfterSort[i].CatId)
                 .then(res => {
                   if (res.data.status === 'success') {
@@ -83,7 +80,7 @@ const HomePage = () => {
         })
         .catch(err => {
         })
-        .finally(()=>{
+        .finally(() => {
           dispatch(turnOffLoading())
         })
     }
@@ -91,11 +88,10 @@ const HomePage = () => {
   }, []);
   return (
     <>
-
-      <div className="container" ref={ref}>
+      <div className="" ref={ref}>
         <Helmet>
-          <meta charSet="utf-8" />
-          <title>TRANG CHỦ - SHOEDOG - Shop giày uy tín nhất TP.HCM</title>
+          <meta charSet="utf-8"/>
+          <title>TRANG CHỦ - SHOEDOG - SHOP GIÀY UY TÍN NHẤT TP.HCM</title>
           <link
             rel="canonical"
             href={CLIENT_URL}
@@ -107,41 +103,42 @@ const HomePage = () => {
           />
         </Helmet>
 
-        {productWithCatId.filter((index=>index.category.CatId!=null)).map(index =>
+        {productWithCatId.filter((index => index.category.CatId != null)).map(index =>
           <>
             <>
-            {index.productList.length>0?
-              (
-              <>
-              <div className="swiper-container slidehomepage slidehomepage-1 swiper-container-horizontal">
-              <SlideComponent/>
-              </div>
-              <div className="container">
-              <h2 className="text-center title__type">{index.category.CatName}</h2>
-              <div className="row products">
-            {index.productList.map((value,index) => (
-              index<pageIndex?
-              <div className="col-lg-4 col-md-6 ">
-              <CardComponent name={value?.ProName}
-              img={value?.ImageMain?.replace("public","private")}
-              proId={value?.ProId}
-              statusPro={value?.StatusPro}
-              priceDiscount={value?.TotalPrice}
-              discount={value?.Discount}
-              priceNonDiscount={value?.Price}/>
-              </div>:""
-              ))}
-              </div>
-            {index.productList.length > pageIndex ?
-              <div className="text-center" onClick={() => navigate(`/product/${index.category.CatId}/page=1`)}>
-              <a className="btn-see-more text-uper">Xem thêm</a>
-              </div>
-              : ""
-            }
-              </div>
-              </>
-              ):""}
-              </>
+              {index.productList.length > 0 ?
+                (
+                  <>
+                    <div className="swiper-container slidehomepage slidehomepage-1 swiper-container-horizontal">
+                      <SlideComponent/>
+                    </div>
+                    <div className="container">
+                      <h2 className="text-center title__type">{index.category.CatName}</h2>
+                      <div className="row products">
+                        {index.productList.map((value, index) => (
+                          index < pageIndex ?
+                            <div className="col-lg-4 col-md-6 ">
+                              <CardComponent name={value?.ProName}
+                                             img={value?.ImageMain?.replace("public", "private")}
+                                             proId={value?.ProId}
+                                             statusPro={value?.StatusPro}
+                                             priceDiscount={value?.TotalPrice}
+                                             discount={value?.Discount}
+                                             priceNonDiscount={value?.Price}/>
+                            </div> : ""
+                        ))}
+                      </div>
+                      {index.productList.length > pageIndex ?
+                        <div className="text-center"
+                             onClick={() => navigate(`/product/${index.category.CatId}?page=1`)}>
+                          <a className="btn-see-more text-uper">Xem thêm</a>
+                        </div>
+                        : ""
+                      }
+                    </div>
+                  </>
+                ) : ""}
+            </>
           </>
         )}
 

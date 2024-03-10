@@ -6,6 +6,7 @@ import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
 import {Badge} from "antd"
 import "./CardComponent.css"
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,discount})=>{
   const navigate=useNavigate();
   const [isDiscount,setIsDiscount]=useState(false);
@@ -64,9 +65,9 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
           <div className="product__item--pic" >
             <a onClick={()=>navigate(`/detail/${proId}`)}>
               <div className="product__img">
-                <img className="lazy" src={img}
-                     alt={name} title={name}
-                     style={{display:"inline-block",width:"auto"}}
+                <LazyLoadImage className="lazy" src={img}
+                               alt={name} title={name}
+                               style={{display:"inline-block",width:"auto"}}
                 />
               </div>
             </a>
@@ -95,9 +96,10 @@ const CardComponent=({name,priceNonDiscount,priceDiscount,img,proId,statusPro,di
         : <div className="product__item--pic" style={{color:"black"}}>
           <a onClick={()=>navigate(`/detail/${proId}`)}>
             <div className="product__img">
-              <img className="lazy" src={img}
-                   alt={name} title={name}
-                   style={{display:"inline-block",width:"auto"}}
+              <LazyLoadImage className="lazy" src={img}
+                             alt={name} title={name}
+                             effect="blur"
+                             style={{display:"inline-block",width:"auto"}}
               />
             </div>
           </a>

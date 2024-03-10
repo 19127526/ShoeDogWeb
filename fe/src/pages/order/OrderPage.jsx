@@ -192,7 +192,6 @@ const OrderPage = () => {
       const totalPayload = {information, item}
       await addOrderApi(totalPayload)
         .then(res => {
-          console.log(res)
           if (res.data.status === "success") {
             Notification("Thông báo đặt hàng", "Bạn đã đặt hàng thành công", containts.NOTIFICATION_SUCCESS)
             navigate(ORDER_SUCCESS_ROUTE, {state: res.data.data[0]})

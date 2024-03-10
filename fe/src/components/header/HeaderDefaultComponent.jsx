@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {Badge} from "antd";
 import "./Header.css"
 import {Helmet} from "react-helmet";
-import {CLIENT_URL, LIST_NEW_PRODUCT_ROUTE} from "../../configs/url";
+import {CLIENT_URL} from "../../configs/url";
 
 const HeaderDefaultComponent = ({categoryList, searchButton, loading, setChangeSide}) => {
   const navigate = useNavigate();
@@ -115,27 +115,30 @@ const HeaderDefaultComponent = ({categoryList, searchButton, loading, setChangeS
                   {categoryList?.map((value, index) => {
                         return (
                             <li key={value?.ParentId}>
-                              <a><span>{value?.ParentName}</span></a>
+                              <a onClick={() => {
+                                if (value?.ParentId === -1) {
+                                  navigate('/new-product')
+                                } else if (value?.ListCategory.length === 0) {
+                                  navigate(`/product/${value?.ParentId}?page=1`)
+                                }
+                              }}><span>{value?.ParentName}</span></a>
                               <div className="menu__sub">
                                 <ul>
-                                {
-                                  value?.ListCategory?.map((cate, index) => {
-                                    return (
+                                  {
+                                    value?.ListCategory?.map((cate, index) => {
+                                      return (
                                           <li key={index} onClick={() => navigate(`/product/${cate?.CatId}?page=1`)}>
                                             <a>{cate?.CatName}</a>
                                           </li>
-                                    )
-                                  })
-                                }
+                                      )
+                                    })
+                                  }
                                 </ul>
                               </div>
                             </li>
                         )
                       }
                   )}
-
-
-
                 </ul>
               </div>
             </div>
