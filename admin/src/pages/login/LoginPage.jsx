@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import { encrypt, decrypt, compare } from 'n-krypta';
 import Notification from "../../components/notification/Notification";
@@ -27,7 +27,7 @@ const LoginPage = (props) => {
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const dataUrl=useSelector((state)=>state.authenticateReducer);
-
+  const accessToken = localStorage.getItem("accessToken") ? localStorage.getItem("accessToken"): null
   const handleLogin = async (event) => {
     event.preventDefault();
     const temp=await loginNormal({userName:userName,password:password});
@@ -37,9 +37,15 @@ const LoginPage = (props) => {
       navigate(dataUrl?.url);
     }
     else{
-      Notification("Thông báo đăng nhập", "Đăng nhập thất bại (Tài khoản và mật khẩu không đúng)",constraintNotification.NOTIFICATION_ERROR)
+      Notification("Thông báo đăng nhập", "Đăng nhập thất bại (Tài khoản và mật khẩu không đúng",constraintNotification.NOTIFICATION_ERROR)
     }
   }
+
+  useEffect(() => {
+    if(accessToken == null) {
+      Notification("Thông báo đăng nhập", "Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại",constraintNotification.NOTIFICATION_ERROR)
+    }
+  },[accessToken])
 
   return (
     <>

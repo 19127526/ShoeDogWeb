@@ -10,7 +10,7 @@ export const LoginPageReducer=(state=initialState,action)=>
     switch (action.type) {
       case types.LOGIN_NORMAL_SUCCESS:
         draft.isLogin=true;
-        localStorage.setItem("accessToken",action.payload)
+        localStorage.setItem("accessToken",action.payload?.tokens)
         /*draft.profile=action.payload;*/
         break;
       case types.LOGIN_NORMAL_FAIL:

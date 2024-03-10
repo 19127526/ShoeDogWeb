@@ -52,6 +52,11 @@ const ProductListPage = () => {
 
   const columns = [
     {
+      title: 'STT',
+      dataIndex: 'stt',
+      responsive: ['md'],
+    },
+    {
       title: 'Hình ảnh',
       dataIndex: 'image',
       responsive: ['md'],
@@ -110,7 +115,7 @@ const ProductListPage = () => {
   if (xScroll) {
     scroll.x = '100vw';
   }
-  const tableColumns = columns.map((item) => ({
+  const tableColumns = columns.map((item, count) => ({
     ...item,
   }));
   if (xScroll === 'fixed') {
@@ -138,7 +143,6 @@ const ProductListPage = () => {
     bordered:false,
     loading:false,
     size:"large",
-    expandable:defaultExpandable,
     rowSelection,
     scroll,
     tableLayout,
@@ -161,7 +165,7 @@ const ProductListPage = () => {
         .then(res => {
           if (res.data.status === 'success'||res.data.status==='empty') {
             let temp=[];
-            res.data.data.map(index=>{
+            res.data.data.map((index, count)=>{
 
               //totalPrice
               let totalPriceSet=new Set();
@@ -185,6 +189,7 @@ const ProductListPage = () => {
 
               const tempIndex={
                 key: index?.ProId,
+                stt: <p style={{textAlign: "center", alignItems: "center"}}>{count}</p>,
                 image:( <a onClick={() => navigate(`/admin/category/${index.CatId}/${index.ProId}`, {state: {index: index}})}>
                   <div className="item-img rounded"
                        style={{backgroundImage: `url(${index.ImageMain})`}}></div>

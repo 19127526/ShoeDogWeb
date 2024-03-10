@@ -3,6 +3,7 @@ export const SERVER_URL="http://localhost:3008/";
 export const CLIENT_URL="https://be.shoedog.vn/"
 
 //Server
+export const PARENT_CATEGORIES_URI= "parent-category"
 export const GET_CATEGORIES_URI="category"
 export const GET_PRODUCTS_URI="product"
 export const ADD_CATEGORIES_URI="category/add"
