@@ -30,7 +30,8 @@ const activateRouteMiddleware = (app) => {
     app.use('/order',orderRouter);
     app.use('/auth',authRouter);
     app.use('/test',testRouter);
-    app.use('public',imageRoute);
+    app.use('/public',imageRoute);
+    app.use('/private',imageRoute);
     app.use('/parent-category', parentCategory)
     app.use('/v2/product', productRouterV2);
 }
