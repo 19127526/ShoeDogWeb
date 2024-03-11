@@ -17,6 +17,10 @@ exports.deleteCategory = (id) => {
     return db('categories').where('CatId', id).del();
 }
 
+exports.deleteCategoryByParentId = (id) => {
+    return db('categories').where('ParentId', id).del();
+}
+
 exports.updateCategory = (id, category) => {
     return db('categories').where('CatId', id).update({
         CatName: category?.CatName

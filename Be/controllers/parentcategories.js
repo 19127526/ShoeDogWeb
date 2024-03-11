@@ -1,5 +1,5 @@
-const category = require('../models/category');
 const parentCategory = require('../models/parentcategories');
+const category = require('../models/category');
 
 exports.getParentCategory = async (req, res) => {
     try {
@@ -40,6 +40,7 @@ exports.removeParentCategory = async (req, res) => {
     try {
         const id = req.params.parentId;
         let listParentCate = await parentCategory.removeParentCategory(id);
+
         return res.status(200).json({"status": "success", "data": listParentCate});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});

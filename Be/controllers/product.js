@@ -294,6 +294,7 @@ exports.updateProductv2 = async (req, res) => {
         const ProductId = products.ProId;
         const cateName = req.body.category;
         const catid_ = await category.getCategoryById(cateName);
+        const random = generateString(6);
         const catId=catid_.CatId
         const initProduct = {
             Inventory: products?.inventory && products?.inventory != "" ? products?.inventory : random,

@@ -6,11 +6,39 @@
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/routeMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/routeMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/category.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/parentcategories.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/parentcategories.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/category.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/35/1000/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/35/1000/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/35/1000/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5/154/9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/products.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/aside/AsideComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/aside/AsideComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/dialog/category/RemoveCateDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/dialog/category/RemoveCateDialog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/components/dialog/parent/RemoveParentDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/dialog/parent/RemoveParentDialog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.constraints.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.constraints.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/login/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/login/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/build.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
