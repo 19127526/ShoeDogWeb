@@ -1,15 +1,17 @@
 import {useDispatch, useSelector} from "react-redux";
-import {crudCate, removeCate} from "../../../layouts/mainlayout/MainLayout.actions";
+import {crudCate, removeCate, resetMainLayout} from "../../../layouts/mainlayout/MainLayout.actions";
 import {Button, Form, Input, Modal, Space} from "antd";
 import {removeCategoryById, updateCategoryById} from "../../../apis/categories/CategoriesApi";
 import Notification from "../../notification/Notification";
 import * as constraintNotification from "../../notification/Notification.constraints";
 import {FallOutlined} from "@ant-design/icons";
 import {getListParentCategory} from "../../../layouts/mainlayout/MainLayout.thunk";
+import {useNavigate} from "react-router-dom";
 
 const RemoveCateDialog = () => {
     const {dialogRemoveCate: open, selectedCate: data} = useSelector(state => state.mainReducer);
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const handleCancel = async () => {
         dispatch(removeCate({
             isOpen: false,
@@ -24,9 +26,11 @@ const RemoveCateDialog = () => {
         try {
             const res = await removeCategoryById(data?.CatId)
             if(res && res?.status == 200) {
+                dispatch(resetMainLayout())
                 dispatch(getListParentCategory())
                 Notification("Thông báo xóa", "Xóa danh mục con thành công!",constraintNotification.NOTIFICATION_SUCCESS)
                 handleCancel()
+                navigate("/admin")
             }
         } catch (e) {
             handleCancel()

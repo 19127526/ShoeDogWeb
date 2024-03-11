@@ -1,4 +1,4 @@
-export const SERVER_URL="http://localhost:3008/";
+export const SERVER_URL="https://sv.shoedog.vn/";
 /*https://sv.shoedog.vn//*/
 export const CLIENT_URL="https://be.shoedog.vn/"
 

@@ -1,4 +1,5 @@
 import * as types from "./MainLayout.constraints"
+import {SELECTED_CATEGORY} from "./MainLayout.constraints";
 
 
 
@@ -36,6 +37,16 @@ export const removeParentCate=(payload)=>({
 export const addParentCate=(payload)=>({
   type: types.ADD_PARENT_CATEGORY,
   payload
+})
+
+export const selectedCate=(payload)=>({
+  type: types.SELECTED_CATEGORY,
+  payload
+})
+
+
+export const resetMainLayout=()=>({
+  type: types.RESET_MAIN_LAYOUT,
 })
 
 export const crudCate=(payload)=>({
