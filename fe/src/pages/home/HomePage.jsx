@@ -119,7 +119,7 @@ const HomePage = () => {
                           index < pageIndex ?
                             <div className="col-lg-4 col-md-6 ">
                               <CardComponent name={value?.ProName}
-                                             img={value?.ImageMain?.replace("public", "private")}
+                                             img={value?.ImageMain}
                                              proId={value?.ProId}
                                              statusPro={value?.StatusPro}
                                              priceDiscount={value?.TotalPrice}

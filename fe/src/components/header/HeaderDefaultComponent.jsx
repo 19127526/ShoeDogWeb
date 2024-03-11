@@ -49,7 +49,7 @@ const HeaderDefaultComponent = ({categoryList, searchButton, loading, setChangeS
           <span></span>
           <span></span>
         </a>
-        <div className="container">
+        <div className="container" >
           <div className="header__left">
             <a style={{display: "none"}}>SELL</a>
             <a style={{display: "none"}}>CONSIGNMENT MANAGER</a>
@@ -103,18 +103,19 @@ const HeaderDefaultComponent = ({categoryList, searchButton, loading, setChangeS
           </div>
           <div className="text-center header__logo">
             <span>logo</span>
-            <a onClick={() => navigate("/")}><img src={logo} alt=""/></a>
+            <a onClick={() => navigate("/")}><img src={logo} alt="DANH MỤC SẢN PHẨM - SHOEDOG - Shop giày uy tín nhất TP.HCM"/></a>
           </div>
         </div>
-        <div className="container" style={{padding: "0 10% 0 10%"}}>
-          <div id="menu">
+        <div className="container" style={{padding: "1% 10% 0 10%",}}>
+          <div id="menu" >
             <div className="inner-menu">
               <div>
-                <ul>
+                <ul >
 
                   {categoryList?.map((value, index) => {
+                        let isSub = value?.ListCategory.length === 0 ? false : true
                         return (
-                            <li key={value?.ParentId}>
+                            <li key={value?.ParentId} >
                               <a onClick={() => {
                                 if (value?.ParentId === -1) {
                                   navigate('/new-product')
@@ -122,7 +123,7 @@ const HeaderDefaultComponent = ({categoryList, searchButton, loading, setChangeS
                                   navigate(`/product/${value?.ParentId}?page=1`)
                                 }
                               }}><span>{value?.ParentName}</span></a>
-                              <div className="menu__sub">
+                              <div className={isSub? "menu__sub": ""} style={{marginTop: "0.8%"}}>
                                 <ul>
                                   {
                                     value?.ListCategory?.map((cate, index) => {

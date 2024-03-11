@@ -95,7 +95,7 @@ const DetailPage = () => {
               } else {
                 let tempImageArr = convertArrayToOptions(res.data.data[0].ImageArray, ", ");
                 tempImageArr=removeItemAll(tempImageArr,"")
-                setImageSubArray(tempImageArr.map(index=>index.replace("public","private")));
+                setImageSubArray(tempImageArr);
               }
               setEmpty(false);
               getRelatedProductByProduct(res)
@@ -356,7 +356,7 @@ const DetailPage = () => {
                 relatedProductList.map(value => (
                   <div className="col-lg-4 col-md-6 ">
                     <CardComponent name={value?.ProName}
-                                   img={value?.ImageMain?.replace("public","private")}
+                                   img={value?.ImageMain}
                                    proId={value?.ProId}
                                    statusPro={value?.StatusPro}
                                    priceDiscount={value?.TotalPrice}
