@@ -58,7 +58,7 @@ const ProductDetailPage =  () => {
   const {proId} = useParams();
   const loadingRedux = useSelector(state => state.mainReducer);
   const dispatch = useDispatch();
-
+  const {selectedCateAside} = useSelector(state => state.mainReducer);
 
   const [productDetail,setProductDetail]=useState();
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -446,7 +446,7 @@ const ProductDetailPage =  () => {
 
       <div className="form-group row">
         <div className="col-sm-10 col-sm-offset-2">
-          <button type="submit" id="quaylai" className="btn btn-danger" onClick={() => navigate(-1)}> Quay lại</button>
+          <button type="submit" id="quaylai" className="btn btn-danger" onClick={() => navigate(`/admin/category/${selectedCateAside?.CatId}`)}> Quay lại</button>
         </div>
       </div>
 

@@ -58,8 +58,8 @@ function onBlur(e) {
 const EditProductPage = () => {
   const navigate = useNavigate();
   const {proId} = useParams();
-  const loadingRedux = useSelector(state => state.mainReducer);
   const dispatch = useDispatch();
+  const {selectedCateAside} = useSelector(state => state.mainReducer);
 
 
   const [productDetail,setProductDetail]=useState();
@@ -403,7 +403,7 @@ const EditProductPage = () => {
       await editProduct(formData)
         .then(res => {
           if (res.data?.status === "success") {
-            navigate(-1)
+            navigate(`/admin/category/${selectedCateAside?.CatId}`)
             Notification("Thông báo thêm sản phẩm", `Sửa đổi sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
           } else {
             console.log(res.response.data.message)
@@ -474,7 +474,7 @@ const EditProductPage = () => {
 
       <div className="form-group row">
         <div className="col-sm-10 col-sm-offset-2">
-          <button type="submit" id="quaylai" className="btn btn-danger" onClick={() => navigate(-1)}> Quay lại</button>
+          <button type="submit" id="quaylai" className="btn btn-danger" onClick={() => navigate(`/admin/category/${selectedCateAside?.CatId}`)}> Quay lại</button>
         </div>
       </div>
 
