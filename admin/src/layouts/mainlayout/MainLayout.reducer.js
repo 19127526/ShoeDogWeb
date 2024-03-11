@@ -21,6 +21,9 @@ export const MainLayoutReducer = (state = initialState, action) =>
             case types.TURN_ON_IS_LOADING:
                 draft.isLoading = true;
                 break;
+            case types.TURN_OFF_IS_LOADING:
+                draft.isLoading = false;
+                break;
             case types.REMOVE_CATEGORY:
                 draft.dialogRemoveCate = action?.payload?.isOpen;
                 draft.selectedCate = action?.payload?.data || undefined;

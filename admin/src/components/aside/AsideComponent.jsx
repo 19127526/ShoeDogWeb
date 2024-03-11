@@ -97,19 +97,6 @@ const AsideComponent = (props) => {
                                 <a onClick={() => navigate('/admin')}>
                                     <i className="fa fa-home"></i> Thống kê </a>
                             </li>
-                            {/*<li id="managementProduct">*/}
-                            {/*    <a>*/}
-                            {/*        Quản lí sản phẩm*/}
-                            {/*        <i className="fa arrow"></i>*/}
-                            {/*    </a>*/}
-                            {/*    <ul className="sidebar-nav">*/}
-                            {/*        {categories.map(index => (*/}
-                            {/*            <li key={index.CatId}*/}
-                            {/*                onClick={() => navigate(`${LIST_PRODUCT_BY_CATEGORY_ID}${index.CatId}`)}>*/}
-                            {/*                <a> {index.CatName} </a>*/}
-                            {/*            </li>))}*/}
-                            {/*    </ul>*/}
-                            {/*</li>*/}
                             <li id="nav-item">
                                 <a>
                                    <Tooltip placement="bottom" title="Thêm mới danh mục cha">
@@ -124,7 +111,7 @@ const AsideComponent = (props) => {
                                     <i className="fa arrow"></i>
                                 </a>
                                 <ul className="sidebar-nav">
-                                    {listParentCate.map(index => {
+                                    {listParentCate?.map(index => {
                                         if (index?.ParentId != -1) {
                                             return (
                                                 <li key={index?.ParentId} id="nav-item">

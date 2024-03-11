@@ -62,6 +62,7 @@ const AddProductPage = () => {
 
 
   const [proName, setProName] = useState("");
+  const [proCode, setProCode] = useState("");
 
   const [category, setCategory] = useState("");
   const [optionCategories, setOptionCategories] = useState([]);
@@ -129,6 +130,10 @@ const AddProductPage = () => {
 
   const handleChangeProName = (e) => {
     setProName(e.target.value);
+  }
+
+  const handleChangeProCode = (e) => {
+    setProCode(e.target.value);
   }
 
   const handleChangeCategory = (value) => {
@@ -289,6 +294,8 @@ const AddProductPage = () => {
     formData.append('price', tempPrice.toString());
     formData.append('discount', tempDiscount.toString());
     formData.append('totalPrice', tempTotalPrice.toString());
+    formData.append('inventory', proCode.toString());
+
     if (isNonSize == true) {
       formData.append('color', "No Size Just Color");
     } else {
@@ -399,16 +406,25 @@ const AddProductPage = () => {
             />
           </div>
         </div>
+
+        <div className="form-group row">
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mã sản phẩm (Tùy ý) </label>
+          <div className="col-sm-9">
+            <input type="text" className="form-control boxed" id="title" onChange={handleChangeProCode}
+                   placeholder="Hãy điền mã sản phẩm"
+            />
+          </div>
+        </div>
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên danh mục </label>
           <div className="col-sm-9">
             <Select
-              placeholder="Lựa chọn danh mục"
-              style={{
-                width: 300,
-              }}
-              onChange={handleChangeCategory}
-              options={optionCategories}
+                placeholder="Lựa chọn danh mục"
+                style={{
+                  width: 300,
+                }}
+                onChange={handleChangeCategory}
+                options={optionCategories}
             />
 
           </div>
@@ -418,41 +434,41 @@ const AddProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên thương hiệu </label>
           <div className="col-sm-9">
             <Select
-              mode={"tags"}
-              allowClear
-              style={{
-                width: 300,
-              }}
-              onChange={handleChangeBrand}
-              placeholder="Nhập tên thương hiệu"
-              filterOption={(inputValue, option) => {
-                return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-              }}
-              options={optionsBrand}
+                mode={"tags"}
+                allowClear
+                style={{
+                  width: 300,
+                }}
+                onChange={handleChangeBrand}
+                placeholder="Nhập tên thương hiệu"
+                filterOption={(inputValue, option) => {
+                  return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                }}
+                options={optionsBrand}
             />
-
-
           </div>
         </div>
+
+
         <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Trạng thái sản phẩm </label>
           <div className="col-sm-9">
             <Select
-              defaultValue="1"
-              style={{
-                width: "100%",
-              }}
-              onChange={handleChangeStatusProduct}
-              options={[
-                {
-                  value: '1',
-                  label: 'Còn hàng',
-                },
-                {
-                  value: '0',
-                  label: 'Hết hàng',
-                },
-              ]}
+                defaultValue="1"
+                style={{
+                  width: "100%",
+                }}
+                onChange={handleChangeStatusProduct}
+                options={[
+                  {
+                    value: '1',
+                    label: 'Còn hàng',
+                  },
+                  {
+                    value: '0',
+                    label: 'Hết hàng',
+                  },
+                ]}
             />
           </div>
         </div>
@@ -473,71 +489,72 @@ const AddProductPage = () => {
             <div className="row">
               {size2Quantity2PriceList.map((x, i) => {
                 return (
-                  <div className="col-lg-6" style={{marginBottom: "10px"}}>
-                    <Space
-                      direction="vertical"
-                      size="small"
-                      style={{
-                        display: 'flex',
-                      }}
-                    >
-                      <Form.Item className={"label-input"} label={isNonSize == true ? "Màu sắc" : "Size"}>
-                        <Select
-                          mode={"tags"}
-                          allowClear
-                          onChange={e => handleSize(e, i)}
-                          placeholder={isNonSize == true ? "Hãy nhập Màu" : "Hãy nhập size"}
-                          filterOption={(inputValue, option) => {
-                            return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                    <div className="col-lg-6" style={{marginBottom: "10px"}}>
+                      <Space
+                          direction="vertical"
+                          size="small"
+                          style={{
+                            display: 'flex',
                           }}
-                        />
-                      </Form.Item>
-                      <Form.Item className={"label-input"} label="Giá tiền">
-                        <input className=" form-control boxed" style={{width: "97%", marginLeft: "10px"}}
-                               placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
-                          if (!/[0-9]/.test(event.key)) {
-                            event.preventDefault();
-                          }
-                        }} name="price" onBlur={onBlur} onFocus={onFocus} onChange={e => handlePrice(e, i)}
-                               value={x.price}/>
-                      </Form.Item>
-                      <Form.Item className={"label-input"} label="Khuyến mãi"
-                                 style={{width: "98%", marginLeft: "10px"}}>
-                        <InputNumber
-                          className="form-control boxed discountInput"
-                          min={0}
-                          max={100}
-                          name="discount"
-                          placeholder="Hãy nhập khuyến mãi"
-                          formatter={(value) => `${value}%`}
-                          defaultValue={x.discount}
-                          parser={(value) => value.replace('%', '')}
-                          onChange={e => handleChangeDiscount(e, i)}
-                          onKeyPress={(event) => {
+                      >
+                        <Form.Item className={"label-input"} label={isNonSize == true ? "Màu sắc" : "Size"}>
+                          <Select
+                              mode={"tags"}
+                              allowClear
+                              onChange={e => handleSize(e, i)}
+                              placeholder={isNonSize == true ? "Hãy nhập Màu" : "Hãy nhập size"}
+                              filterOption={(inputValue, option) => {
+                                return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                              }}
+                          />
+                        </Form.Item>
+                        <Form.Item className={"label-input"} label="Giá tiền">
+                          <input className=" form-control boxed" style={{width: "97%", marginLeft: "10px"}}
+                                 placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
                             if (!/[0-9]/.test(event.key)) {
                               event.preventDefault();
                             }
-                          }}
-                          value={x.discount}
-                        />
-                      </Form.Item>
-                      <Form.Item className={"label-input"} label="Tổng giá tiền">
-                        <input type="text" className="form-control boxed" id="title"
-                               name="totalPrice"
-                               value={x.totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
-                      </Form.Item>
+                          }} name="price" onBlur={onBlur} onFocus={onFocus} onChange={e => handlePrice(e, i)}
+                                 value={x.price}/>
+                        </Form.Item>
+                        <Form.Item className={"label-input"} label="Khuyến mãi"
+                                   style={{width: "98%", marginLeft: "10px"}}>
+                          <InputNumber
+                              className="form-control boxed discountInput"
+                              min={0}
+                              max={100}
+                              name="discount"
+                              placeholder="Hãy nhập khuyến mãi"
+                              formatter={(value) => `${value}%`}
+                              defaultValue={x.discount}
+                              parser={(value) => value.replace('%', '')}
+                              onChange={e => handleChangeDiscount(e, i)}
+                              onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                  event.preventDefault();
+                                }
+                              }}
+                              value={x.discount}
+                          />
+                        </Form.Item>
+                        <Form.Item className={"label-input"} label="Tổng giá tiền">
+                          <input type="text" className="form-control boxed" id="title"
+                                 name="totalPrice"
+                                 value={x.totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
+                        </Form.Item>
 
-                      <div>
-                        {size2Quantity2PriceList.length - 1 === i &&
-                          <Radio.Button value="large" style={{float: "right"}} onClick={handleAddClick}>Thêm
-                            mới</Radio.Button>}
-                        {size2Quantity2PriceList.length > 1 ?
-                          <Radio.Button style={{float: "right", marginRight: "5px", marginBottom: "5px"}} value="large"
-                                        onClick={() => handleRemoveClick(i)}>Xóa</Radio.Button> : ""
-                        }
-                      </div>
-                    </Space>
-                  </div>
+                        <div>
+                          {size2Quantity2PriceList.length - 1 === i &&
+                              <Radio.Button value="large" style={{float: "right"}} onClick={handleAddClick}>Thêm
+                                mới</Radio.Button>}
+                          {size2Quantity2PriceList.length > 1 ?
+                              <Radio.Button style={{float: "right", marginRight: "5px", marginBottom: "5px"}}
+                                            value="large"
+                                            onClick={() => handleRemoveClick(i)}>Xóa</Radio.Button> : ""
+                          }
+                        </div>
+                      </Space>
+                    </div>
 
                 );
               })}
@@ -545,15 +562,15 @@ const AddProductPage = () => {
           </div>
         </div>
         {isNonSize == true
-          ? "" :
-          <div className="form-group row">
-            <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
-            <div className="col-sm-9">
-              <input type="text" className="form-control boxed" id="title" placeholder="Hãy điền màu sắc"
-                     onChange={handleChangeColor}
-              />
+            ? "" :
+            <div className="form-group row">
+              <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
+              <div className="col-sm-9">
+                <input type="text" className="form-control boxed" id="title" placeholder="Hãy điền màu sắc"
+                       onChange={handleChangeColor}
+                />
+              </div>
             </div>
-          </div>
         }
         {/* <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Giá tiền gốc </label>
@@ -601,27 +618,27 @@ const AddProductPage = () => {
           <div className="col-sm-9">
             <div className="images-container">
               <Upload
-                listType="picture-card"
-                fileList={fileImageMainList}
-                onPreview={handlePreview}
-                onChange={handleChangeMain}
-                beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type === 'image/webp';
-                  if (!isPNG) {
-                    message.error(`${file.name} is not a png, svg and jpeg file`);
-                  }
-                  return false;
-                }}
+                  listType="picture-card"
+                  fileList={fileImageMainList}
+                  onPreview={handlePreview}
+                  onChange={handleChangeMain}
+                  beforeUpload={(file) => {
+                    const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type === 'image/webp';
+                    if (!isPNG) {
+                      message.error(`${file.name} is not a png, svg and jpeg file`);
+                    }
+                    return false;
+                  }}
               >
                 {fileImageMainList.length === 0 ? uploadButton : ""}
               </Upload>
               <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
-                  alt="example"
-                  style={{
-                    width: '100%',
-                  }}
-                  src={previewImage}
+                    alt="example"
+                    style={{
+                      width: '100%',
+                    }}
+                    src={previewImage}
                 />
               </Modal>
             </div>
@@ -632,28 +649,28 @@ const AddProductPage = () => {
           <div className="col-sm-9">
             <div className="images-container">
               <Upload
-                listType="picture-card"
-                fileList={fileImageSubList}
-                onPreview={handlePreview}
-                onChange={handleChangeSub}
-                multiple={true}
-                beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type === 'image/webp';
-                  if (!isPNG) {
-                    message.error(`${file.name} is not a png, svg and jpeg file`);
-                  }
-                  return false;
-                }}
+                  listType="picture-card"
+                  fileList={fileImageSubList}
+                  onPreview={handlePreview}
+                  onChange={handleChangeSub}
+                  multiple={true}
+                  beforeUpload={(file) => {
+                    const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type === 'image/webp';
+                    if (!isPNG) {
+                      message.error(`${file.name} is not a png, svg and jpeg file`);
+                    }
+                    return false;
+                  }}
               >
                 {uploadButton}
               </Upload>
               <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
-                  alt="example"
-                  style={{
-                    width: '100%',
-                  }}
-                  src={previewImage}
+                    alt="example"
+                    style={{
+                      width: '100%',
+                    }}
+                    src={previewImage}
                 />
               </Modal>
             </div>

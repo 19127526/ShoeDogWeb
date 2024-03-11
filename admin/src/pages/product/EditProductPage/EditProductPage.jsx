@@ -74,6 +74,8 @@ const EditProductPage = () => {
 
   const [proName, setProName] = useState("");
 
+  const [proCode, setProCode] = useState("");
+
   const [category, setCategory] = useState();
   const [optionCategories, setOptionCategories] = useState([]);
 
@@ -153,6 +155,7 @@ const EditProductPage = () => {
 
             setCategory(res.data.data[0]?.CatName);
             setProName(res.data.data[0].ProName);
+            setProCode(res.data.data[0]?.Inventory);
             setStatusProduct(res.data.data[0].StatusPro)
 
             const tempBrand=convertArrayToOptions(res.data.data[0].Brand,", ");
@@ -218,6 +221,10 @@ const EditProductPage = () => {
 
   const handleChangeProName = (e) => {
     setProName(e.target.value);
+  }
+
+  const handleChangeProCode = (e) => {
+    setProCode(e.target.value);
   }
 
   const handleChangeCategory = (value) => {
@@ -376,6 +383,7 @@ const EditProductPage = () => {
     formData.append('price',tempPrice.toString());
     formData.append('discount',tempDiscount.toString());
     formData.append('totalPrice',tempTotalPrice.toString());
+    formData.append('inventory',proCode.toString());
     if(isNonSize==true){
       formData.append('color', "No Size Just Color");
     }
@@ -457,7 +465,7 @@ const EditProductPage = () => {
 
 
   return (<>
-    <article className="content item-editor-page" id="ajax">
+    <article className="content item-editor-page" id="ajax" >
       <div className="title-block">
         <h3 className="title"> Chỉnh sửa sản phẩm
           <span className="sparkline bar" data-type="bar"></span>
@@ -473,18 +481,18 @@ const EditProductPage = () => {
 
       <div className="card card-block">
         <div className="form-group row">
-          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mã sản phẩm </label>
-          <div className="col-sm-9">
-            <input type="text" className="form-control boxed" value={productDetail?.Inventory} id="title"
-                   placeholder="Hãy điền tên sản phẩm"
-            />
-          </div>
-        </div>
-        <div className="form-group row">
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên sản phẩm </label>
           <div className="col-sm-9">
             <input type="text" className="form-control boxed" onChange={handleChangeProName} id="title"
                    placeholder="Hãy điền tên sản phẩm" defaultValue={productDetail?.ProName}
+            />
+          </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mã sản phẩm </label>
+          <div className="col-sm-9">
+            <input type="text" className="form-control boxed" value={proCode} id="title" onChange={handleChangeProCode}
+                   placeholder="Hãy điền tên sản phẩm"
             />
           </div>
         </div>
@@ -493,14 +501,14 @@ const EditProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên danh mục </label>
           <div className="col-sm-9">
             <Select
-              placeholder="Lựa chọn danh mục"
-              style={{
-                width: 300,
-              }}
-              onChange={handleChangeCategory}
-              options={optionCategories}
-              value={category}
-              defaultValue={productDetail?.CatName}
+                placeholder="Lựa chọn danh mục"
+                style={{
+                  width: 300,
+                }}
+                onChange={handleChangeCategory}
+                options={optionCategories}
+                value={category}
+                defaultValue={productDetail?.CatName}
 
 
             />
@@ -512,18 +520,18 @@ const EditProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Tên thương hiệu </label>
           <div className="col-sm-9">
             <Select
-              mode={"tags"}
-              allowClear
-              options={optionsBrand}
-              style={{
-                width: 300,
-              }}
-              onChange={handleChangeBrand}
-              placeholder="Nhập tên thương hiệu"
-              defaultValue={brand}
-              filterOption={(inputValue, option) =>
-                option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-              }
+                mode={"tags"}
+                allowClear
+                options={optionsBrand}
+                style={{
+                  width: 300,
+                }}
+                onChange={handleChangeBrand}
+                placeholder="Nhập tên thương hiệu"
+                defaultValue={brand}
+                filterOption={(inputValue, option) =>
+                    option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                }
             />
 
           </div>
@@ -532,21 +540,21 @@ const EditProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Trạng thái sản phẩm </label>
           <div className="col-sm-9">
             <Select
-              defaultValue={statusProduct==1?"Còn hàng":"Hết hàng"}
-              style={{
-                width: 300,
-              }}
-              onChange={handleChangeStatusProduct}
-              options={[
-                {
-                  value: '1',
-                  label: 'Còn hàng',
-                },
-                {
-                  value: '0',
-                  label: 'Hết hàng',
-                },
-              ]}
+                defaultValue={statusProduct == 1 ? "Còn hàng" : "Hết hàng"}
+                style={{
+                  width: 300,
+                }}
+                onChange={handleChangeStatusProduct}
+                options={[
+                  {
+                    value: '1',
+                    label: 'Còn hàng',
+                  },
+                  {
+                    value: '0',
+                    label: 'Hết hàng',
+                  },
+                ]}
             />
           </div>
         </div>
@@ -554,7 +562,7 @@ const EditProductPage = () => {
           <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Mô tả </label>
           <div className="col-sm-9">
             <JoditEditor className="form-control boxed" ref={editor} onChange={handleChangeDescription}
-              value={productDetail?.Des}
+                         value={productDetail?.Des}
             />
 
           </div>
@@ -565,84 +573,88 @@ const EditProductPage = () => {
                  htmlFor="title"> {isNonSize == true ? "Màu - Số lượng" : "Size - Số lượng"} </label>
           <div className="col-sm-9">
             &#9; &#9;
-            <div className="row" style={{maxHeight:"100px"}}>
-            {size2Quantity2PriceList.map((x, i) => {
-              return (
-                <div className="col-lg-6" style={{marginBottom: "10px"}}>
-                  <Space
-                    direction="vertical"
-                    size="small"
-                    style={{
-                      display: 'flex',
-                    }}
-                  >
-                    <Form.Item className={"label-input"} label={isNonSize == true ? "Màu sắc" : "Size"}>
-                    <Input
-                      name="size"
-                      placeholder={isNonSize==true?"Hãy nhập Màu":"Hãy nhập size"}
-                      value={x.size}
-                      onChange={e => handleSize2Quantity(e, i)}
-                    />
-                  </Form.Item>
-                  <Form.Item className={"label-input"} label="Giá tiền">
-                  <input className=" form-control boxed " style={{width:"99%",marginLeft:"5px"}} placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
-                      if (!/[0-9]/.test(event.key)) {
-                        event.preventDefault();
-                      }
-                    }} name="price" onBlur={onBlur} onFocus={onFocus} onChange={e => handleSize2Quantity(e, i)}
-                           value={x.price}/>
-                  </Form.Item>
-                    <Form.Item className={"label-input"} label="Khuyến mãi"  style={{width:"98%",marginLeft:"10px"}}>
-                    <InputNumber
-                      className="form-control boxed discountInput"
-                      min={0}
-                      max={100}
-                      name="discount"
-                      placeholder="Hãy nhập khuyến mãi"
-                      formatter={(value) => `${value}%`}
-                      defaultValue={x.tempDiscount}
-                      parser={(value) => value.replace('%', '')}
-                      onChange={e => handleChangeDiscount(e, i)}
-                      onKeyPress={(event) => {
-                        if (!/[0-9]/.test(event.key)) {
-                          event.preventDefault();
-                        }
-                      }}
-                    />
-                  </Form.Item>
-                    <Form.Item className={"label-input"} label="Tổng giá tiền">
-                    <input type="text" className="form-control boxed" id="title"
-                           name="totalPrice"
-                           value={x.totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
-                    </Form.Item>
+            <div className="row">
+              {size2Quantity2PriceList.map((x, i) => {
+                return (
+                    <div className="col-lg-6" style={{marginBottom: "10px"}}>
+                      <Space
+                          direction="vertical"
+                          size="small"
+                          style={{
+                            display: 'flex',
+                          }}
+                      >
+                        <Form.Item className={"label-input"} label={isNonSize == true ? "Màu sắc" : "Size"}>
+                          <Input
+                              name="size"
+                              placeholder={isNonSize == true ? "Hãy nhập Màu" : "Hãy nhập size"}
+                              value={x.size}
+                              onChange={e => handleSize2Quantity(e, i)}
+                          />
+                        </Form.Item>
+                        <Form.Item className={"label-input"} label="Giá tiền">
+                          <input className=" form-control boxed " style={{width: "99%", marginLeft: "5px"}}
+                                 placeholder="Hãy nhập giá tiền" onKeyPress={(event) => {
+                            if (!/[0-9]/.test(event.key)) {
+                              event.preventDefault();
+                            }
+                          }} name="price" onBlur={onBlur} onFocus={onFocus} onChange={e => handleSize2Quantity(e, i)}
+                                 value={x.price}/>
+                        </Form.Item>
+                        <Form.Item className={"label-input"} label="Khuyến mãi"
+                                   style={{width: "98%", marginLeft: "10px"}}>
+                          <InputNumber
+                              className="form-control boxed discountInput"
+                              min={0}
+                              max={100}
+                              name="discount"
+                              placeholder="Hãy nhập khuyến mãi"
+                              formatter={(value) => `${value}%`}
+                              defaultValue={x.tempDiscount}
+                              parser={(value) => value.replace('%', '')}
+                              onChange={e => handleChangeDiscount(e, i)}
+                              onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                  event.preventDefault();
+                                }
+                              }}
+                          />
+                        </Form.Item>
+                        <Form.Item className={"label-input"} label="Tổng giá tiền">
+                          <input type="text" className="form-control boxed" id="title"
+                                 name="totalPrice"
+                                 value={x.totalPrice.toLocaleString('it-IT', {style: 'currency', currency: "VND"})}/>
+                        </Form.Item>
 
-                    <div>
-                      {size2Quantity2PriceList.length - 1 === i &&
-                        <Radio.Button value="large" style={{float:"right"}} onClick={handleAddClick}>Thêm mới</Radio.Button>}
+                        <div>
+                          {size2Quantity2PriceList.length - 1 === i &&
+                              <Radio.Button value="large" style={{float: "right"}} onClick={handleAddClick}>Thêm
+                                mới</Radio.Button>}
 
-                      {size2Quantity2PriceList.length > 1 ?
-                        <Radio.Button style={{marginRight: "5px", marginBottom: "5px",float:"right"}} value="large"
-                                      onClick={() => handleRemoveClick(i)}>Xóa</Radio.Button> : ""
-                      }
-                      </div>
-                  </Space>
-                </div>
+                          {size2Quantity2PriceList.length > 1 ?
+                              <Radio.Button style={{marginRight: "5px", marginBottom: "5px", float: "right"}}
+                                            value="large"
+                                            onClick={() => handleRemoveClick(i)}>Xóa</Radio.Button> : ""
+                          }
+                        </div>
+                      </Space>
+                    </div>
 
-              );
-            })}
+                );
+              })}
             </div>
           </div>
         </div>
         {isNonSize == true
-          ? "" :
-          <div className="form-group row">
-            <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
-            <div className="col-sm-9">
-              <input type="text" className="form-control boxed" id="title" placeholder="Hãy điền màu sắc"
-                     onChange={handleChangeColor} defaultValue={productDetail?.Color}
-              />
+            ? "" :
+            <div className="form-group row">
+              <label className="col-sm-3 form-control-label text-xs-right" htmlFor="title"> Màu sắc </label>
+              <div className="col-sm-9">
+                <input type="text" className="form-control boxed" id="title" placeholder="Hãy điền màu sắc"
+                       onChange={handleChangeColor} defaultValue={productDetail?.Color}
+                />
+              </div>
             </div>
-          </div>
         }
 
         <div className="form-group row">
@@ -651,28 +663,28 @@ const EditProductPage = () => {
             <div className="images-container">
 
               <Upload
-                listType="picture-card"
-                fileList={fileImageMainList}
-                onPreview={handlePreview}
-                onChange={handleChangeMain}
-                beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml'|| file.type==='image/webp';
-                  if (!isPNG) {
-                    message.error(`${file.name} is not a png, svg and jpeg file`);
-                  }
-                  return false;
-                }}
+                  listType="picture-card"
+                  fileList={fileImageMainList}
+                  onPreview={handlePreview}
+                  onChange={handleChangeMain}
+                  beforeUpload={(file) => {
+                    const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type === 'image/webp';
+                    if (!isPNG) {
+                      message.error(`${file.name} is not a png, svg and jpeg file`);
+                    }
+                    return false;
+                  }}
               >
-                {fileImageMainList.length===0?uploadButton:""}
+                {fileImageMainList.length === 0 ? uploadButton : ""}
               </Upload>
 
               <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
-                  alt="example"
-                  style={{
-                    width: '100%',
-                  }}
-                  src={previewImage}
+                    alt="example"
+                    style={{
+                      width: '100%',
+                    }}
+                    src={previewImage}
                 />
               </Modal>
             </div>
@@ -683,35 +695,36 @@ const EditProductPage = () => {
           <div className="col-sm-9">
             <div className="images-container">
               <Upload
-                listType="picture-card"
-                fileList={fileImageSubList}
-                onPreview={handlePreview}
-                onChange={handleChangeSub}
-                multiple={true}
-                beforeUpload={(file) => {
-                  const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml'|| file.type==='image/webp';
-                  if (!isPNG) {
-                    message.error(`${file.name} is not a png, svg and jpeg file`);
-                  }
-                  return false;
-                }}
+                  listType="picture-card"
+                  fileList={fileImageSubList}
+                  onPreview={handlePreview}
+                  onChange={handleChangeSub}
+                  multiple={true}
+                  beforeUpload={(file) => {
+                    const isPNG = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/svg+xml' || file.type === 'image/webp';
+                    if (!isPNG) {
+                      message.error(`${file.name} is not a png, svg and jpeg file`);
+                    }
+                    return false;
+                  }}
               >
                 {uploadButton}
               </Upload>
               <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
-                  alt="example"
-                  style={{
-                    width: '100%',
-                  }}
-                  src={previewImage}
+                    alt="example"
+                    style={{
+                      width: '100%',
+                    }}
+                    src={previewImage}
                 />
               </Modal>
             </div>
             <div className="form-group row">
               <div className="col-sm-10 col-sm-offset-2 "
                    style={{display: "flex", justifyContent: "center", width: "100%", marginLeft: "50px"}}>
-                <button type="submit" id="post" className="btn btn-primary" onClick={editProductClick} > Chỉnh sửa sản phẩm
+                <button type="submit" id="post" className="btn btn-primary" onClick={editProductClick}> Chỉnh sửa sản
+                  phẩm
                 </button>
               </div>
             </div>
