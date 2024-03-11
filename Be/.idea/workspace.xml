@@ -5,90 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/parentcategories.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/v2/product.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/middlewares/authorToken.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/parentcategories.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/v2/product.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/parentcategories.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/v2/product.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../admin/src/apis/parentcategories/ParentCategoriesApi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../admin/src/components/dialog/category/CrudCateDialog.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../admin/src/components/dialog/category/RemoveCateDialog.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../admin/src/components/dialog/parent/AddParentDialog.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../admin/src/components/dialog/parent/CrudParentDialog.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../admin/src/components/dialog/parent/RemoveParentDialog.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.thunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fe/src/apis/parentcategories/ParentCateApi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderDefaultComponent.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderMobileComponent.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fe/src/pages/news/NewPage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fe/src/pages/news/NewPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/24b2b035-da43-455e-988a-c131fc395ac5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/24b2b035-da43-455e-988a-c131fc395ac5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/information_schema.FNRwLQ.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/realestate123.iMejhg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/realestate123.iMejhg.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/realestate2.CGdhWQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/realestate2.CGdhWQ.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/realestateupload.63y_pA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/realestateupload.63y_pA.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/realstate.s71izA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/realstate.s71izA.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/sakila.oXLGyQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/sakila.oXLGyQ.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/sys.zb4BAA.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/testrealestate.fJyqBg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346fd24b-c53e-4156-9943-8750499bddba/storage_v2/_src_/schema/testrealestate.fJyqBg.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/24b2b035-da43-455e-988a-c131fc395ac5/storage_v2/_src_/schema/realstate.s71izA.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/24b2b035-da43-455e-988a-c131fc395ac5/storage_v2/_src_/schema/realstate.s71izA.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/7cfc2a31-d9a7-4ab8-8f4f-2e89d1df51fb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7cfc2a31-d9a7-4ab8-8f4f-2e89d1df51fb.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fd8fbc05-78ac-4ccd-8e31-50b1732919b6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fd8fbc05-78ac-4ccd-8e31-50b1732919b6/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fd8fbc05-78ac-4ccd-8e31-50b1732919b6/storage_v2/_src_/schema/ott.L68BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fd8fbc05-78ac-4ccd-8e31-50b1732919b6/storage_v2/_src_/schema/ott.L68BAA.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_29_2022_9_12_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_29_2022_9_12_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/unnamed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/unnamed.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/category.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/routeMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/routeMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/category.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/categories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/image.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/image.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/build.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/public/assets/vendor/animate.css/animate.css" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/public/assets/vendor/animate.css/animate.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/apis/categories/CategoriesApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/apis/categories/CategoriesApi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/apis/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/apis/request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/assets/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/components/aside/AsideComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/aside/AsideComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/components/notification/Notification.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/components/notification/Notification.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/configs/url.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.constraints.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.constraints.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/layouts/mainlayout/MainLayout.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/login/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/login/LoginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/login/LoginPage.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/login/LoginPage.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/ListProductPage/ProductListPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/assets/css/style_update.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/card/CardComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderComponent.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/configs/url.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/order/OrderPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/routes/RoutesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/routes/RoutesPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/EditProductPage/EditProductPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
   </component>
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../../Program Files/Go" />
   <component name="Git.Settings">
@@ -110,20 +54,38 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 4
+}]]></component>
   <component name="ProjectId" id="2GqlIxu9z4zn1AKe68ifiLMX2Oc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mariadb&#10;mysql" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="import_schema_mapping" value="&lt;schema-mapping&gt;&lt;databases&gt;&lt;list&gt;&lt;schema-mapping-item&gt;&lt;source-data-source-id&gt;6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0&lt;/source-data-source-id&gt;&lt;source-path&gt;schema/&quot;sho27414_shoedogdatabase&quot;&lt;/source-path&gt;&lt;target-data-source-id&gt;7cfc2a31-d9a7-4ab8-8f4f-2e89d1df51fb&lt;/target-data-source-id&gt;&lt;target-path&gt;schema/&quot;shoedog&quot;&lt;/target-path&gt;&lt;/schema-mapping-item&gt;&lt;/list&gt;&lt;/databases&gt;&lt;/schema-mapping&gt;" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../admin" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.db.js.executor": "Run",
+    "Node.js.product.js.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/v2/update-api",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/freelance/shoedog/ShoeDogWeb/fe",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Admin\Desktop\Courses\Shoedog\ShoeDogWeb\Be\routes" />
@@ -230,6 +192,7 @@
       <workItem from="1701652197827" duration="154000" />
       <workItem from="1703476810303" duration="159000" />
       <workItem from="1710050900803" duration="19121000" />
+      <workItem from="1710118966973" duration="2652000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>

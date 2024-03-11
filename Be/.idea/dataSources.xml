@@ -8,25 +8,16 @@
       <jdbc-url>jdbc:mariadb://s88d91.cloudnetwork.vn:3306/sho62786_shoesdogdatabase</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="sho27414_shoedogdatabase@s88d91.cloudnetwork.vn" uuid="6cfb3910-5a47-4797-ac9f-87d0e7cfc9f0">
-      <driver-ref>mariadb</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://s88d91.cloudnetwork.vn:3306/sho27414_shoedogdatabase</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="shoedog@localhost" uuid="7cfc2a31-d9a7-4ab8-8f4f-2e89d1df51fb">
+    <data-source source="LOCAL" name="sho27414_shoedogdatabase@s88d91.cloudnetwork.vn" uuid="d7c3b84f-0f5f-47bb-889d-6aa037db595d">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/shoedog</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="MySQL - @localhost" uuid="24b2b035-da43-455e-988a-c131fc395ac5">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://s88d91.cloudnetwork.vn:3306/sho27414_shoedogdatabase</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+      </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

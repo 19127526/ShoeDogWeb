@@ -132,7 +132,7 @@ exports.addProductv2 = async (req, res) => {
         const catId = await category.getCategoryById(catName);
         const random = generateString(6);
         const productAdd = {
-            Inventory: random,
+            Inventory: productBody?.inventory && productBody?.inventory != "" ? productBody?.inventory : random,
             CatId: catId.CatId,
             ProName: productBody.name,
             Des: productBody.des,
@@ -177,7 +177,7 @@ exports.addProductv2 = async (req, res) => {
         });
         return res.status(200).json({"status": "success", "data": "ok"});
     } catch (e) {
-
+        return res.status(500).json({"status": "error", "message": e.message});
     }
 }
 
@@ -296,6 +296,7 @@ exports.updateProductv2 = async (req, res) => {
         const catid_ = await category.getCategoryById(cateName);
         const catId=catid_.CatId
         const initProduct = {
+            Inventory: products?.inventory && products?.inventory != "" ? products?.inventory : random,
             CatId: catId.CatId,
             ProName: products.name,
             Des: products.des,
@@ -353,6 +354,7 @@ exports.updateProductv2 = async (req, res) => {
         }
         return res.status(200).json({"status": "success", "data": updateProduct});
     } catch (e) {
+        console.log(e)
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }
