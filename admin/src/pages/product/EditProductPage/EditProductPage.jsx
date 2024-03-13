@@ -167,7 +167,7 @@ const EditProductPage = () => {
 
 
             setFileImageMainList([{
-              url:res.data.data[0]?.ImageMain?.toString().replace("public","private")
+              url:res.data.data[0]?.ImageMain?.toString()
             }])
 
             if(res.data.data[0].ImageArray!=null|| res.data.data[0].ImageArray!=undefined){
@@ -178,7 +178,8 @@ const EditProductPage = () => {
                 const tempArrayImg=convertArrayToOptions(res.data.data[0].ImageArray,", ");
                 setFileImageSubList(tempArrayImg.map((value,index)=> {
                   return{
-                    url:value?.toString().replace("public","private")}
+                    url:value?.toString()
+                  }
                 }).filter((value,index)=>{return index!==0})
                 )
               }
