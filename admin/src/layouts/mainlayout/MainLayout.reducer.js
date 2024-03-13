@@ -9,6 +9,7 @@ const initialState = {
     dialogAddParent: false,
     dialogEditCate: false,
     selectedCate: undefined,
+    selectedCateAside: undefined,
     selectedParent: undefined,
     listParentCate: null
 }
@@ -45,6 +46,21 @@ export const MainLayoutReducer = (state = initialState, action) =>
                 break;
             case types.ADD_PARENT_CATEGORY:
                 draft.dialogAddParent = action?.payload?.isOpen;
+                break;
+            case types.SELECTED_CATEGORY:
+                draft.selectedCateAside = action?.payload;
+                break;
+            case types.RESET_MAIN_LAYOUT:
+                draft.isLoading = false
+                draft.dialogRemoveParent = false
+                draft.dialogEditParent = false
+                draft.dialogRemoveCate = false
+                draft.dialogAddParent = false
+                draft.dialogEditCate = false
+                draft.selectedCate = undefined
+                draft.selectedCateAside = undefined
+                draft.selectedParent = undefined
+                draft.listParentCate = null
                 break;
             default:
                 return state;

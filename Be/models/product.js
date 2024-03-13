@@ -216,3 +216,20 @@ exports.getAllProductSoldout = () => {
       .join('categories', 'products.CatId', 'categories.CatId')
       .where('products.StatusPro', 0)
 }
+
+
+//s
+exports.deleteProduct = async (id) => {
+    /* await db('ordersdetails')
+       .where('ordersdetails.ProId', id).del();*/
+    const check2 = await db('products')
+        .where('products.ProId', id).del();
+    return check2;
+}
+exports.deleteProductByCatId = async (id) => {
+    const check2 = await db('products')
+        .where('products.CatId', id).del()
+    return check2
+}
+
+

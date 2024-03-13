@@ -1,4 +1,5 @@
 const categoryModel = require('../models/category.js');
+const productModel = require('../models/product.js');
 exports.getAllCategories = async (req, res) => {
     try{
         const categories = await categoryModel.getCategory()
@@ -27,8 +28,9 @@ exports.addCategory = async (req, res) => {
 exports.deleteCategory = async (req, res) => {
     try{
         const id = req.params.id;
-        const result = await categoryModel.deleteCategory(id);
-        return res.status(200).json({"status": "success", "data": result});
+        const removeCate = await categoryModel.deleteCategory(id);
+        await productModel.deleteProductByCatId(id);
+        return res.status(200).json({"status": "success", "data": removeCate});
     }catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }

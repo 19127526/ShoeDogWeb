@@ -8,6 +8,7 @@ import * as constraints from "./LoginPage.constraints"
 import {removeUrlGuard} from "../../guards/AuthenticateRoutes.actions";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {REGISTER} from "../../configs/url";
+import {resetMainLayout} from "../../layouts/mainlayout/MainLayout.actions";
 
 const secret = 'my-secret';
 
@@ -32,6 +33,7 @@ const LoginPage = (props) => {
     event.preventDefault();
     const temp=await loginNormal({userName:userName,password:password});
     if(temp.type===constraints.LOGIN_NORMAL_SUCCESS){
+      dispatch(resetMainLayout())
       Notification("Thông báo đăng nhập", "Đăng nhập thành công",constraintNotification.NOTIFICATION_SUCCESS)
       dispatch(removeUrlGuard());
       navigate(dataUrl?.url);

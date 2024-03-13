@@ -1,19 +1,15 @@
 import {useEffect, useState} from "react";
-import {getListCategories} from "../../apis/categories/CategoriesApi";
-import Notification from "../notification/Notification";
-import * as constraintNotification from "../notification/Notification.constraints"
 import {useNavigate} from "react-router-dom";
-import {LIST_PRODUCT_BY_CATEGORY_ID, ORDER_PRODUCT, ORDER_SUCCESS_PRODUCT} from "../../configs/url";
-import {connect, useDispatch, useSelector} from "react-redux";
+import { ORDER_PRODUCT, ORDER_SUCCESS_PRODUCT} from "../../configs/url";
+import {useDispatch, useSelector} from "react-redux";
 import {logoutAccount} from "../../pages/login/LoginPages.actions";
-import {getListParentCategoryApi} from "../../apis/parentcategories/ParentCategoriesApi";
 import {Dropdown, Tooltip} from "antd";
 import {
     addParentCate,
     crudCate,
     crudParentCate,
     removeCate,
-    removeParentCate
+    removeParentCate, resetMainLayout, selectedCate
 } from "../../layouts/mainlayout/MainLayout.actions";
 import {getListParentCategory} from "../../layouts/mainlayout/MainLayout.thunk";
 import {loginNormal} from "../../pages/login/LoginPage.thunk";
@@ -22,18 +18,17 @@ import {loginNormal} from "../../pages/login/LoginPage.thunk";
 const AsideComponent = (props) => {
     const {loginNormal}=props
     const [categories, setCategories] = useState([]);
-    const asideCurrent = localStorage?.getItem("aside-current") ? localStorage?.getItem("aside-current") : null
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const {listParentCate} = useSelector(state => state.mainReducer);
+    const {listParentCate, selectedCateAside: asideCurrent} = useSelector(state => state.mainReducer);
     useEffect(() => {
         if(listParentCate == null) {
             dispatch(getListParentCategory())
         }
     }, [listParentCate]);
 
-
     const handleLogout = () => {
+        dispatch(resetMainLayout())
         dispatch(logoutAccount());
     }
     return (
@@ -184,9 +179,9 @@ const AsideComponent = (props) => {
                                                                         <a style={{
                                                                             display: "flex",
                                                                             justifyContent: "space-between",
-                                                                            background: asideCurrent != null && asideCurrent == cate?.CatId ? "green" : ""
+                                                                            background: asideCurrent != null && asideCurrent?.CatId === cate?.CatId ? "green" : ""
                                                                         }} className="nav-link" onClick={() => {
-                                                                            localStorage.setItem("aside-current", cate?.CatId)
+                                                                            dispatch(selectedCate(cate))
                                                                             navigate(`/admin/category/${cate?.CatId}`)
                                                                         }}>
                                                                             <span

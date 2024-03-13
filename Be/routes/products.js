@@ -12,6 +12,7 @@ const category = require("../models/category");
 const product = require("../models/product");
 const path = require("path");
 const fs = require("fs");
+const verifyToken = require("../middlewares/authorToken");
 const router = express.Router();
 
 
@@ -43,9 +44,9 @@ router.get('/brand', getAllBrandsInProducts)
 router.post("/related", relatedProduct);
 router.get('/:id', getProductsById)
 router.get('/detail/:id', getDetailProductByProId)
-router.post('/add', upload.array('files'), addProductv2)
-router.post('/update',upload.array('files'), updateProductv2)
-router.post('/delete', deleteProductv2)
+router.post('/add', upload.array('files'),verifyToken, addProductv2)
+router.post('/update',upload.array('files'),verifyToken, updateProductv2)
+router.post('/delete',verifyToken, deleteProductv2)
 router.post('/search/category', searchProductByCatId)
 router.post('/search', searchProduct);
 router.get('/statistic/day', getStatisticDay);

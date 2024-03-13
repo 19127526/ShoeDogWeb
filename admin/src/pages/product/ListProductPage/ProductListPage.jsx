@@ -10,9 +10,9 @@ import {
 import Notification from "../../../components/notification/Notification";
 import * as constraintNotification from "../../../components/notification/Notification.constraints";
 import {ADD_NEW_PRODUCT, EDIT_PRODUCT} from "../../../configs/url";
-import {Button, Dropdown, Pagination, Space, Table, Typography} from "antd";
+import {Button, Dropdown, Pagination, Popconfirm, Space, Table, Typography} from "antd";
 import useDebounce from "../../../customhooks/useDebounce";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {turnOffLoading, turnOnLoading} from "../../../layouts/mainlayout/MainLayout.actions";
 import dateFormat from "dateformat";
 import DescriptionComponent from "../../../components/description/DescriptionComponent";
@@ -39,6 +39,7 @@ const ProductListPage = () => {
   const prevIndexPage = pageIndex * (pageCurrent - 1);
   const navigate = useNavigate();
   const dispatch=useDispatch();
+  const {selectedCateAside: asideCurrent} = useSelector(state => state.mainReducer);
 
 
 
@@ -298,6 +299,7 @@ const ProductListPage = () => {
       await removeProductByProId({proId: index})
         .then(res => {
           if (res.data.status === 'success') {
+            setSelectedRowKeys([])
           } else {
             isFlag=true;
             Notification("Thông báo dữ liệu", "Không thể load dữ liệu", constraintNotification.NOTIFICATION_ERROR)
@@ -328,17 +330,23 @@ const ProductListPage = () => {
         <div className="title-block">
           <div className="row">
             <div className="col-md-6">
-              <h3 className="title"> Sản phẩm &nbsp;
+              <h3 className="title"> Sản phẩm  {asideCurrent?.CatName}  &nbsp;
                 <a onClick={() => navigate(`${ADD_NEW_PRODUCT}`)} className="btn btn-primary btn-sm rounded-s"> Thêm mới  </a>
                 &nbsp;
                 {selectedRowKeys.length === 0 ? ""
                   :
-                  <a onClick={handleRemoveProduct} className="btn btn-danger btn-sm rounded-s"> Xoá
-                    sản phẩm </a>
+                    <Popconfirm
+                        placement="bottom"
+                        title="Bạn có chắc chắn muốn xóa sản phẩm này?"
+                        okText="Xác nhận"
+                        cancelText="Hủy bỏ"
+                        onConfirm={handleRemoveProduct}
+                    >
+                      <a  className="btn btn-danger btn-sm rounded-s"> Xoá
+                        sản phẩm </a>
+                    </Popconfirm>
                 }
                 </h3>
-
-              <p className="title-description"> Danh sách sản phẩm </p>
             </div>
           </div>
         </div>

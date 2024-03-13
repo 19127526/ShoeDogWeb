@@ -113,7 +113,6 @@ const DetailPage = () => {
 
   useEffect(() => {
     if(getWindowWidth().innerWidth > 784) {
-      console.log('height', height)
       setHeightDescription(Number(height) + 700)
     }
   },[relatedProductList, detailProduct])

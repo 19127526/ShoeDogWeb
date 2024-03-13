@@ -51,7 +51,7 @@ function onBlur(e) {
 
 const AddProductPage = () => {
   const navigate = useNavigate();
-  const loadingRedux = useSelector(state => state.mainReducer);
+  const {selectedCateAside} = useSelector(state => state.mainReducer);
   const dispatch = useDispatch();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
@@ -310,7 +310,7 @@ const AddProductPage = () => {
       await addProduct(formData)
         .then(res => {
           if (res.data.status === "success") {
-            navigate(-1)
+            navigate(`/admin/category/${selectedCateAside?.CatId}`)
             Notification("Thông báo thêm sản phẩm", `Thêm sản phẩm ${proName} thành công`, constraintNotification.NOTIFICATION_SUCCESS)
           }
         })
@@ -392,7 +392,7 @@ const AddProductPage = () => {
 
       <div className="form-group row">
         <div className="col-sm-10 col-sm-offset-2">
-          <button type="submit" id="quaylai" className="btn btn-danger" onClick={() => navigate(-1)}> Quay lại</button>
+          <button type="submit" id="quaylai" className="btn btn-danger" onClick={() => navigate(`/admin/category/${selectedCateAside?.CatId}`)}> Quay lại</button>
         </div>
       </div>
 
