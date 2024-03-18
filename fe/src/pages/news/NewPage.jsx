@@ -546,7 +546,7 @@ const NewPage = () => {
               :
               <div className="col-xs-12">
                 <h2 style={{textAlign: "center"}}>
-                  {itemInCategory[0]?.CatName}
+                  Sản phẩm mới
                 </h2>
               </div>
             }
@@ -637,7 +637,7 @@ const NewPage = () => {
           return prevIndexPage <= index && index < currentIndexPage ? (
             <div className="col-lg-4 col-md-6" key={value?.ProId}>
               <CardComponent name={value?.ProName}
-                             img={value?.ImageMain}
+                             img={value?.ImageMain.toString().replace('public', 'private')}
                              proId={value?.ProId}
                              statusPro={value?.StatusPro}
                              priceDiscount={value?.TotalPrice}

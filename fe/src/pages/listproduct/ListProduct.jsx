@@ -661,7 +661,7 @@ const ListProduct = () => {
           return prevIndexPage <= index && index < currentIndexPage ? (
             <div className="col-lg-4 col-md-6" key={value?.ProId}>
               <CardComponent name={value?.ProName}
-                             img={value?.ImageMain}
+                             img={value?.ImageMain.toString().replace('public', 'private')}
                              proId={value?.ProId}
                              statusPro={value?.StatusPro}
                              priceDiscount={value?.TotalPrice}

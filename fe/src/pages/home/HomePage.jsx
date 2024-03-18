@@ -12,6 +12,8 @@ import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout
 import {convertArrayToSize} from "../../utils/Utils";
 import {Helmet} from "react-helmet";
 import {CLIENT_URL} from "../../configs/url";
+import BoxCardComponent from "../../components/box/BoxCardComponent";
+
 
 let pageIndex = 12
 const HomePage = () => {
@@ -93,57 +95,58 @@ const HomePage = () => {
           <meta charSet="utf-8"/>
           <title>TRANG CHỦ - SHOEDOG - SHOP GIÀY UY TÍN NHẤT TP.HCM</title>
           <link
-            rel="canonical"
-            href={CLIENT_URL}
-            title="Dòng thông tin SHOEDOG - Shop giày uy tín nhất TP.HCM »"
+              rel="canonical"
+              href={CLIENT_URL}
+              title="Dòng thông tin SHOEDOG - Shop giày uy tín nhất TP.HCM »"
           />
           <meta
-            name="description"
-            content="Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1."
+              name="description"
+              content="Shop giày uy tín bậc nhất TP.HCM. Chuyên hàng 2hand, hàng New chính hãng 100%. Bán giày không bán lương tâm. Chất lượng là số 1."
           />
         </Helmet>
 
         {productWithCatId.filter((index => index.category.CatId != null)).map(index =>
-          <>
             <>
-              {index.productList.length > 0 ?
-                (
-                  <>
-                    <div className="swiper-container slidehomepage slidehomepage-1 swiper-container-horizontal">
-                      <SlideComponent/>
-                    </div>
-                    <div className="container">
-                      <h2 className="text-center title__type">{index.category.CatName}</h2>
-                      <div className="row products">
-                        {index.productList.map((value, index) => (
-                          index < pageIndex ?
-                            <div className="col-lg-4 col-md-6 ">
-                              <CardComponent name={value?.ProName}
-                                             img={value?.ImageMain}
-                                             proId={value?.ProId}
-                                             statusPro={value?.StatusPro}
-                                             priceDiscount={value?.TotalPrice}
-                                             discount={value?.Discount}
-                                             priceNonDiscount={value?.Price}/>
-                            </div> : ""
-                        ))}
-                      </div>
-                      {index.productList.length > pageIndex ?
-                        <div className="text-center"
-                             onClick={() => navigate(`/product/${index.category.CatId}?page=1`)}>
-                          <a className="btn-see-more text-uper">Xem thêm</a>
-                        </div>
-                        : ""
-                      }
-                    </div>
-                  </>
-                ) : ""}
+              <>
+                {index.productList.length > 0 ?
+                    (
+                        <>
+                          <div className="swiper-container slidehomepage slidehomepage-1 swiper-container-horizontal">
+                            <SlideComponent/>
+                          </div>
+                          <div className="container">
+                            <h2 className="text-center title__type">{index.category.CatName}</h2>
+                            <div className="row products">
+                              {index.productList.map((value, index) => (
+                                  index < pageIndex ?
+                                      <div className="col-lg-4 col-md-6 ">
+                                        <CardComponent name={value?.ProName}
+                                                       img={value?.ImageMain.toString().replace('public', 'private')}
+                                                       proId={value?.ProId}
+                                                       statusPro={value?.StatusPro}
+                                                       priceDiscount={value?.TotalPrice}
+                                                       discount={value?.Discount}
+                                                       priceNonDiscount={value?.Price}/>
+                                      </div> : ""
+                              ))}
+                            </div>
+                            {index.productList.length > pageIndex ?
+                                <div className="text-center"
+                                     onClick={() => navigate(`/product/${index.category.CatId}?page=1`)}>
+                                  <a className="btn-see-more text-uper">Xem thêm</a>
+                                </div>
+                                : ""
+                            }
+                          </div>
+                        </>
+                    )
+
+                    : ""}
+              </>
             </>
-          </>
         )}
-
       </div>
-
+    <BoxCardComponent/>
     </>
   )
 }

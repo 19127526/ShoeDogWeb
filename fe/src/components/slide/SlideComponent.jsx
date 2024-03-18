@@ -1,6 +1,7 @@
 import {Carousel} from "react-responsive-carousel";
-import image from "../../assets/img/62dfdb668b98a.jpg";
 import "./SlideComponent.css"
+import banner from "../../assets/img/banner/banner.jpg"
+import banner2 from "../../assets/img/banner/banner(2).jpg"
 
 
 
@@ -16,18 +17,20 @@ const SlideComponent = () => {
           <img src={"https://bizweb.dktcdn.net/100/347/923/themes/742041/assets/slider_3.png?1647915056330  "}/>
         </div>*/
   return (
-    <div className="main-slide" >
-      <Carousel showArrows={true} showIndicators={false} infiniteLoop useKeyboardArrows  showThumbs={false}
-                autoFocus={true} emulateTouch={true} width="100%" autoPlay interval={5000} showStatus={false}
+    <div className="main-slide">
+        <Carousel showIndicators={false}  useKeyboardArrows showThumbs={false}
+                  showArrows={true}  width="100%" centerMode={false} autoPlay={true} infiniteLoop={true} autoFocus={true} interval={2000} showStatus={false}
+        >
+            <div className="carousel-image">
+                <img src={banner}/>
+            </div>
+            <div className="carousel-image">
+                <img src={banner2}/>
+            </div>
 
-      >
-        <div className="carousel-image">
-          <img src={"https://shoedog.vn/image/ShoeDog_Logo.jpg"}/>
-        </div>
-
-      </Carousel>
+        </Carousel>
     </div>
- )
+  )
 }
 
 export default SlideComponent
