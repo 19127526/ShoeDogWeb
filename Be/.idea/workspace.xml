@@ -5,23 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c1ba4-4b36-4d8b-a6eb-5ef1d172de60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../fe/src/components/box/BoxCardComponent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d7c3b84f-0f5f-47bb-889d-6aa037db595d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d7c3b84f-0f5f-47bb-889d-6aa037db595d.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eb6c2b90-7a10-42ad-84c1-255c912e3031.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/eb6c2b90-7a10-42ad-84c1-255c912e3031.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/box/BoxCardComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/box/BoxCardComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/footer/FooterComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderDefaultComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderDefaultComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/header/HeaderMobileComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/header/HeaderMobileComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/components/slide/SlideComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/components/slide/SlideComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/configs/url.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/configs/url.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/layouts/mainlayout/MainLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/detail/DetailPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/home/HomePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/listproduct/ListProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fe/src/pages/news/NewPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../fe/src/pages/news/NewPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,30 +37,35 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2GqlIxu9z4zn1AKe68ifiLMX2Oc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "git-widget-placeholder": "feature/v2/update-api",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/freelance/shoedog/ShoeDogWeb/Be",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/v2/update-api&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/freelance/shoedog/ShoeDogWeb/Be&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Admin\Desktop\Courses\Shoedog\ShoeDogWeb\Be\routes" />
@@ -183,6 +174,9 @@
       <workItem from="1710050900803" duration="19121000" />
       <workItem from="1710118966973" duration="2652000" />
       <workItem from="1710725054410" duration="628000" />
+      <workItem from="1710744828318" duration="334000" />
+      <workItem from="1710915455628" duration="398000" />
+      <workItem from="1710918117364" duration="639000" />
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>
@@ -196,6 +190,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="javascript:npm:hbs" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

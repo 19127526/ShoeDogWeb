@@ -11,13 +11,17 @@
       <user-name>sho62786_shoedog</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" qname="@" />
+          <node kind="schema" negative="1" />
         </introspection-scope>
       </schema-mapping>
     </data-source>
     <data-source name="sho27414_shoedogdatabase@s88d91.cloudnetwork.vn" uuid="d7c3b84f-0f5f-47bb-889d-6aa037db595d">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <schema-mapping />
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" negative="1" />
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
     <data-source name="MySQL - shoedog@localhost" uuid="eb6c2b90-7a10-42ad-84c1-255c912e3031">
       <database-info product="MySQL" version="8.0.28" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.0.28" exact-driver-version="8.2">
