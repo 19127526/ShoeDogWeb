@@ -659,7 +659,7 @@ const ListProduct = () => {
       <div className="row products app" ref={wrapperRef}>
         {itemInCategory.map((value, index) => {
           return prevIndexPage <= index && index < currentIndexPage ? (
-            <div className="col-lg-4 col-md-6" key={value?.ProId}>
+            <div className="col-lg-4 col-md-6 col-xs-12" key={value?.ProId}>
               <CardComponent name={value?.ProName}
                              img={value?.ImageMain.toString().replace('public', 'private')}
                              proId={value?.ProId}

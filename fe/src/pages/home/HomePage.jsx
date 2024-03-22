@@ -119,7 +119,7 @@ const HomePage = () => {
                             <div className="row products">
                               {index.productList.map((value, index) => (
                                   index < pageIndex ?
-                                      <div className="col-lg-4 col-md-6 ">
+                                      <div className="col-lg-4 col-md-6 col-xs-12 col-sm-12">
                                         <CardComponent name={value?.ProName}
                                                        img={value?.ImageMain.toString().replace('public', 'private')}
                                                        proId={value?.ProId}
