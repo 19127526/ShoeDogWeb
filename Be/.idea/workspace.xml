@@ -8,6 +8,7 @@
       <change afterPath="$PROJECT_DIR$/utils/redis.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/d7c3b84f-0f5f-47bb-889d-6aa037db595d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d7c3b84f-0f5f-47bb-889d-6aa037db595d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/eb6c2b90-7a10-42ad-84c1-255c912e3031.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/eb6c2b90-7a10-42ad-84c1-255c912e3031.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -16,6 +17,9 @@
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/src/pages/product/AddProductPage/AddProductPage.jsx" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> 3162023c2ef83e2ea1781745dffca0ed626f92ed
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,12 +49,17 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2GqlIxu9z4zn1AKe68ifiLMX2Oc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mariadb&#10;mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -58,6 +67,27 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/v2/update-api&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/freelance/shoedog/ShoeDogWeb/Be&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+>>>>>>> 3162023c2ef83e2ea1781745dffca0ed626f92ed
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Admin\Desktop\Courses\Shoedog\ShoeDogWeb\Be\routes" />
@@ -165,10 +195,17 @@
       <workItem from="1703476810303" duration="159000" />
       <workItem from="1710050900803" duration="19121000" />
       <workItem from="1710118966973" duration="2652000" />
+<<<<<<< HEAD
       <workItem from="1710176260525" duration="107000" />
       <workItem from="1710176837946" duration="151000" />
       <workItem from="1711263956195" duration="2488000" />
       <workItem from="1711385647031" duration="3518000" />
+=======
+      <workItem from="1710725054410" duration="628000" />
+      <workItem from="1710744828318" duration="334000" />
+      <workItem from="1710915455628" duration="398000" />
+      <workItem from="1710918117364" duration="639000" />
+>>>>>>> 3162023c2ef83e2ea1781745dffca0ed626f92ed
     </task>
     <task id="LOCAL-00001">
       <created>1672324545074</created>
@@ -182,6 +219,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="javascript:npm:hbs" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

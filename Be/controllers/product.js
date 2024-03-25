@@ -193,6 +193,7 @@ exports.addProductv2 = async (req, res) => {
         });
         return res.status(200).json({"status": "success", "data": "ok"});
     } catch (e) {
+        console.log('ERRR', e)
         return res.status(500).json({"status": "error", "message": e.message});
     }
 }

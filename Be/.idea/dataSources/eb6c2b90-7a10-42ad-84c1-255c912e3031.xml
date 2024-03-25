@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="MySQL - shoedog@localhost">
+<<<<<<< HEAD
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.31">
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>
@@ -89,6 +90,14 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <ServerVersion>8.0.28</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_general_ci">
+=======
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.51">
+    <root id="1"/>
+    <collation id="2" parent="1" name="armscii8_bin">
+      <Charset>armscii8</Charset>
+    </collation>
+    <collation id="3" parent="1" name="armscii8_general_ci">
+>>>>>>> 3162023c2ef83e2ea1781745dffca0ed626f92ed
       <Charset>armscii8</Charset>
       <DefaultForCharset>1</DefaultForCharset>
     </collation>
@@ -945,9 +954,128 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <collation id="273" parent="1" name="utf8mb4_0900_bin">
       <Charset>utf8mb4</Charset>
     </collation>
+<<<<<<< HEAD
     <schema id="274" parent="1" name="shoedog">
       <Collation>utf8mb4_general_ci</Collation>
+=======
+    <collation id="248" parent="1" name="utf8mb4_ro_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="249" parent="1" name="utf8mb4_roman_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="250" parent="1" name="utf8mb4_romanian_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="251" parent="1" name="utf8mb4_ru_0900_ai_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="252" parent="1" name="utf8mb4_ru_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="253" parent="1" name="utf8mb4_sinhala_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="254" parent="1" name="utf8mb4_sk_0900_ai_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="255" parent="1" name="utf8mb4_sk_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="256" parent="1" name="utf8mb4_sl_0900_ai_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="257" parent="1" name="utf8mb4_sl_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="258" parent="1" name="utf8mb4_slovak_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="259" parent="1" name="utf8mb4_slovenian_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="260" parent="1" name="utf8mb4_spanish2_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="261" parent="1" name="utf8mb4_spanish_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="262" parent="1" name="utf8mb4_sv_0900_ai_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="263" parent="1" name="utf8mb4_sv_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="264" parent="1" name="utf8mb4_swedish_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="265" parent="1" name="utf8mb4_tr_0900_ai_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="266" parent="1" name="utf8mb4_tr_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="267" parent="1" name="utf8mb4_turkish_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="268" parent="1" name="utf8mb4_unicode_520_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="269" parent="1" name="utf8mb4_unicode_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="270" parent="1" name="utf8mb4_vi_0900_ai_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="271" parent="1" name="utf8mb4_vi_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="272" parent="1" name="utf8mb4_vietnamese_ci">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <collation id="273" parent="1" name="utf8mb4_zh_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+    </collation>
+    <schema id="274" parent="1" name="abc">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="275" parent="1" name="information_schema">
+      <CollationName>utf8_general_ci</CollationName>
+    </schema>
+    <schema id="276" parent="1" name="mysql">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="277" parent="1" name="orangehrm">
+      <CollationName>utf8_general_ci</CollationName>
+    </schema>
+    <schema id="278" parent="1" name="performance_schema">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="279" parent="1" name="qlbh">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="280" parent="1" name="realestate">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="281" parent="1" name="realestate123">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="282" parent="1" name="realestate2">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="283" parent="1" name="realestateupload">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="284" parent="1" name="realstate">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="285" parent="1" name="sakila">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="286" parent="1" name="shoedog">
+>>>>>>> 3162023c2ef83e2ea1781745dffca0ed626f92ed
       <Current>1</Current>
+      <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
     <schema id="275" parent="1" name="abc">
       <Collation>utf8mb4_general_ci</Collation>
@@ -986,22 +1114,22 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Collation>utf8mb4_0900_ai_ci</Collation>
     </schema>
     <schema id="287" parent="1" name="sql6517852">
-      <Collation>utf8mb4_general_ci</Collation>
+      <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
     <schema id="288" parent="1" name="sys">
-      <Collation>utf8mb4_0900_ai_ci</Collation>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="289" parent="1" name="testmeo">
-      <Collation>utf8mb4_0900_ai_ci</Collation>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="290" parent="1" name="testrealestate">
-      <Collation>utf8mb4_general_ci</Collation>
+      <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
     <schema id="291" parent="1" name="vacxin">
-      <Collation>utf8mb4_0900_ai_ci</Collation>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="292" parent="1" name="world">
-      <Collation>utf8mb4_0900_ai_ci</Collation>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="293" parent="1" name="orangehrm-owner">
       <Host>127.0.0.1</Host>
@@ -1037,17 +1165,17 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <table id="304" parent="274" name="products"/>
     <table id="305" parent="274" name="users"/>
     <column id="306" parent="300" name="CatId">
-      <DataType>int|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="307" parent="300" name="CatName">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="308" parent="300" name="ParentId">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
@@ -1056,207 +1184,211 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="310" parent="300" name="PRIMARY">
-      <ColNames>CatId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>CatId</UnderlyingIndexColNames>
     </key>
     <column id="311" parent="301" name="OrderId">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>1</Position>
     </column>
     <column id="312" parent="301" name="FullName">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="313" parent="301" name="Email">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="314" parent="301" name="Address">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="315" parent="301" name="PhoneNumber">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="316" parent="301" name="Note">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="317" parent="301" name="InventoryOrder">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="318" parent="301" name="OrderDate">
-      <DataType>timestamp|0s</DataType>
+      <DasType>timestamp|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="319" parent="301" name="StatusOrder">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="320" parent="301" name="MethodPay">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>10</Position>
     </column>
     <column id="321" parent="301" name="TotalCost">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>11</Position>
     </column>
     <column id="322" parent="302" name="OrderDetailId">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>1</Position>
     </column>
     <column id="323" parent="302" name="ProId">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="324" parent="302" name="Amount">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="325" parent="302" name="Size">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="326" parent="302" name="OrderId">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="327" parent="302" name="Price">
-      <DataType>double|0s</DataType>
+      <DasType>double|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="328" parent="303" name="ParentId">
-      <DataType>int|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="329" parent="303" name="ParentName">
-      <Collation>utf8_general_ci</Collation>
-      <DataType>varchar(200)|0s</DataType>
+      <DasType>varchar(200)|0s</DasType>
       <Position>2</Position>
+      <CollationName>utf8_general_ci</CollationName>
     </column>
     <key id="330" parent="303" name="PRIMARY">
-      <ColNames>ParentId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>ParentId</UnderlyingIndexColNames>
     </key>
     <column id="331" parent="304" name="ProId">
-      <DataType>int|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="332" parent="304" name="Inventory">
+<<<<<<< HEAD
       <DataType>longtext|0s</DataType>
+=======
+      <DasType>mediumtext|0s</DasType>
+>>>>>>> 3162023c2ef83e2ea1781745dffca0ed626f92ed
       <Position>2</Position>
     </column>
     <column id="333" parent="304" name="ProName">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="334" parent="304" name="Price">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="335" parent="304" name="Des">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="336" parent="304" name="ShortDes">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="337" parent="304" name="StatusPro">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="338" parent="304" name="DateStart">
-      <DataType>timestamp|0s</DataType>
+      <DasType>timestamp|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="339" parent="304" name="CatId">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="340" parent="304" name="ImageArray">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>10</Position>
     </column>
     <column id="341" parent="304" name="Brand">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>11</Position>
     </column>
     <column id="342" parent="304" name="Discount">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>12</Position>
     </column>
     <column id="343" parent="304" name="TotalPrice">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>13</Position>
     </column>
     <column id="344" parent="304" name="ImageMain">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>14</Position>
     </column>
     <column id="345" parent="304" name="Size">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>15</Position>
     </column>
     <column id="346" parent="304" name="Color">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>16</Position>
     </column>
     <column id="347" parent="304" name="ImageId">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>17</Position>
     </column>
     <key id="348" parent="304" name="PRIMARY">
-      <ColNames>ProId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>ProId</UnderlyingIndexColNames>
     </key>
     <column id="349" parent="305" name="UserId">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>1</Position>
     </column>
     <column id="350" parent="305" name="UserName">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="351" parent="305" name="Password">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="352" parent="305" name="FullName">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="353" parent="305" name="Email">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="354" parent="305" name="Address">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="355" parent="305" name="PhoneNumber">
-      <DataType>mediumtext|0s</DataType>
+      <DasType>mediumtext|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="356" parent="305" name="Role">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="357" parent="305" name="StatusUser">
-      <DataType>int|0s</DataType>
+      <DasType>int|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="358" parent="305" name="tokens">
-      <DataType>longtext|0s</DataType>
+      <DasType>longtext|0s</DasType>
       <Position>10</Position>
     </column>
   </database-model>

@@ -199,7 +199,7 @@ const DetailPage = () => {
                 >
                   {imageSubArray.length === 0 || imageSubArray === undefined || imageSubArray[0] === "" ?
                     <div>
-                      <img className="detail-img" src={detailProduct?.ImageMain} style={{objectFit:"contain"}} alt={detailProduct?.ProName} />
+                      <img className="detail-img" src={detailProduct?.ImageMain.toString().replace("public", "private")} style={{objectFit:"contain"}} alt={detailProduct?.ProName} />
                     </div>
                     :
                     imageSubArray?.map(index => (
@@ -355,7 +355,7 @@ const DetailPage = () => {
                 relatedProductList.map(value => (
                   <div className="col-lg-4 col-md-6 ">
                     <CardComponent name={value?.ProName}
-                                   img={value?.ImageMain}
+                                   img={value?.ImageMain.toString().replace('public', 'private')}
                                    proId={value?.ProId}
                                    statusPro={value?.StatusPro}
                                    priceDiscount={value?.TotalPrice}

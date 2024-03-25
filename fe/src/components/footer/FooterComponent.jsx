@@ -43,7 +43,7 @@ const FooterComponent = () => {
                 <p className="item__title">Theo dõi chúng tôi</p>
                 <a href={"https://www.facebook.com/giay2handschatluong"} target="_blank"><p
                   style={{color: "whitesmoke"}}>Facebook</p></a>
-                <a href={"www.instagram.com/shoedog.vn_/"} target="_blank"><p
+                <a href={"https://www.instagram.com/shoedog.vn_/"} target="_blank"><p
                   style={{color: "whitesmoke"}}>Instagram</p></a>
               </div>
             </div>

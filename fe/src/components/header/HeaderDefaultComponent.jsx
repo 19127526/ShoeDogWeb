@@ -76,7 +76,7 @@ const HeaderDefaultComponent = ({categoryList, searchButton, loading, setChangeS
                       :
                       <>
                         {cartItem.map(index => (
-                            <CartComponent img={index?.detailProduct?.ImageMain}
+                            <CartComponent img={index?.detailProduct?.ImageMain.toString().replace("public", "private")}
                                            productName={index?.detailProduct?.ProName}
                                            quantity={index?.quantity}
                                            price={index?.totalPrice} size={index?.aboutSize?.size} index={index}
