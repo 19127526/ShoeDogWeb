@@ -2,6 +2,8 @@ const product = require('../models/product');
 const fs = require('fs');
 const category = require('../models/category');
 const path = require('path');
+const client = require('./../utils/redis')
+const redis = require("redis");
 
 const convertArrayToOptions = (arr, splitIndex) => {
     if (arr === null) {
@@ -12,8 +14,22 @@ const convertArrayToOptions = (arr, splitIndex) => {
 }
 exports.getAllProducts = async (req, res) => {
     try {
-        const products = await product.getProducts();
-        return res.status(200).json({"status": "success", "data": products});
+        const productRedisKey = 'products'
+        client.get(productRedisKey, async function (err, reply) {
+            // reply is null when the key is missing
+            if (err) {
+                return res.status(500).json({"status": "error", "message": err.message});
+            }
+            if (reply) {
+                return res.status(200).json({"status": "success", "data": JSON.parse(reply)});
+            } else {
+                const products = await product.getProducts();
+                await client.set(productRedisKey, JSON.stringify(products));
+                return res.status(200).json({"status": "success", "data": products});
+            }
+        });
+        // const products = await product.getProducts();
+        // return res.status(200).json({"status": "success", "data": products});
     } catch (e) {
         return res.status(500).json({"status": "error", "message": e.message});
     }
@@ -204,7 +220,6 @@ exports.deleteProduct = async (req, res) => {
 }
 
 
-
 exports.deleteProductv2 = async (req, res) => {
     try {
         const id = req.body.id;
@@ -213,11 +228,10 @@ exports.deleteProductv2 = async (req, res) => {
         const FOLDER = `./public/image/${productFinding[0].CatId}/${id}`;
 
         if (fs.existsSync(FOLDER)) {
-            fs.rmSync(FOLDER, { recursive: true, force: true });
+            fs.rmSync(FOLDER, {recursive: true, force: true});
             const result = await product.deleteProduct(id);
             return res.status(200).json({"status": "success", "data": result});
-        }
-        else{
+        } else {
             const result = await product.deleteProduct(id);
             return res.status(200).json({
                 "status": "success",
@@ -295,7 +309,7 @@ exports.updateProductv2 = async (req, res) => {
         const cateName = req.body.category;
         const catid_ = await category.getCategoryById(cateName);
         const random = generateString(6);
-        const catId=catid_.CatId
+        const catId = catid_.CatId
         const initProduct = {
             Inventory: products?.inventory && products?.inventory != "" ? products?.inventory : random,
             CatId: catId.CatId,
