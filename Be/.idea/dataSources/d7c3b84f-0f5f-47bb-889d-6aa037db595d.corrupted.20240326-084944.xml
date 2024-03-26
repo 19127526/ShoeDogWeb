@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <dataSource name="sho27414_shoedogdatabase@s88d41.cloudnetwork.vn">
   <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.51">
     <root id="1">
@@ -5697,5 +5698,21 @@ transactional
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
+=======
+<dataSource name="sho27414_shoedogdatabase@s88d91.cloudnetwork.vn">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.31">
+    <root id="1">
+      <DefaultCasing>exact</DefaultCasing>
+      <DefaultEngine>InnoDB</DefaultEngine>
+      <ServerVersion>10.6.16</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="information_schema">
+      <Collation>utf8mb3_general_ci</Collation>
+    </schema>
+    <schema id="3" parent="1" name="sho27414_shoedogdatabase">
+      <Collation>latin1_swedish_ci</Collation>
+      <Current>1</Current>
+    </schema>
+>>>>>>> 50cc3ee8f459785c4515b0d3884b934f8f0f79f8
   </database-model>
 </dataSource>

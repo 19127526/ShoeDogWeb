@@ -5,8 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const activeRouteMiddleware = require('./middlewares/routeMiddleware');
 const app = express();
-
-
+require('./utils/redis')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
