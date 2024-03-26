@@ -2,6 +2,7 @@ const product = require('../models/product');
 const fs = require('fs');
 const category = require('../models/category');
 const path = require('path');
+const client = require('../utils/redis')
 
 const convertArrayToOptions = (arr, splitIndex) => {
     if (arr === null) {
@@ -11,6 +12,25 @@ const convertArrayToOptions = (arr, splitIndex) => {
     }
 }
 exports.getAllProducts = async (req, res) => {
+    try {
+        const keyRedis = 'products'
+        client.get(keyRedis, async (error, data) => {
+            if (data) {
+                return res.status(200).json({"status": "success", "data": JSON.parse(data)});
+            } else {
+                const products = await product.getProducts();
+                await client.set(keyRedis, JSON.stringify(products));
+                return res.status(200).json({"status": "success", "data": products});
+            }
+        })
+        // const products = await product.getProducts();
+        // return res.status(200).json({"status": "success", "data": products});
+    } catch (e) {
+        return res.status(500).json({"status": "error", "message": e.message});
+    }
+}
+
+exports.getTest = async (req, res) => {
     try {
         const products = await product.getProducts();
         return res.status(200).json({"status": "success", "data": products});
@@ -56,6 +76,7 @@ exports.getDetailProductByProId = async (req, res) => {
 
 const cloudinary = require("../utils/imageUpload");
 const multer = require("multer");
+
 // program to generate random strings
 
 // declare all characters

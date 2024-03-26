@@ -15,8 +15,13 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="sho27414_shoedogdatabase@s88d91.cloudnetwork.vn" uuid="d7c3b84f-0f5f-47bb-889d-6aa037db595d">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+    <data-source name="sho27414_shoedogdatabase@s88d41.cloudnetwork.vn" uuid="d7c3b84f-0f5f-47bb-889d-6aa037db595d">
+      <database-info product="MySQL" version="5.5.5-10.6.17-MariaDB-cll-lve" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MARIADB" exact-version="10.6.17" exact-driver-version="8.2">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <user-name>sho27414_shoedogdatabase</user-name>
       <schema-mapping>
         <introspection-scope>
           <node kind="schema" negative="1" />
