@@ -16,6 +16,8 @@ import {turnOffLoading, turnOnLoading} from "../../layouts/mainlayout/MainLayout
 import Notification from "../../components/notification/Notification"
 import * as containts from "../../components/notification/Notification.constraints"
 import {Helmet} from "react-helmet";
+import {getListDistricts, getListProvinces, getListWards} from "../../apis/provinces/ProvincesApi";
+import {districs, provinces, wards} from "../../apis/provinces/Data";
 
 const OrderPage = () => {
   const navigate = useNavigate();
@@ -66,16 +68,10 @@ const OrderPage = () => {
 
   useEffect(() => {
     const getListProvinces = async () => {
-      await axios.get(GET_ALL_PROVINCES_URL)
-        .then(res => {
-          const temp = res.data.map(index => {
-            return {name: index.name, code: index.code}
-          });
-          setListProvinces(temp);
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      const temp = provinces.map(index => {
+        return {name: index.name, code: index.code}
+      });
+      setListProvinces(temp);
     }
     getListProvinces()
   }, []);
@@ -96,24 +92,18 @@ const OrderPage = () => {
     setProvince(e.nativeEvent.target[index].text)
     setListDistricts([]);
     setListWards([])
-    await axios.get(GET_ALL_DISTRICTS_URL)
-      .then(res => {
-        const temp = res.data.map(index => {
-          return {
-            name: index.name,
-            code: index.code,
-            provinceCode: index.province_code
-          }
-        }).filter(index => {
-          if (index.provinceCode == value) {
-            return index;
-          }
-        });
-        setListDistricts(temp);
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    const temp = districs?.map(index => {
+      return {
+        name: index.name,
+        code: index.code,
+        provinceCode: index.province_code
+      }
+    }).filter(index => {
+      if (index.provinceCode == value) {
+        return index;
+      }
+    });
+    setListDistricts(temp);
   }
 
   const handleChangeListDistricts = async (e) => {
@@ -121,24 +111,18 @@ const OrderPage = () => {
     let index = e.nativeEvent.target.selectedIndex;
     setDistrict(e.nativeEvent.target[index].text)
     setListWards([])
-    await axios.get(GET_ALL_WARDS_URL)
-      .then(res => {
-        const temp = res.data.map(index => {
-          return {
-            name: index.name,
-            code: index.code,
-            districtCode: index.district_code
-          }
-        }).filter(index => {
-          if (index.districtCode == value) {
-            return index;
-          }
-        });
-        setListWards(temp);
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    const temp = wards?.map(index => {
+      return {
+        name: index.name,
+        code: index.code,
+        districtCode: index.district_code
+      }
+    }).filter(index => {
+      if (index.districtCode == value) {
+        return index;
+      }
+    });
+    setListWards(temp);
   }
 
   const handleChangeListWards = async (event) => {

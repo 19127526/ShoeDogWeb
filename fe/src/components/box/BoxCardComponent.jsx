@@ -14,7 +14,7 @@ const BoxCardComponent = () => {
                     <div className="swiper-container swiper__group swiper-container-horizontal">
                         <div className="swiper-wrapper">
                             <div className="swiper-slide wrap-img swiper-slide-active">
-                                <img className="lazy" src={imageClothing}
+                                <img className="lazy-box-card" src={imageClothing}
                                      alt="Quần Áo" title="Quần Áo" style={{display: "inline-block"}}/>
                                 <div className="desc">
                                     <h2><a onClick={() => navigate('/product/11?page=1')} className="btn btn-glab">Quần
@@ -29,7 +29,7 @@ const BoxCardComponent = () => {
                     <div className="swiper-container swiper__group swiper-container-horizontal">
                         <div className="swiper-wrapper">
                             <div className="swiper-slide wrap-img swiper-slide-active">
-                                <img className="lazy" src={imageSneaker}
+                                <img className="lazy-box-card" src={imageSneaker}
                                      alt="Giày Dép" title="Giày Dép" style={{display: "inline-block"}}/>
                                 <div className="desc">
                                     <h2><a onClick={() => navigate('/product/6?page=1')} className="btn btn-glab">Giày
@@ -44,7 +44,7 @@ const BoxCardComponent = () => {
                     <div className="swiper-container swiper__group swiper-container-horizontal">
                         <div className="swiper-wrapper">
                             <div className="swiper-slide wrap-img swiper-slide-active">
-                                <img className="lazy" src={imageAccessories}
+                                <img className="lazy-box-card" src={imageAccessories}
                                      alt="Phụ Kiện" title="Phụ Kiện" style={{display: "inline-block"}}/>
                                 <div className="desc">
                                     <h2><a onClick={() => navigate('/product/13?page=1')} className="btn btn-glab">Phụ

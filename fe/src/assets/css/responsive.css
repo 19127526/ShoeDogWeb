@@ -69,8 +69,11 @@
     }
 
     .products.row > div {
-        width: 100% !important;
+        width: 50% !important;
+
     }
+
+
 
     .container {
         /*padding-left: 15px;*/
